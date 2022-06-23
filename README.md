@@ -1,71 +1,41 @@
-# Template: Workshop Reader
-
-This repository is a template for workshop readers for the UC Davis DataLab.
-This template uses **bookdown** to knit the reader. You can also optionally use
-**renv** to manage packages and Git Large File Storage to manage large files
-(instructions included).
-
-To get started, create a new repo on GitHub from this template
-([instructions][gh]), then `git clone` your new repo.
-
-[gh]: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template
-
-Once you've cloned the repo, here's a checklist of things to do to prepare the
-repo:
-
-1. **renv** (optional): To set up **renv**, open R at the top level of the repo
-   and run:
-
-    ```r
-    renv::init()
-    ```
-
-    Restart R. Then, to install the **bookdown** toolchain to the project
-    package library, run:
-
-    ```r
-    install.packages("bookdown")
-    renv::snapshot()
-    ```
-
-    You can skip this step if you're not going to use **renv**.
-
-2. `index.Rmd`: Replace the all-caps text with your workshop details.
-    + Title (in 2 places, 1 of them in the `output:` HTML block)
-    + Author's name
-    + Repo name (in 4 places, 2 of them in the `output:` HTML block)
-    + Description, learning goals, & prerequisites
-
-3. `README.md`: Replace the all-caps text with your workshop details.
-    + Title
-    + Quarter & year
-    + Author's name & email
-    + Reader URL
-    + Event URL
-    + Description, learning goals, & prerequisites
-
-4. GitHub: In the repo's About section, add the reader URL and appropriate
-   tags.
-
-5. GitHub: In the repo's Settings page, enable GitHub pages. Set the branch to
-   `master` and the directory to `docs/`.
-
-6. `README.md`: Remove these template instructions, which end at the `#
-   Workshop:` header below
-
-7. `git add` all changed files, then `git commit` and `git push`.
-
-
-# Workshop: YOUR WORKSHOP TITLE
+# Workshop: Intermediate R
 
 _[UC Davis DataLab](https://datalab.ucdavis.edu/)_  
-_Spring 2021_  
-_Instructor: YOUR NAME <<YOUR_EMAIL@ucdavis.edu>>_  
+_Winter 2022_  
+_Instructors: Duncan Temple Lang <<dtemplelang@ucdavis.edu>>,
+  Nick Ulle <<naulle@ucdavis.edu>>_  
 
-* [Reader](https://ucdavisdatalab.github.io/YOUR_REPOSITORY/)
-* [Event Page](https://datalab.ucdavis.edu/eventscalendar/YOUR_EVENT/)
+* [Reader](https://ucdavisdatalab.github.io/workshop_intermediate_r/)
+* [Event Page](https://datalab.ucdavis.edu/eventscalendar/beyond-basics-r-fundamentals-series-5-sessions/)
 
-YOUR DESCRIPTION, LEARNING GOALS, PREREQUISITES, ETC
+This 5-part workshop series (in which the 5th workshop is an optional online
+Q&A) aims to help learners understand the relatively small but fundamental
+computational model underlying the R language. This will help you reason about
+code before you write and run it, and to debug it if it doesn’t do what you
+want. A sound understanding of this computational model makes programming in R
+much easier and more productive!
+
+After this workshop series learners should be able to:
+
+* Define "REPL"
+* Interpret error messages
+* Navigate the global environment
+* Explain data type hierarchy
+* Evaluate the consequences of implicit coercion
+* Describe how function calls work
+* Define scoping rules
+* Distinguish between S3 and S4
+* Write a function
+* Plan an approach for debugging code
+* Increase your productivity and confidence in using R
+* Identify where to go to learn more!
+
+Another title for this workshop could be “Everything You Should Have Learned
+About R.” These workshops are not an introduction to R. Participants are
+expected to have prior experience using R, be comfortable with basic R syntax,
+and to have it pre-installed and running on their laptops. This series is
+appropriate for motivated intermediate to advanced users who want a better
+understanding of base R.
 
 
 ## Contributing
