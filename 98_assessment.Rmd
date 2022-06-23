@@ -1,0 +1,7 @@
+Assessment {-}
+==============
+
+If you are taking this workshop to complete a GradPathways Pathway, you can
+download the assessment instructions [here][assessment].
+
+[assessment]: https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/assessment/assessment.md
