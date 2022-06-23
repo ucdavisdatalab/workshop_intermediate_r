@@ -47,9 +47,6 @@ After this workshop series learners should be able to:
 * Increase your productivity and confidence in using R
 * Identify where to go to learn more!
 
-
-## Prerequisites
-
 Another title for this workshop could be “Everything You Should Have Learned
 About R.” These workshops are not an introduction to R. Participants are
 expected to have prior experience using R, be comfortable with basic R syntax,
