@@ -1,2 +1,298 @@
 Automating Tasks
 ================
+
+
+Loops
+-----
+
+<!--
+* Run code repeatedly in a for-loop
+* Describe the different types of loops and how to choose between them
+-->
+
+One major benefit of using a programming language like R is that repetitive
+tasks can be automated. We've already seen two ways to do this:
+
+1. Vectorization, introduced in Section \@ref(vectorization)
+
+2. Apply functions, introduced in Section \@ref(apply-functions)
+
+Both of these are _iteration strategies_. They _iterate_ over some object, and
+compute something for each element. Each one of these computations is one
+_iteration_. Vectorization is the most efficient iteration strategy, but only
+works with vectorized functions and vectors. Apply functions are more
+flexible---they work with any function and any data structure with
+elements---but less efficient and less concise.
+
+A _loop_ is another iteration strategy, one that's even more flexible than
+apply functions. Besides being flexible, loops are a feature of almost all
+modern programming languages, so it's useful to understand them. In R, there
+are two kinds of loops. We'll learn both.
+
+### For-loops
+
+A _for-loop_ runs a block of code once for each element of a vector or list.
+The `for` keyword creates a for-loop. Here's the syntax:
+
+```
+for (I in DATA) {
+  # Your code goes here
+}
+```
+
+The variable `I` is called the _induction variable_. At the beginning of each
+iteration, `I` is assigned the next element of the vector or list `DATA`. The
+loop iterates once for each element of `DATA`, unless you use a keyword to exit
+the loop early (more about this in Section \@ref(break-next)). As with
+if-statements and functions, the curly braces `{ }` are only required if the
+body contains multiple lines of code.
+
+Unlike the other iteration strategies, loops do not automatically return a
+result. You have complete control over the output, which means that anything
+you want to save must be assigned to a variable.
+
+For example, let's make a loop that repeatedly adds a number to a running total
+and squares the new total. We'll use a variable `total` to keep track of the
+running total as the loop iterates:
+
+```{r}
+numbers = c(-1, 1, -3, 2)
+
+total = 0
+for (number in numbers) {
+  total = (total + number)^2
+}
+
+total
+```
+
+Use for-loops when some or all of the iterations depend on results from other
+iterations. If the iterations are not dependent, use one of:
+
+1. Vectorization (because it's faster)
+2. Apply functions (because they're idiomatic)
+
+In some cases, you can use vectorization even when the iterations are
+dependent. For example, you can use vectorization to compute the sum of the
+cubes of several numbers:
+
+```{r}
+sum(numbers^3)
+```
+
+### While-loops
+
+A _while-loop_ runs a block of code repeatedly as long as some condition is
+`TRUE`. The `while` keyword creates a while-loop. Here's the syntax:
+
+```
+while (CONDITION) {
+  # Your code goes here
+}
+```
+
+The `CONDITION` should be a scalar logical value or an expression that returns
+one. At the beginning of each iteration, `CONDITION` is checked, and the loop
+exits if it is `FALSE`. As always, the curly braces `{ }` are only required if
+the body contains multiple lines of code.
+
+For example, suppose you want to add up numbers from 0 to 50, but stop as soon
+as the total is greater than 50:
+
+```{r}
+num50 = seq(0, 50)
+
+total = 0
+i = 1
+while (total < 50) {
+  total = total + num50[i]
+  message("i is ", i, " total is ", total)
+  i = i + 1
+}
+
+total
+i
+```
+
+While-loops are a generalization of for-loops. They tend to be most useful when
+you don't know how many iterations will be necessary. For example, suppose you
+want to repeat a computation until the result falls within some range of
+values.
+
+
+### Saving Multiple Results
+
+Loops often produce a different result for each iteration. If you want to save
+more than one result, there are a few things you must do.
+
+First, set up an index vector. The index vector should usually be congruent to
+the number of iterations or the input. The `seq_along` function returns a
+congruent index vector when passed a vector or list. For instance, let's make
+in index for the `numbers` vector from Section \@ref(for-loops):
+
+```{r}
+index = seq_along(numbers)
+```
+
+The loop will iterate over the index rather than the input, so the induction
+variable will track the current iteration number. On the first iteration, the
+induction variable will be 1, on the second it will be 2, and so on. Then you
+can use the induction variable and indexing to get the input for each
+iteration.
+
+Second, set up an empty output vector or list. This should usually be congruent
+to the input, or one element longer (the extra element comes from the initial
+value). R has several functions for creating vectors. We've already seen a few,
+but here are more:
+
+* `logical`, `integer`, `numeric`, `complex`, and `character` to create an
+  empty vector with a specific type and length
+
+* `vector` to create an empty vector with a specific type and length
+
+* `rep` to create a vector by repeating elements of some other vector
+
+Empty vectors are filled with `FALSE`, `0`, or `""`, depending on the type of
+the vector. Here are some examples:
+
+```{r}
+logical(3)
+numeric(4)
+rep(c(1, 2), 2)
+```
+
+Let's create an empty numeric vector congruent to `numbers`:
+
+```{r}
+n = length(numbers)
+result = numeric(n)
+```
+
+As with the input, you can use the induction variable and indexing to set the
+output for each iteration.
+
+Creating a vector or list in advance to store something, as we've just done, is
+called _preallocation_. Preallocation is extremely important for efficiency in
+loops. Avoid the temptation to use `c` or `append` to build up the output bit
+by bit in each iteration.
+
+Finally, write the loop, making sure to get the input and set the output.
+Here's the loop for the squared sums example:
+
+```{r}
+for (i in index) {
+  prev = if (i > 1) result[i - 1] else 0
+  result[i] = (numbers[i] + prev)^2
+}
+result
+```
+
+
+### Break & Next
+
+The `break` keyword causes a loop to immediately exit. It only makes sense to
+use `break` inside of an if-statement.
+
+For example, suppose we want to print each string in a vector, but stop at the
+first missing value. We can do this with `break`:
+
+```{r}
+my_messages = c("Hi", "Hello", NA, "Goodbye")
+
+for (msg in my_messages) {
+  if (is.na(msg))
+    break
+
+  message(msg)
+}
+```
+
+The `next` keyword causes a loop to immediately go to the next iteration. As
+with `break`, it only makes sense to use `next` inside of an if-statement.
+
+Let's modify the previous example so that missing values are skipped, but don't
+cause printing to stop. Here's the code:
+
+```{r}
+for (msg in my_messages) {
+  if (is.na(msg))
+    next
+
+  message(msg)
+}
+```
+
+These keywords work with both for-loops and while-loops.
+
+### Example: The Collatz Conjecture
+
+The [Collatz Conjecture][collatz] is a conjecture in math that was introduced
+in 1937 by Lothar Collatz and remains unproven today, despite being relatively
+easy to explain. Here's a statement of the conjecture:
+
+[collatz]:
+
+> Start from any positive integer. If the integer is even, divide by 2. If the
+> integer is odd, multiply by 3 and add 1.
+>
+> If the result is not 1, repeat using the result as the new starting value.
+>
+> The result will always reach 1 eventually, regardless of the starting value.
+
+The sequences of numbers this process generates are called _Collatz sequences_.
+For instance, the Collatz sequence starting from 2 is `2, 1`. The Collatz
+sequence starting from 12 is `12, 6, 3, 10, 5, 16, 8, 4, 2, 1`.
+
+As a final loop example, let's use a while-loop to compute Collatz sequences.
+Here's the code:
+
+```{r}
+n = 5
+i = 0
+while (n != 1) {
+  i = i + 1
+  if (n %% 2 == 0) {
+    n = n / 2
+  } else {
+    n = 3 * n + 1
+  }
+  message(paste0(n, " "))
+}
+```
+
+As of 2020, scientists have used computers to check the Collatz sequences for
+every number up to approximately $2^{64}$. For more details about the Collatz
+Conjecture, check out [this video][collatz-video].
+
+[collatz-video]: https://www.youtube.com/watch?v=094y1Z2wpJg
+
+
+Planning for Iteration
+----------------------
+
+At first it may seem difficult to decide if and what kind of iteration to use.
+Start by thinking about whether you need to do something over and over. If you
+don't, then you probably don't need to use iteration. If you do, then try
+iteration strategies in this order:
+
+1. vectorization
+2. apply functions
+    * Try an apply function if iterations are independent.
+3. for/while-loops
+    * Try a for-loop if some iterations depend on others.
+    * Try a while-loop if the number of iterations is unknown.
+4. recursion (which isn't covered here)
+    * Convenient for naturally recursive problems (like Fibonacci),
+      but often there are faster solutions.
+
+
+Start by writing the code for just one iteration. Make sure that code works;
+it's easy to test code for one iteration.
+
+When you have one iteration working, then try using the code with an iteration
+strategy (you will have to make some small changes). If it doesn't work, try to
+figure out which iteration is causing the problem. One way to do this is to use
+`message` to print out information. Then try to write the code for the broken
+iteration, get that iteration working, and repeat this whole process.
+
+

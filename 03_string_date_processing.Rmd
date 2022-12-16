@@ -1,2 +1,709 @@
 String & Date Processing
 ========================
+
+
+The Tidyverse
+-------------
+
+The [Tidyverse](https://www.tidyverse.org/) is a popular collection of packages
+for doing data science in R. The packages are made by many of the same people
+that make RStudio. They provide alternatives to R's built-in tools for:
+
+* Manipulating strings (package `stringr`)
+* Making visualizations (package `ggplot2`)
+* Reading files (package `readr`)
+* Manipulating data frames (packages `dplyr`, `tidyr`, `tibble`)
+* And more
+
+
+Think of the Tidyverse as a different dialect of R. Sometimes the syntax is
+different, and sometimes ideas are easier or harder to express concisely.
+Whether to use base R or the Tidyverse is mostly subjective. As a result, the
+Tidyverse is somewhat polarizing in the R community. It's useful to be literate
+in both, since both are popular.
+
+One advantage of the Tidyverse is that the packages are usually
+well-documented. For example, there are documentation websites and [cheat
+sheets][] for most Tidyverse packages.
+
+[cheat sheets]: https://rstudio.com/resources/cheatsheets/
+
+
+Date Processing
+---------------
+
+Besides strings, dates and times are another kind of data that require special
+attention to prepare for analysis. This is especially important if you want to
+do anything that involves sorting dates, like making a line plot with dates on
+one axis. Dates may not be sorted correctly if they haven't been converted to
+one of R's date classes.
+
+There several built-in functions and also many packages for date processing. As
+with visualization and string processing, the Tidyverse packages have the best
+combination of simple design and clear documentation. There are three Tidyverse
+packages for processing dates and times:
+
+* [lubridate][], the primary package for working with dates and times
+* [hms][], a package specifically for working with times
+* [clock][], a new package for working with dates and times
+
+[lubridate]: https://lubridate.tidyverse.org/
+[hms]: https://hms.tidyverse.org/
+[clock]: https://clock.r-lib.org/
+
+We'll focus on the lubridate package. As always, you'll have to install the
+package if you haven't already, and then load it:
+
+```{r}
+# install.packages("lubridate")
+library("lubridate")
+```
+
+The most common task is to convert a string into a date or time class. For
+instance, when you load a data set, you might have dates that look like this:
+
+```{r}
+dates = c("Jan 10, 2021", "Sep 3, 2018", "Feb 28, 1982")
+dates
+```
+
+These are strings, so it's relatively difficult to sort the dates, do
+arithmetic on them, or extract just one part (such as the year). There are
+several lubridate functions to automatically convert strings into dates. They
+are named with one letter for each part of the date. For instance, the dates in
+the example have the month (m), then the day (d), and then the year (y), so we
+can use the `mdy` function:
+
+```{r}
+result = mdy(dates)
+result
+class(result)
+```
+
+Notice that the dates now have class `Date`, one of R's built-in classes for
+representing dates, and that they print differently. You can find a full list
+of the automatic string to date conversion functions in the lubridate
+documentation.
+
+Occasionally, a date string may have a format that lubridate can't convert
+automatically. In that case, you can use the `fast_strptime` function to
+describe the format in detail. At a minimum, the function requires two
+arguments: the vector of strings to convert and a format string.
+
+The format string describes the format of the dates, and is based on the syntax
+of `strptime`, a function provided by many programming languages for converting
+strings to dates (including R). In a format string, a percent sign `%` followed
+by a character is called a _specification_ and has a special meaning. Here are
+a few of the most useful ones:
+
+| Specification | Description      | January 29, 2015
+|:------------- |:---------------- |:----------------
+| `%Y`          | 4-digit year     | 2015
+| `%y`          | 2-digit year     | 15
+| `%m`          | 2-digit month    | 01
+| `%B`          | full month name  | January
+| `%b`          | short month name | Jan
+| `%d`          | day of month     | 29
+| `%%`          | literal %        | %
+
+You can find a complete list in `?fast_strptime`. Other characters in the
+format string do not have any special meaning. Write the format string so that
+it matches the format of the dates you want to convert.
+
+For example, let's try converting an unusual time format:
+```{r}
+odd_time = "6 minutes, 32 seconds after 10 o'clock"
+fast_strptime(odd_time, "%M minutes, %S seconds after %H o'clock")
+```
+
+R usually represents dates with the class `Date`, and date-times with the
+classes `POSIXct` and `POSIXlt`. The difference between the two date-time
+classes is somewhat technical, but you can read more about it in `?POSIXlt`.
+
+There is no built-in class to represent times alone, which is why the result in
+the example above includes a date. Nonetheless, the hms package provides the
+`hms` class to represent times without dates.
+
+Once you've converted a string to a date, the lubridate package provides a
+variety of functions to get or set the parts individually. Here are a few
+examples:
+
+```{r}
+day(result)
+month(result)
+```
+
+You can find a complete list in the lubridate documentation.
+
+
+### Case Study: Correcting Dates
+
+
+
+Printing Output
+---------------
+
+The `cat` function prints a string in the R console. If you pass multiple
+arguments, they will be con**cat**enated:
+```{r}
+cat("Hello")
+
+cat("Hello", "Nick")
+```
+
+Pitfall 1: Printing a string is different from returning a string. The `cat`
+function only prints (and always returns `NULL`). For example:
+```{r}
+f = function() {
+  cat("Hello")
+}
+
+x = f()
+x
+```
+
+If you just want to concatenate some strings (but not necessarily print them),
+use `paste` instead of `cat`. The `paste` function returns a string. The
+`str_c` function in stringr (a package we'll learn about later in this lesson)
+can also concatenate strings.
+
+Pitfall 2: Remember to print strings with the `cat` function, not the `print`
+function. The `print` function prints _R's representation_ of an object, the
+same as if you had entered the object in the console without calling `print`.
+
+For instance, `print` prints quotes around strings, whereas `cat` does not:
+```{r}
+print("Hello")
+
+cat("Hello")
+```
+
+
+
+Escape Sequences
+----------------
+
+In a string, an _escape sequence_ or _escape code_ consists of a backslash
+followed by one or more characters. Escape sequences make it possible to:
+
+1. Write quotes or backslashes within a string
+2. Write characters that don't appear on your keyboard (for example, characters
+   in a foreign language)
+
+For example, the escape sequence `\n` corresponds to the newline character.
+Notice that the `cat` function translates `\n` into a literal new line, whereas
+the `print` function doesn't:
+```{r}
+x = "Hello\nNick"
+
+cat(x)
+
+print(x)
+```
+
+As another example, suppose we want to put a literal quote in a string. We can
+either enclose the string in the other kind of quotes, or escape the quotes in
+the string:
+```{r}
+x = 'She said, "Hi"'
+
+cat(x)
+
+y = "She said, \"Hi\""
+
+cat(y)
+```
+
+Since escape sequences begin with backslash, we also need to use an escape
+sequence to write a literal backslash. The escape sequence for a literal
+backslash is two backslashes:
+```{r}
+x = "\\"
+
+cat(x)
+```
+
+There's a complete list of escape sequences for R in the `?Quotes` help file.
+Other programming languages also use escape sequences, and many of them are the
+same as in R.
+
+
+### Raw Strings
+
+A _raw string_ is a string where escape sequences are turned off. Raw strings
+are especially useful for writing regular expressions, which we'll do later in
+this lesson.
+
+Raw strings begin with `r"` and an opening delimiter `(`, `[`, or `{`. Raw
+strings end with a matching closing delimiter and quote. For example:
+```{r}
+x = r"(quotes " and backslashes \)"
+
+cat(x)
+```
+
+Raw strings were added to R in version 4.0 (April 2020), and won't work
+correctly in older versions.
+
+
+
+Character Encodings
+-------------------
+
+Computers store data as numbers. In order to store text on a computer, we have
+to agree on a _character encoding_, a system for mapping characters to numbers.
+For example, in [ASCII](https://en.wikipedia.org/wiki/ASCII), one of the most
+popular encodings in the United States, the character `a` maps to the
+number 97.
+
+Many different character encodings exist, and sharing text used to be an
+inconvenient process of asking or trying to guess the correct encoding. This
+was so inconvenient that in the 1980s, software engineers around the world
+united to create the [Unicode](https://home.unicode.org/) standard. Unicode
+[includes symbols](http://unicode.org/charts/) for nearly all languages in use
+today, as well as emoji and many ancient languages (such as Egyptian
+hieroglyphs).
+
+Unicode maps characters to numbers, but unlike a character encoding, it
+doesn't dictate how those numbers should be mapped to bytes (sequences of ones
+and zeroes). As a result, there are several different character encodings that
+support and are synonymous with Unicode. The most popular of these is UTF-8.
+
+In R, we can write Unicode characters with the escape sequence `\U` followed by
+the number for the character in [base 16][]. For instance, the number for `a`
+in Unicode is 97 (the same as in ASCII). In base 16, 97 is `61`. So we can write
+an `a` as:
+```{r}
+x = "\U61" # or "\u61"
+
+x
+```
+
+Unicode escape sequences are usually only used for characters that are not easy
+to type. For example, the cat emoji is number `1f408` (in base 16) in Unicode.
+So the string `"\U1f408"` is the cat emoji.
+
+Note that being able to see printed Unicode characters also depends on whether
+the font your computer is using has a glyph (image representation) for that
+character. Many fonts are limited to a small number of languages. The
+[NerdFont][] project patches fonts commonly used for programming so that they
+have better Unicode coverage. Using a font with good Unicode coverage is not
+essential, but it's convenient if you expect to work with many different
+natural languages or love using emoji.
+
+[base 16]: https://en.wikipedia.org/wiki/Hexadecimal
+[NerdFont]: https://www.nerdfonts.com/
+
+
+#### Character Encodings in Text Files
+
+Most of the time, R will handle character encodings for you automatically.
+However, if you ever read or write a text file (including CSV and other
+formats) and the text [looks like gibberish][mojibake], it might be an encoding
+problem. This is especially true on Windows, the only modern operating system
+that does not (yet) use UTF-8 as the default encoding.
+
+Encoding problems when reading a file can usually be fixed by passing the
+encoding to the function doing the reading. For instance, the code to read a
+UTF-8 encoded CSV file on Windows is:
+
+```{r, eval=FALSE}
+read.csv("my_data.csv", fileEncoding = "UTF-8")
+```
+
+Other reader functions may use a different parameter to set the encoding, so
+always check the documentation. On computers where the native language is not
+set to English, it can also help to set R's native language to English with
+`Sys.setlocale(locale = "English")`.
+
+Encoding problems when writing a file are slightly more complicated to fix. See
+[this blog post][ushey-encodings] for thorough explanation.
+
+[mojibake]: https://en.wikipedia.org/wiki/Mojibake
+[ushey-encodings]: https://kevinushey.github.io/blog/2018/02/21/string-encoding-and-r/
+
+
+
+
+
+
+The stringr Package
+-------------------
+
+The rest of this lesson uses stringr, the Tidyverse package for string
+processing. R also has built-in functions for string processing. The main
+advantage of stringr is that all of the functions use a common set of
+parameters, so they're easier to learn and remember.
+
+In practice, data sets often require some cleaning before or
+during data analysis. One common data cleaning task is editing or extracting
+parts of strings.
+
+stringr has detailed [documentation][stringr-docs] and also a
+[cheatsheet][stringr-cheat-sheet].
+
+[stringr-docs]: https://stringr.tidyverse.org/
+[stringr-cheat-sheet]: https://github.com/rstudio/cheatsheets/blob/master/strings.pdf
+
+The first time you use stringr, you'll have to install it with
+`install.packages` (the same as any other package). Then you can load the
+package with the `library` function:
+
+```{r}
+# install.packages("stringr")
+library(stringr)
+```
+
+The typical syntax of a stringr function is:
+```
+str_NAME(string, pattern, ...)
+```
+
+Where:
+
+* `NAME` describes what the function does
+* `string` is the string to search within or transform
+* `pattern` is the pattern to search for
+* `...` is additional, function-specific arguments
+
+For example, the `str_detect` function detects whether the pattern appears
+within the string:
+
+```{r}
+str_detect("hello", "el")
+
+str_detect("hello", "ol")
+```
+
+Most of the stringr functions are vectorized in the `string` parameter:
+
+```{r}
+str_detect(c("hello", "goodbye", "lo"), "lo")
+```
+
+There are a lot of stringr functions. The remainder of this lesson focuses on
+three that are especially important, as well as some of their variants:
+
+* `str_split_fixed`
+* `str_replace`
+* `str_match`
+
+You can find a complete list of stringr functions with examples in the
+[documentation][stringr-docs] or [cheat sheet][stringr-cheat-sheet].
+
+[stringr-docs]: https://stringr.tidyverse.org/
+[stringr-cheat-sheet]: https://github.com/rstudio/cheatsheets/blob/master/strings.pdf
+
+
+### Splitting Strings
+
+The `str_split` function splits the string at each position that matches the
+pattern. The characters that match are thrown away.
+
+For example, suppose we want to split a sentence into words. Since there's a
+space between each word, we can use a space as the pattern:
+
+```{r}
+x = "The students in this workshop are great!"
+
+result = str_split(x, " ")
+result
+```
+
+The `str_split` function always returns a list with one element for each input
+string. Here the list only has one element because `x` only has one element. We
+can get the first element with:
+
+```{r}
+result[[1]]
+```
+
+We have to use the double square bracket `[[` operator here because `x` is a
+list (for a vector, we could use the single square bracket operator instead).
+Notice that in the printout for `result`, R gives us a hint that we should use
+`[[` by printing `[[1]]`.
+
+To see why the function returns a list, consider what happens if we try to
+split two different sentences at once:
+
+```{r}
+x = c(x, "Are you listening?")
+
+result = str_split(x, " ")
+result[[1]]
+result[[2]]
+```
+
+Each sentence has a different number of words, so the vectors in the result
+have different lengths. So a list is the only way to store both.
+
+The `str_split_fixed` function is almost the same as `str_split`, but takes a
+third argument for the maximum number of splits to make. Because the number of
+splits is fixed, the function can return the result in a matrix instead of a
+list. For example:
+
+```{r}
+str_split_fixed(x, " ", 3)
+```
+
+The `str_split_fixed` function is often more convenient than `str_split`
+because the `n`th piece of each input string is just the `n`th column of the
+result.
+
+For example, suppose we want to get the area code from some phone numbers:
+
+```{r}
+phones = c("717-555-3421", "629-555-8902", "903-555-6781")
+result = str_split_fixed(phones, "-", 3)
+
+result[, 1]
+```
+
+
+### Replacing Parts of Strings
+
+The `str_replace` function replaces the pattern the first time it appears in
+the string. The replacement goes in the third argument.
+
+For instance, suppose we want to change the word `"dog"` to `"cat"`:
+```{r}
+x = c("dogs are great, dogs are fun", "dogs are fluffy")
+str_replace(x, "dog", "cat")
+```
+
+
+The `str_replace_all` function replaces the pattern every time it appears in
+the string:
+```{r}
+str_replace_all(x, "dog", "cat")
+```
+
+We can also use the `str_replace` and `str_replace_all` functions to delete
+part of a string by setting the replacement to the empty string `""`.
+
+For example, suppose we want to delete the comma:
+```{r}
+str_replace(x, ",", "")
+```
+
+In general, stringr functions with the `_all` suffix affect all matches.
+Functions without `_all` only affect the first match.
+
+We'll learn about `str_match` at the end of the next section.
+
+
+
+Regular Expressions
+-------------------
+
+The stringr functions (including the ones we just learned) use a special
+language called _regular expressions_ or _regex_ for the pattern. The regular
+expressions language is also used in many other programming languages besides
+R.
+
+A regular expression can describe a complicated pattern in just a few
+characters, because some characters, called _metacharacters_, have special
+meanings. Letters and numbers are **never** metacharacters. They're always
+literal.
+
+Here are a few examples of metacharacters (we'll look at examples in the
+subsequent sections):
+
+Metacharacter | Meaning
+------------- | -------
+`.`           | any single character (wildcard)
+``\``         | escape character (in both R and regex)
+`^`           | beginning of string
+`$`           | end of string
+`[ab]`        | `'a'` or `'b'`
+`[^ab]`       | any character except `'a'` or `'b'`
+`?`           | previous character appears 0 or 1 times
+`*`           | previous character appears 0 or more times
+`+`           | previous character appears 1 or more times
+`()`          | make a group
+
+More metacharacters are listed on the stringr cheatsheet, or in `?regex`.
+
+The `str_view` function is especially helpful for testing regular expressions.
+It opens a browser window with the first match in the string highlighted. We'll
+use it in the subsequent regex examples.
+
+The [RegExr][] website is also helpful for testing regular expressions; it
+provides an interactive interface where you can write regular expressions and
+see where they match a string.
+
+[RegExr]: https://regexr.com/
+
+### The Wildcard
+
+The regex wildcard character is `.` and matches any single character.
+
+For example:
+```{r}
+x = "dog"
+str_view(x, "d.g")
+```
+
+By default, regex searches from left to right:
+```{r}
+str_view(x, ".")
+```
+
+
+### Escape Sequences
+
+Like R, regular expressions can contain escape sequences that begin with a
+backslash. These are computed separately and after R escape sequences. The main
+use for escape sequences in regex is to turn a metacharacter into a literal
+character.
+
+For example, suppose we want to match a literal dot `.`. The regex for a
+literal dot is `\.`. Since backslashes in R strings have to be escaped, the R
+string for this regex is `"\\.`. Then the regex works:
+```{r}
+str_view("this.string", "\\.")
+```
+
+The double backslash can be confusing, and it gets worse if we want to match a
+literal backslash. We have to escape the backslash in the regex (because
+backslash is the regex escape character) and then also have to escape the
+backslashes in R (because backslash is also the R escape character). So to
+match a single literal backslash in R, the code is:
+```{r}
+str_view("this\\that", "\\\\")
+```
+
+Raw strings are helpful here, because they make the backslash literal in R
+strings (but still not in regex). We can use raw strings to write the above as:
+```{r}
+str_view(r"(this\that)", r"(\\)")
+```
+
+You can turn off regular expressions entirely in stringr with the `fixed`
+function:
+```{r}
+str_view(x, fixed("."))
+```
+
+It's good to turn off regular expressions whenever you don't need them, both to
+avoid mistakes and because they take longer to compute.
+
+
+### Anchors
+
+By default, a regex will match anywhere in the string. If you want to force a
+match at specific place, use an anchor.
+
+The beginning of string anchor is `^`. It marks the beginning of the string,
+but doesn't count as a character in the match.
+
+For example, suppose we want to match an `a` at the beginning of the string:
+```{r}
+x = c("abc", "cab")
+
+str_view(x, "a")
+
+str_view(x, "^a")
+```
+
+It doesn't make sense to put characters before `^`, since no characters can
+come before the beginning of the string.
+
+Likewise, the end of string anchor is `$`. It marks the end of the string, but
+doesn't count as a character in the match.
+
+
+### Character Classes
+
+In regex, square brackets `[ ]` create a _character class_. A character class
+counts as one character, but that character can be any of the characters inside
+the square brackets. The square brackets themselves don't count as characters
+in the match.
+
+For example, suppose we want to match a `c` followed by either `a` or `t`:
+```{r}
+x = c("ca", "ct", "cat", "cta")
+
+str_view(x, "c[ta]")
+```
+
+You can use a dash `-` in a character class to create a range. For example, to
+match letters `p` through `z`:
+```{r}
+str_view(x, "c[p-z]")
+```
+
+Ranges also work with numbers and capital letters. To match a literal dash,
+place the dash at the end of the character class (instead of between two other
+characters), as in `[abc-]`.
+
+Most metacharacters are literal when inside a character class. For example,
+`[.]` matches a literal dot.
+
+A hat `^` at the beginning of the character class negates the class. So for
+example, `[^abc]` matches any one character _except_ for `a`, `b`, or `c`:
+```{r}
+str_view("abcdef", "[^abc]")
+```
+
+
+### Quantifiers
+
+_Quantifiers_ are metacharacters that affect how many times the preceeding
+character must appear in a match. The quantifier itself doesn't count as a
+character in the match.
+
+For example, the `?` quantifier means the preceeding character can appear 0 or
+1 times. In other words, `?` makes the preceeding character optional.
+
+For example:
+```{r}
+x = c("abc", "ab", "ac", "abbc")
+
+str_view(x, "ab?c")
+```
+
+The `*` quantifier means the preceeding character can appear 0 or more times.
+In other words, `*` means the preceeding character can appear any number of
+times or not at all.
+```{r}
+str_view(x, "ab*c")
+```
+
+The `+` quantifier means the preceeding character must appear 1 or more times.
+
+Quantifiers are _greedy_, meaning they always match as many characters as
+possible.
+
+
+### Groups
+
+In regex, parentheses create a _group_. Groups can be affected by quantifiers,
+making it possible to repeat a pattern (rather than just a character). The
+parentheses themselves don't count as characters in the match.
+
+For example:
+```{r}
+x = c("cats, dogs, and frogs", "cats and frogs")
+
+str_view(x, "cats(, dogs,)? and frogs")
+```
+
+
+### Extracting Matches
+
+Groups are espcially useful with the stringr functions `str_match` and
+`str_match_all`.
+
+The `str_match` function extracts the overall match to the pattern, as well as
+the match to each group. So you can use `str_match` to split a string in more
+complicated ways than `str_split`, or to extract specifc pieces of a string.
+
+For example, suppose we want to split an email address:
+```{r}
+str_match("naulle@ucdavis.edu", "([^@]+)@(.+)[.](.+)")
+```
+
+
+### Case Study: Extracting Emails
+

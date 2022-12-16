@@ -1,3 +1,150 @@
 Language Fundamentals
 =====================
 
+Variable Scope & Lookup
+-----------------------
+
+### Local Variables
+
+A variable's *scope* is the section of code where it exists and is accessible.
+The `exists` function checks whether a variable is in scope:
+
+```{r}
+exists("zz")
+zz = 3
+exists("zz")
+```
+
+When you create a function, you create a new scope. Variables defined inside of
+a function are *local* to the function. Local variables cannot be accessed from
+outside:
+
+```{r, error = TRUE}
+rescale = function(x, center, scale) {
+  centered = x - center
+  centered / scale
+}
+
+centered
+exists("centered")
+```
+
+Local variables are reset each time the function is called:
+
+```{r}
+f = function() {
+  is_z_in_scope = exists("z")
+  z = 42
+
+  is_z_in_scope
+}
+
+f()
+f()
+```
+
+
+### Lexical Scoping
+
+A function can use variables defined outside (non-local), but only if those
+variables are in scope where the function was **defined**. This property is
+called *lexical scoping*.
+
+Let's see how this works in practice. First, we'll define a variable `cats` and
+then define a function `get_cats` in the same place (the top level, not inside
+any functions). As a result, the `cats` variable is in scope inside of the
+`get_cats` function:
+
+```{r}
+cats = 3
+get_cats = function() cats
+get_cats()
+```
+
+Now let's define a variable `dogs` inside of a function `create_dogs`. We'll
+also define a function `get_dogs` at the top level. The variable `dogs` is not
+in scope at the top level, so it's not in scope inside of the `get_dogs`
+function:
+
+```{r, error = TRUE}
+create_dogs = function() {
+  dogs = "hello"
+}
+get_dogs = function() dogs
+create_dogs()
+get_dogs()
+```
+
+Variables defined directly in the R console are *global* and available to any
+function.
+
+Local variables *mask* (hide) non-local variables with the same name:
+
+```{r}
+get_parrot = function() {
+  parrot = 3
+
+  parrot
+}
+parrot = 42
+get_parrot()
+```
+
+There's one exception to this rule. We often use variables that refer to
+functions in calls:
+
+```{r}
+#mean()
+```
+
+In this case, the variable must refer to a function, so R ignores local
+variables that aren't functions. For example:
+
+```{r}
+my_mean = function() {
+  mean = 0
+
+  mean(c(1, 2, 3))
+}
+my_mean()
+my_get_cats = function() {
+  get_cats = 10
+
+  get_cats()
+}
+my_get_cats()
+```
+
+
+### Dynamic Lookup
+
+Variable lookup happens when a function is **called**, not when it's defined.
+This is called *dynamic lookup*.
+
+For example, the result from `get_cats`, which accesses the global variable
+`cats`, changes if we change the value of `cats`:
+
+```{r}
+cats = 10
+get_cats()
+cats = 20
+get_cats()
+```
+
+### Summary
+
+This section covered a lot of details about R's rules for variable scope and
+lookup. Here are the key takeaways:
+
+* Function definitions (or `local()`) create a new scope.
+
+* Local variables
+    + Are private
+    + Get reset for each call
+    + Mask non-local variables (exception: function calls)
+
+* *Lexical scoping*: where a function is **defined** determines which non-local
+  variables are in scope.
+
+* *Dynamic lookup*: when a function is **called** determines values of
+  non-local variables.
