@@ -1,3 +1,5 @@
+# (PART) Thinking in R {-}
+
 Language Fundamentals
 =====================
 
