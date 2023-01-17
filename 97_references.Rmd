@@ -1,0 +1,57 @@
+References {-}
+==============
+
+This reader would not have been possible without the many excellent reference
+texts created by other members of the R community. Now that you've completed
+this reader, these texts are a great way to continue you R learning journey.
+
+[Advanced R][adv-r] by Hadley Wickham is a must-read if you want a deep
+understanding of R. It provides many examples of R features that are important
+for package/software development.
+
+[adv-r]: https://adv-r.hadley.nz/
+
+Other texts I've found useful include:
+
+* [What They Forgot to Teach You About R][r-wtf] by Bryan & Hester. 
+* [The Art of R Programming][art-of-r] by Matloff (of UC Davis). A general
+  reference on R programming, with more of a computer science and software
+  engineering perspective than most R texts.
+* [The R Inferno][r-inferno] by Burns. A discussion of the most difficult and
+  confusing parts of R.
+* [R Packages][r-pkgs] by Wickham. A gentle, modern introduction to creating
+  packages for R.
+* [Writing R Extensions][r-exts] by the R core developers. A description of how
+  to create packages and other extensions for R.
+* [R Language Definition][r-lang] by the R core developers. Documentation about
+  how R works at a low level.
+* [R Internals][r-ints] by the R core developers. Documentation about how R
+  works internally (that is, its C code).
+
+[r-wtf]: https://rstats.wtf/
+[art-of-r]: https://ebookcentral.proquest.com/lib/ucdavis/detail.action?docID=1137514
+[r-inferno]: http://www.burns-stat.com/documents/books/the-r-inferno/
+[r-pkgs]: https://r-pkgs.org/
+[r-exts]: https://cran.r-project.org/doc/manuals/R-exts.html
+[r-lang]: https://cran.r-project.org/doc/manuals/r-devel/R-lang.html
+[r-ints]: https://cran.r-project.org/doc/manuals/r-devel/R-ints.html
+
+Finally, here are a few other readers and notes created by DataLab staff:
+
+* [My personal teaching notes][notes] from several years of teaching
+  statistical computing.
+* [R Basics][r-basics], our workshop series aimed at people just starting to
+  learn R.
+* [Adventures in Data Science][adventures], our course introducing humanities
+  undergraduates to data science techniques.
+* [Python Basics][py-basics], our workshop series aimed at people just starting
+  to learn Python.
+* [Intermediate Python][int-py], this reader's counterpart for Python users.
+
+[notes]: https://github.com/nick-ulle/teaching-notes
+[r-basics]: https://ucdavisdatalab.github.io/workshop_r_basics/
+[adventures]: https://ucdavisdatalab.github.io/adventures_in_data_science/
+[py-basics]: https://ucdavisdatalab.github.io/workshop_python_basics/
+[int-py]: https://ucdavisdatalab.github.io/workshop_intermediate_python/
+
+
