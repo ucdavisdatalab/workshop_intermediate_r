@@ -1,3 +1,36 @@
 Debugging
 =========
 
+This chapter is part 2 (of 2) of _Thinking in R_, a workshop series about how R
+works and how to examine code critically. The major topics of this chapter are
+how R prints output, how R's conditions system for warnings and errors works,
+how to use the R debugger, and how to estimate the performance of R code.
+
+#### Learning Objectives {-}
+
+* Identify and explain the difference between R's various printing functions
+* Use R's conditions system to raise and catch messages, warnings, and errors
+* Use R's debugging functions to diagnose bugs in code
+* Estimate the amount of memory a data set will require
+* Use the lobstr package to get memory usage for an R object
+* Describe what a profiler is and why you would use one
+* Describe what kinds of profiling tools R provides
+
+
+
+Printing Output
+---------------
+
+
+The Conditions System
+---------------------
+
+
+Debugging Code
+--------------
+
+
+Profiling Code
+--------------
+
+
