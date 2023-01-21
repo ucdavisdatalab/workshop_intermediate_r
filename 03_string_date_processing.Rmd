@@ -744,8 +744,32 @@ str_match("naulle@ucdavis.edu", "([^@]+)@(.+)[.](.+)")
 ```
 
 
-### Case Study: Extracting Emails
+### Case Study: Vehicle recalls
 
+We have a dataset of vehicle recalls from the National Highway Transportation Safety Board (NHTSB). NHTSB issues recalls so that manufacturers are required to fix safety problems that are discovered in vehicles and accesories. Let's import the data and look at it.
+
+```{r nhtsa}
+recalls = read_csv( "data/recalls.csv" )
+head(recalls)
+```
+
+The colun `NHTSA ID` encodes several pieces of information: 
+ - Year when the problem was reported (two digits)
+ - What is being recalled (one letter; C=child seat, E=equipment, T=tires, V=vehicle)
+ - Serial number of the recall within the year and type (three digits)
+ - Serial number of the recall among other recalls to fix the same problem (three digits)
+
+We want to use regular expressions to read the four pieces of information and attach them to the data set. We will use parentheses to create capturing groups that become individual pieces of output.
+
+```{r parse-recall-ID}
+parsed_codes = str_match( recalls$`NHTSA ID`, "^([[:digit:]]+)([[:alpha:]]+)([[:digit:]]{3})([[:digit:]]*)$" )
+
+colnames( parsed_codes ) = c("nhtsa_id", "year", "type", "serial", "sub_serial")
+recalls_wider = cbind( parsed_codes[,-1], recalls)
+head(recalls_wider)
+```
+ 
+ You can see how the year column we interpreted relates to the `Report Received Date` column, and how the `type` column we interpreted aligns with the `Recall Type` column.
 
 
 ### Case study: SMART train ridership
