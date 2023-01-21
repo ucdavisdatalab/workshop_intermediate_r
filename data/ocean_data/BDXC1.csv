@@ -1,4 +1,4 @@
-station,temp,YY,MM,DD,hh,mm
+station,temperature,YY,MM,DD,hh,mm
 bdxc1,14.76244541,2015,11,1,23,0
 bdxc1,14.86,2015,11,2,23,0
 bdxc1,14.24050633,2015,11,3,23,0
