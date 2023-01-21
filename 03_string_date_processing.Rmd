@@ -141,7 +141,6 @@ You can find a complete list in the lubridate documentation.
 ### Case Study: Correcting Dates
 
 
-
 Printing Output
 ---------------
 
@@ -709,3 +708,56 @@ str_match("naulle@ucdavis.edu", "([^@]+)@(.+)[.](.+)")
 
 ### Case Study: Extracting Emails
 
+
+
+### Case study: SMART train ridership
+The SMART train (Sonoma-Marin Area Rail Transit) provides transit on a single line between the Bay Area and Santa Rosa. We downloaded the rudership numbers from their website at https://www.sonomamarintrain.org/RidershipReports. We want to make a plot of ridership over time in order to show how ridership was affected by the COVID-19 pandemic, but the data is in an unusual format. First of all, the data is in an Excel spreadsheet, so we need to use the `readxl` package to load it.
+
+```{r load-readxl}
+install.packages( "readxl" )
+library( "readxl" )
+library( "lubridate" )
+library( "ggplot2" )
+```
+
+We have to download the data in order to import it:
+
+```{r download-SMART-data}
+smart_path = file.path(tempdir(), "smart_data.xlsx")
+download.file( url="https://www.sonomamarintrain.org/sites/default/files/Ridership%20Reports/SMART%20Ridership%20Web%20Posting_Dec.22.xlsx", destfile=smart_path )
+
+smart = read_excel( smart_path )
+print( smart )
+```
+
+It seems that the ridership table occupies cells B4 to H16 and uses a hyphen to indicate missing data.
+
+```{r import-smart-data}
+smart = read_excel( smart_path, range="B4:H16" )
+```
+
+Now we can look at the ridership data and see that the layout of the table isn't directly usable:
+
+```{r print-raw-smart-data}
+print(smart)
+```
+
+The dates are split between the `Month` column and the years in the column names. We can use the `pivot_longer()` function from the `tidyr` package to help get the data into a format that is suitable for plotting. First, though, the 
+
+```{r pivot-smart-data}
+smart_long = pivot_longer( smart, cols=-1, names_pattern = "^FY([[:digit:]]{2})", names_to="fiscal_year", values_to="rides", names_transform=as.numeric, values_transform=as.numeric)
+```
+
+
+Now it is necessary to convert the months and two-digit years to dates. The `my()` function from the `lubridate` package interprets dates in the form "month, year"
+```{r parse-smart-months}
+smart_long$year = with( smart_long, ifelse( Month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), fiscal_year-1, fiscal_year))
+smart_long$date = with(smart_long, my( paste(Month, year) ))
+```
+
+Now we can plot the time series of SMART train ridership:
+```{r smart-plot}
+ggplot(smart_long) + aes(x=date, y=rides) + geom_line() + expand_limits(y=0)
+```
+
+Notice the huge drop (more than 90%!) in April of 2020. 
