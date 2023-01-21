@@ -139,6 +139,44 @@ You can find a complete list in the lubridate documentation.
 
 
 ### Case Study: Correcting Dates
+We have a few data sets of ocean temperature measurements taken at different ocations on the California coast. Unfortunately, the measurements are taken by different equipment that encode  dates and times differently. We want to combine the data for analysis so we need to unify the date formats.
+
+```{r load-temperature-data}
+library( "readr" )
+
+humboldt = read_csv( "data/ocean_data/humboldt.csv" )
+bdxc1 = read_csv( "data/ocean_data/BDXC1.csv" )
+# monterrey_bay = read_csv( "data/ocean_data/monterrey_bay.csv" )
+b46217 = read_csv( "data/ocean_data/B46217.csv" )
+```
+
+These three files all record date and time in different formats, as we can see by looking at the first few rows of each file.
+
+```{r check-water-data}
+head( humboldt )
+head( bdxc1 )
+head( b46217 )
+```
+
+The Humboldt data is formatted as datetimes, the buoy B46217 datetimes are strings, and the BDXC1 buoy data has the dates and times as separate columns for years, months, days, hours, and minutes. There is more than one way to do these things. We can convert the strings of the B46217 data:
+
+```{r convert-B46217}
+b46217$date_time = mdy_hm( b46217$date_time )
+```
+
+```{r convert-water-datetimes}
+bdxc1$date_time = with( bdxc1, ymd_hm(paste( YY, MM, DD, hh, mm, sep='-' )))
+```
+
+Now the datetime formats are unified and we can combine the data:
+
+```{r}
+columns = c("station", "date_time", "temperature")
+water_temp = rbind( humboldt[, columns], bdxc1[, columns], b46217[, columns])
+
+ggplot( water_temp ) + aes(x=date_time, y=temperature, color=station) + geom_line()
+```
+
 
 
 Printing Output
