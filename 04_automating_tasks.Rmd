@@ -10,7 +10,7 @@ Reshaping Data
 ### Case study: SMART train ridership
 The SMART train (Sonoma-Marin Area Rail Transit) provides transit on a single line between the Bay Area and Santa Rosa. We downloaded the rudership numbers from their website at https://www.sonomamarintrain.org/RidershipReports. We want to make a plot of ridership over time in order to show how ridership was affected by the COVID-19 pandemic, but the data is in an unusual format. First of all, the data is in an Excel spreadsheet, so we need to use the `readxl` package to load it.
 
-```{r load-readxl}
+```{r load-readxl, eval = FALSE}
 # install.packages("readxl")
 library("readxl")
 library("lubridate")
@@ -19,7 +19,7 @@ library("ggplot2")
 
 We have to download the data in order to import it:
 
-```{r download-SMART-data}
+```{r download-SMART-data, eval = FALSE}
 smart_path = file.path(tempdir(), "smart_data.xlsx")
 download.file( url="https://www.sonomamarintrain.org/sites/default/files/Ridership%20Reports/SMART%20Ridership%20Web%20Posting_Dec.22.xlsx", destfile=smart_path )
 
@@ -29,13 +29,13 @@ print( smart )
 
 It seems that the ridership table occupies cells B4 to H16 and uses a hyphen to indicate missing data.
 
-```{r import-smart-data}
+```{r import-smart-data, eval = FALSE}
 smart = read_excel( smart_path, range="B4:H16" )
 ```
 
 Now we can look at the ridership data and see that the layout of the table isn't directly usable:
 
-```{r print-raw-smart-data}
+```{r print-raw-smart-data, eval = FALSE}
 print(smart)
 ```
 
