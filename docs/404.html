@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle" />
 
 
-<meta name="date" content="2023-01-19" />
+<meta name="date" content="2023-01-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -198,45 +198,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="string-date-processing.html"><a href="string-date-processing.html"><i class="fa fa-check"></i><b>3</b> String &amp; Date Processing</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-tidyverse"><i class="fa fa-check"></i><b>3.1</b> The Tidyverse</a></li>
-<li class="chapter" data-level="3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#date-processing"><i class="fa fa-check"></i><b>3.2</b> Date Processing</a>
+<li class="chapter" data-level="3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#parsing-dates-times"><i class="fa fa-check"></i><b>3.2</b> Parsing Dates &amp; Times</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-correcting-dates"><i class="fa fa-check"></i><b>3.2.1</b> Case Study: Correcting Dates</a></li>
+<li class="chapter" data-level="3.2.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-lubridate-package"><i class="fa fa-check"></i><b>3.2.1</b> The lubridate Package</a></li>
+<li class="chapter" data-level="3.2.2" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-ocean-temperatures"><i class="fa fa-check"></i><b>3.2.2</b> Case Study: Ocean Temperatures</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#printing-output-1"><i class="fa fa-check"></i><b>3.3</b> Printing Output</a></li>
-<li class="chapter" data-level="3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-1"><i class="fa fa-check"></i><b>3.4</b> Escape Sequences</a>
+<li class="chapter" data-level="3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#string-fundamentals"><i class="fa fa-check"></i><b>3.3</b> String Fundamentals</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="string-date-processing.html"><a href="string-date-processing.html#raw-strings"><i class="fa fa-check"></i><b>3.4.1</b> Raw Strings</a></li>
+<li class="chapter" data-level="3.3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#printing"><i class="fa fa-check"></i><b>3.3.1</b> Printing</a></li>
+<li class="chapter" data-level="3.3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-1"><i class="fa fa-check"></i><b>3.3.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#raw-strings"><i class="fa fa-check"></i><b>3.3.3</b> Raw Strings</a></li>
+<li class="chapter" data-level="3.3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-encodings"><i class="fa fa-check"></i><b>3.3.4</b> Character Encodings</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="string-date-processing.html"><a href="string-date-processing.html#character-encodings"><i class="fa fa-check"></i><b>3.5</b> Character Encodings</a></li>
-<li class="chapter" data-level="3.6" data-path="string-date-processing.html"><a href="string-date-processing.html#the-stringr-package"><i class="fa fa-check"></i><b>3.6</b> The stringr Package</a>
+<li class="chapter" data-level="3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#processing-strings"><i class="fa fa-check"></i><b>3.4</b> Processing Strings</a>
 <ul>
-<li class="chapter" data-level="3.6.1" data-path="string-date-processing.html"><a href="string-date-processing.html#splitting-strings"><i class="fa fa-check"></i><b>3.6.1</b> Splitting Strings</a></li>
-<li class="chapter" data-level="3.6.2" data-path="string-date-processing.html"><a href="string-date-processing.html#replacing-parts-of-strings"><i class="fa fa-check"></i><b>3.6.2</b> Replacing Parts of Strings</a></li>
+<li class="chapter" data-level="3.4.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-stringr-package"><i class="fa fa-check"></i><b>3.4.1</b> The stringr Package</a></li>
+<li class="chapter" data-level="3.4.2" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expressions"><i class="fa fa-check"></i><b>3.4.2</b> Regular Expressions</a></li>
+<li class="chapter" data-level="3.4.3" data-path="string-date-processing.html"><a href="string-date-processing.html#replacing-parts-of-strings"><i class="fa fa-check"></i><b>3.4.3</b> Replacing Parts of Strings</a></li>
+<li class="chapter" data-level="3.4.4" data-path="string-date-processing.html"><a href="string-date-processing.html#splitting-strings"><i class="fa fa-check"></i><b>3.4.4</b> Splitting Strings</a></li>
+<li class="chapter" data-level="3.4.5" data-path="string-date-processing.html"><a href="string-date-processing.html#extracting-matches"><i class="fa fa-check"></i><b>3.4.5</b> Extracting Matches</a></li>
+<li class="chapter" data-level="3.4.6" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-u.s.-warehouse-stocks"><i class="fa fa-check"></i><b>3.4.6</b> Case Study: U.S. Warehouse Stocks</a></li>
 </ul></li>
-<li class="chapter" data-level="3.7" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expressions"><i class="fa fa-check"></i><b>3.7</b> Regular Expressions</a>
+<li class="chapter" data-level="3.5" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expression-examples"><i class="fa fa-check"></i><b>3.5</b> Regular Expression Examples</a>
 <ul>
-<li class="chapter" data-level="3.7.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-wildcard"><i class="fa fa-check"></i><b>3.7.1</b> The Wildcard</a></li>
-<li class="chapter" data-level="3.7.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-2"><i class="fa fa-check"></i><b>3.7.2</b> Escape Sequences</a></li>
-<li class="chapter" data-level="3.7.3" data-path="string-date-processing.html"><a href="string-date-processing.html#anchors"><i class="fa fa-check"></i><b>3.7.3</b> Anchors</a></li>
-<li class="chapter" data-level="3.7.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-classes"><i class="fa fa-check"></i><b>3.7.4</b> Character Classes</a></li>
-<li class="chapter" data-level="3.7.5" data-path="string-date-processing.html"><a href="string-date-processing.html#quantifiers"><i class="fa fa-check"></i><b>3.7.5</b> Quantifiers</a></li>
-<li class="chapter" data-level="3.7.6" data-path="string-date-processing.html"><a href="string-date-processing.html#groups"><i class="fa fa-check"></i><b>3.7.6</b> Groups</a></li>
-<li class="chapter" data-level="3.7.7" data-path="string-date-processing.html"><a href="string-date-processing.html#extracting-matches"><i class="fa fa-check"></i><b>3.7.7</b> Extracting Matches</a></li>
-<li class="chapter" data-level="3.7.8" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-extracting-emails"><i class="fa fa-check"></i><b>3.7.8</b> Case Study: Extracting Emails</a></li>
+<li class="chapter" data-level="3.5.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-wildcard"><i class="fa fa-check"></i><b>3.5.1</b> The Wildcard</a></li>
+<li class="chapter" data-level="3.5.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-2"><i class="fa fa-check"></i><b>3.5.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="3.5.3" data-path="string-date-processing.html"><a href="string-date-processing.html#anchors"><i class="fa fa-check"></i><b>3.5.3</b> Anchors</a></li>
+<li class="chapter" data-level="3.5.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-classes"><i class="fa fa-check"></i><b>3.5.4</b> Character Classes</a></li>
+<li class="chapter" data-level="3.5.5" data-path="string-date-processing.html"><a href="string-date-processing.html#quantifiers"><i class="fa fa-check"></i><b>3.5.5</b> Quantifiers</a></li>
+<li class="chapter" data-level="3.5.6" data-path="string-date-processing.html"><a href="string-date-processing.html#groups"><i class="fa fa-check"></i><b>3.5.6</b> Groups</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="automating-tasks.html"><a href="automating-tasks.html"><i class="fa fa-check"></i><b>4</b> Automating Tasks</a>
+<li class="chapter" data-level="4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html"><i class="fa fa-check"></i><b>4</b> Reshaping Data &amp; Automating Tasks</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="automating-tasks.html"><a href="automating-tasks.html#loops"><i class="fa fa-check"></i><b>4.1</b> Loops</a>
+<li class="chapter" data-level="4.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#reshaping-data"><i class="fa fa-check"></i><b>4.1</b> Reshaping Data</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="automating-tasks.html"><a href="automating-tasks.html#for-loops"><i class="fa fa-check"></i><b>4.1.1</b> For-loops</a></li>
-<li class="chapter" data-level="4.1.2" data-path="automating-tasks.html"><a href="automating-tasks.html#while-loops"><i class="fa fa-check"></i><b>4.1.2</b> While-loops</a></li>
-<li class="chapter" data-level="4.1.3" data-path="automating-tasks.html"><a href="automating-tasks.html#saving-multiple-results"><i class="fa fa-check"></i><b>4.1.3</b> Saving Multiple Results</a></li>
-<li class="chapter" data-level="4.1.4" data-path="automating-tasks.html"><a href="automating-tasks.html#break-next"><i class="fa fa-check"></i><b>4.1.4</b> Break &amp; Next</a></li>
-<li class="chapter" data-level="4.1.5" data-path="automating-tasks.html"><a href="automating-tasks.html#example-the-collatz-conjecture"><i class="fa fa-check"></i><b>4.1.5</b> Example: The Collatz Conjecture</a></li>
+<li class="chapter" data-level="4.1.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-smart-train-ridership"><i class="fa fa-check"></i><b>4.1.1</b> Case study: SMART train ridership</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="automating-tasks.html"><a href="automating-tasks.html#planning-for-iteration"><i class="fa fa-check"></i><b>4.2</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="4.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#loops"><i class="fa fa-check"></i><b>4.2</b> Loops</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#for-loops"><i class="fa fa-check"></i><b>4.2.1</b> For-loops</a></li>
+<li class="chapter" data-level="4.2.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#while-loops"><i class="fa fa-check"></i><b>4.2.2</b> While-loops</a></li>
+<li class="chapter" data-level="4.2.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#saving-multiple-results"><i class="fa fa-check"></i><b>4.2.3</b> Saving Multiple Results</a></li>
+<li class="chapter" data-level="4.2.4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#break-next"><i class="fa fa-check"></i><b>4.2.4</b> Break &amp; Next</a></li>
+<li class="chapter" data-level="4.2.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#example-the-collatz-conjecture"><i class="fa fa-check"></i><b>4.2.5</b> Example: The Collatz Conjecture</a></li>
 </ul></li>
+<li class="chapter" data-level="4.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#planning-for-iteration"><i class="fa fa-check"></i><b>4.3</b> Planning for Iteration</a></li>
+</ul></li>
+<li class="part"><span><b>III Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
 </ul>
