@@ -3,100 +3,161 @@
 String & Date Processing
 ========================
 
+This chapter is part 1 (of 2) of _Cleaning Data & Automating Tasks_, a workshop
+series about how to prepare data for analysis and automate tedious repetitive
+tasks. The major topics of this chapter are how to convert dates and times into
+appropriate R data types and how to extract and clean up data from strings
+(including numbers with non-numeric characters such as `$`, `%`, and `,`).
+
+
+#### Learning Objectives {-}
+
+* Explain why we use special data structures for dates & times
+* Identify the correct data structure for a given date/time
+* Use lubridate to parse a date
+* Use the date format string mini-language
+* Use escape codes in strings to represent non-keyboard characters
+* Explain what a text encoding is
+* Use the stringr package to detect, extract, and change patterns in strings
+* Use the regular expressions mini-language
+
+
 
 The Tidyverse
 -------------
 
-The [Tidyverse](https://www.tidyverse.org/) is a popular collection of packages
-for doing data science in R. The packages are made by many of the same people
-that make RStudio. They provide alternatives to R's built-in tools for:
+For working with dates, times, and strings, we recommend using packages from
+the [Tidyverse][], a popular collection of packages for doing data science.
+Compared to R's built-in functions, we've found that the functions in Tidyverse
+packages are generally easier to learn and use. They also provide additional
+features and have more robust support for characters outside of the Latin
+alphabet.
 
-* Manipulating strings (package `stringr`)
-* Making visualizations (package `ggplot2`)
-* Reading files (package `readr`)
-* Manipulating data frames (packages `dplyr`, `tidyr`, `tibble`)
+Although they're developed by many different members of the R community,
+Tidyverse packages follow a unified design philosophy, and thus have many
+interfaces and data structures in common. The packages provide convenient and
+efficient alternatives to built-in R functions for many tasks, including:
+
+[Tidyverse]: https://www.tidyverse.org/
+
+* Reading and writing files (package readr)
+* Processing dates and times (packages lubridate, hms)
+* Processing strings (package stringr)
+* Reshaping data (package tidyr)
+* Making visualizations (package ggplot2)
 * And more
 
-
 Think of the Tidyverse as a different dialect of R. Sometimes the syntax is
-different, and sometimes ideas are easier or harder to express concisely.
-Whether to use base R or the Tidyverse is mostly subjective. As a result, the
-Tidyverse is somewhat polarizing in the R community. It's useful to be literate
-in both, since both are popular.
+different, and sometimes ideas are easier or harder to express concisely. As a
+consequence, the Tidyverse is sometimes polarizing in the R community. It's
+useful to be literate in both base R and the Tidyverse, since both are popular.
 
-One advantage of the Tidyverse is that the packages are usually
-well-documented. For example, there are documentation websites and [cheat
-sheets][] for most Tidyverse packages.
+One major advantage of the Tidyverse is that the packages are usually
+well-documented and provide lots of examples. Every package has a documentation
+website and the most popular ones also have [cheatsheets][].
 
-[cheat sheets]: https://rstudio.com/resources/cheatsheets/
+[cheatsheets]: https://posit.co/resources/cheatsheets/
 
 
-Date Processing
----------------
+Parsing Dates & Times
+---------------------
 
-Besides strings, dates and times are another kind of data that require special
-attention to prepare for analysis. This is especially important if you want to
-do anything that involves sorting dates, like making a line plot with dates on
-one axis. Dates may not be sorted correctly if they haven't been converted to
-one of R's date classes.
+When working with dates and times, you might want to:
 
-There several built-in functions and also many packages for date processing. As
-with visualization and string processing, the Tidyverse packages have the best
-combination of simple design and clear documentation. There are three Tidyverse
-packages for processing dates and times:
+* Use them to sort other data
+* Add or subtract an offset
+* Get components like the month, day, or hour
+* Compute derived components like the day of week or quarter
+* Compute differences
+
+Even though this list isn't exhaustive, it shows that there are lots of things
+you might want to do. In order to do them in R, you must first make sure that
+your dates and times are represented by appropriate data types. Most of R's
+built-in functions for loading data *do not* automatically recognize dates and
+times. This section describes several data types that represent dates and
+times, and explains how to use R to **parse**---break down and convert---dates
+and times to these types.
+
+
+### The lubridate Package
+
+As explained in Section \@ref(the-tidyverse), we recommend the Tidyverse
+packages for working with dates and times over other packages or R's built-in
+functions. There are two:
 
 * [lubridate][], the primary package for working with dates and times
-* [hms][], a package specifically for working with times
-* [clock][], a new package for working with dates and times
+* [hms][], a package specifically for working with time durations
+
+This chapter only covers lubridate, since it's more useful in most situations.
+The package has detailed [documentation][lubridate] and a
+[cheatsheet][lubridate-cheatsheet].
 
 [lubridate]: https://lubridate.tidyverse.org/
+[lubridate-cheatsheet]: https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf
 [hms]: https://hms.tidyverse.org/
-[clock]: https://clock.r-lib.org/
 
-We'll focus on the lubridate package. As always, you'll have to install the
-package if you haven't already, and then load it:
+You'll have to install the package if you haven't already, and then load it:
 
 ```{r}
 # install.packages("lubridate")
 library("lubridate")
 ```
 
-The most common task is to convert a string into a date or time class. For
-instance, when you load a data set, you might have dates that look like this:
+Perhaps the most common task you'll need to do with date and time data is
+convert from strings to more appropriate data types. This is because R's
+built-in functions for reading data from a text format, such as `read.csv`,
+read dates and times as strings. For example, here are some dates as strings:
 
 ```{r}
-dates = c("Jan 10, 2021", "Sep 3, 2018", "Feb 28, 1982")
-dates
+date_strings = c("Jan 10, 2021", "Sep 3, 2018", "Feb 28, 1982")
+date_strings
 ```
 
-These are strings, so it's relatively difficult to sort the dates, do
-arithmetic on them, or extract just one part (such as the year). There are
-several lubridate functions to automatically convert strings into dates. They
-are named with one letter for each part of the date. For instance, the dates in
-the example have the month (m), then the day (d), and then the year (y), so we
-can use the `mdy` function:
+*You* can tell that these are dates, but as far as R is concerned, they're
+text.
+
+The lubridate package provides a variety of functions to automatically parse
+strings into date or time objects that R understands. These functions are named
+with one letter per component of the date or time. The order of the letters
+must match the order of the components in the string you want to parse.
+
+In the example, the strings have the month (`m`), then the day (`d`), and then
+the year (`y`), so you can use the `mdy` function to parse them automatically:
 
 ```{r}
-result = mdy(dates)
-result
-class(result)
+dates = mdy(date_strings)
+dates
+class(dates)
 ```
 
 Notice that the dates now have class `Date`, one of R's built-in classes for
-representing dates, and that they print differently. You can find a full list
-of the automatic string to date conversion functions in the lubridate
-documentation.
+representing dates, and that R prints them differently. Now R recognizes that
+the dates are in fact dates, so they're ready to use in an analysis.
 
-Occasionally, a date string may have a format that lubridate can't convert
-automatically. In that case, you can use the `fast_strptime` function to
+There is [a complete list of automatic the parsing functions][lubridate-parse]
+in the lubridate documentation.
+
+[lubridate-parse]: https://lubridate.tidyverse.org/reference/index.html#date-time-parsing
+
+Note: a relatively new package, [clock][], tries to solve some problems with
+the `Date` class people have identified over the years. The package is in the
+r-lib collection of packages, which provide low-level functionality
+complementary to the Tidyverse. Eventually, it may be preferable to use the
+classes in clock rather than the `Date` class, but for now, the `Date` class is
+still suitable for most tasks.
+
+[clock]: https://clock.r-lib.org/
+
+Occasionally, a date or time string may have a format that lubridate can't
+parse automatically. In that case, you can use the `fast_strptime` function to
 describe the format in detail. At a minimum, the function requires two
-arguments: the vector of strings to convert and a format string.
+arguments: a vector of strings to parse and a **format string**.
 
-The format string describes the format of the dates, and is based on the syntax
-of `strptime`, a function provided by many programming languages for converting
-strings to dates (including R). In a format string, a percent sign `%` followed
-by a character is called a _specification_ and has a special meaning. Here are
-a few of the most useful ones:
+The format string describes the format of the dates or times, and is based on
+the syntax of `strptime`, a function provided by many programming languages
+(including R) to parse date or time strings. In a format string, a percent sign
+`%` followed by a character is called a **specification** and has a special
+meaning. Here are a few of the most useful ones:
 
 | Specification | Description      | January 29, 2015
 |:------------- |:---------------- |:----------------
@@ -110,81 +171,208 @@ a few of the most useful ones:
 
 You can find a complete list in `?fast_strptime`. Other characters in the
 format string do not have any special meaning. Write the format string so that
-it matches the format of the dates you want to convert.
+it matches the format of the dates you want to parse.
 
-For example, let's try converting an unusual time format:
+For example, let's try parsing an unusual time format:
 ```{r}
-odd_time = "6 minutes, 32 seconds after 10 o'clock"
-fast_strptime(odd_time, "%M minutes, %S seconds after %H o'clock")
+time_string = "6 minutes, 32 seconds after 10 o'clock"
+time = fast_strptime(time_string, "%M minutes, %S seconds after %H o'clock")
+time
+class(time)
 ```
 
-R usually represents dates with the class `Date`, and date-times with the
-classes `POSIXct` and `POSIXlt`. The difference between the two date-time
-classes is somewhat technical, but you can read more about it in `?POSIXlt`.
+R represents date-times with the classes `POSIXlt` and `POSIXct`. There's no
+built-in class to represent times alone, which is why the result in the example
+above includes a date.
 
-There is no built-in class to represent times alone, which is why the result in
-the example above includes a date. Nonetheless, the hms package provides the
-`hms` class to represent times without dates.
-
-Once you've converted a string to a date, the lubridate package provides a
-variety of functions to get or set the parts individually. Here are a few
-examples:
+Internally, a `POSIXlt` object is a list with elements to store different date
+and time components. On the other hand, a `POSIXct` object is a single floating
+point number (type `double`). If you want to store your time data in a data
+frame, use `POSIXct` objects, since data frames don't work well with columns of
+lists. You can control whether `fast_strptime` returns a `POSIXlt` or `POSIXct`
+object by setting the `lt` parameter to `TRUE` or `FALSE`:
 
 ```{r}
-day(result)
-month(result)
+time_ct = fast_strptime(time_string, "%M minutes, %S seconds after %H o'clock",
+  lt = FALSE)
+
+class(time_ct)
 ```
 
-You can find a complete list in the lubridate documentation.
+Another common task is combining the numeric components of a date or time into
+a single object. You can use the `make_date` and `make_datetime` functions to
+do this. The parameters are named for the different components. For example:
 
-
-### Case Study: Correcting Dates
-
-
-Printing Output
----------------
-
-The `cat` function prints a string in the R console. If you pass multiple
-arguments, they will be con**cat**enated:
 ```{r}
-cat("Hello")
-
-cat("Hello", "Nick")
+make_date(day = 10, year = 2023, month = 1)
 ```
 
-Pitfall 1: Printing a string is different from returning a string. The `cat`
-function only prints (and always returns `NULL`). For example:
+These functions are [vectorized][], so you can use them to combine the
+components of many dates or times at once. They're especially useful for
+reconstructing dates and times from tabular datasets where each component is
+stored in a separate column.
+
+[vectorized]: https://ucdavisdatalab.github.io/workshop_r_basics/data-structures.html#vectorization
+
+After you've converted your date and time data to appropriate types, you can do
+any of the operations listed at the beginning of this section. For example, you
+can use lubridate's `period` function to create an offset to add to a date or
+time:
+
 ```{r}
-f = function() {
-  cat("Hello")
-}
-
-x = f()
-x
+dates
+dates + period(1, "month")
 ```
 
-If you just want to concatenate some strings (but not necessarily print them),
-use `paste` instead of `cat`. The `paste` function returns a string. The
-`str_c` function in stringr (a package we'll learn about later in this lesson)
-can also concatenate strings.
+You can also use lubridate functions to get or set the components. These
+functions usually have the same name as the component. For instance:
 
-Pitfall 2: Remember to print strings with the `cat` function, not the `print`
-function. The `print` function prints _R's representation_ of an object, the
-same as if you had entered the object in the console without calling `print`.
-
-For instance, `print` prints quotes around strings, whereas `cat` does not:
 ```{r}
-print("Hello")
-
-cat("Hello")
+day(dates)
+month(dates)
 ```
 
+See [the lubridate documentation][lubridate] for even more details about
+what you can do.
 
 
-Escape Sequences
-----------------
+### Case Study: Ocean Temperatures
 
-In a string, an _escape sequence_ or _escape code_ consists of a backslash
+The U.S. National Oceanic and Atmospheric Administration (NOAA) publishes ocean
+temperature data collected by sensor buoys off the coast on the [National Data
+Buoy Center (NDBC) website][ndbc]. California also has many sensors collecting
+ocean temperature data that are not administered by the federal government.
+Data from these is published on the [California Ocean Observing Systems
+(CALOOS) Data Portal][caloos].
+
+[ndbc]: https://www.ndbc.noaa.gov/
+[caloos]: https://data.caloos.org/
+
+Suppose you're a researcher who wants to combine ocean temperature data from
+both sources to use in R. Both publish the data in comma-separated value (CSV)
+format, but record dates, times, and temperatures differently. Thus you need to
+be careful that the dates and times are parsed correctly.
+
+Download these two 2021 datasets:
+
+1. `2021_noaa-ndbc_46013.txt`, from NOAA buoy 46013, off the coast of Bodega
+   Bay ([DOWNLOAD][noaa-data])([source][noaa-source])
+2. `2021_ucdavis_bml_wts.csv`, from the UC Davis Bodega Bay Marine Laboratory's
+   sensors ([DOWNLOAD][bml-data])([source][bml-source])
+
+[noaa-data]: https://drive.google.com/file/d/1w7WwX8yxs_1pQUSQreIE8v97ETeHKA__/view?usp=share_link
+[noaa-source]: https://www.ndbc.noaa.gov/station_page.php?station=46013
+[bml-data]: https://drive.google.com/file/d/1YZbVu30usB988O4idES-VqN3e8_a9OXM/view?usp=share_link
+[bml-source]: https://data.caloos.org/#metadata/19946/station/data
+
+The NOAA data has a fixed-width format, which means each column has a fixed
+width in characters over all rows. The [readr][] package provides a function
+`read_fwf` that can automatically guess the column widths and read the data
+into a data frame. The column names appear in the first row and column units
+appear in the second row, so read those rows separately:
+
+[readr]: https://readr.tidyverse.org/
+
+```{r}
+# install.packages("readr")
+library("readr")
+
+noaa_path = "data/ocean_data/2021_noaa-ndbc_46013.txt"
+noaa_headers = read_fwf(noaa_path, n_max = 2, guess_max = 1)
+noaa = read_fwf(noaa_path, skip = 2)
+names(noaa) = as.character(noaa_headers[1, ])
+names(noaa)[1] = "YY"
+```
+
+The dates and times for the observations are separated into component columns,
+and the `read_fwf` function does not convert some of these to numbers
+automatically. You can use `as.numeric` to convert them to numbers:
+
+```{r}
+cols = 2:5
+noaa[cols] = lapply(noaa[cols], as.numeric)
+```
+
+Finally, use the `make_datetime` function to combine the components into
+date-time objects:
+
+```{r}
+noaa_dt = make_datetime(year = noaa$YY, month = noaa$MM, day = noaa$DD,
+  hour = noaa$hh, min = noaa$mm)
+noaa$date = noaa_dt
+head(noaa_dt)
+```
+
+That takes care of the dates in the NOAA data.
+
+The Bodega Marine Lab data is CSV format, which you can read with `read.csv` or
+the readr package's `read_csv` function. The latter is faster and usually
+better at guessing column types. The column names appear in the first row and
+the column units appear in the second row. The `read_csv` function handles the
+names automatically, but you'll have to remove the unit row as a separate step:
+
+```{r}
+bml = read_csv("data/ocean_data/2021_ucdavis_bml_wts.csv")
+bml = bml[-1, ]
+```
+
+The dates and times of the observations were loaded as strings. You can use
+lubridate's `ymd_hms` function to automatically parse them:
+
+```{r}
+bml_dt = ymd_hms(bml$time)
+bml$date = bml_dt
+head(bml_dt)
+```
+
+Now you have date and time objects for both datasets, so you can combine the
+two. For example, you could extract the `date` and water temperature columns
+from each, create a new column identifying the data source, and then row-bind
+the datasets together.
+
+
+
+String Fundamentals
+-------------------
+
+Strings represent text, but even if your datasets are composed entirely of
+numbers, you'll need to know how to work with strings. Text formats for data
+are widespread: comma-separated values (CSV), tab-separated values (TSV),
+JavaScript object notation (JSON), a panopoly of markup languages (HTML, XML,
+YAML, TOML), and more. When you read data in these formats into R, sometimes R
+will correctly convert the values to appropriate non-string types. The rest of
+the time, you need to know how to work with strings so that you can fix
+whatever went wrong and convert the data yourself.
+
+This section introduces several fundamental concepts related to working with
+strings. The next section, Section \@ref(the-stringr-package), describes the
+stringr package for working with strings. The last section, Section
+\@ref(regular-expressions), builds on both and explains how to do powerful
+pattern matching.
+
+
+### Printing
+
+There are two different ways to print strings: you can print a representation
+of the characters in the string or you can print the actual characters in the
+string.
+
+To print a representation of the characters in a string, use the `print`
+function. The representation is useful to identify characters that are not
+normally visible, such as tabs and the characters that mark the end of a line.
+
+To print the actual characters in a string, use the `message` function.
+
+This important difference in how the `print` and `message` functions print
+strings is demonstrated in the next section.
+
+You can learn more about different ways to print output in R by reading Section
+\@ref(printing-output).
+
+
+### Escape Sequences
+
+In a string, an **escape sequence** or **escape code** consists of a backslash
 followed by one or more characters. Escape sequences make it possible to:
 
 1. Write quotes or backslashes within a string
@@ -192,12 +380,13 @@ followed by one or more characters. Escape sequences make it possible to:
    in a foreign language)
 
 For example, the escape sequence `\n` corresponds to the newline character.
-Notice that the `cat` function translates `\n` into a literal new line, whereas
-the `print` function doesn't:
+Notice that the `message` function translates `\n` into a literal new line,
+whereas the `print` function doesn't:
+
 ```{r}
 x = "Hello\nNick"
 
-cat(x)
+message(x)
 
 print(x)
 ```
@@ -205,23 +394,25 @@ print(x)
 As another example, suppose we want to put a literal quote in a string. We can
 either enclose the string in the other kind of quotes, or escape the quotes in
 the string:
+
 ```{r}
 x = 'She said, "Hi"'
 
-cat(x)
+message(x)
 
 y = "She said, \"Hi\""
 
-cat(y)
+message(y)
 ```
 
 Since escape sequences begin with backslash, we also need to use an escape
 sequence to write a literal backslash. The escape sequence for a literal
 backslash is two backslashes:
+
 ```{r}
 x = "\\"
 
-cat(x)
+message(x)
 ```
 
 There's a complete list of escape sequences for R in the `?Quotes` help file.
@@ -231,16 +422,17 @@ same as in R.
 
 ### Raw Strings
 
-A _raw string_ is a string where escape sequences are turned off. Raw strings
-are especially useful for writing regular expressions, which we'll do later in
-this lesson.
+A **raw string** is a string where escape sequences are turned off. Raw strings
+are especially useful for writing regular expressions (covered in Section
+\@ref(regular-expressions)).
 
 Raw strings begin with `r"` and an opening delimiter `(`, `[`, or `{`. Raw
 strings end with a matching closing delimiter and quote. For example:
+
 ```{r}
 x = r"(quotes " and backslashes \)"
 
-cat(x)
+message(x)
 ```
 
 Raw strings were added to R in version 4.0 (April 2020), and won't work
@@ -248,13 +440,12 @@ correctly in older versions.
 
 
 
-Character Encodings
--------------------
+### Character Encodings
 
-Computers store data as numbers. In order to store text on a computer, we have
-to agree on a _character encoding_, a system for mapping characters to numbers.
-For example, in [ASCII](https://en.wikipedia.org/wiki/ASCII), one of the most
-popular encodings in the United States, the character `a` maps to the
+Computers store data as numbers. In order to store text on a computer, people
+have to agree on a **character encoding**, a system for mapping characters to
+numbers. For example, in [ASCII](https://en.wikipedia.org/wiki/ASCII), one of
+the most popular encodings in the United States, the character `a` maps to the
 number 97.
 
 Many different character encodings exist, and sharing text used to be an
@@ -270,10 +461,11 @@ doesn't dictate how those numbers should be mapped to bytes (sequences of ones
 and zeroes). As a result, there are several different character encodings that
 support and are synonymous with Unicode. The most popular of these is UTF-8.
 
-In R, we can write Unicode characters with the escape sequence `\U` followed by
-the number for the character in [base 16][]. For instance, the number for `a`
-in Unicode is 97 (the same as in ASCII). In base 16, 97 is `61`. So we can write
-an `a` as:
+In R, you can write Unicode characters with the escape sequence `\U` followed
+by the number for the character in [base 16][]. For instance, the number for
+`a` in Unicode is 97 (the same as in ASCII). In base 16, 97 is `61`. So you can
+write an `a` as:
+
 ```{r}
 x = "\U61" # or "\u61"
 
@@ -325,25 +517,41 @@ Encoding problems when writing a file are slightly more complicated to fix. See
 
 
 
+Processing Strings
+------------------
+
+String processing encompasses a variety of tasks such as searching for patterns
+within strings, extracting data from within strings, splitting strings into
+component parts, and removing or replacing unwanted characters (excess
+whitespace, punctuation, and so on). If you work with data, sooner or later
+you'll run into a dataset in text format that needs a few text corrections
+before or after you read it into R, and for that you'll find familiarity with
+string processing invaluable.
 
 
+### The stringr Package
 
-The stringr Package
--------------------
+Although R has built-in functions for string processing, we recommend using the
+[stringr][] package for all of your string processing needs. The package is
+part of the Tidyverse, a collection of packages introduced in Section
+\@ref(the-tidyverse). Major advantages of stringr over other packages and R's
+built-in functions include:
 
-The rest of this lesson uses stringr, the Tidyverse package for string
-processing. R also has built-in functions for string processing. The main
-advantage of stringr is that all of the functions use a common set of
-parameters, so they're easier to learn and remember.
+* Correctness: the package builds on [International Components for Unicode
+  (ICU)][icu], the Unicode Consortium's own library for handling text encodings
+* Discoverability: every function's name begins with `str_` so they're easy to
+  discover, remember, and identify in code
+* Interface consistency: the first argument is always the string to process,
+  the second argument is always the pattern to match (if applicable)
+* Vectorization: most of the functions are [vectorized][] in the first and
+  second argument
 
-In practice, data sets often require some cleaning before or
-during data analysis. One common data cleaning task is editing or extracting
-parts of strings.
+[icu]: https://en.wikipedia.org/wiki/International_Components_for_Unicode
 
-stringr has detailed [documentation][stringr-docs] and also a
+stringr has detailed [documentation][stringr] and also a
 [cheatsheet][stringr-cheat-sheet].
 
-[stringr-docs]: https://stringr.tidyverse.org/
+[stringr]: https://stringr.tidyverse.org/
 [stringr-cheat-sheet]: https://github.com/rstudio/cheatsheets/blob/master/strings.pdf
 
 The first time you use stringr, you'll have to install it with
@@ -356,19 +564,21 @@ library(stringr)
 ```
 
 The typical syntax of a stringr function is:
-```
-str_NAME(string, pattern, ...)
+
+```{r, eval = FALSE}
+str_name(string, pattern, ...)
 ```
 
 Where:
 
-* `NAME` describes what the function does
-* `string` is the string to search within or transform
-* `pattern` is the pattern to search for
+* `name` describes what the function does
+* `string` is a string to search within or transform
+* `pattern` is a pattern to search for, if applicable
 * `...` is additional, function-specific arguments
 
-For example, the `str_detect` function detects whether the pattern appears
-within the string:
+For example, the `str_detect` function *detects* whether a pattern appears
+within a string. The function returns `TRUE` if the pattern is found and
+`FALSE` if it isn't:
 
 ```{r}
 str_detect("hello", "el")
@@ -382,76 +592,208 @@ Most of the stringr functions are vectorized in the `string` parameter:
 str_detect(c("hello", "goodbye", "lo"), "lo")
 ```
 
-There are a lot of stringr functions. The remainder of this lesson focuses on
-three that are especially important, as well as some of their variants:
+As another example, the `str_sub` function extracts a *substring* from a
+string, given the substring's position. The first argument is the string, the
+second is the position of the substring's first character, and the third is the
+position of the substring's last character:
 
-* `str_split_fixed`
-* `str_replace`
-* `str_match`
+```{r}
+str_sub("You speak of destiny as if it was fixed.", 5, 9)
+```
 
-You can find a complete list of stringr functions with examples in the
-[documentation][stringr-docs] or [cheat sheet][stringr-cheat-sheet].
+The `str_sub` function is especially useful for extracting data from strings
+that have a fixed width (although the [readr][] package's `read_fwf` is usually
+a better choice if you have a fixed-width file).
 
-[stringr-docs]: https://stringr.tidyverse.org/
-[stringr-cheat-sheet]: https://github.com/rstudio/cheatsheets/blob/master/strings.pdf
+There are a lot of stringr functions. Five that are especially important and
+are explained in this reader are:
+
+* `str_detect`, to test whether a string contains a pattern
+* `str_sub`, to extract a substring at a given position from a string
+* `str_replace`, to replace or remove parts of a string
+* `str_split_fixed`, to split a string into parts
+* `str_match`, to extract data from a string
+
+You can find a complete list of functions with examples on the stringr
+documentation's [reference page][stringr-ref] and the
+[cheatsheet][stringr-cheatsheet].
+
+[stringr-ref]: https://stringr.tidyverse.org/reference/
+[stringr-cheatsheet]: https://github.com/rstudio/cheatsheets/blob/master/strings.pdf
+
+
+### Regular Expressions
+
+The stringr functions use a special language called **regular expressions** or
+**regex** to describe patterns in strings. Many other programming languages
+also have string processing tools that use regular expressions, so fluency with
+regular expressions is a transferrable skill.
+
+You can use a regular expression to describe a complicated pattern in just a
+few characters because some characters, called **metacharacters**, have special
+meanings. Metacharacters are usually punctation characters. They are *never*
+letters or numbers, which always have their literal meaning.
+
+This table lists some of the most useful metacharacters:
+
+Metacharacter | Meaning
+------------- | -------
+`.`           | any one character (wildcard)
+``\``         | escape character (in both R and regex), see Section \@ref(escape-sequences)
+`^`           | the beginning of string (not a character)
+`$`           | the end of string (not a character)
+`[ab]`        | one character, either `'a'` or `'b'`
+`[^ab]`       | one character, anything except `'a'` or `'b'`
+`?`           | the previous character appears 0 or 1 times
+`*`           | the previous character appears 0 or more times
+`+`           | the previous character appears 1 or more times
+`()`          | make a group
+`|`           | match left OR right side (not a character)
+
+Section \@ref(regular-expression-examples) provides examples of how most of the
+metacharacters work. Even more examples are presented in the stringr package's
+[regular expressions vignette][stringr-regex]. You can find a complete listing
+of regex metacharacters in `?regex` or on the stringr
+[cheatsheet][stringr-cheatsheet].
+
+[stringr-regex]: https://stringr.tidyverse.org/articles/regular-expressions.html
+
+You can disable regular expressions in a stringr function by calling the
+`fixed` function on the pattern. For example, to test whether a string contains
+a literal dot `.`:
+
+```{r}
+x = c("No dot", "Lotsa dots...")
+str_detect(x, fixed("."))
+```
+
+It's a good idea to call `fixed` on any pattern that doesn't contain regex
+metacharacters, because it communicates to the reader that you're not using
+regex, it helps to prevent bugs, and it provides a small speed boost.
+
+
+### Replacing Parts of Strings
+
+Replacing part of a string is a common string processing task. For instance,
+quantitative data often contain non-numeric characters such as commas, currency
+symbols, and percent signs. These must be removed before converting to numeric
+data types. Replacement and removal go hand-in-hand, since removal is
+equivalent to replacing part of a string with the **empty string** `""`.
+
+The `str_replace` function replaces the *first* part of a string that matches a
+pattern (from left to right), while the related `str_replace_all` function
+replaces *every* part of a string that matches a pattern. Most stringr
+functions that do pattern matching come in a pair like this: one to process
+only the first match and one to process every match.
+
+As an example, suppose you want to remove commas from a number so that you can
+convert it with `as.numeric`, which returns `NA` for numbers that contain
+commas. You want to remove *all* of the commas, so `str_replace_all` is the
+function to use. As usual, the first argument is the string and the second is
+the pattern. The third argument is the replacement, which is the empty string
+`""` in this case:
+
+```{r}
+x = "1,000,000"
+str_replace_all(x, ",", "")
+```
+
+The `str_replace` function doesn't work as well for this task, since it only
+replaces the first match to the pattern:
+
+```{r}
+str_replace(x, ",", "")
+```
+
+You can also use these functions to replace or remove longer patterns within
+words. For instance, suppose you want to change the word `"dog"` to `"cat"`:
+
+```{r}
+x = c("dogs are great, dogs are fun", "dogs are fluffy")
+str_replace(x, "dog", "cat")
+str_replace_all(x, "dog", "cat")
+```
+
+As a final example, you can use the replacement functions and a regex pattern
+to replace repeated spaces with a single space. This is a good standardization
+step if you're working with text. The key is to use the regex quantifier `+`,
+which means a character "repeats one or more times" in the pattern, and to use
+a single space `" "` as the replacement:
+
+```{r}
+x = "This    sentence  has  extra      space."
+str_replace_all(x, " +", " ")
+```
+
+If you just want to **trim** (remove) all whitespace from the beginning and end
+of a string, you can use the `str_trim` function instead.
 
 
 ### Splitting Strings
 
-The `str_split` function splits the string at each position that matches the
-pattern. The characters that match are thrown away.
+Distinct data in a text are generally separated by a character like a space or
+a comma, to make them easy for people to read. Often these separators also make
+the data easy for R to parse. The idea is to split the string into a separate
+value at each separator.
 
-For example, suppose we want to split a sentence into words. Since there's a
-space between each word, we can use a space as the pattern:
+The `str_split` function splits a string at each match to a pattern. The
+matching characters---that is, the separators---are discarded.
+
+For example, suppose you want to split several numbers separated by commas and
+spaces:
 
 ```{r}
-x = "The students in this workshop are great!"
-
-result = str_split(x, " ")
+x = "21, 32.3, 5, 64"
+result = str_split(x, ", ")
 result
 ```
 
 The `str_split` function always returns a list with one element for each input
-string. Here the list only has one element because `x` only has one element. We
-can get the first element with:
+string. Here the list only has one element because `x` only has one element.
+You can get the first element with:
 
 ```{r}
 result[[1]]
 ```
 
-We have to use the double square bracket `[[` operator here because `x` is a
-list (for a vector, we could use the single square bracket operator instead).
-Notice that in the printout for `result`, R gives us a hint that we should use
-`[[` by printing `[[1]]`.
+You then convert the values with `as.numeric`.
 
-To see why the function returns a list, consider what happens if we try to
-split two different sentences at once:
+To see why the `str_split` function always returns a list, consider what
+happens if you try to split two different strings at once:
 
 ```{r}
-x = c(x, "Are you listening?")
-
-result = str_split(x, " ")
-result[[1]]
-result[[2]]
+x = c(x, "10, 15, 1.3")
+result = str_split(x, ", ")
+result
 ```
 
-Each sentence has a different number of words, so the vectors in the result
-have different lengths. So a list is the only way to store both.
+Each string has a different number of parts, so the vectors in the result have
+different lengths. So a list is the only way to store them.
 
-The `str_split_fixed` function is almost the same as `str_split`, but takes a
-third argument for the maximum number of splits to make. Because the number of
-splits is fixed, the function can return the result in a matrix instead of a
-list. For example:
+You can also use the `str_split` function to split a sentence into words. Use
+spaces for the split:
 
 ```{r}
-str_split_fixed(x, " ", 3)
+x = "The students in this workshop are great!"
+str_split(x, " ")
+```
+
+When you know exactly how many parts you expect a string to have, use the
+`str_split_fixed` function instead of `str_split`. It accepts a third argument
+for the maximum number of splits to make. Because the number of splits is
+fixed, the function can return the result in a matrix instead of a list. For
+example:
+
+```{r}
+x = c("1, 2, 3", "10, 20, 30")
+str_split_fixed(x, ", ", 3)
 ```
 
 The `str_split_fixed` function is often more convenient than `str_split`
 because the `n`th piece of each input string is just the `n`th column of the
 result.
 
-For example, suppose we want to get the area code from some phone numbers:
+For example, suppose you want to get the area codes from some phone numbers:
 
 ```{r}
 phones = c("717-555-3421", "629-555-8902", "903-555-6781")
@@ -461,73 +803,195 @@ result[, 1]
 ```
 
 
-### Replacing Parts of Strings
+### Extracting Matches
 
-The `str_replace` function replaces the pattern the first time it appears in
-the string. The replacement goes in the third argument.
+Occasionally, you might need to extract parts of a string in a more complicated
+way than string splitting allows. One solution is to write a regular expression
+that will match all of the data you want to capture, with parentheses `( )`,
+the regex metacharacter for a group, around each distinct value. Then you can
+use the `str_match` function to extract the groups. Section \@ref(groups)
+presents some examples of regex groups.
 
-For instance, suppose we want to change the word `"dog"` to `"cat"`:
-```{r}
-x = c("dogs are great, dogs are fun", "dogs are fluffy")
-str_replace(x, "dog", "cat")
+For example, suppose you want to split an email address into three parts: the
+user name, the domain name, and the [top-level domain][tld]. To create a
+regular expression that matches email addresses, you can use the `@` and `.` in
+the address as anchors. The surrounding characters are generally alphanumeric,
+which you can represent with the "word" metacharacter `\w`:
+
+```
+\w+@\w+[.]\w+
 ```
 
+Next, put parentheses `( )` around each part that you want to extract:
 
-The `str_replace_all` function replaces the pattern every time it appears in
-the string:
-```{r}
-str_replace_all(x, "dog", "cat")
+```
+(\w+)@(\w+)[.](\w+)
 ```
 
-We can also use the `str_replace` and `str_replace_all` functions to delete
-part of a string by setting the replacement to the empty string `""`.
+Finally, use this pattern in `str_match`, adding extra backslashes so that
+everything is escaped correctly:
 
-For example, suppose we want to delete the comma:
 ```{r}
-str_replace(x, ",", "")
+x = "datalab@ucdavis.edu"
+regex = "(\\w+)@(\\w+)[.](\\w+)"
+str_match(x, regex)
 ```
 
-In general, stringr functions with the `_all` suffix affect all matches.
-Functions without `_all` only affect the first match.
+The function extracts the overall match to the pattern, as well as the match to
+each group. The pattern in this example doesn't work for all possible email
+addresses, since user names can contain dots and other characters that are not
+alphanumeric. You could generalize the pattern if necessary. The point is that
+the `str_match` function and groups provide an extremely flexible way to
+extract data from strings.
 
-We'll learn about `str_match` at the end of the next section.
+
+### Case Study: U.S. Warehouse Stocks
+
+The U.S. Department of Agriculture (USDA) publishes a variety of datasets
+online, particularly through its National Agricultural Statistics Service
+(NASS). Unfortunately, most of are published in PDF or semi-structured text
+format, which makes reading the data into R or other statistical software a
+challenge.
+
+The USDA NASS posts [monthly reports][usda-warehouse] about stocks of
+agricultural products in refrigerated warehouses. In this case study, you'll
+use string processing functions to extract a table of data from the [December
+2022 report][usda-warehouse-dec22].
+
+To begin, download the report and save it somewhere on your computer. Then open
+the file in a text editor (or RStudio) to inspect it. The goal is to extract
+the first table, about "Nuts, Dairy Products, Frozen Eggs, and Frozen Poultry,"
+from the report.
+
+[usda-warehouse]: https://usda.library.cornell.edu/concern/publications/pg15bd892
+[usda-warehouse-dec22]: https://downloads.usda.library.cornell.edu/usda-esmis/files/pg15bd892/ww72cn39q/5712nj41v/cost1222.txt
+
+The report is a semi-structured mix of natural language text and fixed-width
+tables. As a consequence, most functions for reading tabular data will not work
+well on the entire report. You could try to use a function for reading
+fixed-width data, such as `read.fwf` or the [readr][] package's `read_fwf` on
+only the lines containing a table. Another approach, which is shown here, is to
+use string processing functions to find and extract the table.
+
+The `readLines` function reads a text file into a character vector with one
+element for each line. This makes the function useful for reading unstructured
+or semi-structured text. Use the function to read the report:
+
+```{r}
+report = readLines("data/cost1222.txt")
+head(report)
+```
+
+In the report, tables always begin and end with lines that contain only dashes
+`-`. By locating these all-dash lines, you can locate the tables. Like
+`str_detect`, the `str_which` function tests whether strings in a vector match
+a pattern. The only difference is that `str_which` returns the indexes of the
+strings that matched (as if you had called `which`) rather than a logical
+vector. Use `str_which` to find the all-dash lines:
+
+```{r}
+# The regex means:
+#   ^  begining of string
+#   -+ one or more dashes
+#   $  end of string
+
+dashes = str_which(report, "^-+$")
+head(report[dashes], 2)
+```
+
+Each table contains three dash lines---one separates the header and body. The
+header and body of the first table are:
+
+```{r}
+report[dashes[1]:dashes[2]]
+
+bod = report[dashes[2]:dashes[3]]
+head(bod)
+```
+
+The columns have fixed widths, so extracting the columns is relatively easy
+with `str_sub` if you can get the offsets. In the last line of the header, the
+columns are separated by colons `:`. Thus you can use the `str_locate_all`
+function, which returns the locations of a pattern in a string, to get the
+offsets:
+
+```{r}
+# The regex means:
+#   [^:]+  one or more characters, excluding colons
+#   (:|$)  a colon or the end of the line
+
+cols = str_locate_all(report[dashes[2] - 1], "[^:]+(:|$)")
+# Like str_split, str_locate_all returns a list
+cols = cols[[1]]
+cols
+```
+
+You can use these offsets with `str_sub` to break a line in the body of the
+table into columns:
+
+```{r}
+str_sub(bod[6], cols)
+```
+
+Because of the way `str_sub` is vectorized, you can't process every line in the
+body of the table in one vectorized call. Instead, you can use `sapply` to call
+`str_sub` on each line:
+
+```{r}
+# Set USE.NAMES to make the table easier to read
+tab = sapply(bod, str_sub, cols, USE.NAMES = FALSE)
+# The sapply function transposes the table
+tab = t(tab)
+head(tab)
+```
+
+The columns still contain undesirable punctuation and whitespace, but you can
+remove these with `str_replace_all` and `str_trim`. Since the table is a
+matrix, it's necessary to use `apply` to process it column-by-column:
+
+```{r}
+# The regex means:
+#   ,     a comma
+#   |     OR
+#   [.]*  zero or more literal dots
+#   :     a colon
+#   $     the end of the line
+
+tab = apply(tab, 2, function(col) {
+  col = str_replace_all(col, ",|[.]*:$", "")
+  str_trim(col)
+})
+head(tab)
+```
+
+The first few rows and the last row can be removed, since they don't contain
+data. Then you can convert the table to a data frame and convert the individual
+columns to appropriate data types:
+
+```{r}
+tab = tab[-c(1:3, nrow(tab)), ]
+tab = data.frame(tab)
+tab[2:7] = lapply(tab[2:7], as.numeric)
+head(tab, 10)
+```
+
+The data frame is now sufficiently clean that you could use it for a simple
+analysis. Of course, there are many things you could do to improve the
+extracted data frame, such as identifying categories and subcategories in the
+first column, removing rows that are completely empty, and adding column names.
+These entail more string processing and data frame manipulation---if you want
+to practice your R skills, try doing them on your own.
 
 
 
-Regular Expressions
--------------------
+Regular Expression Examples
+----------------------------
 
-The stringr functions (including the ones we just learned) use a special
-language called _regular expressions_ or _regex_ for the pattern. The regular
-expressions language is also used in many other programming languages besides
-R.
-
-A regular expression can describe a complicated pattern in just a few
-characters, because some characters, called _metacharacters_, have special
-meanings. Letters and numbers are **never** metacharacters. They're always
-literal.
-
-Here are a few examples of metacharacters (we'll look at examples in the
-subsequent sections):
-
-Metacharacter | Meaning
-------------- | -------
-`.`           | any single character (wildcard)
-``\``         | escape character (in both R and regex)
-`^`           | beginning of string
-`$`           | end of string
-`[ab]`        | `'a'` or `'b'`
-`[^ab]`       | any character except `'a'` or `'b'`
-`?`           | previous character appears 0 or 1 times
-`*`           | previous character appears 0 or more times
-`+`           | previous character appears 1 or more times
-`()`          | make a group
-
-More metacharacters are listed on the stringr cheatsheet, or in `?regex`.
-
-The `str_view` function is especially helpful for testing regular expressions.
-It opens a browser window with the first match in the string highlighted. We'll
-use it in the subsequent regex examples.
+This section provides examples of several different regular expression
+metacharacters and other features. Most of the examples use the `str_view`
+function, which is especially helpful for testing regular expressions. The
+function displays an HTML-rendered version of the string with the first match
+highlighted.
 
 The [RegExr][] website is also helpful for testing regular expressions; it
 provides an interactive interface where you can write regular expressions and
@@ -535,17 +999,19 @@ see where they match a string.
 
 [RegExr]: https://regexr.com/
 
+
 ### The Wildcard
 
-The regex wildcard character is `.` and matches any single character.
+The regex **wildcard** character is `.` and matches any single character. For
+example:
 
-For example:
 ```{r}
 x = "dog"
 str_view(x, "d.g")
 ```
 
 By default, regex searches from left to right:
+
 ```{r}
 str_view(x, ".")
 ```
@@ -558,47 +1024,43 @@ backslash. These are computed separately and after R escape sequences. The main
 use for escape sequences in regex is to turn a metacharacter into a literal
 character.
 
-For example, suppose we want to match a literal dot `.`. The regex for a
+For example, suppose you want to match a literal dot `.`. The regex for a
 literal dot is `\.`. Since backslashes in R strings have to be escaped, the R
-string for this regex is `"\\.`. Then the regex works:
+string for this regex is `"\\.`. For example:
+
 ```{r}
 str_view("this.string", "\\.")
 ```
 
-The double backslash can be confusing, and it gets worse if we want to match a
-literal backslash. We have to escape the backslash in the regex (because
+The double backslash can be confusing, and it gets worse if you want to match a
+literal backslash. You have to escape the backslash in the regex (because
 backslash is the regex escape character) and then also have to escape the
 backslashes in R (because backslash is also the R escape character). So to
 match a single literal backslash in R, the code is:
+
 ```{r}
 str_view("this\\that", "\\\\")
 ```
 
-Raw strings are helpful here, because they make the backslash literal in R
-strings (but still not in regex). We can use raw strings to write the above as:
+Raw strings (see Section \@ref(raw-strings)) make regular expressions easier to
+read, because they make backslashes literal (but they still mark the beginning
+of an escape sequence in regex). You can use a raw string to write the above
+as:
+
 ```{r}
 str_view(r"(this\that)", r"(\\)")
 ```
 
-You can turn off regular expressions entirely in stringr with the `fixed`
-function:
-```{r}
-str_view(x, fixed("."))
-```
-
-It's good to turn off regular expressions whenever you don't need them, both to
-avoid mistakes and because they take longer to compute.
-
-
 ### Anchors
 
 By default, a regex will match anywhere in the string. If you want to force a
-match at specific place, use an anchor.
+match at specific place, use an **anchor**.
 
 The beginning of string anchor is `^`. It marks the beginning of the string,
-but doesn't count as a character in the match.
+but doesn't count as a character in the pattern.
 
-For example, suppose we want to match an `a` at the beginning of the string:
+For example, suppose you want to match an `a` at the beginning of the string:
+
 ```{r}
 x = c("abc", "cab")
 
@@ -611,25 +1073,27 @@ It doesn't make sense to put characters before `^`, since no characters can
 come before the beginning of the string.
 
 Likewise, the end of string anchor is `$`. It marks the end of the string, but
-doesn't count as a character in the match.
+doesn't count as a character in the pattern.
 
 
 ### Character Classes
 
-In regex, square brackets `[ ]` create a _character class_. A character class
-counts as one character, but that character can be any of the characters inside
-the square brackets. The square brackets themselves don't count as characters
-in the match.
+In regex, square brackets `[ ]` denote a **character class**. A character class
+matches exactly one character, but that character can be any of the characters
+inside of the square brackets. The square brackets themselves don't count as
+characters in the pattern.
 
-For example, suppose we want to match a `c` followed by either `a` or `t`:
+For example, suppose you want to match `c` followed by either `a` or `t`:
+
 ```{r}
 x = c("ca", "ct", "cat", "cta")
 
 str_view(x, "c[ta]")
 ```
 
-You can use a dash `-` in a character class to create a range. For example, to
-match letters `p` through `z`:
+You can use a dash `-` in a character class to create a **range**. For example,
+to match letters `p` through `z`:
+
 ```{r}
 str_view(x, "c[p-z]")
 ```
@@ -643,6 +1107,7 @@ Most metacharacters are literal when inside a character class. For example,
 
 A hat `^` at the beginning of the character class negates the class. So for
 example, `[^abc]` matches any one character _except_ for `a`, `b`, or `c`:
+
 ```{r}
 str_view("abcdef", "[^abc]")
 ```
@@ -650,114 +1115,58 @@ str_view("abcdef", "[^abc]")
 
 ### Quantifiers
 
-_Quantifiers_ are metacharacters that affect how many times the preceeding
+**Quantifiers** are metacharacters that affect how many times the preceding
 character must appear in a match. The quantifier itself doesn't count as a
 character in the match.
 
-For example, the `?` quantifier means the preceeding character can appear 0 or
-1 times. In other words, `?` makes the preceeding character optional.
+For example, the question mark `?` quantifier means the preceding character can
+appear 0 or 1 times. In other words, `?` makes the preceding character
+optional. For example:
 
-For example:
 ```{r}
 x = c("abc", "ab", "ac", "abbc")
 
 str_view(x, "ab?c")
 ```
 
-The `*` quantifier means the preceeding character can appear 0 or more times.
-In other words, `*` means the preceeding character can appear any number of
-times or not at all.
+The star `*` quantifier means the preceding character can appear 0 or more
+times. In other words, `*` means the preceding character can appear any number
+of times or not at all. For instance:
+
 ```{r}
 str_view(x, "ab*c")
 ```
 
-The `+` quantifier means the preceeding character must appear 1 or more times.
+The plus `+` quantifier means the preceding character must appear 1 or more
+times.
 
-Quantifiers are _greedy_, meaning they always match as many characters as
-possible.
+Quantifiers are **greedy**, meaning they always match as many characters as
+possible. In this example, notice that the pattern matches the entire string,
+even though it could also match just `abba`:
+
+```{r}
+str_view("abbabbba", ".+a")
+```
+
+You can add a question mark `?` after another quantifier to make it non-greedy:
+
+```{r}
+str_view("abbabbba", ".+?a")
+```
 
 
 ### Groups
 
-In regex, parentheses create a _group_. Groups can be affected by quantifiers,
-making it possible to repeat a pattern (rather than just a character). The
-parentheses themselves don't count as characters in the match.
+In regex, parentheses `( )` denote a **group**. The parentheses themselves
+don't count as characters in the pattern. Groups are useful for repeating or
+extracting specific parts of a pattern (see Section \@ref(extracting-matches)).
 
-For example:
+Quantifiers can act on groups in addition to individual characters. For
+example, suppose you want to make the entire substring `", dogs,"` optional in
+a pattern, so that both of the test strings in this example match:
+
 ```{r}
 x = c("cats, dogs, and frogs", "cats and frogs")
 
 str_view(x, "cats(, dogs,)? and frogs")
 ```
-
-
-### Extracting Matches
-
-Groups are espcially useful with the stringr functions `str_match` and
-`str_match_all`.
-
-The `str_match` function extracts the overall match to the pattern, as well as
-the match to each group. So you can use `str_match` to split a string in more
-complicated ways than `str_split`, or to extract specifc pieces of a string.
-
-For example, suppose we want to split an email address:
-```{r}
-str_match("naulle@ucdavis.edu", "([^@]+)@(.+)[.](.+)")
-```
-
-
-### Case Study: Extracting Emails
-
-
-
-### Case study: SMART train ridership
-The SMART train (Sonoma-Marin Area Rail Transit) provides transit on a single line between the Bay Area and Santa Rosa. We downloaded the rudership numbers from their website at https://www.sonomamarintrain.org/RidershipReports. We want to make a plot of ridership over time in order to show how ridership was affected by the COVID-19 pandemic, but the data is in an unusual format. First of all, the data is in an Excel spreadsheet, so we need to use the `readxl` package to load it.
-
-```{r load-readxl}
-install.packages( "readxl" )
-library( "readxl" )
-library( "lubridate" )
-library( "ggplot2" )
-```
-
-We have to download the data in order to import it:
-
-```{r download-SMART-data}
-smart_path = file.path(tempdir(), "smart_data.xlsx")
-download.file( url="https://www.sonomamarintrain.org/sites/default/files/Ridership%20Reports/SMART%20Ridership%20Web%20Posting_Dec.22.xlsx", destfile=smart_path )
-
-smart = read_excel( smart_path )
-print( smart )
-```
-
-It seems that the ridership table occupies cells B4 to H16 and uses a hyphen to indicate missing data.
-
-```{r import-smart-data}
-smart = read_excel( smart_path, range="B4:H16" )
-```
-
-Now we can look at the ridership data and see that the layout of the table isn't directly usable:
-
-```{r print-raw-smart-data}
-print(smart)
-```
-
-The dates are split between the `Month` column and the years in the column names. We can use the `pivot_longer()` function from the `tidyr` package to help get the data into a format that is suitable for plotting. First, though, the 
-
-```{r pivot-smart-data}
-smart_long = pivot_longer( smart, cols=-1, names_pattern = "^FY([[:digit:]]{2})", names_to="fiscal_year", values_to="rides", names_transform=as.numeric, values_transform=as.numeric)
-```
-
-
-Now it is necessary to convert the months and two-digit years to dates. The `my()` function from the `lubridate` package interprets dates in the form "month, year"
-```{r parse-smart-months}
-smart_long$year = with( smart_long, ifelse( Month %in% c("Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), fiscal_year-1, fiscal_year))
-smart_long$date = with(smart_long, my( paste(Month, year) ))
-```
-
-Now we can plot the time series of SMART train ridership:
-```{r smart-plot}
-ggplot(smart_long) + aes(x=date, y=rides) + geom_line() + expand_limits(y=0)
-```
-
-Notice the huge drop (more than 90%!) in April of 2020. 
