@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle" />
 
 
-<meta name="date" content="2023-01-22" />
+<meta name="date" content="2023-01-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,9 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -231,19 +228,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html"><i class="fa fa-check"></i><b>4</b> Reshaping Data &amp; Automating Tasks</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#reshaping-data"><i class="fa fa-check"></i><b>4.1</b> Reshaping Data</a>
+<li class="chapter" data-level="4.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#tidy-datasets"><i class="fa fa-check"></i><b>4.1</b> Tidy Datasets</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-smart-train-ridership"><i class="fa fa-check"></i><b>4.1.1</b> Case study: SMART train ridership</a></li>
+<li class="chapter" data-level="4.1.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#the-tidyr-package"><i class="fa fa-check"></i><b>4.1.1</b> The tidyr Package</a></li>
+<li class="chapter" data-level="4.1.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#rows-into-columns"><i class="fa fa-check"></i><b>4.1.2</b> Rows into Columns</a></li>
+<li class="chapter" data-level="4.1.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#columns-into-rows"><i class="fa fa-check"></i><b>4.1.3</b> Columns into Rows</a></li>
+<li class="chapter" data-level="4.1.4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#separating-values"><i class="fa fa-check"></i><b>4.1.4</b> Separating Values</a></li>
+<li class="chapter" data-level="4.1.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-smart-ridership"><i class="fa fa-check"></i><b>4.1.5</b> Case Study: SMART Ridership</a></li>
+<li class="chapter" data-level="4.1.6" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#without-tidyr"><i class="fa fa-check"></i><b>4.1.6</b> Without tidyr</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#loops"><i class="fa fa-check"></i><b>4.2</b> Loops</a>
+<li class="chapter" data-level="4.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#iteration-strategies"><i class="fa fa-check"></i><b>4.2</b> Iteration Strategies</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#for-loops"><i class="fa fa-check"></i><b>4.2.1</b> For-loops</a></li>
 <li class="chapter" data-level="4.2.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#while-loops"><i class="fa fa-check"></i><b>4.2.2</b> While-loops</a></li>
 <li class="chapter" data-level="4.2.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#saving-multiple-results"><i class="fa fa-check"></i><b>4.2.3</b> Saving Multiple Results</a></li>
 <li class="chapter" data-level="4.2.4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#break-next"><i class="fa fa-check"></i><b>4.2.4</b> Break &amp; Next</a></li>
-<li class="chapter" data-level="4.2.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#example-the-collatz-conjecture"><i class="fa fa-check"></i><b>4.2.5</b> Example: The Collatz Conjecture</a></li>
+<li class="chapter" data-level="4.2.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#planning-for-iteration"><i class="fa fa-check"></i><b>4.2.5</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="4.2.6" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>4.2.6</b> Case Study: The Collatz Conjecture</a></li>
+<li class="chapter" data-level="4.2.7" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>4.2.7</b> Case Study: U.S. Fruit Prices</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#planning-for-iteration"><i class="fa fa-check"></i><b>4.3</b> Planning for Iteration</a></li>
 </ul></li>
 <li class="part"><span><b>III Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -308,10 +311,10 @@ section.</p>
 <p>You can use the <code>new.env</code> function to create a new environment:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="language-fundamentals.html#cb1-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">new.env</span>()</span>
 <span id="cb1-2"><a href="language-fundamentals.html#cb1-2" aria-hidden="true" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x55adf603aec0&gt;</code></pre>
+<pre><code>## &lt;environment: 0x55f43811d880&gt;</code></pre>
 <p>Unlike most objects, printing an environment doesn’t print its contents.
 Instead, R prints its type (which is <code>environment</code>) and a unique identifier
-(<code>0x55adf603aec0</code> in this case).</p>
+(<code>0x55f43811d880</code> in this case).</p>
 <p>The unique identifier is actually the <strong>memory address</strong> of the environment.
 Every object you use in R is stored as a series of <a href="https://en.wikipedia.org/wiki/Byte">bytes</a> in your computer’s
 <a href="https://en.wikipedia.org/wiki/Random-access_memory">random-access memory (RAM)</a>. Each byte in memory has a unique address,
@@ -487,7 +490,7 @@ returns the call environment:</p>
 <p>The call environment is not the global environment:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="language-fundamentals.html#cb55-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">my_hello</span>()</span>
 <span id="cb55-2"><a href="language-fundamentals.html#cb55-2" aria-hidden="true" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x55adf8217540&gt;</code></pre>
+<pre><code>## &lt;environment: 0x55f43d4220d8&gt;</code></pre>
 <p>And the variable <code>hello</code> exists in the call environment, but not in the global
 environment:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="language-fundamentals.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">&quot;hello&quot;</span>, g)</span></code></pre></div>
@@ -501,9 +504,9 @@ environment:</p>
 memory address):</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="language-fundamentals.html#cb63-1" aria-hidden="true" tabindex="-1"></a>e2 <span class="ot">=</span> <span class="fu">my_hello</span>()</span>
 <span id="cb63-2"><a href="language-fundamentals.html#cb63-2" aria-hidden="true" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x55adf8217540&gt;</code></pre>
+<pre><code>## &lt;environment: 0x55f43d4220d8&gt;</code></pre>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="language-fundamentals.html#cb65-1" aria-hidden="true" tabindex="-1"></a>e2</span></code></pre></div>
-<pre><code>## &lt;environment: 0x55adf86663f8&gt;</code></pre>
+<pre><code>## &lt;environment: 0x55f439afb480&gt;</code></pre>
 <p>By creating a new environment for every call, R isolates code in the function
 body from code outside of the body. As a result, most R functions have no
 <strong>side effects</strong>. This is a good thing, since it means you generally don’t have
@@ -758,21 +761,21 @@ with the same names.</li>
 ##     else &quot;ts&quot;
 ##     y
 ## }
-## &lt;bytecode: 0x55adf6e5c1f8&gt;
+## &lt;bytecode: 0x55f43b62b070&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="language-fundamentals.html#cb111-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span>filter</span></code></pre></div>
 <pre><code>## function (.data, ..., .preserve = FALSE) 
 ## {
 ##     UseMethod(&quot;filter&quot;)
 ## }
-## &lt;bytecode: 0x55adf72da420&gt;
+## &lt;bytecode: 0x55f43bd62408&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="language-fundamentals.html#cb113-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span>ggplot</span></code></pre></div>
 <pre><code>## function (data = NULL, mapping = aes(), ..., environment = parent.frame()) 
 ## {
 ##     UseMethod(&quot;ggplot&quot;)
 ## }
-## &lt;bytecode: 0x55adf59ef860&gt;
+## &lt;bytecode: 0x55f43c79fc08&gt;
 ## &lt;environment: namespace:ggplot2&gt;</code></pre>
 <p>The related triple-colon operator <code>:::</code> gets a <strong>private</strong> variable in a
 package. Generally these are private for a reason! Only use <code>:::</code> if you’re
@@ -1017,13 +1020,13 @@ function, which splits a data frame or vector into groups:</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="language-fundamentals.html#cb148-1" aria-hidden="true" tabindex="-1"></a>split</span></code></pre></div>
 <pre><code>## function (x, f, drop = FALSE, ...) 
 ## UseMethod(&quot;split&quot;)
-## &lt;bytecode: 0x55adf3b02938&gt;
+## &lt;bytecode: 0x55f437e63938&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>Another is the <code>plot</code> function, which creates a plot:</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="language-fundamentals.html#cb150-1" aria-hidden="true" tabindex="-1"></a>plot</span></code></pre></div>
 <pre><code>## function (x, y, ...) 
 ## UseMethod(&quot;plot&quot;)
-## &lt;bytecode: 0x55adf812c598&gt;
+## &lt;bytecode: 0x55f43bea9f48&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The <code>UseMethod</code> function requires the name of the generic (as a string) as its
 first argument. The second argument is optional and specifies the object to use
@@ -1052,7 +1055,7 @@ is:</p>
 ##     lapply(split(x = seq_len(nrow(x)), f = f, drop = drop, ...), 
 ##         function(ind) x[ind, , drop = FALSE])
 ## }
-## &lt;bytecode: 0x55adf5b52da8&gt;
+## &lt;bytecode: 0x55f43816b448&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>Sometimes methods are defined in privately packages and can’t be accessed by
 typing their name at the prompt. You can use the <code>getAnywhere</code> function to get
@@ -1085,7 +1088,7 @@ the code for these methods. For instance, to get the code for
 ##         pairs(data.matrix(x), ...)
 ##     }
 ## }
-## &lt;bytecode: 0x55adf5596bc8&gt;
+## &lt;bytecode: 0x55f43baeb258&gt;
 ## &lt;environment: namespace:graphics&gt;</code></pre>
 <p>As a demonstration of method dispatch, consider this code to split the <code>mtcars</code>
 dataset by number of cylinders:</p>
