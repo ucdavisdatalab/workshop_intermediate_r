@@ -134,7 +134,7 @@ Notice that the dates now have class `Date`, one of R's built-in classes for
 representing dates, and that R prints them differently. Now R recognizes that
 the dates are in fact dates, so they're ready to use in an analysis.
 
-There is [a complete list of automatic the parsing functions][lubridate-parse]
+There is [a complete list of the automatic parsing functions][lubridate-parse]
 in the lubridate documentation.
 
 [lubridate-parse]: https://lubridate.tidyverse.org/reference/index.html#date-time-parsing
@@ -159,15 +159,18 @@ the syntax of `strptime`, a function provided by many programming languages
 `%` followed by a character is called a **specification** and has a special
 meaning. Here are a few of the most useful ones:
 
-| Specification | Description      | January 29, 2015
-|:------------- |:---------------- |:----------------
+| Specification | Description      | 2015-01-29 21:32:55
+|:------------- |:---------------- |:-------------------
 | `%Y`          | 4-digit year     | 2015
-| `%y`          | 2-digit year     | 15
 | `%m`          | 2-digit month    | 01
+| `%d`          | 2-digit day      | 29
+| `%H`          | 2-digit hour     | 21
+| `%M`          | 2-digit minute   | 32
+| `%S`          | 2-digit second   | 55
+| `%%`          | literal %        | %
+| `%y`          | 2-digit year     | 15
 | `%B`          | full month name  | January
 | `%b`          | short month name | Jan
-| `%d`          | day of month     | 29
-| `%%`          | literal %        | %
 
 You can find a complete list in `?fast_strptime`. Other characters in the
 format string do not have any special meaning. Write the format string so that
