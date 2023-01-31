@@ -1,0 +1,181 @@
+Intermediate R Assessment
+=========================
+
+_GradPathways Microcredential_
+
+**Instructions:**
+
+Write your solution to each exercise directly beneath the text for THAT
+exercise. Put text in comments, but leave code uncommented. Submit the edited
+copy of this file.
+
+If you need help, come to DataLab's office hours.
+
+
+Exercise 1
+==========
+
+Consider this code:
+
+```{r, eval = FALSE}
+gen = function(x)
+{
+   function(a) x + a
+}
+f = gen(1:10)
+
+w = 101
+f(w)
+```
+
+In the call `f(w)`, where will R find the values of `a` and `x`, and what are
+their values?
+
+
+
+Exercise 2
+==========
+
+The base package contains a variable named `version`. This is used in the
+function `is.R`:
+
+```{r}
+is.R
+```
+
+Suppose you create a variable in your R session (global environment) named
+`version`, for example:
+
+```{r}
+version = "1.3-0"
+```
+
+and then call `is.R()`. Where will `is.R` find the variable `version` when it
+evaluates `version$language`?
+
+
+Exercise 3
+==========
+
+Suppose you generate several uniform random values between 0 and 1:
+
+```{r}
+x = runif(5)
+```
+
+Format these as two single, comma-separated strings:
+
+1. In standard notation with 2 digits after the decimal.
+2. In scientific notation with 3 digits after the decimal.
+
+
+Exercise 4
+==========
+
+1. Read (or reread) the [Global Options][global] section in the reader and the
+   `?Startup` help file. Pay particular attention to the parts about
+   `.Rprofile`. By default, R searches for `.Rprofile` in your home directory.
+
+   Then read `?path.expand` about the `path.expand` function. Use the function
+   to locate your home directory.
+
+   [global]: https://ucdavisdatalab.github.io/workshop_intermediate_r/output-errors-and-bugs.html#global-options
+
+2. Create or edit the `.Rprofile` file in your home directory. Make sure the
+   file defines a function named `.First`. In that function, use the `options`
+   functions to set some options (you can read `?options` to see what's
+   possible). At a minimum, set `options(warn = 1)` so that R always prints
+   warnings immediately. Restart R and verify that R recognizes your new
+   settings. Include a copy of the code in your `.Rprofile` as your answer to
+   this part.
+
+
+Exercise 5
+==========
+
+The lubridate function `parse_date_time` is a convenient compromise between the
+automatic parsing functions such as `mdy` and the more flexible `fast_strptime`
+function. The idea is that you pass `parse_date_time` the order in which the
+components of the date or time appear, but don't have to pass an entire date
+format string.
+
+1.  Read the documentation for `parse_date_time`. Which parameter controls the
+    order in which the date or time components appear? For times and
+    date-times, does the function return a `POSIXct` or `POSIXlt` object by
+    default?
+
+2.  Use `parse_date_time` to parse these times (make sure to capture AM/PM):
+
+    ```{r}
+    x = c("3:15pm", "4 o' clock, 17 minutes past, pm", "08 45 am", "9th hour,
+          23th minute, pm")
+    ```
+
+
+Exercise 6
+==========
+
+Write a function `parse_numeric` which parses a vector of strings into numbers.
+The function should use functions from the stringr package to automatically
+remove whitespace, commas, the currency symbols `$`, `€`, `¥`, `£`, and percent
+signs `%`.
+
+Test the function on these numbers and also on a vector of numbers you made up
+yourself:
+
+```{r}
+x = c("€100.21", "88%", "$1,000,000", "3,421.8782", "    ¥2100")
+```
+
+
+Exercise 7
+==========
+
+Write a function `clean_names` that cleans up a vector of strings so that they
+are all valid R variable names. A valid name must only contain letters,
+numbers, underscores `_`, and dots `.`, and must begin with a letter or a dot.
+Use functions from the stringr package to replace whitespace between other
+characters with a single underscore `_` and remove any other invalid
+characters.
+
+Give the function an option `to_lower` that controls whether the letters are
+all converted to lowercase, with default `TRUE`.
+
+Test your function on the following strings:
+
+```{r}
+x = c("123hello", "%%%YAY%%%", "result1", "Make Great  Coffee", "  date-time ")
+```
+
+The output should be:
+
+```
+[1] "hello"             "yay"               "result1"
+[4] "make_great_coffee" "datetime"
+```
+
+
+Exercise 8
+==========
+
+1. Suppose you want to use R to simulate water temperature in a small section
+   of a river. At each time step, your simulation will use the result from the
+   previous time step to compute a new result. Each result is a 3-dimensional
+   array of temperatures, which will be stored in a 4-dimensional array (the
+   4th dimension is time). Each time step is 1 second and you want to simulate
+   1 minute of temperatures. What kind of loop should you use?
+
+2. Suppose you want to scrape data from a website with information about the TV
+   show "I Love Lucy". Each page contains information about a single episode
+   and a link to the page for the next episode. You scraper will extract this
+   information from each page, and then use the link to process the next page.
+   You're not sure exactly how many pages there are. What kind of loop should
+   you use?
+
+3. Suppose you're working with a dataset about parking tickets in Davis. Each
+   of the 121 observations records one ticket, and includes the approximate
+   street address where the ticket was issued. Your friend developed a function
+   `geocode_address` that can convert a street address to latitude and
+   longitude coordinates, but hasn't figured out how to vectorize it yet. If
+   you want to compute coordinates for all of the observations, what kind of
+   loop should you use?
