@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle" />
 
 
-<meta name="date" content="2023-01-31" />
+<meta name="date" content="2023-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -710,7 +710,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x5582f41698d0&gt;
+## &lt;bytecode: 0x559c773ed8a0&gt;
 ## &lt;environment: namespace:cli&gt;
 ## 
 ## $CBoundsCheck
@@ -925,8 +925,8 @@ of expressions to benchmark as arguments. For example, to compare the speed of
 <span id="cb264-2"><a href="output-errors-and-bugs.html#cb264-2" aria-hidden="true" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##  expr      min       lq     mean   median       uq       max neval cld
-##     A 2.862972 3.133475 3.232639 3.169052 3.249992  7.160077   100  a 
-##     B 5.752196 6.078848 6.265717 6.151407 6.258802 10.211938   100   b</code></pre>
+##     A 2.829673 3.113377 3.241960 3.135660 3.181304  7.344028   100  a 
+##     B 5.755940 6.056666 6.208045 6.096457 6.143108 10.873386   100   b</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>
