@@ -1,24 +1,24 @@
 # Workshop: Intermediate R
 
 _[UC Davis DataLab](https://datalab.ucdavis.edu/)_  
-_Winter 2023_  
-_Instructor: Nick Ulle <<naulle@ucdavis.edu>>_  
+_Authors: Nick Ulle <<naulle@ucdavis.edu>>, Wes Brooks <<wbrooks@ucdavis.edu>>_
 
 * [Reader](https://ucdavisdatalab.github.io/workshop_intermediate_r/)
 
 This is the reader for all of UC Davis DataLab's Intermediate R workshop
-series. There are currently two:
+series. They are:
 
-1. _Thinking in R_, which is about understanding how R works, how to diagnose
-   and fix bugs in code, and how to estimate and measure performance
-   characteristics of code.
+1. _Data Visualization_ (in development)
 
 2. _Cleaning Data & Automating Tasks_, which is about how to clean and prepare
    messy data such as dates, times, and text for analysis, and how to use loops
    or other forms of iteration to automate repetitive tasks.
 
-Each series is independent and consists of 2 sessions (equivalently, 2 chapters
-in this reader).
+3. _Thinking in R_, which is about understanding how R works, how to diagnose
+   and fix bugs in code, and how to estimate and measure performance
+   characteristics of code.
+
+The material for each series is in a separate part of the reader.
 
 After completing both series, students will have a better understanding of
 language features, packages, and programming strategies, which will enable them
