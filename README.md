@@ -1,12 +1,19 @@
-# Workshop: Intermediate R
+# Workshop Anthology: Intermediate R
 
 _[UC Davis DataLab](https://datalab.ucdavis.edu/)_  
 _Authors: Nick Ulle <<naulle@ucdavis.edu>>, Wes Brooks <<wbrooks@ucdavis.edu>>_
 
-* [Reader](https://ucdavisdatalab.github.io/workshop_intermediate_r/)
+* [Reader][reader]
+* External storage (only accessible to DataLab folks):
+    * [Data Visualiztion Google Drive][viz-drive]
+    * [Cleaning Data / Thinking in R][think-drive]
 
-This is the reader for all of UC Davis DataLab's Intermediate R workshop
-series. They are:
+[reader]: https://ucdavisdatalab.github.io/workshop_intermediate_r/
+[viz-drive]: https://drive.google.com/drive/folders/1-zL6aP5CKngmRYLKLpCk2aRImWpplx6n?usp=share_link
+[think-drive]: https://drive.google.com/drive/folders/14RAlx8HFE9qaZfGMv29chWf7IOA2pJbB?usp=share_link
+
+This is the anthology reader for all of UC Davis DataLab's Intermediate R
+workshop series. Currently, they are:
 
 1. _Data Visualization_ (in development)
 
