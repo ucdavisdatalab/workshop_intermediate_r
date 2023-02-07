@@ -1,9 +1,9 @@
-Debugging
-=========
+Output, Errors, and Bugs
+========================
 
 This chapter is part 2 (of 2) of _Thinking in R_, a workshop series about how R
 works and how to examine code critically. The major topics of this chapter are
-how R prints output, how R's conditions system for warnings and errors works,
+how to print output, how R's conditions system for warnings and errors works,
 how to use the R debugger, and how to estimate the performance of R code.
 
 #### Learning Objectives {-}
@@ -21,16 +21,851 @@ how to use the R debugger, and how to estimate the performance of R code.
 Printing Output
 ---------------
 
+Perhaps the simplest thing you can do to get a better understanding of some
+code is make it print out lots of information about what's happening as it
+runs. This section introduces several different functions for printing output
+and making that output easier to read.
+
+
+### The `print` Function
+
+The `print` function prints a **string representation** of an object to the
+console. The string representation is usually formatted in a way that exposes
+detail important programmers rather than users.
+
+For example, when printing a vector, the function prints the position of the
+first element on each line in square brackets `[ ]`:
+
+```{r}
+print(1:100)
+```
+
+The `print` function also prints quotes around strings:
+
+```{r}
+print("Hi")
+```
+
+These features make the `print` function ideal for printing information when
+you're trying to understand some code or diagnose a bug. On the other hand,
+these features also make `print` a bad choice for printing output or status
+messages for users (including you).
+
+R calls the `print` function automatically anytime a result is returned at the
+prompt. Thus it's not necessary to call `print` to print something when you're
+working directly in the console---only from within loops, functions, scripts,
+and other code that runs non-interactively.
+
+The `print` function is an S3 generic (see Section \@ref(s3)), so you if you
+create an S3 class, you can define a custom print method for it. For S4
+objects, R uses the S4 generic `show` instead of `print`.
+
+
+### The `message` Function
+
+To print output for users, the `message` function is the one you should use.
+The main reason for this is that the `message` function is part of R's
+**conditions system** for reporting status information as code runs. This makes
+it easier for other code to detect, record, respond to, or suppress the output.
+Section \@ref(the-conditions-system) will explain the conditions system in more
+detail.
+
+The `message` function prints its argument(s) and a newline to the console:
+
+```{r}
+message("Hello world!")
+```
+
+If an argument isn't a string, the function automatically and silently attempts
+to coerce it to one:
+
+```{r}
+message(4)
+```
+
+Some types of objects can't be coerced to a string:
+
+```{r, error = TRUE}
+message(sqrt)
+```
+
+For objects with multiple elements, the function pastes together the string
+representations of the elements with no separators in between:
+
+```{r}
+x = c(1, 2, 3)
+message(x)
+```
+
+Similarly, if you pass the `message` function multiple arguments, it pastes
+them together with no separators:
+
+```{r}
+name = "R"
+message("Hi, my name is ", name, " and x is ", x)
+```
+
+This is a convenient way to print names or descriptions alongside values from
+your code without having to call a formatting function like `paste`. 
+
+You can make the message function print something without adding a newline at
+the end by setting the argument `appendLF = FALSE`. The difference can be easy
+to miss unless you make several calls to `message`, so the `say_hello` function
+in this example calls `message` twice:
+
+```{r}
+say_hello = function(appendLF) {
+  message("Hello", appendLF = appendLF)
+  message(" world!")
+}
+
+say_hello(appendLF = TRUE)
+
+say_hello(appendLF = FALSE)
+```
+
+Note that RStudio always adds a newline in front of the prompt, so making an
+isolated call to `message` with `appendLF = FALSE` appears to produce the same
+output as with `appendLF = TRUE`. This is an example of a situation where
+RStudio leads you astray: in an ordinary R console, the two are clearly
+different.
+
+
+### The `cat` Function
+
+The `cat` function, whose name stands for "concatenate and print," is a
+low-level way to print output to the console or a file. The `message` function
+prints output by calling `cat`, but `cat` is not part of R's conditions system.
+
+The `cat` function prints its argument(s) to the console. It does not add a
+newline at the end:
+
+```{r}
+cat("Hello")
+```
+
+As with `message`, RStudio hides the fact that there's no newline if you make
+an isolated call to `cat`.
+
+The `cat` function coerces its arguments to strings and concatenates them. By
+default, a space ` ` is inserted between arguments and their elements:
+
+```{r}
+cat(4)
+cat(x)
+cat("Hello", "Nick")
+```
+
+You can set the `sep` parameter to control the separator `cat` inserts:
+
+```{r}
+cat("Hello", "world", x, sep = "|")
+```
+
+If you want to write output to a file rather than to the console, you can call
+`cat` with the `file` parameter set. However, it's preferable to use functions
+tailored to writing specific kinds of data, such as `writeLines` (for text) or
+`write.table` (for tabular data), since they provide additional options to
+control the output.
+
+Many scripts and packages still use `cat` to print output, but the `message`
+function provides more flexibility and control to people running the code. Thus
+it's generally preferable to use `message` in new code. Nevertheless, there are
+a few specific cases where `cat` is useful---for example, if you want to pipe
+data to a UNIX shell command. See `?cat` for details.
+
+
+### Formatting Output
+
+R provides a variety of ways to format data before you print it. Taking the
+time to format output carefully makes it easier to read and understand, as well
+as making your scripts seem more professional.
+
+#### Escape Sequences
+
+One way to format strings is by adding (or removing) **escape sequences**. An
+escape sequence is a sequence of characters that represents some other
+character, usually one that's invisible (such as whitespace) or doesn't appear
+on a standard keyboard.
+
+In R, escape sequences always begin with a backslash. For example, `\n` is a
+newline. The `message` and `cat` functions automatically convert escape
+sequences to the characters they represent:
+
+```{r}
+x = "Hello\nworld!"
+message(x)
+```
+
+The `print` function doesn't convert escape sequences:
+
+```{r}
+print(x)
+```
+
+Some escape sequences trigger special behavior in the console. For example,
+ending a line with a carriage return `\r` makes the console print the next line
+over the line. Try running this code in a console (it's not possible to see the
+result in a static book):
+
+```{r, eval = FALSE}
+# Run this in an R console.
+for (i in 1:10) {
+  message(i, "\r", appendLF = FALSE)
+  # Wait 0.5 seconds.
+  Sys.sleep(0.5)
+}
+```
+
+You can find a complete list of escape sequences in `?Quotes`.
+
+
+#### Formatting Functions
+
+You can use the `sprintf` function to apply specific formatting to values and
+substitute them into strings. The function uses a mini-language to describe the
+formatting and substitutions. The `sprintf` function (or something like it) is
+available in many programming languages, so being familiar with it will serve
+you well on your programming journey.
+
+The key idea is that substitutions are marked by a percent sign `%` and a
+character. The character indicates the kind of data to be substituted: `s` for
+strings, `i` for integers, `f` for floating point numbers, and so on.
+
+The first argument to `sprintf` must be a string, and subsequent arguments are
+values to substitute into the string (from left to right).  For example:
+
+```{r}
+sprintf("My age is %i, and my name is %s", 32, "Nick")
+```
+
+You can use the mini-language to do things like specify how many digits to
+print after a decimal point. Format settings for a substituted value go between
+the percent sign `%` and the character. For instance, here's how to print `pi`
+with 2 digits after the decimal:
+
+```{r}
+sprintf("%.2f", pi)
+```
+
+You can learn more by reading `?sprintf`.
+
+Much simpler are the `paste` and `paste0` functions, which coerce their
+arguments to strings and concatenate (or "paste together") them. The `paste`
+function inserts a space ` ` between each argument, while the `paste0`
+function doesn't:
+
+```{r}
+paste("Hello", "world")
+paste0("Hello",  "world")
+```
+
+You can control the character inserted between arguments with the `sep`
+parameter.
+
+By setting an argument for the `collapse` parameter, you can also use the
+`paste` and `paste0` functions to concatenate the elements of a vector. The
+argument to `collapse` is inserted between the elements. For example, suppose
+you want to paste together elements of a vector inserting  a comma and space
+`,` in between:
+
+```{r}
+paste(1:3, collapse = ", ")
+```
+
+Members of the R community have developed many packages to make formatting
+strings easier:
+
+* [cli][] -- helper functions for developing command-line interfaces,
+  including functions to add color, progress bars, and more.
+* [glue][] -- alternatives to `sprintf` for string iterpolation.
+* [stringr][] -- a collection of general-purpose string manipulation functions.
+
+[cli]: https://cli.r-lib.org/
+[glue]: https://glue.tidyverse.org/
+[stringr]: https://stringr.tidyverse.org/
+
+
+### Logging Output
+
+**Logging** means saving the output from some code to a file as the code runs.
+The file where the output is saved is called a **log file** or log, but this
+name isn't indicative of a specific format (unlike, say, a "CSV file").
+
+It's a good idea to set up some kind of logging for any code that takes more
+than a few minutes to run, because then if something goes wrong you can inspect
+the log to diagnose the problem. Think of any output that's not logged as
+ephemeral: it could disappear if someone reboots the computer, or there's a
+power outage, or some other, unforeseen event.
+
+R's built-in tools for logging are rudimentary, but members of the community
+have developed a variety of packages for logging. Here are a few that are still
+actively maintained as of January 2023:
+
+* [logger][] -- a relatively new package that aims to improve aspects of other
+  logging packages that R users find confusing.
+* [futile.logger][] -- a popular, mature logging package based on Apache's
+  Log4j utility and on R idioms.
+* [logging][] -- a mature logging package based on Python's `logging` module.
+* [loggit][] -- integrates with R's conditions system and writes logs in
+  JavaScript Object Notation (JSON) format so they are easy to inspect
+  programmatically.
+* [log4r][] -- another package based on Log4j with an object-oriented
+  programming approach.
+
+[futile.logger]: https://github.com/zatonovo/futile.logger
+[logging]: https://github.com/WLOGSolutions/r-logging
+[loggit]: https://github.com/ryapric/loggit
+[logger]: https://github.com/daroczig/logger
+[log4r]: https://github.com/johnmyleswhite/log4r
+
+
 
 The Conditions System
 ---------------------
 
+R's conditions system provides a way to signal and handle unusual conditions
+that arise while code runs. With the conditions system, you can make R print
+status, warning, and error messages that make it easier for users to understand
+what your code is doing and whether they're using it as intended. The condition
+system also makes it possible to safely run code that might cause an error, and
+respond appropriately in the event that it does. In short, understanding the
+conditions system will enable you write code that's easier to use and more
+robust.
 
-Debugging Code
+
+### Raising Conditions
+
+The `message`, `warning`, and `stop` functions are the primary ways to
+**raise**, or signal, conditions.
+
+The `message` function was described in Section \@ref(the-message-function). A
+message provides status information about running code, but does not
+necessarily indicate that something has gone wrong. You can use messages to
+print out any information you think might be relevant to users.
+
+The `warning` function raises a **warning**. Warnings indicate that something
+unexpected happened, but that it didn't stop the code from running. By default,
+R doesn't print warnings to the console until code finishes running, which can
+make it difficult to understand their cause; Section \@ref(global-options)
+explains how to change this setting.
+
+Unnamed arguments to the `warning` function are concatenated with no separator
+between them, in the same way as arguments to the `message` function. For
+example:
+
+```{r}
+warning("Objects in mirror", " may be closer than they appear.")
+```
+
+Warnings are always printed with `Warning: ` before the message. By default,
+calling `warning` from the body of a function also prints the name of the
+function:
+
+```{r}
+f = function(x, y) {
+  warning("This is a warning!")
+  x + y
+}
+f(3, 4)
+```
+
+The name of the function that raised the warning is generally useful
+information for users that want to correct whatever caused the warning.
+Occasionally, you might want to disable this behavior, which you can do by
+setting `call. = FALSE`:
+
+```{r}
+f = function(x, y) {
+  warning("This is a warning!", call. = FALSE)
+  x + y
+}
+
+f(3, 4)
+```
+
+The `warning` function also has several other parameters that control when and
+how warnings are displayed.
+
+The `stop` function raises an **error**, which indicates that something
+unexpected happened that prevents the code from running, and immediately stops
+the evaluation of code. As a result, R prints errors as soon as they're raised.
+For instance, in this function, the line `x + y` never runs:
+
+```{r, error = TRUE}
+f = function(x, y) {
+  stop()
+  x + y
+}
+
+f(3, 4)
+```
+
+Like `message` and `warning`, the `stop` function concatenates its unnamed
+arguments into a message to print:
+
+```{r, error = TRUE}
+stop("I'm afraid something has gone terribly wrong.")
+```
+
+Errors are always printed with `Error: ` before the error message. You can use
+the `call.` parameter to control whether the error message also includes the
+name of the function from which `stop` was called.
+
+When writing code---especially functions, executable scripts, and
+packages---it's a good habit to include tests for unexpected conditions such as
+invalid arguments and impossible results. If the tests detect a problem, use
+the `warning` or `stop` function (depending on severity) to signal what the
+problem is. Try to provide a concise but descriptive warning or error message
+so that users can easily understand what went wrong.
+
+
+
+### Handling Conditions
+
+In some cases, you can anticipate the problems likely to occur when code runs
+and can even devise ways to work around them. As an example, suppose your code
+is supposed to load parameters from a configuration file, but the path to the
+file provided by the user is invalid. It might still be possible for your code
+to run by falling back on a set of default parameters. R's conditions system
+provides a way to handle or "catch" messages, warnings, and errors, and to run
+alternative code in response.
+
+You can use the `try` function to safely run code that might produce an error.
+If no error occurs, the `try` function returns whatever the result of the code
+was. If an error does occur, the `try` function prints the error message and
+returns an object of class `try-error`, but evaluation does not stop. For
+example:
+
+
+```{r}
+bad_add = function(x) {
+  # No error
+  x1 = try(5 + x)
+  # Error
+  x2 = try("yay" + x)
+
+  list(x1, x2)
+}
+
+bad_add(10)
+```
+
+The simplest thing you can do in response to an error is ignore it. This is
+usually not a good idea, but if you understand exactly what went wrong, can't
+fix it easily, and know it won't affect the rest of your code, doing so might
+be the best option.
+
+A more robust approach is to inspect the result from a call to `try` to see if
+an error occurred, and then take some appropriate action if one did. You can
+use the `inherits` function to check whether an object has a specific class, so
+here's a template for how to run code that might cause an error, check for the
+error, and respond to it:
+
+```{r, eval = FALSE}
+result = try({
+  # Code that might cause an error.
+})
+if (inherits(result, "try-error")) {
+  # Code to respond to the error.
+}
+```
+
+You can prevent the `try` function from printing error messages by setting
+`silent = TRUE`. This is useful when your code is designed to detect and handle
+the error, so you don't users to think an error occurred.
+
+The `tryCatch` function provides another way to handle conditions raised by a
+piece of code. It requires that you provide a **handler function** for each
+kind of condition you want to handle. The kinds of conditions are:
+
+* `message`
+* `warning`
+* `error`
+* `interrupt` -- when the user interrupts the code (for example, by
+  pressing Ctrl-C)
+
+Each handler function must accept exactly one argument.
+
+When you call `tryCatch`, if the suspect code raises a condition, then it calls
+the associated handler function and returns whatever the handler returns.
+Otherwise, `tryCatch` returns the result of the code.
+
+Here's an example of using `tryCatch` to catch an error:
+```{r}
+bad_fn = function(x, y) {
+  stop("Hi")
+  x + y
+}
+
+err = tryCatch(bad_fn(3, 4), error = function(e) e)
+```
+
+And here's an example of using `tryCatch` to catch a message:
+
+```{r}
+msg_fn = function(x, y) {
+  message("Hi")
+  x + y
+}
+
+msg = tryCatch(msg_fn(3, 4), message = function(e) e)
+```
+
+The `tryCatch` function always silences conditions. Details about raised
+conditions are provided in the object passed to the handler function, which has
+class `condition` (and a more specific class that indicates what kind of
+condition it is).
+
+If you want to learn more about R's conditions system, start by reading
+`?conditions`.
+
+
+
+Global Options
 --------------
 
+R's **global options** to control many different aspects of how R works.
+They're relevant to the theme of this chapter because some of them control when
+and how R displays warnings and errors.
 
-Profiling Code
---------------
+You can use the `options` function to get or set global options. If you call
+the function with no arguments, it returns the current settings:
+
+```{r}
+opts = options()
+# Display the first 6 options.
+head(opts)
+```
+
+This section only explains a few of the options, but you can read about all of
+them in `?options`.
+
+The `warn` option controls how R handles warnings. It can be set to three
+different values:
+
+* `0` -- (the default) warnings are only displayed after code finishes
+  running.
+
+* `1` -- warnings are displayed immediately.
+
+* `2` -- warnings stop code from running, like errors.
+
+Setting `warn = 2` is useful for pinpointing expressions that raise warnings.
+Setting `warn = 1` makes it easier to determine which expressions raise
+warnings, without the inconvenience of stopping code from running. That makes
+it a good default (better than the actual default). You can use the `option`
+function to change the value of the `warn` option:
+
+```{r}
+options(warn = 1)
+```
+
+When you set an option this way, the change only lasts until you quit R. Next
+time you start R, the option will go back to its default value. Fortunately,
+there is a way override the default options every time R starts.
+
+When R starts, it searches for a `.Rprofile` file. The file is usually in your
+system's home directory (see [this section][homedir] of the R Basics Reader for
+how to locate your home directory). Customizing your `.Rprofile` file is one of
+the marks of an experienced R user. If you define a `.First` function in your
+`.Rprofile`, R will call it automatically during startup. Here's an example
+`.First` function:
+
+```{r, eval = FALSE}
+.First = function() {
+  # Only change options if R is running interactively.
+  if (!interactive())
+    return()
+
+  options(
+    # Don't print more than 1000 elements of anything.
+    max.print = 1000,
+    # Warn on partial matches.
+    warnPartialMatchAttr = TRUE,
+    warnPartialMatchDollar = TRUE,
+    warnPartialMatchArgs = TRUE,
+    # Print warnings immediately (2 = warnings are errors).
+    warn = 1
+  )
+}
+```
+
+You can learn more about the `.Rprofile` file and R's startup process at
+`?Startup`. 
+
+[homedir]: https://ucdavisdatalab.github.io/workshop_r_basics/getting-started.html#absolute-relative-paths
+
+
+
+Debugging
+---------
+
+**Debugging** code is the process of confirming, step-by-step, that what you
+believe the code does is what the code actually does. The key idea is to check
+each step (or expression) in the code. There are two different strategies for
+doing this:
+
+* Work forward through the code from the beginning.
+* Work backward from the source of an error.
+
+R has built-in functions to help with debugging. The `browser()` function
+pauses the running code and starts R's debugging system.
+
+For example:
+```{r, eval = FALSE}
+# Run this in an R console.
+f = function(n) {
+  total = 0
+  for (i in 1:n) {
+    browser()
+    total = total + i
+  }
+  total
+}
+
+f(10)
+```
+
+The most important debugger commands are:
+
+* `n` to run the next line
+* `s` to "step into" a call
+* `c` to continue running the code
+* `Q` to quit the debugger
+* `where` to print call stack
+* `help` to print debugger help
+
+
+Another example:
+```{r, eval = FALSE}
+# Run this in an R console.
+g = function(x, y) (1 + x) * y
+
+f = function(n) {
+  total = 0
+  for (i in 1:n) {
+    browser()
+    total = total + g(i, i)
+  }
+
+  total
+}
+
+f(11)
+```
+
+
+### Other Functions
+
+The `debug()` function places a call to `browser()` at the beginning
+of a function. Use `debug()` to debug functions that you can't or don't want to
+edit. For example:
+
+```{r, eval = FALSE}
+# Run this in an R console.
+f = function(x, y) {
+  x + y
+}
+
+debug(f)
+f(5, 5)
+```
+
+You can use `undebug()` to reverse the effect of `debug()`:
+
+```{r, eval = FALSE}
+# Run this in an R console.
+undebug(f)
+f(10, 20)
+```
+
+The `debugonce()` function places a call to `browser()` at the beginning of a
+function for the next call only. The idea is that you then don't have to call
+`undebug()`. For instance:
+
+```{r, eval = FALSE}
+# Run this in an R console.
+debugonce(f)
+f(10, 20)
+f(3, 4)
+```
+
+Finally, the global option `error` can be used to make R enter the debugger any
+time an error occurs. Set the option to `error = recover`:
+
+```{r, eval = FALSE}
+options(error = recover)
+```
+
+Then try this example:
+
+```{r, eval = FALSE}
+# Run this in an R console.
+bad_fn = function(x, y) {
+  stop("Hi")
+  x + y
+}
+
+bad_fn(3, 4)
+```
+
+
+
+Measuring Performance
+---------------------
+
+How quickly code runs and how much memory it uses can be just as much of an
+obstacle to research computing tasks as errors and bugs. This section describes
+some of the strategies you can use to estimate or measure the performance
+characteristics of code, so that you can identify potential problems and fix
+them.
+
+
+### Estimating Memory Usage
+
+Running out of memory can be extremely frustrating, because it can slow down
+your code or prevent it from running at all.
+
+It's useful to know how to estimate how much memory a given data structure will
+use so that you can determine whether a programming strategy is feasible before
+you even start writing code. The [central processing units][cpu] (CPUs) in most
+modern computers are designed to work most efficiently with [64 bits][64-bit]
+of data at a time. Consequently, R and other programming languages typically
+use 64 bits to store each number (regardless of type). While the data
+structures R uses create some additional overhead, you can use this fact to do
+[back-of-the-envelope][bote] calculations about how much memory a vector or
+matrix of numbers will require.
+
+[cpu]: https://en.wikipedia.org/wiki/Central_processing_unit
+[64-bit]: https://en.wikipedia.org/wiki/64-bit_computing
+[bote]: https://en.wikipedia.org/wiki/Back-of-the-envelope_calculation
+
+Start by determining how many elements the data structure will contain. Then
+multiply by 64 bits and divide by 8 to convert bits to bytes. You can then
+repeatedly divide by 1024 to convert to kilobytes, megabytes, gigabytes, or
+terabytes. For instance, an vector of 2 million numbers will require
+approximately this many megabytes:
+
+```{r}
+n = 2000000
+n * (64 / 8) / 1024^2
+```
+
+You can even write an R function to do these calculations for you! If you're
+not sure whether a particular programming strategy is realistic, do the memory
+calculations *before* you start writing code. This is a simple way to avoid
+strategies that are inefficient.
+
+If you've already written some code and it runs out of memory, the first step
+to fixing the problem is identifying the cause. The [lobstr][] package provides
+functions to explore how R is using memory.
+
+[lobstr]: https://lobstr.r-lib.org/
+
+You can use the `mem_used` function to get the amount of memory R is currently
+using:
+
+```{r}
+library("lobstr")
+mem_used()
+```
+
+Sometimes the culprit isn't your code, but other applications on your computer.
+Modern web browsers are especially memory-intensive, and closing yours while
+you run code can make a big difference.
+
+If you've determined that your code is the reason R runs out of memory, you can
+use the `obj_size` function to get how much memory objects in your code
+actually use:
+
+```{r}
+obj_size(1)
+
+x = runif(n)
+obj_size(x)
+
+obj_size(mtcars)
+```
+
+If a specific object created by your code uses a lot of memory, think about
+ways you might change the code to avoid creating the object or avoid creating
+the entire object at once. For instance, consider whether it's possible to
+create part of the object, save that to disk, remove it from memory, and then
+create the another part.
+
+
+### Benchmarking
+
+**Benchmarking** means timing how long code takes to run. Benchmarking is
+useful for evaluating different strategies to solve a computational problem and
+for understanding how quickly (or slowly) your code runs. When you benchmark
+code, it's important to collect and aggregate multiple data points so that your
+estimates reflect how the code performs on average.
+
+R has built-in functions for timing code, but several packages provide
+functions that are more convenient for benchmarking, because they automatically
+run the code multiple times and return summary statistics. The two most mature
+packages for benchmarking are:
+
+* [microbenchmark][]
+* [bench][]
+
+[microbenchmark]: https://cran.r-project.org/web/packages/microbenchmark/index.html
+[bench]: https://bench.r-lib.org/
+
+The microbenchmark package is simpler to use. It provides a single function,
+`microbenchmark`, for carrying out benchmarks. The function accepts any number
+of expressions to benchmark as arguments. For example, to compare the speed of
+`runif` and `rnorm` (as `A` and `B` respectively):
+
+```{r}
+library("microbenchmark")
+microbenchmark(A = runif(1e5), B = rnorm(1e5))
+```
+
+The `microbenchmark` has parameters to control the number of times each
+expression runs, the units for the timings, and more. You can find the details
+in `?microbenchmark`.
+
+
+### Profiling
+
+
+**Profiling** code means collecting data about the code as it runs, and a
+**profiler** is a program that profiles code. A typical profiler estimates how
+much time is spent on each expression (as actual time or as a percentage of
+total runtime) and how much memory the code uses over time. Profiling is a good
+way to determine which parts of your code are performance bottlenecks, so that
+you can target them when you try to optimize your code.
+
+R has a built-in profiler. You can use the `Rprof` function to enable or
+disable the profiler. Essential parameters for the function are:
+
+* `filename` -- a path to a file for storing results. Defaults to `Rprof.out`.
+* `interval` -- the time between samples, in seconds.
+* `memory.profiling` --  whether to track memory in addition to time.
+
+Set these parameters in the first call you make to `Rprof`, which will enable
+the profiler. Then run the code you want to profile. At the end of the code,
+call `Rprof(NULL)` to disable the profiler.
+
+The profiler saves the collected data to a file. You can use the `summaryRprof`
+function to read the profile data and get a summary. Essential parameters for
+this function are:
+
+* `filename` -- the path to the results file. Defaults to `Rprof.out`.
+* `memory` -- how to display memory information. Use `"both"` to see total
+  changes.
+
+The summary lists times in seconds and memory in bytes.
+
+The [profvis][] package provides an interactive graphical interface for
+exploring profile data collected with `Rprof`. Examining profile data
+graphically makes it easier to interpret the results and to identify patterns.
+
+[profvis]: https://rstudio.github.io/profvis/
+
+
 
 

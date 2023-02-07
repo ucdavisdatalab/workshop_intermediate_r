@@ -4,6 +4,8 @@
 .LSOverride
 #.RData
 .Rhistory
+.Rproj.user
+.Rproj
 
 # Thumbnails
 ._*

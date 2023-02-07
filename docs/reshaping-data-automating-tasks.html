@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Reshaping Data &amp; Automating Tasks | Intermediate R</title>
+  <meta name="description" content="4 Reshaping Data &amp; Automating Tasks | Intermediate R" />
+  <meta name="generator" content="bookdown 0.29 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Reshaping Data &amp; Automating Tasks | Intermediate R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="ucdavisdatalab/workshop_intermediate_r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Reshaping Data &amp; Automating Tasks | Intermediate R" />
+  
+  
+  
+
+<meta name="author" content="Nick Ulle" />
+
+
+<meta name="date" content="2023-02-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="string-date-processing.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://datalab.ucdavis.edu/">
+  <img src="https://datalab.ucdavis.edu/wp-content/uploads/2019/07/datalab-logo-full-color-rgb-1.png" style="height: 100%; width: 100%; object-fit: contain" />
+</a></li>
+<li><a href="./" style="font-size: 18px">Intermediate R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="part"><span><b>I Thinking in R</b></span></li>
+<li class="chapter" data-level="1" data-path="language-fundamentals.html"><a href="language-fundamentals.html"><i class="fa fa-check"></i><b>1</b> Language Fundamentals</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variables-environments"><i class="fa fa-check"></i><b>1.1</b> Variables &amp; Environments</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#whats-an-environment"><i class="fa fa-check"></i><b>1.1.1</b> What’s an Environment?</a></li>
+<li class="chapter" data-level="1.1.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#reference-objects"><i class="fa fa-check"></i><b>1.1.2</b> Reference Objects</a></li>
+<li class="chapter" data-level="1.1.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-local-environment"><i class="fa fa-check"></i><b>1.1.3</b> The Local Environment</a></li>
+<li class="chapter" data-level="1.1.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#call-environments"><i class="fa fa-check"></i><b>1.1.4</b> Call Environments</a></li>
+<li class="chapter" data-level="1.1.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#lexical-scoping"><i class="fa fa-check"></i><b>1.1.5</b> Lexical Scoping</a></li>
+<li class="chapter" data-level="1.1.6" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variable-lookup"><i class="fa fa-check"></i><b>1.1.6</b> Variable Lookup</a></li>
+<li class="chapter" data-level="1.1.7" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-search-path"><i class="fa fa-check"></i><b>1.1.7</b> The Search Path</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#closures"><i class="fa fa-check"></i><b>1.2</b> Closures</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#tidy-closures"><i class="fa fa-check"></i><b>1.2.1</b> Tidy Closures</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#attributes"><i class="fa fa-check"></i><b>1.3</b> Attributes</a></li>
+<li class="chapter" data-level="1.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#s3"><i class="fa fa-check"></i><b>1.4</b> S3</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#method-dispatch"><i class="fa fa-check"></i><b>1.4.1</b> Method Dispatch</a></li>
+<li class="chapter" data-level="1.4.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#creating-objects"><i class="fa fa-check"></i><b>1.4.2</b> Creating Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#other-object-systems"><i class="fa fa-check"></i><b>1.5</b> Other Object Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html"><i class="fa fa-check"></i><b>2</b> Output, Errors, and Bugs</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#printing-output"><i class="fa fa-check"></i><b>2.1</b> Printing Output</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-print-function"><i class="fa fa-check"></i><b>2.1.1</b> The <code>print</code> Function</a></li>
+<li class="chapter" data-level="2.1.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-message-function"><i class="fa fa-check"></i><b>2.1.2</b> The <code>message</code> Function</a></li>
+<li class="chapter" data-level="2.1.3" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-cat-function"><i class="fa fa-check"></i><b>2.1.3</b> The <code>cat</code> Function</a></li>
+<li class="chapter" data-level="2.1.4" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#formatting-output"><i class="fa fa-check"></i><b>2.1.4</b> Formatting Output</a></li>
+<li class="chapter" data-level="2.1.5" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#logging-output"><i class="fa fa-check"></i><b>2.1.5</b> Logging Output</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-conditions-system"><i class="fa fa-check"></i><b>2.2</b> The Conditions System</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#raising-conditions"><i class="fa fa-check"></i><b>2.2.1</b> Raising Conditions</a></li>
+<li class="chapter" data-level="2.2.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#handling-conditions"><i class="fa fa-check"></i><b>2.2.2</b> Handling Conditions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#global-options"><i class="fa fa-check"></i><b>2.3</b> Global Options</a></li>
+<li class="chapter" data-level="2.4" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#debugging"><i class="fa fa-check"></i><b>2.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#other-functions"><i class="fa fa-check"></i><b>2.4.1</b> Other Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#measuring-performance"><i class="fa fa-check"></i><b>2.5</b> Measuring Performance</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#estimating-memory-usage"><i class="fa fa-check"></i><b>2.5.1</b> Estimating Memory Usage</a></li>
+<li class="chapter" data-level="2.5.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#benchmarking"><i class="fa fa-check"></i><b>2.5.2</b> Benchmarking</a></li>
+<li class="chapter" data-level="2.5.3" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#profiling"><i class="fa fa-check"></i><b>2.5.3</b> Profiling</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Cleaning Data &amp; Automating Tasks</b></span></li>
+<li class="chapter" data-level="3" data-path="string-date-processing.html"><a href="string-date-processing.html"><i class="fa fa-check"></i><b>3</b> String &amp; Date Processing</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-tidyverse"><i class="fa fa-check"></i><b>3.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#parsing-dates-times"><i class="fa fa-check"></i><b>3.2</b> Parsing Dates &amp; Times</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-lubridate-package"><i class="fa fa-check"></i><b>3.2.1</b> The lubridate Package</a></li>
+<li class="chapter" data-level="3.2.2" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-ocean-temperatures"><i class="fa fa-check"></i><b>3.2.2</b> Case Study: Ocean Temperatures</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#string-fundamentals"><i class="fa fa-check"></i><b>3.3</b> String Fundamentals</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#printing"><i class="fa fa-check"></i><b>3.3.1</b> Printing</a></li>
+<li class="chapter" data-level="3.3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-1"><i class="fa fa-check"></i><b>3.3.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="3.3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#raw-strings"><i class="fa fa-check"></i><b>3.3.3</b> Raw Strings</a></li>
+<li class="chapter" data-level="3.3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-encodings"><i class="fa fa-check"></i><b>3.3.4</b> Character Encodings</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#processing-strings"><i class="fa fa-check"></i><b>3.4</b> Processing Strings</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-stringr-package"><i class="fa fa-check"></i><b>3.4.1</b> The stringr Package</a></li>
+<li class="chapter" data-level="3.4.2" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expressions"><i class="fa fa-check"></i><b>3.4.2</b> Regular Expressions</a></li>
+<li class="chapter" data-level="3.4.3" data-path="string-date-processing.html"><a href="string-date-processing.html#replacing-parts-of-strings"><i class="fa fa-check"></i><b>3.4.3</b> Replacing Parts of Strings</a></li>
+<li class="chapter" data-level="3.4.4" data-path="string-date-processing.html"><a href="string-date-processing.html#splitting-strings"><i class="fa fa-check"></i><b>3.4.4</b> Splitting Strings</a></li>
+<li class="chapter" data-level="3.4.5" data-path="string-date-processing.html"><a href="string-date-processing.html#extracting-matches"><i class="fa fa-check"></i><b>3.4.5</b> Extracting Matches</a></li>
+<li class="chapter" data-level="3.4.6" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-u.s.-warehouse-stocks"><i class="fa fa-check"></i><b>3.4.6</b> Case Study: U.S. Warehouse Stocks</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expression-examples"><i class="fa fa-check"></i><b>3.5</b> Regular Expression Examples</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-wildcard"><i class="fa fa-check"></i><b>3.5.1</b> The Wildcard</a></li>
+<li class="chapter" data-level="3.5.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-2"><i class="fa fa-check"></i><b>3.5.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="3.5.3" data-path="string-date-processing.html"><a href="string-date-processing.html#anchors"><i class="fa fa-check"></i><b>3.5.3</b> Anchors</a></li>
+<li class="chapter" data-level="3.5.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-classes"><i class="fa fa-check"></i><b>3.5.4</b> Character Classes</a></li>
+<li class="chapter" data-level="3.5.5" data-path="string-date-processing.html"><a href="string-date-processing.html#quantifiers"><i class="fa fa-check"></i><b>3.5.5</b> Quantifiers</a></li>
+<li class="chapter" data-level="3.5.6" data-path="string-date-processing.html"><a href="string-date-processing.html#groups"><i class="fa fa-check"></i><b>3.5.6</b> Groups</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html"><i class="fa fa-check"></i><b>4</b> Reshaping Data &amp; Automating Tasks</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#tidy-datasets"><i class="fa fa-check"></i><b>4.1</b> Tidy Datasets</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#the-tidyr-package"><i class="fa fa-check"></i><b>4.1.1</b> The tidyr Package</a></li>
+<li class="chapter" data-level="4.1.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#rows-into-columns"><i class="fa fa-check"></i><b>4.1.2</b> Rows into Columns</a></li>
+<li class="chapter" data-level="4.1.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#columns-into-rows"><i class="fa fa-check"></i><b>4.1.3</b> Columns into Rows</a></li>
+<li class="chapter" data-level="4.1.4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#separating-values"><i class="fa fa-check"></i><b>4.1.4</b> Separating Values</a></li>
+<li class="chapter" data-level="4.1.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-smart-ridership"><i class="fa fa-check"></i><b>4.1.5</b> Case Study: SMART Ridership</a></li>
+<li class="chapter" data-level="4.1.6" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#without-tidyr"><i class="fa fa-check"></i><b>4.1.6</b> Without tidyr</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#iteration-strategies"><i class="fa fa-check"></i><b>4.2</b> Iteration Strategies</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#for-loops"><i class="fa fa-check"></i><b>4.2.1</b> For-loops</a></li>
+<li class="chapter" data-level="4.2.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#while-loops"><i class="fa fa-check"></i><b>4.2.2</b> While-loops</a></li>
+<li class="chapter" data-level="4.2.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#saving-multiple-results"><i class="fa fa-check"></i><b>4.2.3</b> Saving Multiple Results</a></li>
+<li class="chapter" data-level="4.2.4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#break-next"><i class="fa fa-check"></i><b>4.2.4</b> Break &amp; Next</a></li>
+<li class="chapter" data-level="4.2.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#planning-for-iteration"><i class="fa fa-check"></i><b>4.2.5</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="4.2.6" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>4.2.6</b> Case Study: The Collatz Conjecture</a></li>
+<li class="chapter" data-level="4.2.7" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>4.2.7</b> Case Study: U.S. Fruit Prices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Backmatter</b></span></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Intermediate R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reshaping-data-automating-tasks" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Reshaping Data &amp; Automating Tasks<a href="reshaping-data-automating-tasks.html#reshaping-data-automating-tasks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter is part 2 (of 2) of <em>Cleaning Data &amp; Automating Tasks</em>, a workshop
+series about how to prepare data for analysis and automate tedious repetitive
+tasks. The major topics of this chapter are how to reshape datasets with
+pivots, how to combine related datasets with joins, and how to select and use
+iteration strategies that automate repetitive computations.</p>
+<div id="learning-objectives-3" class="section level4 unnumbered hasAnchor">
+<h4>Learning Objectives<a href="reshaping-data-automating-tasks.html#learning-objectives-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Explain what it means for data to be tidy</li>
+<li>Use the tidyr package to reshape data</li>
+<li>Describe and use R’s for, while, and repeat loops</li>
+<li>Identify the most appropriate iteration strategy for a given problem</li>
+<li>Explain strategies to organize iterative code</li>
+</ul>
+</div>
+<div id="tidy-datasets" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Tidy Datasets<a href="reshaping-data-automating-tasks.html#tidy-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The structure of a dataset—its shape and organization—has enormous
+influence on how difficult it will be to analyze, so making structural changes
+is an important part of the cleaning process. Researchers conventionally
+arrange tabular datasets so that each row contains a single <strong>observation</strong> or
+case, and each column contains a single kind of measurement or identifier,
+called a <strong>feature</strong>.</p>
+<p>In 2014, <a href="https://hadley.nz/">Hadley Wickham</a> refined and formalized the conventions for
+tabular datasets by <a href="https://vita.had.co.nz/papers/tidy-data.html">introducing the concept of <strong>tidy datasets</strong></a>, which
+have a specific structure. Paraphrasing Wickham, the rules for a tidy dataset
+are:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Every column is a single feature.</li>
+<li>Every row is a single observation.</li>
+<li>Every cell is a single value.</li>
+</ol>
+</blockquote>
+<p>These rules ensure that all of the values in a dataset are visually organized
+and are easy to access with indexing operations. They’re also specific enough
+to make tidiness a convenient standard for functions that operate on tabular
+datasets. In fact, the <a href="https://www.tidyverse.org/">Tidyverse</a> packages (see Section
+<a href="string-date-processing.html#the-tidyverse">3.1</a>) are designed from the ground up for working with tidy
+datasets. Tidy datesets have also been adopted as a standard in other software,
+including various packages for Python and Julia.</p>
+<p>This section explains how to <strong>reshape</strong> tabular datasets into tidy datasets.
+While reshaping can seem tricky at first, making sure your dataset has the
+right structure before you begin analysis saves time and frustration in the
+long run.</p>
+<!--
+The Tidyverse is so named because many functions in Tidyverse packages require
+data frames that are in **tidy** form. Before we see the requirements for a
+data set to be tidy, we need to define or review some terminology from
+statistics.
+
+A **feature** (also called a **covariate** or a **variable**) is a measurement
+of something, usually across multiple subjects. For example, we might decide to
+measure the heights of everyone in the class. Each person in the class is a
+subject, and the height measurement is a feature. Features don't have to be
+quantitative. If we also asked each person their favorite color, then favorite
+color would be another feature in our data set. Features are usually, but not
+always, the columns in a tabular data set.
+
+An **observation** is a set of features measured for a single subject or at a
+single time. So in the preceding example, the combined height and favorite
+color measurement for one student is one observation. Observations are usually,
+but not always, the rows in a tabular data set.
+-->
+<div id="the-tidyr-package" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> The tidyr Package<a href="reshaping-data-automating-tasks.html#the-tidyr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <a href="https://tidyr.tidyverse.org/">tidyr</a> package provides functions to reshape tabular datasets. It also
+provides examples of tidy and untidy datasets. Like most Tidyverse packages, it
+comes with detailed <a href="https://tidyr.tidyverse.org/">documentation</a> and a <a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">cheatsheet</a>.</p>
+<p>As usual, install the package if you haven’t already, and then load it:</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="reshaping-data-automating-tasks.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;tidyr&quot;)</span></span>
+<span id="cb409-2"><a href="reshaping-data-automating-tasks.html#cb409-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
+<pre><code>## Registered S3 methods overwritten by &#39;tibble&#39;:
+##   method     from  
+##   format.tbl pillar
+##   print.tbl  pillar</code></pre>
+<p>Let’s start with an example of a tidy dataset. The <code>table1</code> dataset in the
+package records the number of tuberculosis cases across several different
+countries and years:</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="reshaping-data-automating-tasks.html#cb411-1" aria-hidden="true" tabindex="-1"></a>table1</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>Each of the four columns contains a single kind of measurement or identifier,
+so the dataset satifies tidy rule 1. The measurements were taken at the
+country-year level, and each row contains data for one country-year pair, so
+the dataset also satisfies tidy rule 2. Each cell in the data frame only
+contains one value, so the dataset also satisfies tidy rule 3.</p>
+<p>The same data are recorded in <code>table2</code>, <code>table3</code>, and the pair <code>table4a</code> with
+<code>table4b</code>, but these are all <em>untidy</em> datasets. For example, <code>table2</code> breaks
+rule 1 because the column <code>count</code> contains two different kinds of
+measurements—case counts and population counts:</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="reshaping-data-automating-tasks.html#cb413-1" aria-hidden="true" tabindex="-1"></a>table2</span></code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+<p>When considering whether you should reshape a dataset, think about what the
+features are and what the observations are. These depend on the dataset itself,
+but also on what kinds of analyses you want to do. Datasets sometimes have
+closely related features or multiple (nested) levels of observation. The tidyr
+documentation includes a <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">detailed article on how to reason about reshaping
+datasets</a>.</p>
+<p>If you do decide to reshape a dataset, then you should also think about what
+role each feature serves:</p>
+<ul>
+<li><p><strong>Identifiers</strong> are labels that distinguish observations from one another.
+They are often but not always categorical. Examples include names or
+identification numbers, treatment groups, and dates or times. In the
+tuberculosis data set, the <code>country</code> and <code>year</code> columns are identifiers.</p></li>
+<li><p><strong>Measurements</strong> are the values collected for each observation and typically
+the values of research interest. For the tuberculosis data set, the <code>cases</code>
+and <code>population</code> columns are measurements.</p></li>
+</ul>
+<p>Having a clear understanding of which features are identifiers and which are
+measurements makes it easier to use the tidyr functions.</p>
+</div>
+<div id="rows-into-columns" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Rows into Columns<a href="reshaping-data-automating-tasks.html#rows-into-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tidy data rule 1 is that each column must be a single feature. The <code>table2</code>
+dataset breaks this rule:</p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="reshaping-data-automating-tasks.html#cb415-1" aria-hidden="true" tabindex="-1"></a>table2</span></code></pre></div>
+<pre><code>## # A tibble: 12 x 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+<p>To make the dataset tidy, the measurements in the <code>count</code> column need to be
+separated into two separate columns, <code>cases</code> and <code>population</code>, based on the
+categories in the <code>type</code> column.</p>
+<p>You can use the <code>pivot_wider</code> function to <strong>pivot</strong> the single <code>count</code> column
+into two columns according to the <code>type</code> column. This makes the dataset wider,
+hence the name <code>pivot_wider</code>.</p>
+<p>The function’s first parameter is the dataset to pivot. Other important
+parameters are:</p>
+<ul>
+<li><code>values_from</code> – The column(s) to pivot.</li>
+<li><code>names_from</code> – The column that contains names for the new columns.</li>
+<li><code>id_cols</code> – The identifier columns, which are not pivoted. This defaults to
+all columns except those in <code>values_from</code> and <code>names_from</code>.</li>
+</ul>
+<p>Here’s how to use the function to make <code>table2</code> tidy:</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="reshaping-data-automating-tasks.html#cb417-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pivot_wider</span>(table2, <span class="at">values_from =</span> count, <span class="at">names_from =</span> type)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>The function automatically removes values from the <code>country</code> and <code>year</code> columns
+as needed to maintain their original correspondence with the pivoted values.</p>
+</div>
+<div id="columns-into-rows" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Columns into Rows<a href="reshaping-data-automating-tasks.html#columns-into-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tidy data rule 2 is that every row must be a single observation. The <code>table4a</code>
+and <code>table4b</code> datasets break this rule because each row in each dataset
+contains measurements for two different years:</p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="reshaping-data-automating-tasks.html#cb419-1" aria-hidden="true" tabindex="-1"></a>table4a</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   country     `1999` `2000`
+##   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="reshaping-data-automating-tasks.html#cb421-1" aria-hidden="true" tabindex="-1"></a>table4b</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 3
+##   country         `1999`     `2000`
+##   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan   19987071   20595360
+## 2 Brazil       172006362  174504898
+## 3 China       1272915272 1280428583</code></pre>
+<p>The tuberculosis case counts are in <code>table4a</code>. The population counts are in
+<code>table4b</code>. Neither is tidy.</p>
+<p>To make the <code>table4a</code> dataset tidy, the <code>1999</code> and <code>2000</code> columns need to be
+pivoted into two new columns: one for the measurements (the counts) and one for
+the identifiers (the years). It might help to visualize this as stacking the
+two separate columns <code>1999</code> and <code>2000</code> together, one on top of the other, and
+then adding a second column with the appropriate years. The same process makes
+<code>table4b</code> tidy.</p>
+<p>You can use the <code>pivot_longer</code> function to pivot the two columns <code>1999</code> and
+<code>2000</code> into a column of counts and a column of years. This makes the dataset
+longer, hence the name <code>pivot_longer</code>.</p>
+<p>Again the function’s first parameter is the dataset to pivot. Other important
+parameters are:</p>
+<ul>
+<li><code>cols</code> – The columns to pivot.</li>
+<li><code>values_to</code> – Name(s) for the new measurement column(s)</li>
+<li><code>names_to</code> – Name(s) for the new identifier column(s)</li>
+</ul>
+<p>Here’s how to use the function to make <code>table4a</code> tidy:</p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="reshaping-data-automating-tasks.html#cb423-1" aria-hidden="true" tabindex="-1"></a>tidy4a <span class="ot">=</span> <span class="fu">pivot_longer</span>(table4a, <span class="sc">-</span>country, <span class="at">values_to =</span> <span class="st">&quot;cases&quot;</span>,</span>
+<span id="cb423-2"><a href="reshaping-data-automating-tasks.html#cb423-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb423-3"><a href="reshaping-data-automating-tasks.html#cb423-3" aria-hidden="true" tabindex="-1"></a>tidy4a</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country     year   cases
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+## 1 Afghanistan 1999     745
+## 2 Afghanistan 2000    2666
+## 3 Brazil      1999   37737
+## 4 Brazil      2000   80488
+## 5 China       1999  212258
+## 6 China       2000  213766</code></pre>
+<p>In this case, the <code>cols</code> parameter is set to all columns <em>except</em> the <code>country</code>
+column, because the <code>country</code> column does not need to be pivoted. The function
+automatically repeats values in the <code>country</code> column as needed to maintain its
+original correspondence with the pivoted values.</p>
+<p>Here’s the same for <code>table4b</code>:</p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="reshaping-data-automating-tasks.html#cb425-1" aria-hidden="true" tabindex="-1"></a>tidy4b <span class="ot">=</span> <span class="fu">pivot_longer</span>(table4b, <span class="sc">-</span>country, <span class="at">values_to =</span> <span class="st">&quot;population&quot;</span>,</span>
+<span id="cb425-2"><a href="reshaping-data-automating-tasks.html#cb425-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb425-3"><a href="reshaping-data-automating-tasks.html#cb425-3" aria-hidden="true" tabindex="-1"></a>tidy4b</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country     year  population
+##   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;
+## 1 Afghanistan 1999    19987071
+## 2 Afghanistan 2000    20595360
+## 3 Brazil      1999   172006362
+## 4 Brazil      2000   174504898
+## 5 China       1999  1272915272
+## 6 China       2000  1280428583</code></pre>
+<p>Once the two datasets are tidy, you can join them with the <code>merge</code> function to
+reproduce <code>table1</code>:</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="reshaping-data-automating-tasks.html#cb427-1" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(tidy4a, tidy4b)</span></code></pre></div>
+<pre><code>##       country year  cases population
+## 1 Afghanistan 1999    745   19987071
+## 2 Afghanistan 2000   2666   20595360
+## 3      Brazil 1999  37737  172006362
+## 4      Brazil 2000  80488  174504898
+## 5       China 1999 212258 1272915272
+## 6       China 2000 213766 1280428583</code></pre>
+</div>
+<div id="separating-values" class="section level3 hasAnchor" number="4.1.4">
+<h3><span class="header-section-number">4.1.4</span> Separating Values<a href="reshaping-data-automating-tasks.html#separating-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tidy data rule 3 says each value must have its own cell. The <code>table3</code> dataset
+breaks this rule because the <code>rate</code> column contains two values per cell:</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="reshaping-data-automating-tasks.html#cb429-1" aria-hidden="true" tabindex="-1"></a>table3</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      year rate             
+##   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
+<p>The two values separated by <code>/</code> in the <code>rate</code> column are the tuberculosis case
+count and the population count.</p>
+<p>To make this dataset tidy, the <code>rate</code> column needs to be split into two
+columns, <code>cases</code> and <code>population</code>. The values in the <code>rate</code> column are strings,
+so one way to do this is with the stringr package’s <code>str_split_fixed</code> function,
+described in Section <a href="string-date-processing.html#splitting-strings">3.4.4</a>:</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="reshaping-data-automating-tasks.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb431-2"><a href="reshaping-data-automating-tasks.html#cb431-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb431-3"><a href="reshaping-data-automating-tasks.html#cb431-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the rate column into 2 columns.</span></span>
+<span id="cb431-4"><a href="reshaping-data-automating-tasks.html#cb431-4" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">=</span> <span class="fu">str_split_fixed</span>(table3<span class="sc">$</span>rate, <span class="fu">fixed</span>(<span class="st">&quot;/&quot;</span>), <span class="dv">2</span>)</span>
+<span id="cb431-5"><a href="reshaping-data-automating-tasks.html#cb431-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb431-6"><a href="reshaping-data-automating-tasks.html#cb431-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the rate column and append the 2 new columns.</span></span>
+<span id="cb431-7"><a href="reshaping-data-automating-tasks.html#cb431-7" aria-hidden="true" tabindex="-1"></a>tidy3 <span class="ot">=</span> table3[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb431-8"><a href="reshaping-data-automating-tasks.html#cb431-8" aria-hidden="true" tabindex="-1"></a>tidy3<span class="sc">$</span>cases <span class="ot">=</span> <span class="fu">as.numeric</span>(cols[, <span class="dv">1</span>])</span>
+<span id="cb431-9"><a href="reshaping-data-automating-tasks.html#cb431-9" aria-hidden="true" tabindex="-1"></a>tidy3<span class="sc">$</span>population <span class="ot">=</span> <span class="fu">as.numeric</span>(cols[, <span class="dv">2</span>])</span>
+<span id="cb431-10"><a href="reshaping-data-automating-tasks.html#cb431-10" aria-hidden="true" tabindex="-1"></a>tidy3</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>Extracting values, converting to appropriate data types, and then combining
+everything back into a single data frame is an extremely common pattern in data
+science.</p>
+<p>The tidyr package provides the <code>separate</code> function to streamline the steps
+taken above. The first parameter is the dataset, the second is the column to
+split, the third is the names of the new columns, and the fourth is the
+delimiter. The <code>convert</code> parameter controls whether the new columns are
+automatically converted to appropriate data types:</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="reshaping-data-automating-tasks.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">separate</span>(table3, rate, <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="st">&quot;/&quot;</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>As of writing, the tidyr developers have deprecated the <code>separate</code> function in
+favor of several more specific functions (<code>separate_wider_delim</code>,
+<code>separate_wider_position</code>, and <code>separate_wider_regex</code>). These functions are
+still experimental, so we still recommend using the <code>separate</code> function in the
+short term.</p>
+</div>
+<div id="case-study-smart-ridership" class="section level3 hasAnchor" number="4.1.5">
+<h3><span class="header-section-number">4.1.5</span> Case Study: SMART Ridership<a href="reshaping-data-automating-tasks.html#case-study-smart-ridership" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="http://sonomamarintrain.org/">Sonoma-Marin Area Rail Transit (SMART)</a> is a single-line passenger rail
+service between the San Francisco Bay and Santa Rosa. They publish <a href="https://www.sonomamarintrain.org/RidershipReports">data about
+monthly ridership</a> in PDF and Excel format. In this case study,
+you’ll reshape and clean the dataset to prepare it for analysis.</p>
+<p>To get started, download the <a href="https://www.sonomamarintrain.org/sites/default/files/Ridership%20Reports/SMART%20Ridership%20Web%20Posting_Dec.22.xlsx">December 2022 report it Excel
+format</a>. Pay attention to where you save the file—or move it to
+a directory just for files related to this case study—so that you can load it
+into R. If you want, you can use R’s <code>download.file</code> function to download the
+file rather than your browser.</p>
+<p>The <a href="https://readxl.tidyverse.org/">readxl</a> package provides functions to read data from Excel files.
+Install the package if you don’t already have it installed, and then load it:</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="reshaping-data-automating-tasks.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;readxl&quot;)</span></span>
+<span id="cb435-2"><a href="reshaping-data-automating-tasks.html#cb435-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
+<p>You can use the <code>read_excel</code> function to read a sheet from an Excel
+spreadsheet. Before doing so, it’s a good idea to manually inspect the
+spreadsheet in a spreadsheet program. The SMART dataset contains two tables in
+the first sheet, one for total monthly ridership and another for average
+weekday ridership (by month).</p>
+<p>Let’s focus on the total monthly ridership table, which occupies cells B4 to
+H16. You can specify a range of cells when you call <code>read_excel</code> by setting the
+<code>range</code> parameter:</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="reshaping-data-automating-tasks.html#cb436-1" aria-hidden="true" tabindex="-1"></a>smart_path <span class="ot">=</span> <span class="st">&quot;./data/SMART Ridership Web Posting_Dec.22.xlsx&quot;</span></span>
+<span id="cb436-2"><a href="reshaping-data-automating-tasks.html#cb436-2" aria-hidden="true" tabindex="-1"></a>smart <span class="ot">=</span> <span class="fu">read_excel</span>(smart_path, <span class="at">range =</span> <span class="st">&quot;B4:H16&quot;</span>)</span>
+<span id="cb436-3"><a href="reshaping-data-automating-tasks.html#cb436-3" aria-hidden="true" tabindex="-1"></a>smart</span></code></pre></div>
+<pre><code>## # A tibble: 12 x 7
+##    Month FY18   FY19   FY20  FY21   FY22 `FY23 (DRAFT)`
+##    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+##  1 Jul   -     63864 62851   9427 24627           43752
+##  2 Aug   54484 74384 65352   8703 25020           48278
+##  3 Sep   65019 62314 62974   8910 27967           49134
+##  4 Oct   57453 65492 57222   9851 26998.          59322
+##  5 Nov   56125 52774 64966   8145 26575           51383
+##  6 Dec   56425 51670 58199.  7414 24050           47606
+##  7 Jan   56527 57136 71974   6728 22710              NA
+##  8 Feb   54797 51130 71676   7412 26652              NA
+##  9 Mar   57312 58091 33624   9933 35291              NA
+## 10 Apr   56631 60256  4571  11908 34258              NA
+## 11 May   59428 64036  5308  13949 38655              NA
+## 12 Jun   61828 55700  8386  20469 41525              NA</code></pre>
+<p>The loaded dataset needs to be cleaned. The <code>FY18</code> column uses a hyphen to
+indicate missing data and has the wrong data type. The dates—months and
+years—are identifiers for observations, so the dataset is also not tidy.</p>
+<p>You can correct the missing value in the <code>FY18</code> column with indexing, and the
+type with the <code>as.numeric</code> function:</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="reshaping-data-automating-tasks.html#cb438-1" aria-hidden="true" tabindex="-1"></a>smart<span class="sc">$</span>FY18[smart<span class="sc">$</span>FY18 <span class="sc">==</span> <span class="st">&quot;-&quot;</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb438-2"><a href="reshaping-data-automating-tasks.html#cb438-2" aria-hidden="true" tabindex="-1"></a>smart<span class="sc">$</span>FY18 <span class="ot">=</span> <span class="fu">as.numeric</span>(smart<span class="sc">$</span>FY18)</span>
+<span id="cb438-3"><a href="reshaping-data-automating-tasks.html#cb438-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   Month  FY18  FY19   FY20  FY21   FY22 `FY23 (DRAFT)`
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+## 1 Jul      NA 63864 62851   9427 24627           43752
+## 2 Aug   54484 74384 65352   8703 25020           48278
+## 3 Sep   65019 62314 62974   8910 27967           49134
+## 4 Oct   57453 65492 57222   9851 26998.          59322
+## 5 Nov   56125 52774 64966   8145 26575           51383
+## 6 Dec   56425 51670 58199.  7414 24050           47606</code></pre>
+<p>To make the dataset tidy, it needs to be reshaped so that the values in the
+various fiscal year columns are all in one column. In other words, the dataset
+needs to be pivoted longer (Section <a href="reshaping-data-automating-tasks.html#columns-into-rows">4.1.3</a>). The result of
+the pivot will be easier to understand if you rename the columns as their years
+first. Here’s one way to do that:</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="reshaping-data-automating-tasks.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(smart)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">=</span> <span class="dv">2018</span><span class="sc">:</span><span class="dv">2023</span></span>
+<span id="cb440-2"><a href="reshaping-data-automating-tasks.html#cb440-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 7
+##   Month `2018` `2019` `2020` `2021` `2022` `2023`
+##   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Jul       NA  63864 62851    9427 24627   43752
+## 2 Aug    54484  74384 65352    8703 25020   48278
+## 3 Sep    65019  62314 62974    8910 27967   49134
+## 4 Oct    57453  65492 57222    9851 26998.  59322
+## 5 Nov    56125  52774 64966    8145 26575   51383
+## 6 Dec    56425  51670 58199.   7414 24050   47606</code></pre>
+<p>Next, use <code>pivot_longer</code> to pivot the dataset:</p>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="reshaping-data-automating-tasks.html#cb442-1" aria-hidden="true" tabindex="-1"></a>smart <span class="ot">=</span> <span class="fu">pivot_longer</span>(smart, <span class="sc">-</span>Month, <span class="at">values_to =</span> <span class="st">&quot;riders&quot;</span>,</span>
+<span id="cb442-2"><a href="reshaping-data-automating-tasks.html#cb442-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;fiscal_year&quot;</span>)</span>
+<span id="cb442-3"><a href="reshaping-data-automating-tasks.html#cb442-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   Month fiscal_year riders
+##   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
+## 1 Jul   2018            NA
+## 2 Jul   2019         63864
+## 3 Jul   2020         62851
+## 4 Jul   2021          9427
+## 5 Jul   2022         24627
+## 6 Jul   2023         43752</code></pre>
+<p>Now the dataset is tidy, but it’s still not completely clean. To make it easy
+to study time trends, let’s combine and convert the <code>month</code> and <code>fiscal_year</code>
+columns into a calendar date. You can use functions from the lubridate package
+(Section <a href="string-date-processing.html#the-lubridate-package">3.2.1</a>) to do this. First paste the year and
+month together and use the <code>my</code> function to parse them as dates:</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="reshaping-data-automating-tasks.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+<pre><code>## Loading required package: timechange</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="reshaping-data-automating-tasks.html#cb448-1" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">=</span> <span class="fu">my</span>(<span class="fu">paste</span>(smart<span class="sc">$</span>Month, smart<span class="sc">$</span>fiscal_year))</span>
+<span id="cb448-2"><a href="reshaping-data-automating-tasks.html#cb448-2" aria-hidden="true" tabindex="-1"></a>dates</span></code></pre></div>
+<pre><code>##  [1] &quot;2018-07-01&quot; &quot;2019-07-01&quot; &quot;2020-07-01&quot; &quot;2021-07-01&quot; &quot;2022-07-01&quot;
+##  [6] &quot;2023-07-01&quot; &quot;2018-08-01&quot; &quot;2019-08-01&quot; &quot;2020-08-01&quot; &quot;2021-08-01&quot;
+## [11] &quot;2022-08-01&quot; &quot;2023-08-01&quot; &quot;2018-09-01&quot; &quot;2019-09-01&quot; &quot;2020-09-01&quot;
+## [16] &quot;2021-09-01&quot; &quot;2022-09-01&quot; &quot;2023-09-01&quot; &quot;2018-10-01&quot; &quot;2019-10-01&quot;
+## [21] &quot;2020-10-01&quot; &quot;2021-10-01&quot; &quot;2022-10-01&quot; &quot;2023-10-01&quot; &quot;2018-11-01&quot;
+## [26] &quot;2019-11-01&quot; &quot;2020-11-01&quot; &quot;2021-11-01&quot; &quot;2022-11-01&quot; &quot;2023-11-01&quot;
+## [31] &quot;2018-12-01&quot; &quot;2019-12-01&quot; &quot;2020-12-01&quot; &quot;2021-12-01&quot; &quot;2022-12-01&quot;
+## [36] &quot;2023-12-01&quot; &quot;2018-01-01&quot; &quot;2019-01-01&quot; &quot;2020-01-01&quot; &quot;2021-01-01&quot;
+## [41] &quot;2022-01-01&quot; &quot;2023-01-01&quot; &quot;2018-02-01&quot; &quot;2019-02-01&quot; &quot;2020-02-01&quot;
+## [46] &quot;2021-02-01&quot; &quot;2022-02-01&quot; &quot;2023-02-01&quot; &quot;2018-03-01&quot; &quot;2019-03-01&quot;
+## [51] &quot;2020-03-01&quot; &quot;2021-03-01&quot; &quot;2022-03-01&quot; &quot;2023-03-01&quot; &quot;2018-04-01&quot;
+## [56] &quot;2019-04-01&quot; &quot;2020-04-01&quot; &quot;2021-04-01&quot; &quot;2022-04-01&quot; &quot;2023-04-01&quot;
+## [61] &quot;2018-05-01&quot; &quot;2019-05-01&quot; &quot;2020-05-01&quot; &quot;2021-05-01&quot; &quot;2022-05-01&quot;
+## [66] &quot;2023-05-01&quot; &quot;2018-06-01&quot; &quot;2019-06-01&quot; &quot;2020-06-01&quot; &quot;2021-06-01&quot;
+## [71] &quot;2022-06-01&quot; &quot;2023-06-01&quot;</code></pre>
+<p>The SMART fiscal year extends from July to the following June and equals the
+calendar year at the end of the period. So for observations from July to
+December, the calendar year is the fiscal year minus 1. You can use indexing to
+make this adjustment efficiently, and then append the dates to the data frame:</p>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="reshaping-data-automating-tasks.html#cb450-1" aria-hidden="true" tabindex="-1"></a>jul2dec <span class="ot">=</span> <span class="fu">month</span>(dates) <span class="sc">&gt;=</span> <span class="dv">7</span></span>
+<span id="cb450-2"><a href="reshaping-data-automating-tasks.html#cb450-2" aria-hidden="true" tabindex="-1"></a>dates[jul2dec] <span class="ot">=</span> dates[jul2dec] <span class="sc">-</span> <span class="fu">period</span>(<span class="dv">1</span>, <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb450-3"><a href="reshaping-data-automating-tasks.html#cb450-3" aria-hidden="true" tabindex="-1"></a>smart<span class="sc">$</span>date <span class="ot">=</span> dates</span>
+<span id="cb450-4"><a href="reshaping-data-automating-tasks.html#cb450-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+##   Month fiscal_year riders date      
+##   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;    
+## 1 Jul   2018            NA 2017-07-01
+## 2 Jul   2019         63864 2018-07-01
+## 3 Jul   2020         62851 2019-07-01
+## 4 Jul   2021          9427 2020-07-01
+## 5 Jul   2022         24627 2021-07-01
+## 6 Jul   2023         43752 2022-07-01</code></pre>
+<p>As a final adjustment, you can use the <code>tolower</code> function to convert the column
+names to lowercase, so that they’re easier to use during analysis:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="reshaping-data-automating-tasks.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(smart) <span class="ot">=</span> <span class="fu">tolower</span>(<span class="fu">names</span>(smart))</span>
+<span id="cb452-2"><a href="reshaping-data-automating-tasks.html#cb452-2" aria-hidden="true" tabindex="-1"></a>smart</span></code></pre></div>
+<pre><code>## # A tibble: 72 x 4
+##    month fiscal_year riders date      
+##    &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;    
+##  1 Jul   2018            NA 2017-07-01
+##  2 Jul   2019         63864 2018-07-01
+##  3 Jul   2020         62851 2019-07-01
+##  4 Jul   2021          9427 2020-07-01
+##  5 Jul   2022         24627 2021-07-01
+##  6 Jul   2023         43752 2022-07-01
+##  7 Aug   2018         54484 2017-08-01
+##  8 Aug   2019         74384 2018-08-01
+##  9 Aug   2020         65352 2019-08-01
+## 10 Aug   2021          8703 2020-08-01
+## # … with 62 more rows</code></pre>
+<p>Now that the dataset is tidied and cleaned, it’s straightforward to do things
+like plot it as a time series:</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="reshaping-data-automating-tasks.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb454-2"><a href="reshaping-data-automating-tasks.html#cb454-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb454-3"><a href="reshaping-data-automating-tasks.html#cb454-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(smart) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> riders) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb454-4"><a href="reshaping-data-automating-tasks.html#cb454-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 7 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="04_automating_tasks_files/figure-html/smart-plot-1.png" width="672" /></p>
+<p>Notice the huge drop (more than 90%) in April of 2020 due to the COVID-19
+pandemic!</p>
+</div>
+<div id="without-tidyr" class="section level3 hasAnchor" number="4.1.6">
+<h3><span class="header-section-number">4.1.6</span> Without tidyr<a href="reshaping-data-automating-tasks.html#without-tidyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section shows how to pivot datasets without the help of the tidyr package.
+In practice, we recommend that you use the package, but the examples here may
+make it easier to understand what’s actually happening when you pivot a
+dataset.</p>
+<div id="rows-into-columns-1" class="section level4 hasAnchor" number="4.1.6.1">
+<h4><span class="header-section-number">4.1.6.1</span> Rows into Columns<a href="reshaping-data-automating-tasks.html#rows-into-columns-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The steps for pivoting <code>table2</code> wider are:</p>
+<ol style="list-style-type: decimal">
+<li>Subset rows to separate <code>cases</code> and <code>population</code> values.</li>
+<li>Remove the <code>type</code> column from each.</li>
+<li>Rename the <code>count</code> column to <code>cases</code> and <code>population</code>.</li>
+<li>Merge the two subsets by matching <code>country</code> and <code>year</code>.</li>
+</ol>
+<p>And the code is:</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="reshaping-data-automating-tasks.html#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1</span></span>
+<span id="cb456-2"><a href="reshaping-data-automating-tasks.html#cb456-2" aria-hidden="true" tabindex="-1"></a>cases <span class="ot">=</span> table2[table2<span class="sc">$</span>type <span class="sc">==</span> <span class="st">&quot;cases&quot;</span>, ]</span>
+<span id="cb456-3"><a href="reshaping-data-automating-tasks.html#cb456-3" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">=</span> table2[table2<span class="sc">$</span>type <span class="sc">==</span> <span class="st">&quot;population&quot;</span>, ]</span>
+<span id="cb456-4"><a href="reshaping-data-automating-tasks.html#cb456-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2</span></span>
+<span id="cb456-5"><a href="reshaping-data-automating-tasks.html#cb456-5" aria-hidden="true" tabindex="-1"></a>cases <span class="ot">=</span> cases[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb456-6"><a href="reshaping-data-automating-tasks.html#cb456-6" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">=</span> pop[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb456-7"><a href="reshaping-data-automating-tasks.html#cb456-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3</span></span>
+<span id="cb456-8"><a href="reshaping-data-automating-tasks.html#cb456-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cases)[<span class="dv">3</span>] <span class="ot">=</span> <span class="st">&quot;cases&quot;</span></span>
+<span id="cb456-9"><a href="reshaping-data-automating-tasks.html#cb456-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pop)[<span class="dv">3</span>] <span class="ot">=</span> <span class="st">&quot;population&quot;</span></span>
+<span id="cb456-10"><a href="reshaping-data-automating-tasks.html#cb456-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4</span></span>
+<span id="cb456-11"><a href="reshaping-data-automating-tasks.html#cb456-11" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(cases, pop)</span></code></pre></div>
+<pre><code>##       country year  cases population
+## 1 Afghanistan 1999    745   19987071
+## 2 Afghanistan 2000   2666   20595360
+## 3      Brazil 1999  37737  172006362
+## 4      Brazil 2000  80488  174504898
+## 5       China 1999 212258 1272915272
+## 6       China 2000 213766 1280428583</code></pre>
+</div>
+<div id="columns-into-rows-1" class="section level4 hasAnchor" number="4.1.6.2">
+<h4><span class="header-section-number">4.1.6.2</span> Columns into Rows<a href="reshaping-data-automating-tasks.html#columns-into-rows-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The steps for pivoting <code>table4a</code> longer are:</p>
+<ol style="list-style-type: decimal">
+<li>Subset columns to separate <code>1999</code> and <code>2000</code> into two data frames.</li>
+<li>Add a <code>year</code> column to each.</li>
+<li>Rename the <code>1999</code> and <code>2000</code> columns to <code>cases</code>.</li>
+<li>Stack the two data frames with <code>rbind</code>.</li>
+</ol>
+<p>And the code is:</p>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="reshaping-data-automating-tasks.html#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1</span></span>
+<span id="cb458-2"><a href="reshaping-data-automating-tasks.html#cb458-2" aria-hidden="true" tabindex="-1"></a>df99 <span class="ot">=</span> table4a[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb458-3"><a href="reshaping-data-automating-tasks.html#cb458-3" aria-hidden="true" tabindex="-1"></a>df00 <span class="ot">=</span> table4a[<span class="sc">-</span><span class="dv">2</span>]</span>
+<span id="cb458-4"><a href="reshaping-data-automating-tasks.html#cb458-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2</span></span>
+<span id="cb458-5"><a href="reshaping-data-automating-tasks.html#cb458-5" aria-hidden="true" tabindex="-1"></a>df99<span class="sc">$</span>year <span class="ot">=</span> <span class="st">&quot;1999&quot;</span></span>
+<span id="cb458-6"><a href="reshaping-data-automating-tasks.html#cb458-6" aria-hidden="true" tabindex="-1"></a>df00<span class="sc">$</span>year <span class="ot">=</span> <span class="st">&quot;2000&quot;</span></span>
+<span id="cb458-7"><a href="reshaping-data-automating-tasks.html#cb458-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3</span></span>
+<span id="cb458-8"><a href="reshaping-data-automating-tasks.html#cb458-8" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df99)[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">&quot;cases&quot;</span></span>
+<span id="cb458-9"><a href="reshaping-data-automating-tasks.html#cb458-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df00)[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">&quot;cases&quot;</span></span>
+<span id="cb458-10"><a href="reshaping-data-automating-tasks.html#cb458-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4</span></span>
+<span id="cb458-11"><a href="reshaping-data-automating-tasks.html#cb458-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(df99, df00)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   country      cases year 
+##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;
+## 1 Afghanistan    745 1999 
+## 2 Brazil       37737 1999 
+## 3 China       212258 1999 
+## 4 Afghanistan   2666 2000 
+## 5 Brazil       80488 2000 
+## 6 China       213766 2000</code></pre>
+</div>
+</div>
+</div>
+<div id="iteration-strategies" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Iteration Strategies<a href="reshaping-data-automating-tasks.html#iteration-strategies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R is powerful tool for automating tasks that have repetitive steps. For
+example, you can:</p>
+<ul>
+<li>Apply a transformation to an entire column of data.</li>
+<li>Compute distances between all pairs from a set of points.</li>
+<li>Read a large collection of files from disk in order to combine and analyze
+the data they contain.</li>
+<li>Simulate how a system evolves over time from a specific set of starting
+parameters.</li>
+<li>Scrape data from many pages of a website.</li>
+</ul>
+<p>You can implement concise, efficient solutions for these kinds of tasks in R by
+using <strong>iteration</strong>, which means repeating a computation many times. R provides
+four different strategies for writing iterative code:</p>
+<ol style="list-style-type: decimal">
+<li>Vectorization, where a function is implicitly called on each element of a
+vector. See <a href="https://ucdavisdatalab.github.io/workshop_r_basics/data-structures.html#vectorization">this section</a> of the R Basics for more details.</li>
+<li>Apply functions, where a function is explicitly called on each element of a
+vector or array. See <a href="https://ucdavisdatalab.github.io/workshop_r_basics/exploring-data.html#apply-functions">this section</a> of the R Basics reader
+for more details.</li>
+<li>Loops, where an expression is evaluated repeatedly until some condition is
+met.</li>
+<li>Recursion, where a function calls itself.</li>
+</ol>
+<p>Vectorization is the most efficient and most concise iteration strategy, but
+also the least flexible, because it only works with vectorized functions and
+vectors. Apply functions are more flexible—they work with any function and
+any data structure with elements—but less efficient and less concise. Loops
+and recursion provide the most flexibility but are the least concise. In recent
+versions of R, apply functions and loops are similar in terms of efficiency.
+Recursion tends to be the least efficient iteration strategy in R.</p>
+<p>The rest of this section explains how to write loops and how to choose which
+iteration strategy to use. We assume you’re already comfortable with
+vectorization and have at least some familiarity with apply functions.</p>
+<div id="for-loops" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> For-loops<a href="reshaping-data-automating-tasks.html#for-loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>for-loop</strong> evaluates an expression once for each element of a vector or
+list. The <code>for</code> keyword creates a for-loop. The syntax is:</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="reshaping-data-automating-tasks.html#cb460-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (I <span class="cf">in</span> DATA) {</span>
+<span id="cb460-2"><a href="reshaping-data-automating-tasks.html#cb460-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
+<span id="cb460-3"><a href="reshaping-data-automating-tasks.html#cb460-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The variable <code>I</code> is called an <strong>induction variable</strong>. At the beginning of each
+iteration, <code>I</code> is assigned the next element of <code>DATA</code>. The loop iterates once
+for each element, unless a keyword instructs R to exit the loop early (more
+about this in Section <a href="reshaping-data-automating-tasks.html#break-next">4.2.4</a>). As with if-statements and functions,
+the curly braces <code>{ }</code> are only required if the body contains multiple lines of
+code. Here’s a simple for-loop:</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="reshaping-data-automating-tasks.html#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb461-2"><a href="reshaping-data-automating-tasks.html#cb461-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hi from iteration  &quot;</span>, i)</span></code></pre></div>
+<pre><code>## Hi from iteration  1</code></pre>
+<pre><code>## Hi from iteration  2</code></pre>
+<pre><code>## Hi from iteration  3</code></pre>
+<pre><code>## Hi from iteration  4</code></pre>
+<pre><code>## Hi from iteration  5</code></pre>
+<pre><code>## Hi from iteration  6</code></pre>
+<pre><code>## Hi from iteration  7</code></pre>
+<pre><code>## Hi from iteration  8</code></pre>
+<pre><code>## Hi from iteration  9</code></pre>
+<pre><code>## Hi from iteration  10</code></pre>
+<p>When some or all of the iterations in a task depend on results from prior
+iterations, loops tend to be the most appropriate iteration strategy. For
+instance, loops are a good way to implement time-based simulations or compute
+values in recursively defined sequences.</p>
+<p>As a concrete example, suppose you want to compute the result of starting from
+the value 1 and composing the sine function 100 times:</p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="reshaping-data-automating-tasks.html#cb472-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb472-2"><a href="reshaping-data-automating-tasks.html#cb472-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb472-3"><a href="reshaping-data-automating-tasks.html#cb472-3" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">sin</span>(result)</span>
+<span id="cb472-4"><a href="reshaping-data-automating-tasks.html#cb472-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb472-5"><a href="reshaping-data-automating-tasks.html#cb472-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb472-6"><a href="reshaping-data-automating-tasks.html#cb472-6" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div>
+<pre><code>## [1] 0.1688525</code></pre>
+<p>Unlike other iteration strategies, loops don’t return a result automatically.
+It’s up to you to use variables to store any results you want to use later. If
+you want to save a result from every iteration, you can use a vector or a list
+indexed on the iteration number:</p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="reshaping-data-automating-tasks.html#cb474-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb474-2"><a href="reshaping-data-automating-tasks.html#cb474-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb474-3"><a href="reshaping-data-automating-tasks.html#cb474-3" aria-hidden="true" tabindex="-1"></a>result[<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb474-4"><a href="reshaping-data-automating-tasks.html#cb474-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb474-5"><a href="reshaping-data-automating-tasks.html#cb474-5" aria-hidden="true" tabindex="-1"></a>  result[i] <span class="ot">=</span> <span class="fu">sin</span>(result[i <span class="sc">-</span> <span class="dv">1</span>])</span>
+<span id="cb474-6"><a href="reshaping-data-automating-tasks.html#cb474-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb474-7"><a href="reshaping-data-automating-tasks.html#cb474-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb474-8"><a href="reshaping-data-automating-tasks.html#cb474-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(result)</span></code></pre></div>
+<p><img src="04_automating_tasks_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Section <a href="reshaping-data-automating-tasks.html#saving-multiple-results">4.2.3</a> explains this in more detail.</p>
+<p>If the iterations in a task are not dependent, it’s preferable to use
+vectorization or apply functions instead of a loop. Vectorization is more
+efficient, and apply functions are usually more concise.</p>
+<p>In some cases, you can use vectorization to handle a task even if the
+iterations are dependent. For example, you can use vectorized exponentiation
+and the <code>sum</code> function to compute the sum of the cubes of many numbers:</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="reshaping-data-automating-tasks.html#cb475-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">100</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb475-2"><a href="reshaping-data-automating-tasks.html#cb475-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(numbers<span class="sc">^</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 1001910</code></pre>
+</div>
+<div id="while-loops" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> While-loops<a href="reshaping-data-automating-tasks.html#while-loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>while-loop</strong> runs a block of code repeatedly as long as some condition is
+<code>TRUE</code>. The <code>while</code> keyword creates a while-loop. The syntax is:</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="reshaping-data-automating-tasks.html#cb477-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (CONDITION) {</span>
+<span id="cb477-2"><a href="reshaping-data-automating-tasks.html#cb477-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
+<span id="cb477-3"><a href="reshaping-data-automating-tasks.html#cb477-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>CONDITION</code> should be a scalar logical value or an expression that returns
+one. At the beginning of each iteration, R checks the <code>CONDITION</code> and exits the
+loop if it’s <code>FALSE</code>. As always, the curly braces <code>{ }</code> are only required if
+the body contains multiple lines of code. Here’s a simple while-loop:</p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="reshaping-data-automating-tasks.html#cb478-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb478-2"><a href="reshaping-data-automating-tasks.html#cb478-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> <span class="dv">10</span>) {</span>
+<span id="cb478-3"><a href="reshaping-data-automating-tasks.html#cb478-3" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb478-4"><a href="reshaping-data-automating-tasks.html#cb478-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hello from iteration &quot;</span>, i)</span>
+<span id="cb478-5"><a href="reshaping-data-automating-tasks.html#cb478-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Hello from iteration 1</code></pre>
+<pre><code>## Hello from iteration 2</code></pre>
+<pre><code>## Hello from iteration 3</code></pre>
+<pre><code>## Hello from iteration 4</code></pre>
+<pre><code>## Hello from iteration 5</code></pre>
+<pre><code>## Hello from iteration 6</code></pre>
+<pre><code>## Hello from iteration 7</code></pre>
+<pre><code>## Hello from iteration 8</code></pre>
+<pre><code>## Hello from iteration 9</code></pre>
+<pre><code>## Hello from iteration 10</code></pre>
+<p>Notice that this example does the same thing as the simple for-loop in Section
+<a href="reshaping-data-automating-tasks.html#for-loops">4.2.1</a>, but requires 5 lines of code instead of 2. While-loops are a
+generalization of for-loops, and only do the bare minimum necessary to iterate.
+They tend to be most useful when you don’t know how many iterations will be
+necessary to complete a task.</p>
+<p>As an example, suppose you want to add up the integers in order until the total
+is greater than 50:</p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="reshaping-data-automating-tasks.html#cb489-1" aria-hidden="true" tabindex="-1"></a>total <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb489-2"><a href="reshaping-data-automating-tasks.html#cb489-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb489-3"><a href="reshaping-data-automating-tasks.html#cb489-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (total <span class="sc">&lt;</span> <span class="dv">50</span>) {</span>
+<span id="cb489-4"><a href="reshaping-data-automating-tasks.html#cb489-4" aria-hidden="true" tabindex="-1"></a>  total <span class="ot">=</span> total <span class="sc">+</span> i</span>
+<span id="cb489-5"><a href="reshaping-data-automating-tasks.html#cb489-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;i is &quot;</span>, i, <span class="st">&quot; total is &quot;</span>, total)</span>
+<span id="cb489-6"><a href="reshaping-data-automating-tasks.html#cb489-6" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb489-7"><a href="reshaping-data-automating-tasks.html#cb489-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## i is 1 total is 1</code></pre>
+<pre><code>## i is 2 total is 3</code></pre>
+<pre><code>## i is 3 total is 6</code></pre>
+<pre><code>## i is 4 total is 10</code></pre>
+<pre><code>## i is 5 total is 15</code></pre>
+<pre><code>## i is 6 total is 21</code></pre>
+<pre><code>## i is 7 total is 28</code></pre>
+<pre><code>## i is 8 total is 36</code></pre>
+<pre><code>## i is 9 total is 45</code></pre>
+<pre><code>## i is 10 total is 55</code></pre>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="reshaping-data-automating-tasks.html#cb500-1" aria-hidden="true" tabindex="-1"></a>total</span></code></pre></div>
+<pre><code>## [1] 55</code></pre>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="reshaping-data-automating-tasks.html#cb502-1" aria-hidden="true" tabindex="-1"></a>i</span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+</div>
+<div id="saving-multiple-results" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Saving Multiple Results<a href="reshaping-data-automating-tasks.html#saving-multiple-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Loops often produce a different result for each iteration. If you want to save
+more than one result, there are a few things you must do.</p>
+<p>First, set up an index vector. The index vector should usually correspond to
+the positions of the elements in the data you want to process. The <code>seq_along</code>
+function returns an index vector when passed a vector or list. For instance:</p>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="reshaping-data-automating-tasks.html#cb504-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">21</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb504-2"><a href="reshaping-data-automating-tasks.html#cb504-2" aria-hidden="true" tabindex="-1"></a>index <span class="ot">=</span> <span class="fu">seq_along</span>(numbers)</span></code></pre></div>
+<p>The loop will iterate over the index rather than the input, so the induction
+variable will track the current iteration number. On the first iteration, the
+induction variable will be 1, on the second it will be 2, and so on. Then you
+can use the induction variable and indexing to get the input for each
+iteration.</p>
+<p>Second, set up an empty output vector or list. This should usually also
+correspond to the input, or one element longer (the extra element comes from
+the initial value). R has several functions for creating vectors:</p>
+<ul>
+<li><p><code>logical</code>, <code>integer</code>, <code>numeric</code>, <code>complex</code>, and <code>character</code> create an empty
+vector with a specific type and length</p></li>
+<li><p><code>vector</code> creates an empty vector with a specific type and length</p></li>
+<li><p><code>rep</code> creates a vector by repeating elements of some other vector</p></li>
+</ul>
+<p>Empty vectors are filled with <code>FALSE</code>, <code>0</code>, or <code>""</code>, depending on the type of
+the vector. Here are some examples:</p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="reshaping-data-automating-tasks.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="fu">logical</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="reshaping-data-automating-tasks.html#cb507-1" aria-hidden="true" tabindex="-1"></a><span class="fu">numeric</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 0 0 0 0</code></pre>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="reshaping-data-automating-tasks.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 1 2</code></pre>
+<p>Let’s create an empty numeric vector congruent to the <code>numbers</code> vector:</p>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="reshaping-data-automating-tasks.html#cb511-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(numbers)</span>
+<span id="cb511-2"><a href="reshaping-data-automating-tasks.html#cb511-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span></code></pre></div>
+<p>As with the input, you can use the induction variable and indexing to set the
+output for each iteration.</p>
+<p>Creating a vector or list in advance to store something, as we’ve just done, is
+called <strong>preallocation</strong>. Preallocation is extremely important for efficiency
+in loops. Avoid the temptation to use <code>c</code> or <code>append</code> to build up the output
+bit by bit in each iteration.</p>
+<p>Finally, write the loop, making sure to get the input and set the output. As an
+example, this loop adds each element of <code>numbers</code> to a running total and
+squares the new running total:</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="reshaping-data-automating-tasks.html#cb512-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> index) {</span>
+<span id="cb512-2"><a href="reshaping-data-automating-tasks.html#cb512-2" aria-hidden="true" tabindex="-1"></a>  prev <span class="ot">=</span> <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">1</span>) result[i <span class="sc">-</span> <span class="dv">1</span>] <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb512-3"><a href="reshaping-data-automating-tasks.html#cb512-3" aria-hidden="true" tabindex="-1"></a>  result[i] <span class="ot">=</span> (numbers[i] <span class="sc">+</span> prev)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb512-4"><a href="reshaping-data-automating-tasks.html#cb512-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb512-5"><a href="reshaping-data-automating-tasks.html#cb512-5" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div>
+<pre><code>## [1] 1.000000e+00 4.840000e+02 2.371690e+05 5.624534e+10 3.163538e+21</code></pre>
+</div>
+<div id="break-next" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Break &amp; Next<a href="reshaping-data-automating-tasks.html#break-next" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>break</code> keyword causes a loop to immediately exit. It only makes sense to
+use <code>break</code> inside of an if-statement.</p>
+<p>For example, suppose you want to print each string in a vector, but stop at the
+first missing value. You can do this with a for-loop and the <code>break</code> keyword:</p>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="reshaping-data-automating-tasks.html#cb514-1" aria-hidden="true" tabindex="-1"></a>my_messages <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Hi&quot;</span>, <span class="st">&quot;Hello&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Goodbye&quot;</span>)</span>
+<span id="cb514-2"><a href="reshaping-data-automating-tasks.html#cb514-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb514-3"><a href="reshaping-data-automating-tasks.html#cb514-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
+<span id="cb514-4"><a href="reshaping-data-automating-tasks.html#cb514-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
+<span id="cb514-5"><a href="reshaping-data-automating-tasks.html#cb514-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb514-6"><a href="reshaping-data-automating-tasks.html#cb514-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb514-7"><a href="reshaping-data-automating-tasks.html#cb514-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
+<span id="cb514-8"><a href="reshaping-data-automating-tasks.html#cb514-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Hi</code></pre>
+<pre><code>## Hello</code></pre>
+<p>The <code>next</code> keyword causes a loop to immediately go to the next iteration. As
+with <code>break</code>, it only makes sense to use <code>next</code> inside of an if-statement.</p>
+<p>Let’s modify the previous example so that missing values are skipped, but don’t
+cause printing to stop. Here’s the code:</p>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="reshaping-data-automating-tasks.html#cb517-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
+<span id="cb517-2"><a href="reshaping-data-automating-tasks.html#cb517-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
+<span id="cb517-3"><a href="reshaping-data-automating-tasks.html#cb517-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">next</span></span>
+<span id="cb517-4"><a href="reshaping-data-automating-tasks.html#cb517-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb517-5"><a href="reshaping-data-automating-tasks.html#cb517-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
+<span id="cb517-6"><a href="reshaping-data-automating-tasks.html#cb517-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Hi</code></pre>
+<pre><code>## Hello</code></pre>
+<pre><code>## Goodbye</code></pre>
+<p>These keywords work with both for-loops and while-loops.</p>
+</div>
+<div id="planning-for-iteration" class="section level3 hasAnchor" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Planning for Iteration<a href="reshaping-data-automating-tasks.html#planning-for-iteration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At first it may seem difficult to decide if and what kind of iteration to use.
+Start by thinking about whether you need to do something over and over. If you
+don’t, then you probably don’t need to use iteration. If you do, then try
+iteration strategies in this order:</p>
+<ol style="list-style-type: decimal">
+<li>Vectorization</li>
+<li>Apply functions
+<ul>
+<li>Try an apply function if iterations are independent.</li>
+</ul></li>
+<li>Loops
+<ul>
+<li>Try a for-loop if some iterations depend on others.</li>
+<li>Try a while-loop if the number of iterations is unknown.</li>
+</ul></li>
+<li>Recursion (which isn’t covered here)
+<ul>
+<li>Convenient for naturally recursive problems (like Fibonacci),
+but often there are faster solutions.</li>
+</ul></li>
+</ol>
+<p>Start by writing the code for just one iteration. Make sure that code works;
+it’s easy to test code for one iteration.</p>
+<p>When you have one iteration working, then try using the code with an iteration
+strategy (you will have to make some small changes). If it doesn’t work, try to
+figure out which iteration is causing the problem. One way to do this is to use
+<code>message</code> to print out information. Then try to write the code for the broken
+iteration, get that iteration working, and repeat this whole process.</p>
+</div>
+<div id="case-study-the-collatz-conjecture" class="section level3 hasAnchor" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> Case Study: The Collatz Conjecture<a href="reshaping-data-automating-tasks.html#case-study-the-collatz-conjecture" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Collatz_conjecture">Collatz Conjecture</a> is a conjecture in math that was introduced
+in 1937 by Lothar Collatz and remains unproven today, despite being relatively
+easy to explain. Here’s a statement of the conjecture:</p>
+<blockquote>
+<p>Start from any positive integer. If the integer is even, divide by 2. If the
+integer is odd, multiply by 3 and add 1.</p>
+<p>If the result is not 1, repeat using the result as the new starting value.</p>
+<p>The result will always reach 1 eventually, regardless of the starting value.</p>
+</blockquote>
+<p>The sequences of numbers this process generates are called <strong>Collatz
+sequences</strong>. For instance, the Collatz sequence starting from 2 is <code>2, 1</code>. The
+Collatz sequence starting from 12 is <code>12, 6, 3, 10, 5, 16, 8, 4, 2, 1</code>.</p>
+<p>You can use iteration to compute the Collatz sequence for a given starting
+value. Since each number in the sequence depends on the previous one, and since
+the length of the sequence varies, a while-loop is the most appropriate
+iteration strategy:</p>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="reshaping-data-automating-tasks.html#cb521-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb521-2"><a href="reshaping-data-automating-tasks.html#cb521-2" aria-hidden="true" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb521-3"><a href="reshaping-data-automating-tasks.html#cb521-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (n <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb521-4"><a href="reshaping-data-automating-tasks.html#cb521-4" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb521-5"><a href="reshaping-data-automating-tasks.html#cb521-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb521-6"><a href="reshaping-data-automating-tasks.html#cb521-6" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">=</span> n <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb521-7"><a href="reshaping-data-automating-tasks.html#cb521-7" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb521-8"><a href="reshaping-data-automating-tasks.html#cb521-8" aria-hidden="true" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">3</span> <span class="sc">*</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb521-9"><a href="reshaping-data-automating-tasks.html#cb521-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb521-10"><a href="reshaping-data-automating-tasks.html#cb521-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(n, <span class="st">&quot; &quot;</span>, <span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb521-11"><a href="reshaping-data-automating-tasks.html#cb521-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## 16 8 4 2 1</code></pre>
+<p>As of 2020, scientists have used computers to check the Collatz sequences for
+every number up to approximately <span class="math inline">\(2^{64}\)</span>. For more details about the Collatz
+Conjecture, check out <a href="https://www.youtube.com/watch?v=094y1Z2wpJg">this video</a>.</p>
+</div>
+<div id="case-study-u.s.-fruit-prices" class="section level3 hasAnchor" number="4.2.7">
+<h3><span class="header-section-number">4.2.7</span> Case Study: U.S. Fruit Prices<a href="reshaping-data-automating-tasks.html#case-study-u.s.-fruit-prices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The U.S. Department of Agriculture (USDA) Economic Research Service (ERS)
+publishes data about consumer food prices. For instance, in 2018 they posted a
+<a href="https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices/">dataset that estimates average retail prices for various fruits, vegetables,
+and snack foods</a>. The estimates are formatted as a collection
+of Excel files, one for each type of fruit or vegetable. In this case study,
+you’ll use iteration to get the estimated “fresh” price for all of the fruits
+in the dataset that are sold fresh.</p>
+<p>To get started, download the <a href="https://www.ers.usda.gov/webdocs/DataFiles/51035/fruit%202013.zip?v=2437.6">zipped collection of fruit
+spreadsheets</a> and save it somewhere on your computer. Then unzip the
+file with a zip program or R’s own <code>unzip</code> function.</p>
+<p>The first sheet of each file contains a table with the name of the fruit and
+prices sorted by how the fruit was prepared. You can see this for yourself if
+you use a spreadsheet program to inspect some of the files.</p>
+<p>In order to read the files into R, first get a vector of their names. You can
+use the <code>list.files</code> function to list all of the files in a directory. If you
+set <code>full.names = TRUE</code>, the function will return the absolute path to each
+file:</p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="reshaping-data-automating-tasks.html#cb523-1" aria-hidden="true" tabindex="-1"></a>paths <span class="ot">=</span> <span class="fu">list.files</span>(<span class="st">&quot;data/fruit&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb523-2"><a href="reshaping-data-automating-tasks.html#cb523-2" aria-hidden="true" tabindex="-1"></a>paths</span></code></pre></div>
+<pre><code>##  [1] &quot;data/fruit/apples_2013.xlsx&quot;         &quot;data/fruit/apricots_2013.xlsx&quot;      
+##  [3] &quot;data/fruit/bananas_2013.xlsx&quot;        &quot;data/fruit/berries_mixed_2013.xlsx&quot; 
+##  [5] &quot;data/fruit/blackberries_2013.xlsx&quot;   &quot;data/fruit/blueberries_2013.xlsx&quot;   
+##  [7] &quot;data/fruit/cantaloupe_2013.xlsx&quot;     &quot;data/fruit/cherries_2013.xlsx&quot;      
+##  [9] &quot;data/fruit/cranberries_2013.xlsx&quot;    &quot;data/fruit/dates_2013.xlsx&quot;         
+## [11] &quot;data/fruit/figs_2013.xlsx&quot;           &quot;data/fruit/fruit_cocktail_2013.xlsx&quot;
+## [13] &quot;data/fruit/grapefruit_2013.xlsx&quot;     &quot;data/fruit/grapes_2013.xlsx&quot;        
+## [15] &quot;data/fruit/honeydew_2013.xlsx&quot;       &quot;data/fruit/kiwi_2013.xlsx&quot;          
+## [17] &quot;data/fruit/mangoes_2013.xlsx&quot;        &quot;data/fruit/nectarines_2013.xlsx&quot;    
+## [19] &quot;data/fruit/oranges_2013.xlsx&quot;        &quot;data/fruit/papaya_2013.xlsx&quot;        
+## [21] &quot;data/fruit/peaches_2013.xlsx&quot;        &quot;data/fruit/pears_2013.xlsx&quot;         
+## [23] &quot;data/fruit/pineapple_2013.xlsx&quot;      &quot;data/fruit/plums_2013.xlsx&quot;         
+## [25] &quot;data/fruit/pomegranate_2013.xlsx&quot;    &quot;data/fruit/raspberries_2013.xlsx&quot;   
+## [27] &quot;data/fruit/strawberries_2013.xlsx&quot;   &quot;data/fruit/tangerines_2013.xlsx&quot;    
+## [29] &quot;data/fruit/watermelon_2013.xlsx&quot;</code></pre>
+<p>The files are in Excel format, which you can read with the <code>read_excel</code>
+function from the <a href="https://readxl.tidyverse.org/">readxl</a> package. First try reading one file and extracting
+the fresh price:</p>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="reshaping-data-automating-tasks.html#cb525-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span>
+<span id="cb525-2"><a href="reshaping-data-automating-tasks.html#cb525-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb525-3"><a href="reshaping-data-automating-tasks.html#cb525-3" aria-hidden="true" tabindex="-1"></a>prices <span class="ot">=</span> <span class="fu">read_excel</span>(paths[<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<p>The name of the fruit is the first word in the first column’s name. The fresh
+price appears in the row where the word in column 1 starts with <code>"Fresh"</code>. You
+can use <code>str_which</code> from the stringr package (Section
+<a href="string-date-processing.html#the-stringr-package">3.4.1</a>) to find and extract this row:</p>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="reshaping-data-automating-tasks.html#cb527-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stringr&quot;</span>)</span>
+<span id="cb527-2"><a href="reshaping-data-automating-tasks.html#cb527-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb527-3"><a href="reshaping-data-automating-tasks.html#cb527-3" aria-hidden="true" tabindex="-1"></a>idx_fresh <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
+<span id="cb527-4"><a href="reshaping-data-automating-tasks.html#cb527-4" aria-hidden="true" tabindex="-1"></a>prices[idx_fresh, ]</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 7
+##   `Apples—Average retail price p… ...2      ...3   ...4  ...5     ...6  ...7    
+##   &lt;chr&gt;                           &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   
+## 1 Fresh1                          1.567515… per p… 0.9   0.24250… poun… 0.42237…</code></pre>
+<p>The price and unit appear in column 2 and column 3.</p>
+<p>Now generalize these steps by making a <code>read_fresh_price</code> function. The
+function should accept a path as input and return a vector that contains the
+fruit name, fresh price, and unit. Don’t worry about cleaning up the fruit name
+at this point—you can do that with a vectorized operation after combining the
+data from all of the files. A few fruits don’t have a fresh price, and the
+function should return <code>NA</code> for the price and unit for those. Here’s one way to
+implement the <code>read_fresh_price</code> function:</p>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="reshaping-data-automating-tasks.html#cb529-1" aria-hidden="true" tabindex="-1"></a>read_fresh_price <span class="ot">=</span> <span class="cf">function</span>(path) {</span>
+<span id="cb529-2"><a href="reshaping-data-automating-tasks.html#cb529-2" aria-hidden="true" tabindex="-1"></a>  prices <span class="ot">=</span> <span class="fu">read_excel</span>(path)</span>
+<span id="cb529-3"><a href="reshaping-data-automating-tasks.html#cb529-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb529-4"><a href="reshaping-data-automating-tasks.html#cb529-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get fruit name.</span></span>
+<span id="cb529-5"><a href="reshaping-data-automating-tasks.html#cb529-5" aria-hidden="true" tabindex="-1"></a>  fruit <span class="ot">=</span> <span class="fu">names</span>(prices)[[<span class="dv">1</span>]]</span>
+<span id="cb529-6"><a href="reshaping-data-automating-tasks.html#cb529-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb529-7"><a href="reshaping-data-automating-tasks.html#cb529-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Find fresh price.</span></span>
+<span id="cb529-8"><a href="reshaping-data-automating-tasks.html#cb529-8" aria-hidden="true" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
+<span id="cb529-9"><a href="reshaping-data-automating-tasks.html#cb529-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(idx) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb529-10"><a href="reshaping-data-automating-tasks.html#cb529-10" aria-hidden="true" tabindex="-1"></a>    prices <span class="ot">=</span> prices[idx, ]</span>
+<span id="cb529-11"><a href="reshaping-data-automating-tasks.html#cb529-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(fruit, prices[[<span class="dv">2</span>]], prices[[<span class="dv">3</span>]])</span>
+<span id="cb529-12"><a href="reshaping-data-automating-tasks.html#cb529-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb529-13"><a href="reshaping-data-automating-tasks.html#cb529-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(fruit, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb529-14"><a href="reshaping-data-automating-tasks.html#cb529-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb529-15"><a href="reshaping-data-automating-tasks.html#cb529-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Test that the function returns the correct result for a few of the files:</p>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="reshaping-data-automating-tasks.html#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">1</span>]])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<pre><code>## [1] &quot;Apples—Average retail price per pound or pint and per cup equivalent, 2013&quot;
+## [2] &quot;1.5675153914496354&quot;                                                        
+## [3] &quot;per pound&quot;</code></pre>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="reshaping-data-automating-tasks.html#cb533-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">4</span>]])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<pre><code>## [1] &quot;Mixed berries—Average retail price per pound and per cup equivalent, 2013&quot;
+## [2] NA                                                                         
+## [3] NA</code></pre>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="reshaping-data-automating-tasks.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">8</span>]])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<pre><code>## [1] &quot;Cherries—Average retail price per pound and per cup equivalent, 2013&quot;
+## [2] &quot;3.5929897554945156&quot;                                                  
+## [3] &quot;per pound&quot;</code></pre>
+<p>Now that the function is working, it’s time to choose an iteration strategy.
+The <code>read_fresh_price</code> function is not vectorized, so that strategy isn’t
+possible. Reading one file doesn’t depend on reading any of the others, so
+apply functions are the best strategy here. The <code>read_fresh_price</code> function
+always returns a character vector with 3 elements, so you can use <code>sapply</code> to
+process all of the files and get a matrix of results:</p>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="reshaping-data-automating-tasks.html#cb539-1" aria-hidden="true" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">sapply</span>(paths, read_fresh_price)</span></code></pre></div>
+<pre><code>## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="reshaping-data-automating-tasks.html#cb541-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose, convert to a data frame, and set names for easy reading.</span></span>
+<span id="cb541-2"><a href="reshaping-data-automating-tasks.html#cb541-2" aria-hidden="true" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">t</span>(all_prices)</span>
+<span id="cb541-3"><a href="reshaping-data-automating-tasks.html#cb541-3" aria-hidden="true" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">data.frame</span>(all_prices)</span>
+<span id="cb541-4"><a href="reshaping-data-automating-tasks.html#cb541-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(all_prices) <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb541-5"><a href="reshaping-data-automating-tasks.html#cb541-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(all_prices) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;fruit&quot;</span>, <span class="st">&quot;price&quot;</span>, <span class="st">&quot;unit&quot;</span>)</span>
+<span id="cb541-6"><a href="reshaping-data-automating-tasks.html#cb541-6" aria-hidden="true" tabindex="-1"></a>all_prices</span></code></pre></div>
+<pre><code>##                                                                              fruit
+## 1       Apples—Average retail price per pound or pint and per cup equivalent, 2013
+## 2             Apricots—Average retail price per pound and per cup equivalent, 2013
+## 3              Bananas—Average retail price per pound and per cup equivalent, 2013
+## 4        Mixed berries—Average retail price per pound and per cup equivalent, 2013
+## 5         Blackberries—Average retail price per pound and per cup equivalent, 2013
+## 6          Blueberries—Average retail price per pound and per cup equivalent, 2013
+## 7           Cantaloupe—Average retail price per pound and per cup equivalent, 2013
+## 8             Cherries—Average retail price per pound and per cup equivalent, 2013
+## 9          Cranberries—Average retail price per pound and per cup equivalent, 2013
+## 10               Dates—Average retail price per pound and per cup equivalent, 2013
+## 11                Figs—Average retail price per pound and per cup equivalent, 2013
+## 12      Fruit cocktail—Average retail price per pound and per cup equivalent, 2013
+## 13  Grapefruit—Average retail price per pound or pint and per cup equivalent, 2013
+## 14      Grapes—Average retail price per pound or pint and per cup equivalent, 2013
+## 15      Honeydew melon—Average retail price per pound and per cup equivalent, 2013
+## 16                Kiwi—Average retail price per pound and per cup equivalent, 2013
+## 17             Mangoes—Average retail price per pound and per cup equivalent, 2013
+## 18          Nectarines—Average retail price per pound and per cup equivalent, 2013
+## 19     Oranges—Average retail price per pound or pint and per cup equivalent, 2013
+## 20              Papaya—Average retail price per pound and per cup equivalent, 2013
+## 21             Peaches—Average retail price per pound and per cup equivalent, 2013
+## 22               Pears—Average retail price per pound and per cup equivalent, 2013
+## 23   Pineapple—Average retail price per pound or pint and per cup equivalent, 2013
+## 24       Plums—Average retail price per pound or pint and per cup equivalent, 2013
+## 25 Pomegranate—Average retail price per pound or pint and per cup equivalent, 2013
+## 26         Raspberries—Average retail price per pound and per cup equivalent, 2013
+## 27        Strawberries—Average retail price per pound and per cup equivalent, 2013
+## 28  Tangerines—Average retail price per pound or pint and per cup equivalent, 2013
+## 29          Watermelon—Average retail price per pound and per cup equivalent, 2013
+##                  price      unit
+## 1   1.5675153914496354 per pound
+## 2   3.0400719670964378 per pound
+## 3  0.56698341453144807 per pound
+## 4                 &lt;NA&gt;      &lt;NA&gt;
+## 5   5.7747082503535152 per pound
+## 6   4.7346216897250253 per pound
+## 7  0.53587377610644515 per pound
+## 8   3.5929897554945156 per pound
+## 9                 &lt;NA&gt;      &lt;NA&gt;
+## 10                &lt;NA&gt;      &lt;NA&gt;
+## 11                &lt;NA&gt;      &lt;NA&gt;
+## 12                &lt;NA&gt;      &lt;NA&gt;
+## 13 0.89780204117954143 per pound
+## 14  2.0938274120049827 per pound
+## 15 0.79665620543008364 per pound
+## 16  2.0446834079658482 per pound
+## 17  1.3775634470319702 per pound
+## 18  1.7611484827950696 per pound
+## 19  1.0351727302444853 per pound
+## 20  1.2980115892049107 per pound
+## 21  1.5911868532458617 per pound
+## 22  1.4615746043999458 per pound
+## 23 0.62766194593569868 per pound
+## 24  1.8274160078099031 per pound
+## 25  2.1735904118559191 per pound
+## 26  6.9758107988552958 per pound
+## 27  2.3588084831103004 per pound
+## 28  1.3779618772323634 per pound
+## 29 0.33341203532340097 per pound</code></pre>
+<p>Finally, the last step is to remove the extra text from the fruit name. One way
+to do this is with the <code>str_split_fixed</code> function from the stringr package.
+There’s an en dash <code>—</code> after each fruit name, which you can use for the split:</p>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="reshaping-data-automating-tasks.html#cb543-1" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">=</span> <span class="fu">str_split_fixed</span>(all_prices<span class="sc">$</span>fruit, <span class="st">&quot;—&quot;</span>, <span class="dv">2</span>)[, <span class="dv">1</span>]</span>
+<span id="cb543-2"><a href="reshaping-data-automating-tasks.html#cb543-2" aria-hidden="true" tabindex="-1"></a>all_prices<span class="sc">$</span>fruit <span class="ot">=</span> fruit</span>
+<span id="cb543-3"><a href="reshaping-data-automating-tasks.html#cb543-3" aria-hidden="true" tabindex="-1"></a>all_prices</span></code></pre></div>
+<pre><code>##             fruit               price      unit
+## 1          Apples  1.5675153914496354 per pound
+## 2        Apricots  3.0400719670964378 per pound
+## 3         Bananas 0.56698341453144807 per pound
+## 4   Mixed berries                &lt;NA&gt;      &lt;NA&gt;
+## 5    Blackberries  5.7747082503535152 per pound
+## 6     Blueberries  4.7346216897250253 per pound
+## 7      Cantaloupe 0.53587377610644515 per pound
+## 8        Cherries  3.5929897554945156 per pound
+## 9     Cranberries                &lt;NA&gt;      &lt;NA&gt;
+## 10          Dates                &lt;NA&gt;      &lt;NA&gt;
+## 11           Figs                &lt;NA&gt;      &lt;NA&gt;
+## 12 Fruit cocktail                &lt;NA&gt;      &lt;NA&gt;
+## 13     Grapefruit 0.89780204117954143 per pound
+## 14         Grapes  2.0938274120049827 per pound
+## 15 Honeydew melon 0.79665620543008364 per pound
+## 16           Kiwi  2.0446834079658482 per pound
+## 17        Mangoes  1.3775634470319702 per pound
+## 18     Nectarines  1.7611484827950696 per pound
+## 19        Oranges  1.0351727302444853 per pound
+## 20         Papaya  1.2980115892049107 per pound
+## 21        Peaches  1.5911868532458617 per pound
+## 22          Pears  1.4615746043999458 per pound
+## 23      Pineapple 0.62766194593569868 per pound
+## 24          Plums  1.8274160078099031 per pound
+## 25    Pomegranate  2.1735904118559191 per pound
+## 26    Raspberries  6.9758107988552958 per pound
+## 27   Strawberries  2.3588084831103004 per pound
+## 28     Tangerines  1.3779618772323634 per pound
+## 29     Watermelon 0.33341203532340097 per pound</code></pre>
+<p>Now the data are ready for analysis. You could extend the reader function to
+extract more of the data (e.g., dried and frozen prices), but the overall
+process is fundamentally the same. Write the code to handle one file (one
+step), generalize it to work on several, and then iterate.</p>
+<p>For another example, see Liza Wood’s <a href="https://d-rug.github.io/realworld_functions_iteration/">Real-world Function Writing
+Mini-reader</a>.</p>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="string-date-processing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/04_automating_tasks.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/04_automating_tasks.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

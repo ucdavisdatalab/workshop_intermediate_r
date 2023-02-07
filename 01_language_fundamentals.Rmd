@@ -1062,7 +1062,7 @@ most popular systems are:
   a developer at [Posit][] (formerly RStudio). Claims to be simpler and faster
   than reference classes.
 
-* [**R7**][r7] -- A new OOP system being developed collaboratively by
+* [**S7**][s7] -- A new OOP system being developed collaboratively by
   representatives from several different important groups in the R community,
   including the R core developers, Bioconductor, and Posit.
 
@@ -1070,7 +1070,7 @@ most popular systems are:
 [cow]: #reference-objects
 [r6]: https://r6.r-lib.org/
 [Posit]: https://posit.co/
-[r7]: https://rconsortium.github.io/OOP-WG/
+[s7]: https://rconsortium.github.io/OOP-WG/
 
 Many of these systems are described in more detail in Hadley Wickham's book
 [Advanced R][adv-r].
