@@ -77,3 +77,17 @@ break-next
 planning-for-iteration
 case-study-the-collatz-conjecture
 case-study-u.s.-fruit-prices
+data-visualization-in-r
+the-grammar-of-graphics
+example-distance-to-stop-a-car
+layers
+guidelines-for-graphics
+data
+feature-types
+theme-guidelines
+scale-guidelines
+facet-guidelines
+example-revisited
+examples
+bird-flu-mortality
+small-business-loans
