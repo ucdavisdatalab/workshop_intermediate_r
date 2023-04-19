@@ -36,7 +36,7 @@ series. There are currently three:
    messy data such as dates, times, and text for analysis, and how to use loops
    or other forms of iteration to automate repetitive tasks.
    
-3. _Data Visualization_, which is about plotting data and models in R.
+3. _Data Visualization and Analysis in R_, which is about plotting data and models in R.
 
 Each series is independent and consists of 2 sessions (equivalently, 2 chapters
 in this reader).

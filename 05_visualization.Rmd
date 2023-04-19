@@ -1,3 +1,5 @@
+# (PART) Data Visualization and Analysis in R {-}
+
 # Data Visualization in R
 
 `ggplot2` is an enormously popular R package that provides a way to create data visualizations through a so-called "grammar of graphics" (hence the "gg" in the name). That grammar interface may be a little bit unintuitive at first but once you grasp it, you hold enormous power to quickly craft plots. It doesn't hurt that the `ggplot2` plots look great, too.
