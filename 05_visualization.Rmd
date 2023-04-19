@@ -1,0 +1,240 @@
+# Data Visualization in R
+
+`ggplot2` is an enormously popular R package that provides a way to create data visualizations through a so-called "grammar of graphics" (hence the "gg" in the name). That grammar interface may be a little bit unintuitive at first but once you grasp it, you hold enormous power to quickly craft plots. It doesn't hurt that the `ggplot2` plots look great, too.
+
+Today I'll be teaching you the basics of `ggplot2` with a special emphasis on the grammar of graphics.
+
+## The Grammar of Graphics
+
+The grammar of graphics breaks the elements of statistical graphics into parts in an analogy to human language grammars. Knowing how to put together subject nouns, object nouns, verbs, and adjectives allows you to construct sentences that express meaning. Similarly, the grammar of graphics is a collection of layers and the rules for putting them together to graphically express the meaning of your data. `ggplot2` is a software tool that understands ideas expressed in the grammar of graphics and can draw the requested picture.
+
+Ideas in the grammar of graphics are expressed in layers. The most basic layer is the data itself, and there is an aesthetic layer that describes how data maps onto dimensions like color, x/y coordinates, and size. This layer is distinct from the geometry layer, which describes the way that data should be drawn (e.g., dots, lines, or bars). There are other kinds of layers, but many plots can be specified as the combination of data, aesthetic mapping, and geometry. Let's see one.
+
+### Example: Distance to Stop A Car
+One of the datasets built into R is an experiment from the 1920s that measured how far (in feet) cars needed to stop from speeds of 4-25 miles per hour. Don't worry about what the code is doing yet, this example is just meant to show what a ggplot looks like. We will dive into the details in a moment.
+
+```{r}
+# load the data and attack the ggplot2 package
+data(cars)
+library( ggplot2 )
+
+# look at the data - it is tidy
+head( cars )
+
+# make a simple plot of the data
+ggplot(cars) + 
+  aes(x=speed, y=dist) +
+  geom_point()
+```
+
+
+### Layers
+
+Layers are the building blocks of the grammar of graphics. The typical pattern is that you express the idea of a plot in the grammar of graphics by adding layers with the addition symbol (`+`). There aren't even that many of layers to know! Here is the list, and the name of the function(s) you'll use to control the layer. Some of the names include asterisks because there are a lot of similar options - for instance, geometry layers include `geom_point()`, `geom_line()`, `geom_boxplot()`, and many more. See the comprehensive listing on [the official `ggplot2` website](https://ggplot2.tidyverse.org/reference/).
+
+- Data (`ggplot2()`) - provides the data for the visualization.
+- Aesthetics (`aes()`) - a mapping that indicates which variables in the data control which dimension in the plot (here "dimension" is used in an abstract way to include things like shape, color, and line width.)
+- Geometry (`geom_*()`) - how the abstract dimensions of the aesthetic layer will be drawn in the figure.
+- Statistical transform (`stat_*()`) - alters the data before it enters the aesthetics layer - for instance binning or removing duplicates.
+- Scale (`scale_*()`) - used to control the way that values in the data are mapped to the aesthetic dimensions. For instance, you can control how numbers or categories in the data map to colors.
+- Coordinates (`coord_*()`) - used to control how the data are mapped to plot axes.
+- Facets (`facet_*()`) - used to control how data are separated into subplots called "facets".
+- Theme (`theme()`) - used to control plot details like titles, labels, and legends.
+
+
+```{r include=FALSE}
+library(ggplot2)
+```
+
+## Guidelines for Graphics
+
+I've attached a [PDF checklist for creating good data
+visualizations](img/graphics_checklist.pdf), reated by Nick Ulle of UC
+Davis Datalab. Download it and keep a copy around - it's an excellent
+guide. I'm going to go over how the checklist translates into the
+grammar of graphics.
+
+### Data
+You can't have a data visualization without data! `ggplot2` expects that your data is **tidy**, which means that each row is a complete observation and each column is a unique feature. In fact, `ggplot2` is part of an actively developing collection of packages [called the `tidyverse`](https://tidyverse.org) that provides ways to create and work with tidy data. You dont have to adopt the entire tidyverse to use `ggplot2`, though.
+
+### Feature Types
+
+The first item on the list is a table of options for geometries that are commonly relevant for a given kind of data - for instance, a histogram is a geometry that can be used with a single numeric feature, and a box plot can be used with one numeric and one categorical feature.
+ - Should it be a dot plot? Pie plots are hard
+to read and bar plots don't use space efficiently (Cleveland and McGill
+1990; Heer and Bostock 2010). Generally a dot plot is a better choice.
+
+### Theme Guidelines
+ - Does the
+graphic convey important information? Don't include graphics that are
+uninformative or redundant. 
+ - Title? Make sure the title explains what
+the graphic shows. 
+ - Axis labels? Label the axes in plain language (no
+variable names!). 
+ - Axis units? Label the axes with units (inches,
+dollars, etc). 
+ - Legend? Any graphic that shows two or more categories
+coded by style or color must include a legend. 
+
+
+### Scale Guidelines
+ - Appropriate scales and
+limits? Make sure the scales and limits of the axes do not lead people
+to incorrect conclusions. For side-by-side graphics or graphics that
+viewers will compare, use identical scales and limits. 
+
+ - Print safe? Design graphics to be legible in black & white. Color is
+great, but use point and line styles to distinguish groups in addition
+to color. Also try to choose colors that are accessible to colorblind
+people. The RColorBrewer and viridis packages can help with choosing
+colors.
+
+
+### Facet Guidelines
+ - No more than 5 lines? Line plots with
+more than 5 lines risk becoming hard-to-read "spaghetti" plots.
+Generally a line plot with more than 5 lines should be split into
+multiple plots with fewer lines. If the x-axis is discrete, consider
+using a heat map instead. 
+ - No overplotting?
+Scatter plots where many plot points overlap hide the actual patterns in
+the data. Consider splitting the data into facets, making the points smaller, or using a two-dimensional density plot (a smooth scatter plot) instead. 
+
+
+### Example, Revisited
+Our earlier example violates some of these rules: it has no title, the axes are labeled with variable names instead of plain language, and the plot units aren't provided.
+
+```{r}
+# create the plot with labels and title
+ggplot(cars) +
+  aes(x=speed, y=dist) +
+  geom_point() +
+  xlab("speed (mph)") +
+  ylab("stopping distance (feet)") +
+  ggtitle("Stopping distance")
+```
+
+
+```{r include=FALSE}
+library( ggplot2 )
+library( lubridate )
+library( readr )
+```
+
+## Examples
+We have covered enough of the grammar of graphics that you should begin to see the patterns in how it is used to express graphical ideas for `ggplot2`. Here, we will work through some examples.
+
+### Bird Flu Mortality
+People mail dead birds to the USDA and USGS, where scientists analyze the birds to find out why they died. Right now there is a bird flu epidemic, and the USDA provides public data about the birds in whom the disease has been detected. You can access the data here: [https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/hpai-2022/2022-hpai-wild-birds](https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/hpai-2022/2022-hpai-wild-birds). We will load the data and do some visualization.
+
+```{r}
+# load data directly from the USDA website
+flu = read_csv( "data/hpai-wild-birds-ver2.csv" )
+flu$date = mdy(flu$`Date Detected`)
+
+# plot a histogram of when bird flu was detected
+ggplot(flu) +
+  aes(x=date) +
+  geom_histogram() + 
+  ggtitle( "Bird flu detections in wild birds") +
+  xlab("Date") +
+  ylab("Count")
+
+# plot a histogram of when bird flu was detected
+ggplot(flu) +
+  aes(x=date, fill=`Sampling Method`) +
+  geom_histogram() + 
+  ggtitle( "Bird flu detections in wild birds") +
+  xlab("Date") +
+  ylab("Count")
+
+# bar chart shows how the bird flu reports compare between west coast states
+subset(flu, State %in% c("California", "Oregon", "Washington")) |>
+  ggplot() +
+    aes(x=State, fill=`Sampling Method`) +
+    stat_count() +
+    geom_bar()  + 
+    ggtitle( "Bird flu detections in wild birds (West coast states)") +
+    ylab("Count")
+```
+
+
+Let's compare the bird flu season to the human flu season. Download hospitalization data for the 2021-2022 and 2022-2023 flu seasons from the CDC website here: [https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html) (the download button is at the top right and you need to specify which seasons to download).
+
+```{r}
+# processing CDC flu data:
+cdc = read_csv("data/FluSurveillance_Custom_Download_Data.csv", skip=2)
+cdc$date = as_date("1950-01-01")
+year(cdc$date) = cdc$`MMWR-YEAR`
+week(cdc$date) = cdc$`MMWR-WEEK`
+
+
+# get flu hospitalization counts that include all race, sex, and age categories
+cdc_overall = subset(cdc,
+                     `AGE CATEGORY`=="Overall" &
+                       `SEX CATEGORY`=="Overall" &
+                       `RACE CATEGORY`=="Overall")
+
+# convert the counts to cases per 10 million
+cdc_overall$`WEEKLY RATE` = as.numeric(cdc_overall$`WEEKLY RATE`) * 100
+
+# remake the plot but add a new geom_line() with its own data
+ggplot(flu) +
+  aes(x=date, fill=`Sampling Method`) +
+  geom_histogram() +
+  geom_line(data=cdc_overall, mapping=aes(x=date, y=`WEEKLY RATE`), inherit.aes=FALSE) +
+  ggtitle("Bird flu detections and human flu hospitalizations") +
+  xlab("Date") + 
+  ylab("Count")
+```
+
+### Small Business Loans
+The US Small Business Administration (SBA) maintains data on the loans it offers to businesses. Data about loans made since 2020 can be found at [https://data.sba.gov/dataset/7-a-504-foia](https://data.sba.gov/dataset/7-a-504-foia). We'll load that data and then explore some ways to visualize it.
+
+```{r}
+# load the small business loan data
+sba = read_csv( url("https://data.sba.gov/dataset/0ff8e8e9-b967-4f4e-987c-6ac78c575087/resource/c71ba6cf-b4e0-4e60-98f0-48aeaf4c6460/download/foia-7afy2020-present-asof-221231.csv"))
+
+# check the SBA data to see the data types, etc.
+head(sba)
+
+# boxplot of loan sizes by business type
+subset( sba, ProjectState=="CA" ) |>
+  ggplot() +
+    aes(x=BusinessType, y=SBAGuaranteedApproval) +
+    geom_boxplot() +
+    scale_y_log10() +
+    ggtitle("Small Business Administraton guaranteed loans in California") +
+    ylab("Loan guarantee (dollars)")
+
+
+# relationship between loan size and interest rate
+subset( sba, ProjectState=="CA" ) |>
+  ggplot() +
+    aes(x=GrossApproval, y=InitialInterestRate, ) +
+    geom_point() +
+    facet_wrap(~BusinessType, ncol=3) +
+    scale_x_log10() +
+    ggtitle("Interest rate as a function of loan size") +
+    xlab("Loan size (dollars)") +
+    ylab("Interest rate (%)")
+```
+
+
+Now let's see how we can add aesthetic mappings to a plot in order to convey information on a new dimension. In this case, we will color the points by the loan status. If the default colors aren't working for you, `ggplot2` can integrate directly with [Color Brewer (colorbrewer2.org)](https://colorbrewer2.org). A smoother can help indicate differences that would otherwise be lost in the noise.
+```{r}
+# color the dots by the oan status.
+subset( sba, ProjectState=="CA" & LoanStatus != "EXEMPT" & LoanStatus != "CHGOFF" ) |>
+  ggplot() +
+    aes(x=GrossApproval, y=InitialInterestRate, color=LoanStatus) +
+    geom_point() +
+    geom_smooth() +
+    facet_wrap(~BusinessType, ncol=3) +
+    scale_x_log10() +
+    ggtitle("Interest rate as a function of loan size by loan status") +
+    xlab("Loan size (dollars)") +
+    ylab("Interest rate (%)") + 
+    labs( color="Loan status") + 
+    scale_color_brewer(type="qual", palette="Accent")
+```
