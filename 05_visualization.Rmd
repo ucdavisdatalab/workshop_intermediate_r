@@ -224,7 +224,12 @@ subset( sba, ProjectState=="CA" ) |>
 ```
 
 
-Now let's see how we can add aesthetic mappings to a plot in order to convey information on a new dimension. In this case, we will color the points by the loan status. If the default colors aren't working for you, `ggplot2` can integrate directly with [Color Brewer (colorbrewer2.org)](https://colorbrewer2.org). A smoother can help indicate differences that would otherwise be lost in the noise.
+Now let's see how we can add aesthetic mappings to a plot in order to convey information on a new dimension. In this case, we will color the points by the loan status. 
+
+The default color palette of `ggplot2` is not accessible because the colors aren't distinguishable to people with red-green color blindness. Thankfully, `ggplot2` integrates directly with [Color Brewer (colorbrewer2.org)](https://colorbrewer2.org) to get better color palettes We will use the `Accent` color palette, which is just one of the many options that can be found on the Color Brewer site.
+
+There are a lot of data points, which tent to largely overlap and hide each other. We use a smoother (`geom_smooth()`) to help call out differences that would otherwise be lost in the noise of the points.
+
 ```{r}
 # color the dots by the oan status.
 subset( sba, ProjectState=="CA" & LoanStatus != "EXEMPT" & LoanStatus != "CHGOFF" ) |>
@@ -240,3 +245,4 @@ subset( sba, ProjectState=="CA" & LoanStatus != "EXEMPT" & LoanStatus != "CHGOFF
     labs( color="Loan status") + 
     scale_color_brewer(type="qual", palette="Accent")
 ```
+
