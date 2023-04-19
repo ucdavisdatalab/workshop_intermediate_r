@@ -91,3 +91,4 @@ example-revisited
 examples
 bird-flu-mortality
 small-business-loans
+faceting

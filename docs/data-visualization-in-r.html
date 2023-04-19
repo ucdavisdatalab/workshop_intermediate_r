@@ -270,6 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#bird-flu-mortality"><i class="fa fa-check"></i><b>5.3.1</b> Bird Flu Mortality</a></li>
 <li class="chapter" data-level="5.3.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#small-business-loans"><i class="fa fa-check"></i><b>5.3.2</b> Small Business Loans</a></li>
 </ul></li>
+<li class="chapter" data-level="5.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#faceting"><i class="fa fa-check"></i><b>5.4</b> Faceting</a></li>
 </ul></li>
 <li class="part"><span><b>IV Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -546,7 +547,9 @@ the data. Consider splitting the data into facets, making the points smaller, or
 <span id="cb562-9"><a href="data-visualization-in-r.html#cb562-9" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Loan size (dollars)&quot;</span>) <span class="sc">+</span></span>
 <span id="cb562-10"><a href="data-visualization-in-r.html#cb562-10" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Interest rate (%)&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
-<p>Now let’s see how we can add aesthetic mappings to a plot in order to convey information on a new dimension. In this case, we will color the points by the loan status. If the default colors aren’t working for you, <code>ggplot2</code> can integrate directly with <a href="https://colorbrewer2.org">Color Brewer (colorbrewer2.org)</a>. A smoother can help indicate differences that would otherwise be lost in the noise.</p>
+<p>Now let’s see how we can add aesthetic mappings to a plot in order to convey information on a new dimension. In this case, we will color the points by the loan status.</p>
+<p>The default color palette of <code>ggplot2</code> is not accessible because the colors aren’t distinguishable to people with red-green color blindness. Thankfully, <code>ggplot2</code> integrates directly with <a href="https://colorbrewer2.org">Color Brewer (colorbrewer2.org)</a> to get better color palettes We will use the <code>Accent</code> color palette, which is just one of the many options that can be found on the Color Brewer site.</p>
+<p>There are a lot of data points, which tent to largely overlap and hide each other. We use a smoother (<code>geom_smooth()</code>) to help call out differences that would otherwise be lost in the noise of the points.</p>
 <div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="data-visualization-in-r.html#cb563-1" tabindex="-1"></a><span class="co"># color the dots by the oan status.</span></span>
 <span id="cb563-2"><a href="data-visualization-in-r.html#cb563-2" tabindex="-1"></a><span class="fu">subset</span>( sba, ProjectState<span class="sc">==</span><span class="st">&quot;CA&quot;</span> <span class="sc">&amp;</span> LoanStatus <span class="sc">!=</span> <span class="st">&quot;EXEMPT&quot;</span> <span class="sc">&amp;</span> LoanStatus <span class="sc">!=</span> <span class="st">&quot;CHGOFF&quot;</span> ) <span class="sc">|&gt;</span></span>
 <span id="cb563-3"><a href="data-visualization-in-r.html#cb563-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -562,8 +565,13 @@ the data. Consider splitting the data into facets, making the points smaller, or
 <span id="cb563-13"><a href="data-visualization-in-r.html#cb563-13" tabindex="-1"></a>    <span class="fu">scale_color_brewer</span>(<span class="at">type=</span><span class="st">&quot;qual&quot;</span>, <span class="at">palette=</span><span class="st">&quot;Accent&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula = &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
 <p><img src="05_visualization_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-
 </div>
+</div>
+<div id="faceting" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Faceting<a href="data-visualization-in-r.html#faceting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You might notice there are some new commands in the last example. We’ve already explained <code>scale_color_brewer()</code> and <code>geom_smooth()</code>. You may be able to guess that <code>scale_x_log10()</code> applies the log (base 10) scaling to the x-axis. But what is <code>facet_wrap()</code>?</p>
+<p>One way to show more information more clearly in a plot is to break the plot into pieces that each show part of the information. In <code>ggplot2</code>, this is called <em>faceting</em> the plot. There are two main facet functions, <code>facet_grid()</code> (which puts plots in a grid), and <code>facet_wrap()</code>, which puts plots side-by-side until it runs out of room, then wraps to a new line. We have used <code>facet_wrap()</code> here, with the first argument being <code>~BusinessType</code>. This tells <code>ggplot2</code> to break the plot into pieces by plotting the data for each <code>BusinessType</code> separately.</p>
+
 </div>
 </div>
 

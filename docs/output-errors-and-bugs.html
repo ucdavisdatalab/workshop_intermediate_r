@@ -270,6 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#bird-flu-mortality"><i class="fa fa-check"></i><b>5.3.1</b> Bird Flu Mortality</a></li>
 <li class="chapter" data-level="5.3.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#small-business-loans"><i class="fa fa-check"></i><b>5.3.2</b> Small Business Loans</a></li>
 </ul></li>
+<li class="chapter" data-level="5.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#faceting"><i class="fa fa-check"></i><b>5.4</b> Faceting</a></li>
 </ul></li>
 <li class="part"><span><b>IV Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -733,7 +734,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x7fce67545f10&gt;
+## &lt;bytecode: 0x7f8749534510&gt;
 ## &lt;environment: namespace:cli&gt;
 ## 
 ## $CBoundsCheck
@@ -948,8 +949,8 @@ of expressions to benchmark as arguments. For example, to compare the speed of
 <span id="cb263-2"><a href="output-errors-and-bugs.html#cb263-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##  expr      min       lq     mean   median       uq       max neval
-##     A 2.795782 3.003740 3.318647 3.153736 3.433613  8.060312   100
-##     B 6.307952 6.921334 7.342872 7.256365 7.690269 11.702506   100</code></pre>
+##     A 2.163112 2.497612 2.706054 2.563001 2.970085  3.833727   100
+##     B 5.097526 5.540114 6.159989 5.906297 6.477880 10.499562   100</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>
