@@ -246,3 +246,7 @@ subset( sba, ProjectState=="CA" & LoanStatus != "EXEMPT" & LoanStatus != "CHGOFF
     scale_color_brewer(type="qual", palette="Accent")
 ```
 
+## Faceting
+You might notice there are some new commands in the last example. We've already explained `scale_color_brewer()` and `geom_smooth()`. You may be able to guess that `scale_x_log10()` applies the log (base 10) scaling to the x-axis. But what is `facet_wrap()`?
+
+One way to show more information more clearly in a plot is to break the plot into pieces that each show part of the information. In `ggplot2`, this is called *faceting* the plot. There are two main facet functions, `facet_grid()` (which puts plots in a grid), and `facet_wrap()`, which puts plots side-by-side until it runs out of room, then wraps to a new line. We have used `facet_wrap()` here, with the first argument being `~BusinessType`. This tells `ggplot2` to break the plot into pieces by plotting the data for each `BusinessType` separately.
