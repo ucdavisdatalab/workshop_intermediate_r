@@ -325,7 +325,7 @@ H16. You can specify a range of cells when you call `read_excel` by setting the
 `range` parameter:
 
 ```{r read-smart-data}
-smart_path = "./data/SMART Ridership Web Posting_Dec.22.xlsx"
+smart_path = "./data/SMART Ridership Web Posting_Mar.23.xlsx"
 smart = read_excel(smart_path, range = "B4:H16")
 smart
 ```
