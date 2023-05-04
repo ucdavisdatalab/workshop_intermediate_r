@@ -78,8 +78,12 @@ planning-for-iteration
 case-study-the-collatz-conjecture
 case-study-u.s.-fruit-prices
 data-visualization-in-r
+our-friend-ggplot2
 the-grammar-of-graphics
-example-distance-to-stop-a-car
+example-palmer-penguins
+examining-the-plot
+duplicating-the-palmer-penguins-plot
+analysis
 layers
 guidelines-for-graphics
 data
@@ -87,7 +91,6 @@ feature-types
 theme-guidelines
 scale-guidelines
 facet-guidelines
-example-revisited
 examples
 bird-flu-mortality
 small-business-loans
