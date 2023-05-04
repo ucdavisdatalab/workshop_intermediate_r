@@ -2,35 +2,132 @@
 
 # Data Visualization in R
 
-`ggplot2` is an enormously popular R package that provides a way to create data visualizations through a so-called "grammar of graphics" (hence the "gg" in the name). That grammar interface may be a little bit unintuitive at first but once you grasp it, you hold enormous power to quickly craft plots. It doesn't hurt that the `ggplot2` plots look great, too.
+We are here today to learn how to do data visualization in R. Some of you will have recently done the Principles of Data Visualization workshop. There you were given a checklist of questions to guide you as you create a plot, which we are going to use today. [The checklist is here](./img/graphics_checklist.pdf).
 
-Today I'll be teaching you the basics of `ggplot2` with a special emphasis on the grammar of graphics.
+## Our Friend `ggplot2`
+
+We will be using the R package `ggplot2` to create data visualizations. Install it via the `install.packages()` function. While we are at it, let's make sure we install all of the packages that we'll need for today's workshop. Beyone `ggplot2`, we'll use `readr` for reading data files, `dplyr` for manupulating data, and `palmerpenguins` provides a nice dataset.
+
+```{r install-packages, eval=FALSE}
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("readr")
+install.packages("palmerpenguins")
+```
+
+
+```{r include=FALSE}
+library(ggplot2)
+library(lubridate)
+library(readr)
+library(palmerpenguins)
+```
+
+`ggplot2` is an enormously popular R package that provides a way to create data visualizations through a so-called "grammar of graphics" (hence the "gg" in the name). That grammar interface may be a little bit unintuitive at first but once you grasp it, you hold enormous power to quickly craft plots. It doesn't hurt that the `ggplot2` plots look great, too.
 
 ## The Grammar of Graphics
 
-The grammar of graphics breaks the elements of statistical graphics into parts in an analogy to human language grammars. Knowing how to put together subject nouns, object nouns, verbs, and adjectives allows you to construct sentences that express meaning. Similarly, the grammar of graphics is a collection of layers and the rules for putting them together to graphically express the meaning of your data. `ggplot2` is a software tool that understands ideas expressed in the grammar of graphics and can draw the requested picture.
+The grammar of graphics breaks the elements of statistical graphics into parts in an analogy to human language grammars. Knowing how to put together subject nouns, object nouns, verbs, and adjectives allows you to construct sentences that express meaning. Similarly, the grammar of graphics is a collection of layers and the rules for putting them together to graphically express the meaning of your data.
 
-Ideas in the grammar of graphics are expressed in layers. The most basic layer is the data itself, and there is an aesthetic layer that describes how data maps onto dimensions like color, x/y coordinates, and size. This layer is distinct from the geometry layer, which describes the way that data should be drawn (e.g., dots, lines, or bars). There are other kinds of layers, but many plots can be specified as the combination of data, aesthetic mapping, and geometry. Let's see one.
 
-### Example: Distance to Stop A Car
-One of the datasets built into R is an experiment from the 1920s that measured how far (in feet) cars needed to stop from speeds of 4-25 miles per hour. Don't worry about what the code is doing yet, this example is just meant to show what a ggplot looks like. We will dive into the details in a moment.
+### Example: Palmer Penguins
+Let's look at an example. This uses data from the `palmerpenguins` package that you just installed (make sure to load the package with `library(palmerpenguins)`). It is measurements of 344 penguins, collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the Long Term Ecological Research Network](https://lternet.edu/). [The data package](https://allisonhorst.github.io/palmerpenguins/) was created by [Allison Horst](https://allisonhorst.com). Before jumping in, let's have a look at the data and the image we want to create.
 
-```{r}
-# load the data and attack the ggplot2 package
-data(cars)
-library( ggplot2 )
+```{r head-penguins, message=FALSE, warning=FALSE}
+head(penguins)
+```
 
-# look at the data - it is tidy
-head( cars )
+![Plot of bill length vs. flipper length for the Palmer Penguins](img/flipper-bill.png)
 
-# make a simple plot of the data
-ggplot(cars) + 
-  aes(x=speed, y=dist) +
+#### Examining the Plot
+Referring to the graphics checklist, we see that this plot has two numerical features (bill length and flipper length), expressed using a scatter plot. There is also a categorical feature (species), which is indicated by the different colors and shapes of the plot. The plot expresses the fact that flipper length is positively associated with bill length for all thre species of penguins, but the sizes and the relationships between them are unique to each species. There is a title and a legend, the axes are labeled with units, and all of the text is in plain language. There is a risk that the data may hide the message, so a smoothing line is added to each species for clarity. The colors are accessible (avoiding red/green colorblindness issues).
+
+This is a good dataviz, now let's duplicate it!
+
+#### Duplicating the Palmer Penguins Plot
+
+Here is the code to make the plot:
+
+```{r penguin-plot, message=FALSE, warning=FALSE}
+#
+ggplot(penguins) +
+  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
+  geom_point() +
+  geom_smooth(method = lm, se = FALSE) +
+  xlab("Flipper length (mm)") +
+  ylab("Bill length (mm)") +
+  ggtitle(
+    "Flipper and bill length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo penguins at Palmer Station LTER"
+  ) +
+  labs(color = "Penguin species", shape = "Penguin species") +
+  scale_color_brewer(palette = "Dark2")
+```
+
+#### Analysis
+This is a complicated data visualization that covers things we haven't covered yet, so let's go into how it works. You might have noticed how the code to make the plot is separated into a bunch of function calls, all separated by plus signs (`+`). Each function does something small and specific. The functions and the ability to add them together provide a powerful and flexible "grammar" to describe the desired plot. 
+
+Our plot begins the way that most do - by calling `ggplot()` with the data as the argument. This creates a plot object (but doesn't draw it) and sets the data. Then we add the `aes()` function to describe how features of the data map to aesthetic features of the plot. In our case, that means mapping the flipper length to the `x` (horizontal) direction, the bill length to the `y` (vertical) direction, and mapping species to both color and shape. Next, we add a geometry to describe how the mapping should be drawn. Here you can refer to the table at the top of the graphics checklist that suggests geometries to use for different kinds of features. We have numeric features for both `x` and `y`, so the table suggests line, scatter (points), and heatmap. We've selected points (`geom_point()`) because we want to show the individual penguins (lines would imply a chain of connections from one penguin to the next.)
+
+Those three parts (data, a mapping, and a geometry) would be enough to get a basic plot that looks like this:
+
+```{r basic-points, message=FALSE, warning=FALSE}
+#
+ggplot(penguins) +
+  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
   geom_point()
 ```
 
 
-### Layers
+We know, though, that this plot is not complete. In particular, there is no title and the axes aren't labeled meaningfully. Also, the clouds of points seem to hide the meaning that we are trying to convey and the colors aren't colorblind-safe. The rest of the pieces of the plot call are meant to address those shortcomings. 
+
+We add a second geometry layer with `geom_smooth(method=lm, se=FALSE)`, which specifies the `lm` method in order to draw a straight (instead of wiggly) smoother through the data. The `x`-axis label, `y`-axis labelk and title are set by `xlab()`, `ylab()`, and `ggtitle()`, respectively. We want something more informative than the variable name for the legend title ("Penguin Species" instead of "species"), which is handled by the `labs()` function. And you'll recall from the principles of data visualization that you can use [Cynthia Brewer's Color Brewer website](https://colorbrewer2.org/) to select colorblind-friendly color schemes. Color Brewer is integrated directly into `ggplot2`, so the `scale_color_brewer()` function can pull a named color scheme from Color Brewer directly into your plot as the color scale.
+
+We can begin to better understand the grammar of graphics as we consider this example. Notice that the mapping from data features to plot features (the so-called aesthetic mapping, or just aesthetic for short) is separate from the plot geometry. This should encourage you to recognize that we generate data visualizations by expressing information along several dimensions that may be literal (bill length as the x-axis) or abstract (color expresses the penguon species). The geometry determines how those dimensions are drawn on the page, which can be changed without changing the mappings. Let's see a couple examples of that:
+
+```{r alternate-penguin-geoms, message=FALSE, warning=FALSE}
+# placing plots via gridExtra
+library(gridExtra)
+
+# plot the Palmer penguin data with a line geometry
+peng_line = ggplot(penguins) +
+  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
+  geom_line()
+
+# plot the Palmer penguin data with a hex heatmap geometry
+peng_hex = ggplot(penguins) +
+  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
+  geom_hex()
+
+# place the plts side-by-side
+grid.arrange(peng_line, peng_hex, ncol=2)
+```
+
+You can see how changing the geometry but not the mapping will plot the same data with a different method - it is for the scientist to make an intelligent choice about mappings and geometries.
+
+<!-- ```{r example-cars message=FALSE, warning=FALSE} -->
+<!-- # load the data and attack the ggplot2 package -->
+<!-- library( ggplot2 ) -->
+
+<!-- # look at the data - it is tidy -->
+<!-- head( cars ) -->
+
+<!-- # make a simple plot of the data -->
+<!-- ggplot(cars) +  -->
+<!--   aes(x=speed, y=dist) + -->
+<!--   geom_point() -->
+<!-- ``` -->
+
+
+
+
+<!-- <!-- Ideas in the grammar of graphics are expressed in layers. The most basic layer is the data itself, and there is an aesthetic layer that describes how data maps onto dimensions like color, x/y coordinates, and size. This layer is distinct from the geometry layer, which describes the way that data should be drawn (e.g., dots, lines, or bars). There are other kinds of layers, but many plots can be specified as the combination of data, aesthetic mapping, and geometry. Let's see one. --> -->
+
+<!-- ### Example: Distance to Stop A Car -->
+<!-- One of the datasets built into R is an experiment from the 1920s that measured how far (in feet) cars took to stop from speeds of 4-25 miles per hour. Don't worry about what the code is doing yet, this example is just meant to show what a ggplot looks like. We will dive into the details in a moment. -->
+
+
+## Layers
 
 Layers are the building blocks of the grammar of graphics. The typical pattern is that you express the idea of a plot in the grammar of graphics by adding layers with the addition symbol (`+`). There aren't even that many of layers to know! Here is the list, and the name of the function(s) you'll use to control the layer. Some of the names include asterisks because there are a lot of similar options - for instance, geometry layers include `geom_point()`, `geom_line()`, `geom_boxplot()`, and many more. See the comprehensive listing on [the official `ggplot2` website](https://ggplot2.tidyverse.org/reference/).
 
@@ -43,15 +140,10 @@ Layers are the building blocks of the grammar of graphics. The typical pattern i
 - Facets (`facet_*()`) - used to control how data are separated into subplots called "facets".
 - Theme (`theme()`) - used to control plot details like titles, labels, and legends.
 
-
-```{r include=FALSE}
-library(ggplot2)
-```
-
 ## Guidelines for Graphics
 
 I've attached a [PDF checklist for creating good data
-visualizations](img/graphics_checklist.pdf), reated by Nick Ulle of UC
+visualizations](img/graphics_checklist.pdf), created by Nick Ulle of UC
 Davis Datalab. Download it and keep a copy around - it's an excellent
 guide. I'm going to go over how the checklist translates into the
 grammar of graphics.
@@ -104,25 +196,6 @@ Scatter plots where many plot points overlap hide the actual patterns in
 the data. Consider splitting the data into facets, making the points smaller, or using a two-dimensional density plot (a smooth scatter plot) instead. 
 
 
-### Example, Revisited
-Our earlier example violates some of these rules: it has no title, the axes are labeled with variable names instead of plain language, and the plot units aren't provided.
-
-```{r}
-# create the plot with labels and title
-ggplot(cars) +
-  aes(x=speed, y=dist) +
-  geom_point() +
-  xlab("speed (mph)") +
-  ylab("stopping distance (feet)") +
-  ggtitle("Stopping distance")
-```
-
-
-```{r include=FALSE}
-library( ggplot2 )
-library( lubridate )
-library( readr )
-```
 
 ## Examples
 We have covered enough of the grammar of graphics that you should begin to see the patterns in how it is used to express graphical ideas for `ggplot2`. Here, we will work through some examples.
@@ -130,97 +203,99 @@ We have covered enough of the grammar of graphics that you should begin to see t
 ### Bird Flu Mortality
 People mail dead birds to the USDA and USGS, where scientists analyze the birds to find out why they died. Right now there is a bird flu epidemic, and the USDA provides public data about the birds in whom the disease has been detected. You can access the data here: [https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/hpai-2022/2022-hpai-wild-birds](https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/hpai-2022/2022-hpai-wild-birds). We will load the data and do some visualization.
 
-```{r}
+```{r example-bird-flu, message=FALSE, warning=FALSE}
 # load data directly from the USDA website
-flu = read_csv( "data/hpai-wild-birds-ver2.csv" )
-flu$date = mdy(flu$`Date Detected`)
+flu <- read_csv("data/hpai-wild-birds-ver2.csv")
+flu$date <- mdy(flu$`Date Detected`)
 
 # plot a histogram of when bird flu was detected
 ggplot(flu) +
-  aes(x=date) +
-  geom_histogram() + 
-  ggtitle( "Bird flu detections in wild birds") +
+  aes(x = date) +
+  geom_histogram() +
+  ggtitle("Bird flu detections in wild birds") +
   xlab("Date") +
   ylab("Count")
 
 # plot a histogram of when bird flu was detected
 ggplot(flu) +
-  aes(x=date, fill=`Sampling Method`) +
-  geom_histogram() + 
-  ggtitle( "Bird flu detections in wild birds") +
+  aes(x = date, fill = `Sampling Method`) +
+  geom_histogram() +
+  ggtitle("Bird flu detections in wild birds") +
   xlab("Date") +
   ylab("Count")
 
 # bar chart shows how the bird flu reports compare between west coast states
 subset(flu, State %in% c("California", "Oregon", "Washington")) |>
   ggplot() +
-    aes(x=State, fill=`Sampling Method`) +
-    stat_count() +
-    geom_bar()  + 
-    ggtitle( "Bird flu detections in wild birds (West coast states)") +
-    ylab("Count")
+  aes(x = State, fill = `Sampling Method`) +
+  stat_count() +
+  geom_bar() +
+  ggtitle("Bird flu detections in wild birds (West coast states)") +
+  ylab("Count")
 ```
 
 
 Let's compare the bird flu season to the human flu season. Download hospitalization data for the 2021-2022 and 2022-2023 flu seasons from the CDC website here: [https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html) (the download button is at the top right and you need to specify which seasons to download).
 
-```{r}
+```{r example-flu, message=FALSE, warning=FALSE}
 # processing CDC flu data:
-cdc = read_csv("data/FluSurveillance_Custom_Download_Data.csv", skip=2)
-cdc$date = as_date("1950-01-01")
-year(cdc$date) = cdc$`MMWR-YEAR`
-week(cdc$date) = cdc$`MMWR-WEEK`
+cdc <- read_csv("data/FluSurveillance_Custom_Download_Data.csv", skip = 2)
+cdc$date <- as_date("1950-01-01")
+year(cdc$date) <- cdc$`MMWR-YEAR`
+week(cdc$date) <- cdc$`MMWR-WEEK`
 
 
 # get flu hospitalization counts that include all race, sex, and age categories
-cdc_overall = subset(cdc,
-                     `AGE CATEGORY`=="Overall" &
-                       `SEX CATEGORY`=="Overall" &
-                       `RACE CATEGORY`=="Overall")
+cdc_overall <- subset(
+  cdc,
+  `AGE CATEGORY` == "Overall" &
+    `SEX CATEGORY` == "Overall" &
+    `RACE CATEGORY` == "Overall"
+)
 
 # convert the counts to cases per 10 million
-cdc_overall$`WEEKLY RATE` = as.numeric(cdc_overall$`WEEKLY RATE`) * 100
+cdc_overall$`WEEKLY RATE` <- as.numeric(cdc_overall$`WEEKLY RATE`) * 100
 
 # remake the plot but add a new geom_line() with its own data
 ggplot(flu) +
-  aes(x=date, fill=`Sampling Method`) +
+  aes(x = date, fill = `Sampling Method`) +
   geom_histogram() +
-  geom_line(data=cdc_overall, mapping=aes(x=date, y=`WEEKLY RATE`), inherit.aes=FALSE) +
+  geom_line(data = cdc_overall, mapping = aes(x = date, y = `WEEKLY RATE`), inherit.aes = FALSE) +
   ggtitle("Bird flu detections and human flu hospitalizations") +
-  xlab("Date") + 
+  xlab("Date") +
   ylab("Count")
 ```
 
 ### Small Business Loans
 The US Small Business Administration (SBA) maintains data on the loans it offers to businesses. Data about loans made since 2020 can be found at [https://data.sba.gov/dataset/7-a-504-foia](https://data.sba.gov/dataset/7-a-504-foia). We'll load that data and then explore some ways to visualize it.
 
-```{r}
+```{r example-SBA, message=FALSE, warning=FALSE}
 # load the small business loan data
-sba = read_csv( url("https://data.sba.gov/dataset/0ff8e8e9-b967-4f4e-987c-6ac78c575087/resource/c71ba6cf-b4e0-4e60-98f0-48aeaf4c6460/download/foia-7afy2020-present-asof-221231.csv"))
+sba <- read_csv(url("https://data.sba.gov/dataset/0ff8e8e9-b967-4f4e-987c-6ac78c575087/resource/c71ba6cf-b4e0-4e60-98f0-48aeaf4c6460/download/foia-7afy2020-present-asof-221231.csv"))
 
 # check the SBA data to see the data types, etc.
 head(sba)
 
 # boxplot of loan sizes by business type
-subset( sba, ProjectState=="CA" ) |>
+subset(sba, ProjectState == "CA") |>
   ggplot() +
-    aes(x=BusinessType, y=SBAGuaranteedApproval) +
-    geom_boxplot() +
-    scale_y_log10() +
-    ggtitle("Small Business Administraton guaranteed loans in California") +
-    ylab("Loan guarantee (dollars)")
+  aes(x = BusinessType, y = SBAGuaranteedApproval) +
+  geom_boxplot() +
+  scale_y_log10() +
+  ggtitle("Small Business Administraton guaranteed loans in California") +
+  ylab("Loan guarantee (dollars)")
 
 
 # relationship between loan size and interest rate
-subset( sba, ProjectState=="CA" ) |>
+subset(sba, ProjectState == "CA") |>
   ggplot() +
-    aes(x=GrossApproval, y=InitialInterestRate, ) +
-    geom_point() +
-    facet_wrap(~BusinessType, ncol=3) +
-    scale_x_log10() +
-    ggtitle("Interest rate as a function of loan size") +
-    xlab("Loan size (dollars)") +
-    ylab("Interest rate (%)")
+  aes(x = GrossApproval, y = InitialInterestRate, ) +
+  geom_point() +
+  facet_wrap(~BusinessType, ncol = 3) +
+  scale_x_log10() +
+  ggtitle("Interest rate as a function of loan size") +
+  xlab("Loan size (dollars)") +
+  ylab("Interest rate (%)")
 ```
 
 
@@ -230,20 +305,20 @@ The default color palette of `ggplot2` is not accessible because the colors aren
 
 There are a lot of data points, which tent to largely overlap and hide each other. We use a smoother (`geom_smooth()`) to help call out differences that would otherwise be lost in the noise of the points.
 
-```{r}
-# color the dots by the oan status.
-subset( sba, ProjectState=="CA" & LoanStatus != "EXEMPT" & LoanStatus != "CHGOFF" ) |>
+```{r example-SBA-facet, message=FALSE, warning=FALSE}
+# color the dots by the loan status.
+subset(sba, ProjectState == "CA" & LoanStatus != "EXEMPT" & LoanStatus != "CHGOFF") |>
   ggplot() +
-    aes(x=GrossApproval, y=InitialInterestRate, color=LoanStatus) +
-    geom_point() +
-    geom_smooth() +
-    facet_wrap(~BusinessType, ncol=3) +
-    scale_x_log10() +
-    ggtitle("Interest rate as a function of loan size by loan status") +
-    xlab("Loan size (dollars)") +
-    ylab("Interest rate (%)") + 
-    labs( color="Loan status") + 
-    scale_color_brewer(type="qual", palette="Accent")
+  aes(x = GrossApproval, y = InitialInterestRate, color = LoanStatus) +
+  geom_point() +
+  geom_smooth() +
+  facet_wrap(~BusinessType, ncol = 3) +
+  scale_x_log10() +
+  ggtitle("Interest rate as a function of loan size by loan status") +
+  xlab("Loan size (dollars)") +
+  ylab("Interest rate (%)") +
+  labs(color = "Loan status") +
+  scale_color_brewer(type = "qual", palette = "Accent")
 ```
 
 ## Faceting
