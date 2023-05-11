@@ -399,7 +399,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb543-18"><a href="data-visualization-in-r.html#cb543-18" tabindex="-1"></a>  <span class="fu">geom_hex</span>()</span>
 <span id="cb543-19"><a href="data-visualization-in-r.html#cb543-19" tabindex="-1"></a></span>
 <span id="cb543-20"><a href="data-visualization-in-r.html#cb543-20" tabindex="-1"></a><span class="co"># place the plts side-by-side</span></span>
-<span id="cb543-21"><a href="data-visualization-in-r.html#cb543-21" tabindex="-1"></a><span class="fu">grid.arrange</span>(peng_line, peng_hex, <span class="at">ncol=</span><span class="dv">1</span>)</span></code></pre></div>
+<span id="cb543-21"><a href="data-visualization-in-r.html#cb543-21" tabindex="-1"></a><span class="fu">grid.arrange</span>(peng_line, peng_hex)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/alternate-penguin-geoms-1.png" width="672" /></p>
 <p>You can see how changing the geometry but not the mapping will plot the same data with a different method. Separating the mapping of features to channels from the drawing of marks is at the core of the grammar of graphics.</p>
 <p>This separation of functions gives <code>ggplot2</code> its power by allowing us to compose a small number of functions to express data in unlimited ways (kind of like poetry). Recognizing the grammar of graphics allows us to reason in a consistent way about different kinds of plots, and make intelligent assumptions about mappings and geometries.</p>
@@ -413,10 +413,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!--   aes(x=speed, y=dist) + -->
 <!--   geom_point() -->
 <!-- ``` -->
-<!-- <!-- Ideas in the grammar of graphics are expressed in layers. The most basic layer is the data itself, and there is an aesthetic layer that describes how data maps onto dimensions like color, x/y coordinates, and size. This layer is distinct from the geometry layer, which describes the way that data should be drawn (e.g., dots, lines, or bars). There are other kinds of layers, but many plots can be specified as the combination of data, aesthetic mapping, and geometry. Let's see one. -->
-<p>–&gt;</p>
+<!-- Ideas in the grammar of graphics are expressed in layers. The most basic layer is the data itself, and there is an aesthetic layer that describes how data maps onto dimensions like color, x/y coordinates, and size. This layer is distinct from the geometry layer, which describes the way that data should be drawn (e.g., dots, lines, or bars). There are other kinds of layers, but many plots can be specified as the combination of data, aesthetic mapping, and geometry. Let's see one. -->
 <!-- ### Example: Distance to Stop A Car -->
-<!-- One of the datasets built into R is an experiment from the 1920s that measured how far (in feet) cars took to stop from speeds of 4-25 miles per hour. Don't worry about what the code is doing yet, this example is just meant to show what a ggplot looks like. We will dive into the details in a moment. -->
+<!-- One of the datasets built into R is an experiment from the 1920s that measured how far (in feet) cars took to stop from speeds of 4-25 miles per hour. Don't worry about what the code is doing yet, this example is just meant to show what a ggplot looks like. We will dive into the details in a moment.-->
 </div>
 </div>
 <div id="layers" class="section level2 hasAnchor" number="5.3">
@@ -598,10 +597,12 @@ to read and bar plots don’t use space efficiently (Cleveland and McGill
 <span id="cb552-2"><a href="data-visualization-in-r.html#cb552-2" tabindex="-1"></a><span class="fu">ggplot</span>(flu) <span class="sc">+</span></span>
 <span id="cb552-3"><a href="data-visualization-in-r.html#cb552-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">fill =</span> <span class="st">`</span><span class="at">Sampling Method</span><span class="st">`</span>) <span class="sc">+</span></span>
 <span id="cb552-4"><a href="data-visualization-in-r.html#cb552-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb552-5"><a href="data-visualization-in-r.html#cb552-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cdc_overall, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> <span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span>), <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb552-6"><a href="data-visualization-in-r.html#cb552-6" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections and human flu hospitalizations&quot;</span>) <span class="sc">+</span></span>
-<span id="cb552-7"><a href="data-visualization-in-r.html#cb552-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
-<span id="cb552-8"><a href="data-visualization-in-r.html#cb552-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<span id="cb552-5"><a href="data-visualization-in-r.html#cb552-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cdc_overall, </span>
+<span id="cb552-6"><a href="data-visualization-in-r.html#cb552-6" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> <span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span>), </span>
+<span id="cb552-7"><a href="data-visualization-in-r.html#cb552-7" tabindex="-1"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb552-8"><a href="data-visualization-in-r.html#cb552-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections and human flu hospitalizations&quot;</span>) <span class="sc">+</span></span>
+<span id="cb552-9"><a href="data-visualization-in-r.html#cb552-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
+<span id="cb552-10"><a href="data-visualization-in-r.html#cb552-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-flu-plotting-1.png" width="672" /></p>
 </div>
 <div id="small-business-loans" class="section level3 hasAnchor" number="5.5.4">

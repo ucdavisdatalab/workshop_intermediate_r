@@ -345,10 +345,10 @@ section.</p>
 <p>You can use the <code>new.env</code> function to create a new environment:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="language-fundamentals.html#cb1-1" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">new.env</span>()</span>
 <span id="cb1-2"><a href="language-fundamentals.html#cb1-2" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7feef960c330&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7f83f3214530&gt;</code></pre>
 <p>Unlike most objects, printing an environment doesn’t print its contents.
 Instead, R prints its type (which is <code>environment</code>) and a unique identifier
-(<code>0x7feef960c330</code> in this case).</p>
+(<code>0x7f83f3214530</code> in this case).</p>
 <p>The unique identifier is actually the <strong>memory address</strong> of the environment.
 Every object you use in R is stored as a series of <a href="https://en.wikipedia.org/wiki/Byte">bytes</a> in your computer’s
 <a href="https://en.wikipedia.org/wiki/Random-access_memory">random-access memory (RAM)</a>. Each byte in memory has a unique address,
@@ -524,7 +524,7 @@ returns the call environment:</p>
 <p>The call environment is not the global environment:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="language-fundamentals.html#cb55-1" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">my_hello</span>()</span>
 <span id="cb55-2"><a href="language-fundamentals.html#cb55-2" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7feef79d32f0&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7f83ef8d8cf0&gt;</code></pre>
 <p>And the variable <code>hello</code> exists in the call environment, but not in the global
 environment:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="language-fundamentals.html#cb57-1" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">&quot;hello&quot;</span>, g)</span></code></pre></div>
@@ -538,9 +538,9 @@ environment:</p>
 memory address):</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="language-fundamentals.html#cb63-1" tabindex="-1"></a>e2 <span class="ot">=</span> <span class="fu">my_hello</span>()</span>
 <span id="cb63-2"><a href="language-fundamentals.html#cb63-2" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7feef79d32f0&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7f83ef8d8cf0&gt;</code></pre>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="language-fundamentals.html#cb65-1" tabindex="-1"></a>e2</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7feefb617380&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7f83effbfb80&gt;</code></pre>
 <p>By creating a new environment for every call, R isolates code in the function
 body from code outside of the body. As a result, most R functions have no
 <strong>side effects</strong>. This is a good thing, since it means you generally don’t have
@@ -791,7 +791,7 @@ with the same names.</li>
 ##     else &quot;ts&quot;
 ##     y
 ## }
-## &lt;bytecode: 0x7feef6a16748&gt;
+## &lt;bytecode: 0x7f83ef04b348&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="language-fundamentals.html#cb110-1" tabindex="-1"></a>dplyr<span class="sc">::</span>filter</span></code></pre></div>
 <pre><code>## function (.data, ..., .by = NULL, .preserve = FALSE) 
@@ -803,14 +803,14 @@ with the same names.</li>
 ##     }
 ##     UseMethod(&quot;filter&quot;)
 ## }
-## &lt;bytecode: 0x7fef014e8b30&gt;
+## &lt;bytecode: 0x7f83f34fc930&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="language-fundamentals.html#cb112-1" tabindex="-1"></a>ggplot2<span class="sc">::</span>ggplot</span></code></pre></div>
 <pre><code>## function (data = NULL, mapping = aes(), ..., environment = parent.frame()) 
 ## {
 ##     UseMethod(&quot;ggplot&quot;)
 ## }
-## &lt;bytecode: 0x7feefb861690&gt;
+## &lt;bytecode: 0x7f83f1abae90&gt;
 ## &lt;environment: namespace:ggplot2&gt;</code></pre>
 <p>The related triple-colon operator <code>:::</code> gets a <strong>private</strong> variable in a
 package. Generally these are private for a reason! Only use <code>:::</code> if you’re
@@ -1055,13 +1055,13 @@ function, which splits a data frame or vector into groups:</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="language-fundamentals.html#cb147-1" tabindex="-1"></a>split</span></code></pre></div>
 <pre><code>## function (x, f, drop = FALSE, ...) 
 ## UseMethod(&quot;split&quot;)
-## &lt;bytecode: 0x7feef9420438&gt;
+## &lt;bytecode: 0x7f83f3028638&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>Another is the <code>plot</code> function, which creates a plot:</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="language-fundamentals.html#cb149-1" tabindex="-1"></a>plot</span></code></pre></div>
 <pre><code>## function (x, y, ...) 
 ## UseMethod(&quot;plot&quot;)
-## &lt;bytecode: 0x7fef016ccdd0&gt;
+## &lt;bytecode: 0x7f83ecdbdbd0&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The <code>UseMethod</code> function requires the name of the generic (as a string) as its
 first argument. The second argument is optional and specifies the object to use
@@ -1090,7 +1090,7 @@ is:</p>
 ##     lapply(split(x = seq_len(nrow(x)), f = f, drop = drop, ...), 
 ##         function(ind) x[ind, , drop = FALSE])
 ## }
-## &lt;bytecode: 0x7feef93a8550&gt;
+## &lt;bytecode: 0x7f83ed9f2550&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>Sometimes methods are defined in privately packages and can’t be accessed by
 typing their name at the prompt. You can use the <code>getAnywhere</code> function to get
@@ -1123,7 +1123,7 @@ the code for these methods. For instance, to get the code for
 ##         pairs(data.matrix(x), ...)
 ##     }
 ## }
-## &lt;bytecode: 0x7feefbc552e0&gt;
+## &lt;bytecode: 0x7f83f697a4a8&gt;
 ## &lt;environment: namespace:graphics&gt;</code></pre>
 <p>As a demonstration of method dispatch, consider this code to split the <code>mtcars</code>
 dataset by number of cylinders:</p>
