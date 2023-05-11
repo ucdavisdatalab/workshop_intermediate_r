@@ -91,7 +91,8 @@ feature-types
 theme-guidelines
 scale-guidelines
 facet-guidelines
-examples
+case-studies
+counting-penguins
+experimental-data-with-error-bars
 bird-flu-mortality
 small-business-loans
-faceting
