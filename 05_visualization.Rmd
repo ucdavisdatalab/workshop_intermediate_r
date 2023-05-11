@@ -113,7 +113,7 @@ peng_hex = ggplot(penguins) +
   geom_hex()
 
 # place the plts side-by-side
-grid.arrange(peng_line, peng_hex, ncol=1)
+grid.arrange(peng_line, peng_hex)
 ```
 
 You can see how changing the geometry but not the mapping will plot the same data with a different method. Separating the mapping of features to channels from the drawing of marks is at the core of the grammar of graphics. 
@@ -136,10 +136,10 @@ This separation of functions gives `ggplot2` its power by allowing us to compose
 
 
 
-<!-- <!-- Ideas in the grammar of graphics are expressed in layers. The most basic layer is the data itself, and there is an aesthetic layer that describes how data maps onto dimensions like color, x/y coordinates, and size. This layer is distinct from the geometry layer, which describes the way that data should be drawn (e.g., dots, lines, or bars). There are other kinds of layers, but many plots can be specified as the combination of data, aesthetic mapping, and geometry. Let's see one. --> -->
+<!-- Ideas in the grammar of graphics are expressed in layers. The most basic layer is the data itself, and there is an aesthetic layer that describes how data maps onto dimensions like color, x/y coordinates, and size. This layer is distinct from the geometry layer, which describes the way that data should be drawn (e.g., dots, lines, or bars). There are other kinds of layers, but many plots can be specified as the combination of data, aesthetic mapping, and geometry. Let's see one. -->
 
 <!-- ### Example: Distance to Stop A Car -->
-<!-- One of the datasets built into R is an experiment from the 1920s that measured how far (in feet) cars took to stop from speeds of 4-25 miles per hour. Don't worry about what the code is doing yet, this example is just meant to show what a ggplot looks like. We will dive into the details in a moment. -->
+<!-- One of the datasets built into R is an experiment from the 1920s that measured how far (in feet) cars took to stop from speeds of 4-25 miles per hour. Don't worry about what the code is doing yet, this example is just meant to show what a ggplot looks like. We will dive into the details in a moment.-->
 
 
 ## Layers
@@ -336,7 +336,9 @@ cdc_overall$`WEEKLY RATE` <- as.numeric(cdc_overall$`WEEKLY RATE`) * 100
 ggplot(flu) +
   aes(x = date, fill = `Sampling Method`) +
   geom_histogram() +
-  geom_line(data = cdc_overall, mapping = aes(x = date, y = `WEEKLY RATE`), inherit.aes = FALSE) +
+  geom_line(data = cdc_overall, 
+            mapping = aes(x = date, y = `WEEKLY RATE`), 
+            inherit.aes = FALSE) +
   ggtitle("Bird flu detections and human flu hospitalizations") +
   xlab("Date") +
   ylab("Count")
