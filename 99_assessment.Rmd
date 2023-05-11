@@ -1,14 +1,17 @@
 Assessment {-}
 ==============
 
-If you are taking this workshop to complete a GradPathways research computing or other DataLab sponsored pathway, you need to complete an assessment and submit to GradPathways to claim your badge.
+If you are taking this workshop to complete a [GradPathways research computing or other DataLab sponsored pathway](https://gradpathways.ucdavis.edu/pathways-overview), you need to complete an assessment and submit to GradPathways to claim your badge.
 
 For the **"Intermediate R" 4-part ** workshop series, you can download the assessment instructions [here][assessment].
 
 [assessment]: https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/assessment/intermediate-r-assessment.Rmd
 
-For the **"Intermediate R: Data Visualizations with Ggplot"** workshop, complete the following and submit to GradPathways:
+For the **"Intermediate R: Data Visualizations with Ggplot"** workshop, register for the Data Visualization pathway and complete the following. Submit all materials to GradPathways via the Badgr portal:
 
 * Generate a data visualization from your research data using ggplot in R. Export it as a .jpg titled “figure_v1”. Upload the figure and code used to generate it. 
 * Next, iterate on the figure using data visualization best practices such that it is a publication-worthy plot. Export this revised plot as “figure_v2”, and upload it along with its respective code and a figure caption. 
 * Write a narrative explaining the data visualization. This should include a short data biography (what are the data, who collected it and why, and who it affects), the purpose of the plot (audience, goals), and what data story it tells. Discuss what changes you made, and why, from v1 to v2. Also  list a few additional changes you would ideally like to make to v2 in the future. If you are happy with v2, instead of listing future changes discuss what other plot types might be appropriate or additional data visualizations you could make to help support your data story.
+
+
+If you have questions regarding how to submit your assessment materials, contact [GradPathways](emailto:gpi@ucdavis.edu).
