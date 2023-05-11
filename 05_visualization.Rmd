@@ -341,7 +341,8 @@ ggplot(flu) +
             inherit.aes = FALSE) +
   ggtitle("Bird flu detections and human flu hospitalizations") +
   xlab("Date") +
-  ylab("Count")
+  ylab("Count") +
+  xlim(as_date("2022-01-01"), as_date("2023-05-01"))
 ```
 
 ### Small Business Loans
