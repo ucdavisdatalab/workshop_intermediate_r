@@ -747,7 +747,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x7f8e2d6cdaf0&gt;
+## &lt;bytecode: 0x7f8ea0dd0280&gt;
 ## &lt;environment: namespace:cli&gt;</code></pre>
 <p>This section only explains a few of the options, but you can read about all of
 them in <code>?options</code>.</p>
@@ -959,8 +959,8 @@ of expressions to benchmark as arguments. For example, to compare the speed of
 <span id="cb263-2"><a href="output-errors-and-bugs.html#cb263-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##  expr      min       lq     mean   median       uq      max neval
-##     A 1.245046 1.483671 1.640184 1.578316 1.718346 3.772515   100
-##     B 4.219532 4.529281 4.858709 4.582211 4.891347 8.095546   100</code></pre>
+##     A 1.251598 1.502947 1.556918 1.549038 1.579350 4.529942   100
+##     B 4.109499 4.436994 4.605900 4.498290 4.573768 7.641928   100</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>

@@ -602,7 +602,8 @@ to read and bar plots don’t use space efficiently (Cleveland and McGill
 <span id="cb552-7"><a href="data-visualization-in-r.html#cb552-7" tabindex="-1"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb552-8"><a href="data-visualization-in-r.html#cb552-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections and human flu hospitalizations&quot;</span>) <span class="sc">+</span></span>
 <span id="cb552-9"><a href="data-visualization-in-r.html#cb552-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
-<span id="cb552-10"><a href="data-visualization-in-r.html#cb552-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<span id="cb552-10"><a href="data-visualization-in-r.html#cb552-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb552-11"><a href="data-visualization-in-r.html#cb552-11" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">as_date</span>(<span class="st">&quot;2022-01-01&quot;</span>), <span class="fu">as_date</span>(<span class="st">&quot;2023-05-01&quot;</span>))</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-flu-plotting-1.png" width="672" /></p>
 </div>
 <div id="small-business-loans" class="section level3 hasAnchor" number="5.5.4">
