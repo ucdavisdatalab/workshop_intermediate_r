@@ -31,7 +31,7 @@ The grammar of graphics breaks the elements of statistical graphics into parts i
 
 
 ### Example: Palmer Penguins
-Let's look at an example. This uses data from the `palmerpenguins` package that you just installed (make sure to load the package with `library(palmerpenguins)`). It is measurements of 344 penguins, collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the Long Term Ecological Research Network](https://lternet.edu/). [The data package](https://allisonhorst.github.io/palmerpenguins/) was created by [Allison Horst](https://allisonhorst.com). Before jumping in, let's have a look at the data and the image we want to create.
+Let's look at an example. This uses data from the `palmerpenguins` package that you just installed (make sure to load the package with `library(palmerpenguins)`). It is measurements of 344 penguins, collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the [Long Term Ecological Research Network](https://lternet.edu/). [The data package](https://allisonhorst.github.io/palmerpenguins/) was created by [Allison Horst](https://allisonhorst.com). Before jumping in, let's have a look at the data and the image we want to create.
 
 ```{r head-penguins, message=FALSE, warning=FALSE}
 head(penguins)
@@ -49,9 +49,12 @@ This is a good dataviz, now let's duplicate it!
 Here is the code to make the plot:
 
 ```{r penguin-plot, message=FALSE, warning=FALSE}
-#
+# matching the Allison Horst peguins plot
 ggplot(penguins) +
-  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm, 
+      color = species, 
+      shape = species) +
   geom_point() +
   geom_smooth(method = lm, se = FALSE) +
   xlab("Flipper length (mm)") +
@@ -65,25 +68,29 @@ ggplot(penguins) +
 ```
 
 #### Analysis
-This is a complicated data visualization that covers things we haven't covered yet, so let's go into how it works. You might have noticed how the code to make the plot is separated into a bunch of function calls, all separated by plus signs (`+`). Each function does something small and specific. The functions and the ability to add them together provide a powerful and flexible "grammar" to describe the desired plot. 
+This is a complicated data visualization that includes features we haven't covered yet, so let's go into how it works. You might have noticed how the code to make the plot is separated into a bunch of function calls, all separated by plus signs (`+`). Each function does something small and specific. The functions and the ability to add them together provide a powerful and flexible "grammar" to describe the desired plot. 
 
-Our plot begins the way that most do - by calling `ggplot()` with the data as the argument. This creates a plot object (but doesn't draw it) and sets the data. Then we add the `aes()` function to describe how features of the data map to aesthetic features of the plot. In our case, that means mapping the flipper length to the `x` (horizontal) direction, the bill length to the `y` (vertical) direction, and mapping species to both color and shape. Next, we add a geometry to describe how the mapping should be drawn. Here you can refer to the table at the top of the graphics checklist that suggests geometries to use for different kinds of features. We have numeric features for both `x` and `y`, so the table suggests line, scatter (points), and heatmap. We've selected points (`geom_point()`) because we want to show the individual penguins (lines would imply a chain of connections from one penguin to the next.)
+Our plot begins the way that most do - by calling `ggplot()` with the data as the argument. This creates a plot object (but doesn't draw it) and sets the data. Then we add the a so-called "aesthetic mapping" with the `aes()` function. An aesthetic mapping describes how features of the data map to visual channels of the plot. In our case, that means mapping the flipper length to the `x` (horizontal) direction, the bill length to the `y` (vertical) direction, and mapping species to both color and shape. Next, we add a geometry to describe what kind of marks to use in drawing the plot. Here you can refer to the table at the top of the graphics checklist that suggests geometries to use for different kinds of features. We have numeric features for both `x` and `y`, so the table suggests line, scatter (points), and heatmap. We've selected points (`geom_point()`) because we want to show the individual penguins (lines would imply a chain of connections from one penguin to the next.)
 
-Those three parts (data, a mapping, and a geometry) would be enough to get a basic plot that looks like this:
+Those three parts (data, a geometry, and a map between the two) would be enough to get a basic plot that looks like this:
 
 ```{r basic-points, message=FALSE, warning=FALSE}
-#
+# Make a basic penguin plot with just data, 
+# a geometry, and a map between the two.
 ggplot(penguins) +
-  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
+  aes(x = flipper_length_mm,
+      y = bill_length_mm, 
+      color = species, 
+      shape = species) +
   geom_point()
 ```
 
 
 We know, though, that this plot is not complete. In particular, there is no title and the axes aren't labeled meaningfully. Also, the clouds of points seem to hide the meaning that we are trying to convey and the colors aren't colorblind-safe. The rest of the pieces of the plot call are meant to address those shortcomings. 
 
-We add a second geometry layer with `geom_smooth(method=lm, se=FALSE)`, which specifies the `lm` method in order to draw a straight (instead of wiggly) smoother through the data. The `x`-axis label, `y`-axis labelk and title are set by `xlab()`, `ylab()`, and `ggtitle()`, respectively. We want something more informative than the variable name for the legend title ("Penguin Species" instead of "species"), which is handled by the `labs()` function. And you'll recall from the principles of data visualization that you can use [Cynthia Brewer's Color Brewer website](https://colorbrewer2.org/) to select colorblind-friendly color schemes. Color Brewer is integrated directly into `ggplot2`, so the `scale_color_brewer()` function can pull a named color scheme from Color Brewer directly into your plot as the color scale.
+We add a second geometry layer with `geom_smooth(method=lm, se=FALSE)`, which specifies the `lm` method in order to draw a straight (instead of wiggly) smoother through the data. The `x`-axis label, `y`-axis label and title are set by `xlab()`, `ylab()`, and `ggtitle()`, respectively. We want a more informative label for the legend title than just the variable name ("Penguin Species" instead of "species"), which is handled by the `labs()` function. And you'll recall from the principles of data visualization that you can use [Cynthia Brewer's Color Brewer website](https://colorbrewer2.org/) to select colorblind-friendly color schemes. Color Brewer is integrated directly into `ggplot2`, so the `scale_color_brewer()` function can pull a named color scheme from Color Brewer directly into your plot as the color scale.
 
-We can begin to better understand the grammar of graphics as we consider this example. Notice that the mapping from data features to plot features (the so-called aesthetic mapping, or just aesthetic for short) is separate from the plot geometry. This should encourage you to recognize that we generate data visualizations by expressing information along several dimensions that may be literal (bill length as the x-axis) or abstract (color expresses the penguon species). The geometry determines how those dimensions are drawn on the page, which can be changed without changing the mappings. Let's see a couple examples of that:
+We can begin to better understand the grammar of graphics as we consider this example. Recognize that we our data visualization conveys information via several visual channels that express data as visual marks. The geometry determines how those marks are drawn on the page, which can be set separately from the mapping. Let's see a couple examples of that:
 
 ```{r alternate-penguin-geoms, message=FALSE, warning=FALSE}
 # placing plots via gridExtra
@@ -103,7 +110,9 @@ peng_hex = ggplot(penguins) +
 grid.arrange(peng_line, peng_hex, ncol=2)
 ```
 
-You can see how changing the geometry but not the mapping will plot the same data with a different method - it is for the scientist to make an intelligent choice about mappings and geometries.
+You can see how changing the geometry but not the mapping will plot the same data with a different method. Separating the mapping of features to channels from the drawing of marks is at the core of the grammar of graphics. 
+
+This separation of functions gives `ggplot2` its power by allowing us to compose a small number of functions to express data in unlimited ways (kind of like poetry). Recognizing the grammar of graphics allows us to reason in a consistent way about different kinds of plots, and make intelligent assumptions about mappings and geometries.
 
 <!-- ```{r example-cars message=FALSE, warning=FALSE} -->
 <!-- # load the data and attack the ggplot2 package -->
@@ -132,17 +141,17 @@ You can see how changing the geometry but not the mapping will plot the same dat
 Layers are the building blocks of the grammar of graphics. The typical pattern is that you express the idea of a plot in the grammar of graphics by adding layers with the addition symbol (`+`). There aren't even that many of layers to know! Here is the list, and the name of the function(s) you'll use to control the layer. Some of the names include asterisks because there are a lot of similar options - for instance, geometry layers include `geom_point()`, `geom_line()`, `geom_boxplot()`, and many more. See the comprehensive listing on [the official `ggplot2` website](https://ggplot2.tidyverse.org/reference/).
 
 - Data (`ggplot2()`) - provides the data for the visualization.
-- Aesthetics (`aes()`) - a mapping that indicates which variables in the data control which dimension in the plot (here "dimension" is used in an abstract way to include things like shape, color, and line width.)
-- Geometry (`geom_*()`) - how the abstract dimensions of the aesthetic layer will be drawn in the figure.
-- Statistical transform (`stat_*()`) - alters the data before it enters the aesthetics layer - for instance binning or removing duplicates.
-- Scale (`scale_*()`) - used to control the way that values in the data are mapped to the aesthetic dimensions. For instance, you can control how numbers or categories in the data map to colors.
+- Aesthetic mapping (`aes()`) - a mapping that indicates which variables in the data control which channel in the plot (recall from the [Principle of Data Visualization](https://ucdavisdatalab.github.io/workshop_data_viz_principles/graphical-elements-of-a-plot.html) that a "channel" is used in an abstract way to include things like shape, color, and line width.)
+- Geometry (`geom_*()`) - how the marks will be drawn in the figure.
+- Statistical transform (`stat_*()`) - alters the data before drawing - for instance binning or removing duplicates.
+- Scale (`scale_*()`) - used to control the way that values in the data are mapped to the channels. For instance, you can control how numbers or categories in the data map to colors.
 - Coordinates (`coord_*()`) - used to control how the data are mapped to plot axes.
-- Facets (`facet_*()`) - used to control how data are separated into subplots called "facets".
-- Theme (`theme()`) - used to control plot details like titles, labels, and legends.
+- Facets (`facet_*()`) - used to separate the data into subplots called "facets".
+- Theme (`theme()`) - modifies plot details like titles, labels, and legends.
 
 ## Guidelines for Graphics
 
-I've attached a [PDF checklist for creating good data
+I've attached the [PDF checklist for creating good data
 visualizations](img/graphics_checklist.pdf), created by Nick Ulle of UC
 Davis Datalab. Download it and keep a copy around - it's an excellent
 guide. I'm going to go over how the checklist translates into the
@@ -159,41 +168,22 @@ to read and bar plots don't use space efficiently (Cleveland and McGill
 1990; Heer and Bostock 2010). Generally a dot plot is a better choice.
 
 ### Theme Guidelines
- - Does the
-graphic convey important information? Don't include graphics that are
-uninformative or redundant. 
- - Title? Make sure the title explains what
-the graphic shows. 
- - Axis labels? Label the axes in plain language (no
-variable names!). 
- - Axis units? Label the axes with units (inches,
-dollars, etc). 
- - Legend? Any graphic that shows two or more categories
-coded by style or color must include a legend. 
+ - Does the graphic convey important information? Don't include graphics that are uninformative or redundant. 
+ - Title? Make sure the title explains what the graphic shows. 
+ - Axis labels? Label the axes in plain language (no variable names!). 
+ - Axis units? Label the axes with units (inches, dollars, etc). 
+ - Legend? Any graphic that shows two or more categories coded by style or color must include a legend. 
 
 
 ### Scale Guidelines
- - Appropriate scales and
-limits? Make sure the scales and limits of the axes do not lead people
-to incorrect conclusions. For side-by-side graphics or graphics that
-viewers will compare, use identical scales and limits. 
+ - Appropriate scales and limits? Make sure the scales and limits of the axes do not lead people to incorrect conclusions. For side-by-side graphics or graphics that viewers will compare, use identical scales and limits. 
 
- - Print safe? Design graphics to be legible in black & white. Color is
-great, but use point and line styles to distinguish groups in addition
-to color. Also try to choose colors that are accessible to colorblind
-people. The RColorBrewer and viridis packages can help with choosing
-colors.
+ - Print safe? Design graphics to be legible in black & white. Color is great, but use point and line styles to distinguish groups in addition to color. Also try to choose colors that are accessible to colorblind people. The RColorBrewer and viridis packages can help with choosing colors.
 
 
 ### Facet Guidelines
- - No more than 5 lines? Line plots with
-more than 5 lines risk becoming hard-to-read "spaghetti" plots.
-Generally a line plot with more than 5 lines should be split into
-multiple plots with fewer lines. If the x-axis is discrete, consider
-using a heat map instead. 
- - No overplotting?
-Scatter plots where many plot points overlap hide the actual patterns in
-the data. Consider splitting the data into facets, making the points smaller, or using a two-dimensional density plot (a smooth scatter plot) instead. 
+ - No more than 5 lines? Line plots with more than 5 lines risk becoming hard-to-read "spaghetti" plots. Generally a line plot with more than 5 lines should be split into multiple plots with fewer lines. If the x-axis is discrete, consider using a heat map instead. 
+ - No overplotting? Scatter plots where many plot points overlap hide the actual patterns in the data. Consider splitting the data into facets, making the points smaller, or using a two-dimensional density plot (a smooth scatter plot) instead. 
 
 
 

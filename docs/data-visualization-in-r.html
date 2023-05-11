@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Data Visualization in R | Intermediate R</title>
   <meta name="description" content="5 Data Visualization in R | Intermediate R" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Data Visualization in R | Intermediate R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2023-05-04" />
+<meta name="date" content="2023-05-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -309,7 +313,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The grammar of graphics breaks the elements of statistical graphics into parts in an analogy to human language grammars. Knowing how to put together subject nouns, object nouns, verbs, and adjectives allows you to construct sentences that express meaning. Similarly, the grammar of graphics is a collection of layers and the rules for putting them together to graphically express the meaning of your data.</p>
 <div id="example-palmer-penguins" class="section level3 hasAnchor" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Example: Palmer Penguins<a href="data-visualization-in-r.html#example-palmer-penguins" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let’s look at an example. This uses data from the <code>palmerpenguins</code> package that you just installed (make sure to load the package with <code>library(palmerpenguins)</code>). It is measurements of 344 penguins, collected and made available by <a href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr. Kristen Gorman</a> and the <a href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica LTER</a>, a member of the Long Term Ecological Research Network](<a href="https://lternet.edu/" class="uri">https://lternet.edu/</a>). <a href="https://allisonhorst.github.io/palmerpenguins/">The data package</a> was created by <a href="https://allisonhorst.com">Allison Horst</a>. Before jumping in, let’s have a look at the data and the image we want to create.</p>
+<p>Let’s look at an example. This uses data from the <code>palmerpenguins</code> package that you just installed (make sure to load the package with <code>library(palmerpenguins)</code>). It is measurements of 344 penguins, collected and made available by <a href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr. Kristen Gorman</a> and the <a href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica LTER</a>, a member of the <a href="https://lternet.edu/">Long Term Ecological Research Network</a>. <a href="https://allisonhorst.github.io/palmerpenguins/">The data package</a> was created by <a href="https://allisonhorst.com">Allison Horst</a>. Before jumping in, let’s have a look at the data and the image we want to create.</p>
 <div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="data-visualization-in-r.html#cb539-1" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 8
 ##   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
@@ -333,34 +337,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="duplicating-the-palmer-penguins-plot" class="section level4 hasAnchor" number="5.2.1.2">
 <h4><span class="header-section-number">5.2.1.2</span> Duplicating the Palmer Penguins Plot<a href="data-visualization-in-r.html#duplicating-the-palmer-penguins-plot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Here is the code to make the plot:</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="data-visualization-in-r.html#cb541-1" tabindex="-1"></a><span class="co">#</span></span>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="data-visualization-in-r.html#cb541-1" tabindex="-1"></a><span class="co"># matching the Allison Horst peguins plot</span></span>
 <span id="cb541-2"><a href="data-visualization-in-r.html#cb541-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb541-3"><a href="data-visualization-in-r.html#cb541-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> bill_length_mm, <span class="at">color =</span> species, <span class="at">shape =</span> species) <span class="sc">+</span></span>
-<span id="cb541-4"><a href="data-visualization-in-r.html#cb541-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb541-5"><a href="data-visualization-in-r.html#cb541-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb541-6"><a href="data-visualization-in-r.html#cb541-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Flipper length (mm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb541-7"><a href="data-visualization-in-r.html#cb541-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Bill length (mm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb541-8"><a href="data-visualization-in-r.html#cb541-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(</span>
-<span id="cb541-9"><a href="data-visualization-in-r.html#cb541-9" tabindex="-1"></a>    <span class="st">&quot;Flipper and bill length&quot;</span>,</span>
-<span id="cb541-10"><a href="data-visualization-in-r.html#cb541-10" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Dimensions for Adelie, Chinstrap, and Gentoo penguins at Palmer Station LTER&quot;</span></span>
-<span id="cb541-11"><a href="data-visualization-in-r.html#cb541-11" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb541-12"><a href="data-visualization-in-r.html#cb541-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Penguin species&quot;</span>, <span class="at">shape =</span> <span class="st">&quot;Penguin species&quot;</span>) <span class="sc">+</span></span>
-<span id="cb541-13"><a href="data-visualization-in-r.html#cb541-13" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<span id="cb541-3"><a href="data-visualization-in-r.html#cb541-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, </span>
+<span id="cb541-4"><a href="data-visualization-in-r.html#cb541-4" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
+<span id="cb541-5"><a href="data-visualization-in-r.html#cb541-5" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
+<span id="cb541-6"><a href="data-visualization-in-r.html#cb541-6" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
+<span id="cb541-7"><a href="data-visualization-in-r.html#cb541-7" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb541-8"><a href="data-visualization-in-r.html#cb541-8" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb541-9"><a href="data-visualization-in-r.html#cb541-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Flipper length (mm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb541-10"><a href="data-visualization-in-r.html#cb541-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Bill length (mm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb541-11"><a href="data-visualization-in-r.html#cb541-11" tabindex="-1"></a>  <span class="fu">ggtitle</span>(</span>
+<span id="cb541-12"><a href="data-visualization-in-r.html#cb541-12" tabindex="-1"></a>    <span class="st">&quot;Flipper and bill length&quot;</span>,</span>
+<span id="cb541-13"><a href="data-visualization-in-r.html#cb541-13" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Dimensions for Adelie, Chinstrap, and Gentoo penguins at Palmer Station LTER&quot;</span></span>
+<span id="cb541-14"><a href="data-visualization-in-r.html#cb541-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb541-15"><a href="data-visualization-in-r.html#cb541-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Penguin species&quot;</span>, <span class="at">shape =</span> <span class="st">&quot;Penguin species&quot;</span>) <span class="sc">+</span></span>
+<span id="cb541-16"><a href="data-visualization-in-r.html#cb541-16" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/penguin-plot-1.png" width="672" /></p>
 </div>
 <div id="analysis" class="section level4 hasAnchor" number="5.2.1.3">
 <h4><span class="header-section-number">5.2.1.3</span> Analysis<a href="data-visualization-in-r.html#analysis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>This is a complicated data visualization that covers things we haven’t covered yet, so let’s go into how it works. You might have noticed how the code to make the plot is separated into a bunch of function calls, all separated by plus signs (<code>+</code>). Each function does something small and specific. The functions and the ability to add them together provide a powerful and flexible “grammar” to describe the desired plot.</p>
-<p>Our plot begins the way that most do - by calling <code>ggplot()</code> with the data as the argument. This creates a plot object (but doesn’t draw it) and sets the data. Then we add the <code>aes()</code> function to describe how features of the data map to aesthetic features of the plot. In our case, that means mapping the flipper length to the <code>x</code> (horizontal) direction, the bill length to the <code>y</code> (vertical) direction, and mapping species to both color and shape. Next, we add a geometry to describe how the mapping should be drawn. Here you can refer to the table at the top of the graphics checklist that suggests geometries to use for different kinds of features. We have numeric features for both <code>x</code> and <code>y</code>, so the table suggests line, scatter (points), and heatmap. We’ve selected points (<code>geom_point()</code>) because we want to show the individual penguins (lines would imply a chain of connections from one penguin to the next.)</p>
-<p>Those three parts (data, a mapping, and a geometry) would be enough to get a basic plot that looks like this:</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="data-visualization-in-r.html#cb542-1" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb542-2"><a href="data-visualization-in-r.html#cb542-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb542-3"><a href="data-visualization-in-r.html#cb542-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> bill_length_mm, <span class="at">color =</span> species, <span class="at">shape =</span> species) <span class="sc">+</span></span>
-<span id="cb542-4"><a href="data-visualization-in-r.html#cb542-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>This is a complicated data visualization that includes features we haven’t covered yet, so let’s go into how it works. You might have noticed how the code to make the plot is separated into a bunch of function calls, all separated by plus signs (<code>+</code>). Each function does something small and specific. The functions and the ability to add them together provide a powerful and flexible “grammar” to describe the desired plot.</p>
+<p>Our plot begins the way that most do - by calling <code>ggplot()</code> with the data as the argument. This creates a plot object (but doesn’t draw it) and sets the data. Then we add the a so-called “aesthetic mapping” with the <code>aes()</code> function. An aesthetic mapping describes how features of the data map to visual channels of the plot. In our case, that means mapping the flipper length to the <code>x</code> (horizontal) direction, the bill length to the <code>y</code> (vertical) direction, and mapping species to both color and shape. Next, we add a geometry to describe what kind of marks to use in drawing the plot. Here you can refer to the table at the top of the graphics checklist that suggests geometries to use for different kinds of features. We have numeric features for both <code>x</code> and <code>y</code>, so the table suggests line, scatter (points), and heatmap. We’ve selected points (<code>geom_point()</code>) because we want to show the individual penguins (lines would imply a chain of connections from one penguin to the next.)</p>
+<p>Those three parts (data, a geometry, and a map between the two) would be enough to get a basic plot that looks like this:</p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="data-visualization-in-r.html#cb542-1" tabindex="-1"></a><span class="co"># Make a basic penguin plot with just data, </span></span>
+<span id="cb542-2"><a href="data-visualization-in-r.html#cb542-2" tabindex="-1"></a><span class="co"># a geometry, and a map between the two.</span></span>
+<span id="cb542-3"><a href="data-visualization-in-r.html#cb542-3" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb542-4"><a href="data-visualization-in-r.html#cb542-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb542-5"><a href="data-visualization-in-r.html#cb542-5" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
+<span id="cb542-6"><a href="data-visualization-in-r.html#cb542-6" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
+<span id="cb542-7"><a href="data-visualization-in-r.html#cb542-7" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
+<span id="cb542-8"><a href="data-visualization-in-r.html#cb542-8" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/basic-points-1.png" width="672" /></p>
 <p>We know, though, that this plot is not complete. In particular, there is no title and the axes aren’t labeled meaningfully. Also, the clouds of points seem to hide the meaning that we are trying to convey and the colors aren’t colorblind-safe. The rest of the pieces of the plot call are meant to address those shortcomings.</p>
-<p>We add a second geometry layer with <code>geom_smooth(method=lm, se=FALSE)</code>, which specifies the <code>lm</code> method in order to draw a straight (instead of wiggly) smoother through the data. The <code>x</code>-axis label, <code>y</code>-axis labelk and title are set by <code>xlab()</code>, <code>ylab()</code>, and <code>ggtitle()</code>, respectively. We want something more informative than the variable name for the legend title (“Penguin Species” instead of “species”), which is handled by the <code>labs()</code> function. And you’ll recall from the principles of data visualization that you can use <a href="https://colorbrewer2.org/">Cynthia Brewer’s Color Brewer website</a> to select colorblind-friendly color schemes. Color Brewer is integrated directly into <code>ggplot2</code>, so the <code>scale_color_brewer()</code> function can pull a named color scheme from Color Brewer directly into your plot as the color scale.</p>
-<p>We can begin to better understand the grammar of graphics as we consider this example. Notice that the mapping from data features to plot features (the so-called aesthetic mapping, or just aesthetic for short) is separate from the plot geometry. This should encourage you to recognize that we generate data visualizations by expressing information along several dimensions that may be literal (bill length as the x-axis) or abstract (color expresses the penguon species). The geometry determines how those dimensions are drawn on the page, which can be changed without changing the mappings. Let’s see a couple examples of that:</p>
+<p>We add a second geometry layer with <code>geom_smooth(method=lm, se=FALSE)</code>, which specifies the <code>lm</code> method in order to draw a straight (instead of wiggly) smoother through the data. The <code>x</code>-axis label, <code>y</code>-axis label and title are set by <code>xlab()</code>, <code>ylab()</code>, and <code>ggtitle()</code>, respectively. We want a more informative label for the legend title than just the variable name (“Penguin Species” instead of “species”), which is handled by the <code>labs()</code> function. And you’ll recall from the principles of data visualization that you can use <a href="https://colorbrewer2.org/">Cynthia Brewer’s Color Brewer website</a> to select colorblind-friendly color schemes. Color Brewer is integrated directly into <code>ggplot2</code>, so the <code>scale_color_brewer()</code> function can pull a named color scheme from Color Brewer directly into your plot as the color scale.</p>
+<p>We can begin to better understand the grammar of graphics as we consider this example. Recognize that we our data visualization conveys information via several visual channels that express data as visual marks. The geometry determines how those marks are drawn on the page, which can be set separately from the mapping. Let’s see a couple examples of that:</p>
 <div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="data-visualization-in-r.html#cb543-1" tabindex="-1"></a><span class="co"># placing plots via gridExtra</span></span>
 <span id="cb543-2"><a href="data-visualization-in-r.html#cb543-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
 <span id="cb543-3"><a href="data-visualization-in-r.html#cb543-3" tabindex="-1"></a></span>
@@ -377,7 +388,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb543-14"><a href="data-visualization-in-r.html#cb543-14" tabindex="-1"></a><span class="co"># place the plts side-by-side</span></span>
 <span id="cb543-15"><a href="data-visualization-in-r.html#cb543-15" tabindex="-1"></a><span class="fu">grid.arrange</span>(peng_line, peng_hex, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/alternate-penguin-geoms-1.png" width="672" /></p>
-<p>You can see how changing the geometry but not the mapping will plot the same data with a different method - it is for the scientist to make an intelligent choice about mappings and geometries.</p>
+<p>You can see how changing the geometry but not the mapping will plot the same data with a different method. Separating the mapping of features to channels from the drawing of marks is at the core of the grammar of graphics.</p>
+<p>This separation of functions gives <code>ggplot2</code> its power by allowing us to compose a small number of functions to express data in unlimited ways (kind of like poetry). Recognizing the grammar of graphics allows us to reason in a consistent way about different kinds of plots, and make intelligent assumptions about mappings and geometries.</p>
 <!-- ```{r example-cars message=FALSE, warning=FALSE} -->
 <!-- # load the data and attack the ggplot2 package -->
 <!-- library( ggplot2 ) -->
@@ -400,18 +412,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Layers are the building blocks of the grammar of graphics. The typical pattern is that you express the idea of a plot in the grammar of graphics by adding layers with the addition symbol (<code>+</code>). There aren’t even that many of layers to know! Here is the list, and the name of the function(s) you’ll use to control the layer. Some of the names include asterisks because there are a lot of similar options - for instance, geometry layers include <code>geom_point()</code>, <code>geom_line()</code>, <code>geom_boxplot()</code>, and many more. See the comprehensive listing on <a href="https://ggplot2.tidyverse.org/reference/">the official <code>ggplot2</code> website</a>.</p>
 <ul>
 <li>Data (<code>ggplot2()</code>) - provides the data for the visualization.</li>
-<li>Aesthetics (<code>aes()</code>) - a mapping that indicates which variables in the data control which dimension in the plot (here “dimension” is used in an abstract way to include things like shape, color, and line width.)</li>
-<li>Geometry (<code>geom_*()</code>) - how the abstract dimensions of the aesthetic layer will be drawn in the figure.</li>
-<li>Statistical transform (<code>stat_*()</code>) - alters the data before it enters the aesthetics layer - for instance binning or removing duplicates.</li>
-<li>Scale (<code>scale_*()</code>) - used to control the way that values in the data are mapped to the aesthetic dimensions. For instance, you can control how numbers or categories in the data map to colors.</li>
+<li>Aesthetic mapping (<code>aes()</code>) - a mapping that indicates which variables in the data control which channel in the plot (recall from the <a href="https://ucdavisdatalab.github.io/workshop_data_viz_principles/graphical-elements-of-a-plot.html">Principle of Data Visualization</a> that a “channel” is used in an abstract way to include things like shape, color, and line width.)</li>
+<li>Geometry (<code>geom_*()</code>) - how the marks will be drawn in the figure.</li>
+<li>Statistical transform (<code>stat_*()</code>) - alters the data before drawing - for instance binning or removing duplicates.</li>
+<li>Scale (<code>scale_*()</code>) - used to control the way that values in the data are mapped to the channels. For instance, you can control how numbers or categories in the data map to colors.</li>
 <li>Coordinates (<code>coord_*()</code>) - used to control how the data are mapped to plot axes.</li>
-<li>Facets (<code>facet_*()</code>) - used to control how data are separated into subplots called “facets”.</li>
-<li>Theme (<code>theme()</code>) - used to control plot details like titles, labels, and legends.</li>
+<li>Facets (<code>facet_*()</code>) - used to separate the data into subplots called “facets”.</li>
+<li>Theme (<code>theme()</code>) - modifies plot details like titles, labels, and legends.</li>
 </ul>
 </div>
 <div id="guidelines-for-graphics" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Guidelines for Graphics<a href="data-visualization-in-r.html#guidelines-for-graphics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>I’ve attached a <a href="img/graphics_checklist.pdf">PDF checklist for creating good data
+<p>I’ve attached the <a href="img/graphics_checklist.pdf">PDF checklist for creating good data
 visualizations</a>, created by Nick Ulle of UC
 Davis Datalab. Download it and keep a copy around - it’s an excellent
 guide. I’m going to go over how the checklist translates into the
@@ -430,44 +442,25 @@ to read and bar plots don’t use space efficiently (Cleveland and McGill
 <div id="theme-guidelines" class="section level3 hasAnchor" number="5.4.3">
 <h3><span class="header-section-number">5.4.3</span> Theme Guidelines<a href="data-visualization-in-r.html#theme-guidelines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Does the
-graphic convey important information? Don’t include graphics that are
-uninformative or redundant.</li>
-<li>Title? Make sure the title explains what
-the graphic shows.</li>
-<li>Axis labels? Label the axes in plain language (no
-variable names!).</li>
-<li>Axis units? Label the axes with units (inches,
-dollars, etc).</li>
-<li>Legend? Any graphic that shows two or more categories
-coded by style or color must include a legend.</li>
+<li>Does the graphic convey important information? Don’t include graphics that are uninformative or redundant.</li>
+<li>Title? Make sure the title explains what the graphic shows.</li>
+<li>Axis labels? Label the axes in plain language (no variable names!).</li>
+<li>Axis units? Label the axes with units (inches, dollars, etc).</li>
+<li>Legend? Any graphic that shows two or more categories coded by style or color must include a legend.</li>
 </ul>
 </div>
 <div id="scale-guidelines" class="section level3 hasAnchor" number="5.4.4">
 <h3><span class="header-section-number">5.4.4</span> Scale Guidelines<a href="data-visualization-in-r.html#scale-guidelines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p>Appropriate scales and
-limits? Make sure the scales and limits of the axes do not lead people
-to incorrect conclusions. For side-by-side graphics or graphics that
-viewers will compare, use identical scales and limits.</p></li>
-<li><p>Print safe? Design graphics to be legible in black &amp; white. Color is
-great, but use point and line styles to distinguish groups in addition
-to color. Also try to choose colors that are accessible to colorblind
-people. The RColorBrewer and viridis packages can help with choosing
-colors.</p></li>
+<li><p>Appropriate scales and limits? Make sure the scales and limits of the axes do not lead people to incorrect conclusions. For side-by-side graphics or graphics that viewers will compare, use identical scales and limits.</p></li>
+<li><p>Print safe? Design graphics to be legible in black &amp; white. Color is great, but use point and line styles to distinguish groups in addition to color. Also try to choose colors that are accessible to colorblind people. The RColorBrewer and viridis packages can help with choosing colors.</p></li>
 </ul>
 </div>
 <div id="facet-guidelines" class="section level3 hasAnchor" number="5.4.5">
 <h3><span class="header-section-number">5.4.5</span> Facet Guidelines<a href="data-visualization-in-r.html#facet-guidelines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>No more than 5 lines? Line plots with
-more than 5 lines risk becoming hard-to-read “spaghetti” plots.
-Generally a line plot with more than 5 lines should be split into
-multiple plots with fewer lines. If the x-axis is discrete, consider
-using a heat map instead.</li>
-<li>No overplotting?
-Scatter plots where many plot points overlap hide the actual patterns in
-the data. Consider splitting the data into facets, making the points smaller, or using a two-dimensional density plot (a smooth scatter plot) instead.</li>
+<li>No more than 5 lines? Line plots with more than 5 lines risk becoming hard-to-read “spaghetti” plots. Generally a line plot with more than 5 lines should be split into multiple plots with fewer lines. If the x-axis is discrete, consider using a heat map instead.</li>
+<li>No overplotting? Scatter plots where many plot points overlap hide the actual patterns in the data. Consider splitting the data into facets, making the points smaller, or using a two-dimensional density plot (a smooth scatter plot) instead.</li>
 </ul>
 </div>
 </div>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Output, Errors, and Bugs | Intermediate R</title>
   <meta name="description" content="2 Output, Errors, and Bugs | Intermediate R" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Output, Errors, and Bugs | Intermediate R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2023-05-04" />
+<meta name="date" content="2023-05-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -119,6 +119,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 </head>
 
@@ -737,7 +741,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x7f92bdb37a00&gt;
+## &lt;bytecode: 0x7ff5920f4af0&gt;
 ## &lt;environment: namespace:cli&gt;</code></pre>
 <p>This section only explains a few of the options, but you can read about all of
 them in <code>?options</code>.</p>
@@ -906,7 +910,7 @@ functions to explore how R is using memory.</p>
 using:</p>
 <div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="output-errors-and-bugs.html#cb255-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;lobstr&quot;</span>)</span>
 <span id="cb255-2"><a href="output-errors-and-bugs.html#cb255-2" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code></pre></div>
-<pre><code>## 41.88 MB</code></pre>
+<pre><code>## 41.90 MB</code></pre>
 <p>Sometimes the culprit isn’t your code, but other applications on your computer.
 Modern web browsers are especially memory-intensive, and closing yours while
 you run code can make a big difference.</p>
@@ -949,8 +953,8 @@ of expressions to benchmark as arguments. For example, to compare the speed of
 <span id="cb263-2"><a href="output-errors-and-bugs.html#cb263-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##  expr      min       lq     mean   median       uq      max neval
-##     A 1.193401 1.448184 1.608594 1.514393 1.589984 5.212680   100
-##     B 3.875920 4.223882 4.507772 4.399610 4.600532 7.737254   100</code></pre>
+##     A 1.225098 1.490806 1.566856 1.546435 1.603539 4.437256   100
+##     B 4.091133 4.391233 4.631079 4.509422 4.607628 7.674657   100</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>
