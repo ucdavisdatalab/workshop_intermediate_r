@@ -25,12 +25,12 @@ library(palmerpenguins)
 
 `ggplot2` is an enormously popular R package that provides a way to create data visualizations through a so-called "grammar of graphics" (hence the "gg" in the name). That grammar interface may be a little bit unintuitive at first but once you grasp it, you hold enormous power to quickly craft plots. It doesn't hurt that the `ggplot2` plots look great, too.
 
-## The Grammar of Graphics
+### The Grammar of Graphics
 
 The grammar of graphics breaks the elements of statistical graphics into parts in an analogy to human language grammars. Knowing how to put together subject nouns, object nouns, verbs, and adjectives allows you to construct sentences that express meaning. Similarly, the grammar of graphics is a collection of layers and the rules for putting them together to graphically express the meaning of your data.
 
 
-### Example: Palmer Penguins
+## Example: Palmer Penguins
 Let's look at an example. This uses data from the `palmerpenguins` package that you just installed (make sure to load the package with `library(palmerpenguins)`). It is measurements of 344 penguins, collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pallter.marine.rutgers.edu/), a member of the [Long Term Ecological Research Network](https://lternet.edu/). [The data package](https://allisonhorst.github.io/palmerpenguins/) was created by [Allison Horst](https://allisonhorst.com). Before jumping in, let's have a look at the data and the image we want to create.
 
 ```{r head-penguins, message=FALSE, warning=FALSE}
@@ -39,12 +39,12 @@ head(penguins)
 
 ![Plot of bill length vs. flipper length for the Palmer Penguins](img/flipper-bill.png)
 
-#### Examining the Plot
+### Examining the Plot
 Referring to the graphics checklist, we see that this plot has two numerical features (bill length and flipper length), expressed using a scatter plot. There is also a categorical feature (species), which is indicated by the different colors and shapes of the plot. The plot expresses the fact that flipper length is positively associated with bill length for all thre species of penguins, but the sizes and the relationships between them are unique to each species. There is a title and a legend, the axes are labeled with units, and all of the text is in plain language. There is a risk that the data may hide the message, so a smoothing line is added to each species for clarity. The colors are accessible (avoiding red/green colorblindness issues).
 
 This is a good dataviz, now let's duplicate it!
 
-#### Duplicating the Palmer Penguins Plot
+### Duplicating the Palmer Penguins Plot
 
 Here is the code to make the plot:
 
@@ -67,7 +67,7 @@ ggplot(penguins) +
   scale_color_brewer(palette = "Dark2")
 ```
 
-#### Analysis
+### Analysis
 This is a complicated data visualization that includes features we haven't covered yet, so let's go into how it works. You might have noticed how the code to make the plot is separated into a bunch of function calls, all separated by plus signs (`+`). Each function does something small and specific. The functions and the ability to add them together provide a powerful and flexible "grammar" to describe the desired plot. 
 
 Our plot begins the way that most do - by calling `ggplot()` with the data as the argument. This creates a plot object (but doesn't draw it) and sets the data. Then we add the a so-called "aesthetic mapping" with the `aes()` function. An aesthetic mapping describes how features of the data map to visual channels of the plot. In our case, that means mapping the flipper length to the `x` (horizontal) direction, the bill length to the `y` (vertical) direction, and mapping species to both color and shape. Next, we add a geometry to describe what kind of marks to use in drawing the plot. Here you can refer to the table at the top of the graphics checklist that suggests geometries to use for different kinds of features. We have numeric features for both `x` and `y`, so the table suggests line, scatter (points), and heatmap. We've selected points (`geom_point()`) because we want to show the individual penguins (lines would imply a chain of connections from one penguin to the next.)
@@ -98,16 +98,22 @@ library(gridExtra)
 
 # plot the Palmer penguin data with a line geometry
 peng_line = ggplot(penguins) +
-  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm, 
+      color = species, 
+      shape = species) +
   geom_line()
 
 # plot the Palmer penguin data with a hex heatmap geometry
 peng_hex = ggplot(penguins) +
-  aes(x = flipper_length_mm, y = bill_length_mm, color = species, shape = species) +
+  aes(x = flipper_length_mm, 
+      y = bill_length_mm, 
+      color = species, 
+      shape = species) +
   geom_hex()
 
 # place the plts side-by-side
-grid.arrange(peng_line, peng_hex, ncol=2)
+grid.arrange(peng_line, peng_hex, ncol=1)
 ```
 
 You can see how changing the geometry but not the mapping will plot the same data with a different method. Separating the mapping of features to channels from the drawing of marks is at the core of the grammar of graphics. 
@@ -187,11 +193,86 @@ to read and bar plots don't use space efficiently (Cleveland and McGill
 
 
 
-## Examples
-We have covered enough of the grammar of graphics that you should begin to see the patterns in how it is used to express graphical ideas for `ggplot2`. Here, we will work through some examples.
+## Case Studies
+We have covered enough of the grammar of graphics that you should begin to see the patterns in how it is used to express graphical ideas for `ggplot2`. Now we will work through some examples.
+
+
+### Counting Penguins
+First, let's revisit the `penguins` data. There are tree categorical features in the data: `species`, `island`, and `sex`. Let's use `geom_bar()` to count how many penguins of each species and/or sex were observed on each island. The x-axis of the plot should be the island, but note that there are multiple values of `species` and `sex` that have the same position on that x-axis. In this case, you can use the `position_dodge()` or `position_stack()` arguments to tell `ggplot2` how to handle the second grouping channel.
+
+```{r counting-penguins, warning=FALSE, message=FALSE}
+# count the penguins on each island
+ggplot(penguins) +
+  aes(x=island) +
+  geom_bar() +
+  xlab("Island") +
+  ylab("Count") +
+  ggtitle("Count of penguins on each island")
+
+
+#count the penguins of each sex on each island
+ggplot(penguins) +
+  aes(x=island, fill=sex) +
+  geom_bar(position=position_dodge()) +
+  scale_fill_grey() + 
+  theme_bw() +
+  xlab("Island") +
+  ylab("Count") +
+  ggtitle("Count of penguins on each island by sex")
+```
+
+Alternatively, you can use facets to separate the data into multiple plots based on a data feature. Let's see how that works to facet the plots by species. 
+
+One way to show more information more clearly in a plot is to break the plot into pieces that each show part of the information. In `ggplot2`, this is called *faceting* the plot. There are two main facet functions, `facet_grid()` (which puts plots in a grid), and `facet_wrap()`, which puts plots side-by-side until it runs out of room, then wraps to a new line. We'll use `facet_wrap()` here, with the first argument being `~species`. This tells `ggplot2` to break the plot into pieces by plotting the data for each `species` separately.
+
+```{r penguin-facet-species, warning=FALSE, message=FALSE}
+#count the penguins of each species on each island
+ggplot(penguins) +
+  aes(x=island) +
+  geom_bar() +
+  scale_fill_grey() + 
+  theme_bw() +
+  xlab("Island") +
+  ylab("Count") +
+  ggtitle("Count of penguins on each island by species") +
+  facet_wrap(~species, ncol=3)
+```
+
+
+### Experimental Data with Error Bars
+Here's an example that recently came up in my office hours. You've done an experiment to see how mice with two different genotypes respond to two different treatments. Now you want to plot the mean response of each group as a column, with error bars indicating the standard deviation of the mean. You also want to show the raw data. I've simulated some data for us to use - download it [here](https://ucdavis.box.com/s/lxgplwqn23ncbeb5gc6ktpfknr56xws6).
+
+This one is kind of complicated because you have to tell `ggplot2` how to calculate the height of the columns and of the error bars. This involves cr
+
+```{r example-genotype, warning=FALSE, message=FALSE}
+mice_geno = read_csv("data/genotype-response.csv")
+
+# show the treatment response for different genotypes
+ggplot(mice_geno) + 
+  aes(x=trt, 
+      y=resp, 
+      fill=genotype) +
+  scale_fill_brewer(palette="Dark2") +
+  geom_bar(position=position_dodge(),
+           stat='summary',
+           fun='mean') +
+  geom_errorbar(fun.min=function(x) {mean(x) - sd(x) / sqrt(length(x))},
+               fun.max=function(x) {mean(x) + sd(x) / sqrt(length(x))},
+               stat='summary',
+               position=position_dodge(0.9),
+               width=0.2) + 
+  geom_point(position=
+               position_jitterdodge(
+                 dodge.width=0.9,
+                 jitter.width=0.1)) +
+  xlab("Treatment") +
+  ylab("Response (mm/g)") +
+  ggtitle("Mean growth response of mice by genotype and treatment")
+```
+
 
 ### Bird Flu Mortality
-People mail dead birds to the USDA and USGS, where scientists analyze the birds to find out why they died. Right now there is a bird flu epidemic, and the USDA provides public data about the birds in whom the disease has been detected. You can access the data here: [https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/hpai-2022/2022-hpai-wild-birds](https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/hpai-2022/2022-hpai-wild-birds). We will load the data and do some visualization.
+People mail dead birds to the USDA and USGS, where scientists analyze the birds to find out why they died. Right now there is a bird flu epidemic, and the USDA provides public data about the birds in whom the disease has been detected. You can access the data [here](https://ucdavis.box.com/s/babz1b5ak0kh7q7cktg7k5gzrt2ve9gc) or see the official USDA webpage [here](https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/). After you download the data, we will load the data and do some visualization.
 
 ```{r example-bird-flu, message=FALSE, warning=FALSE}
 # load data directly from the USDA website
@@ -225,9 +306,11 @@ subset(flu, State %in% c("California", "Oregon", "Washington")) |>
 ```
 
 
-Let's compare the bird flu season to the human flu season. Download hospitalization data for the 2021-2022 and 2022-2023 flu seasons from the CDC website here: [https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html) (the download button is at the top right and you need to specify which seasons to download).
+Let's compare the bird flu season to the human flu season. Download hospitalization data for the 2021-2022 and 2022-2023 flu seasons from the CDC website [here](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html) or see the official Centers for Disease Control website [here](https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html). After you download the data, we will see how adding a second data series works a little differently from the first. That's because composing data, aesthetic mapping, and geometry with addition only works when there is no ambiguity about which data series is being mapped or drawn.
 
-```{r example-flu, message=FALSE, warning=FALSE}
+After downloading the data, there is some work required to adjust the dates and change the hospitalization rate from cases per 100,000 to cases per 10 million, which better matches the scale of the bird flu data.
+
+```{r example-flu-processing, message=FALSE, warning=FALSE}
 # processing CDC flu data:
 cdc <- read_csv("data/FluSurveillance_Custom_Download_Data.csv", skip = 2)
 cdc$date <- as_date("1950-01-01")
@@ -245,7 +328,10 @@ cdc_overall <- subset(
 
 # convert the counts to cases per 10 million
 cdc_overall$`WEEKLY RATE` <- as.numeric(cdc_overall$`WEEKLY RATE`) * 100
+```
 
+
+```{r example-flu-plotting, warning=FALSE, message=FALSE}
 # remake the plot but add a new geom_line() with its own data
 ggplot(flu) +
   aes(x = date, fill = `Sampling Method`) +
@@ -257,11 +343,12 @@ ggplot(flu) +
 ```
 
 ### Small Business Loans
-The US Small Business Administration (SBA) maintains data on the loans it offers to businesses. Data about loans made since 2020 can be found at [https://data.sba.gov/dataset/7-a-504-foia](https://data.sba.gov/dataset/7-a-504-foia). We'll load that data and then explore some ways to visualize it.
+The US Small Business Administration (SBA) maintains data on the loans it offers to businesses. Data about loans made since 2020 can be found at the [Small Business Administration website](https://data.sba.gov/dataset/7-a-504-foia), or you can download it from [here](https://ucdavis.box.com/s/ctx6grx10c83lh561ekl9tnmi20561ed). We'll load that data and then explore some ways to visualize it. Since the difference between a \$100 loan and a \$1000 loan is more like the difference between \$100,000 and \$1M than between \$100,000 ad $100,900, we should put the loan values on a  logarithmic scale. You can do this in `ggplot2` with the `scale_y_log10()` function (when the loan values are on the y axis).
+
 
 ```{r example-SBA, message=FALSE, warning=FALSE}
 # load the small business loan data
-sba <- read_csv(url("https://data.sba.gov/dataset/0ff8e8e9-b967-4f4e-987c-6ac78c575087/resource/c71ba6cf-b4e0-4e60-98f0-48aeaf4c6460/download/foia-7afy2020-present-asof-221231.csv"))
+sba <- read_csv("data/small-business-loans.csv")
 
 # check the SBA data to see the data types, etc.
 head(sba)
@@ -289,9 +376,7 @@ subset(sba, ProjectState == "CA") |>
 ```
 
 
-Now let's see how we can add aesthetic mappings to a plot in order to convey information on a new dimension. In this case, we will color the points by the loan status. 
-
-The default color palette of `ggplot2` is not accessible because the colors aren't distinguishable to people with red-green color blindness. Thankfully, `ggplot2` integrates directly with [Color Brewer (colorbrewer2.org)](https://colorbrewer2.org) to get better color palettes We will use the `Accent` color palette, which is just one of the many options that can be found on the Color Brewer site.
+Now let's color the points by the loan status. Thankfully, `ggplot2` integrates directly with [Color Brewer (colorbrewer2.org)](https://colorbrewer2.org) to get better color palettes. We will use the `Accent` color palette, which is just one of the many options that can be found on the Color Brewer site.
 
 There are a lot of data points, which tent to largely overlap and hide each other. We use a smoother (`geom_smooth()`) to help call out differences that would otherwise be lost in the noise of the points.
 
@@ -311,7 +396,4 @@ subset(sba, ProjectState == "CA" & LoanStatus != "EXEMPT" & LoanStatus != "CHGOF
   scale_color_brewer(type = "qual", palette = "Accent")
 ```
 
-## Faceting
-You might notice there are some new commands in the last example. We've already explained `scale_color_brewer()` and `geom_smooth()`. You may be able to guess that `scale_x_log10()` applies the log (base 10) scaling to the x-axis. But what is `facet_wrap()`?
 
-One way to show more information more clearly in a plot is to break the plot into pieces that each show part of the information. In `ggplot2`, this is called *faceting* the plot. There are two main facet functions, `facet_grid()` (which puts plots in a grid), and `facet_wrap()`, which puts plots side-by-side until it runs out of room, then wraps to a new line. We have used `facet_wrap()` here, with the first argument being `~BusinessType`. This tells `ggplot2` to break the plot into pieces by plotting the data for each `BusinessType` separately.
