@@ -1,13 +1,13 @@
-# (PART) Cleaning Data & Automating Tasks {-}
+# (PART) Cleaning & Reshaping Data {-}
 
 String & Date Processing
 ========================
 
-This chapter is part 1 (of 2) of _Cleaning Data & Automating Tasks_, a workshop
-series about how to prepare data for analysis and automate tedious repetitive
-tasks. The major topics of this chapter are how to convert dates and times into
-appropriate R data types and how to extract and clean up data from strings
-(including numbers with non-numeric characters such as `$`, `%`, and `,`).
+This chapter is part 1 (of 2) of _Cleaning & Reshaping Data_, a workshop series
+about how to prepare data for analysis. The major topics of this chapter are
+how to convert dates and times into appropriate R data types and how to extract
+and clean up data from strings (including numbers with non-numeric characters
+such as `$`, `%`, and `,`).
 
 
 #### Learning Objectives {-}
