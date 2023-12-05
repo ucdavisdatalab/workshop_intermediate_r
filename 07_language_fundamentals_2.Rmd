@@ -1,0 +1,6 @@
+Part 2
+======
+
+This chapter is part 2 (of 2) of _Thinking in R_, a workshop series about how R
+works and how to examine code critically.
+
