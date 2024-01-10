@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Assessment | Intermediate R</title>
   <meta name="description" content="Assessment | Intermediate R" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Assessment | Intermediate R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2023-05-11" />
+<meta name="date" content="2024-01-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="references.html"/>
-
+<link rel="next" href="joining-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -285,6 +285,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>IV Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
+<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="joining-data.html"><a href="joining-data.html#objective"><i class="fa fa-check"></i><b>6.1</b> Objective:</a></li>
+<li class="chapter" data-level="6.2" data-path="joining-data.html"><a href="joining-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>6.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="6.3" data-path="joining-data.html"><a href="joining-data.html#gradebook-data"><i class="fa fa-check"></i><b>6.3</b> Gradebook data</a></li>
+<li class="chapter" data-level="6.4" data-path="joining-data.html"><a href="joining-data.html#left-and-right-joins"><i class="fa fa-check"></i><b>6.4</b> Left and Right Joins</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>6.4.1</b> Left Join</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="joining-data.html"><a href="joining-data.html#other-joins"><i class="fa fa-check"></i><b>6.5</b> Other Joins</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="joining-data.html"><a href="joining-data.html#right-join"><i class="fa fa-check"></i><b>6.5.1</b> Right Join</a></li>
+<li class="chapter" data-level="6.5.2" data-path="joining-data.html"><a href="joining-data.html#inner-join"><i class="fa fa-check"></i><b>6.5.2</b> Inner Join</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="joining-data.html"><a href="joining-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>6.6</b> Getting Clever with <code>join_by</code></a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="joining-data.html"><a href="joining-data.html#matching-multiple-columns"><i class="fa fa-check"></i><b>6.6.1</b> Matching multiple columns</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="joining-data.html"><a href="joining-data.html#examples"><i class="fa fa-check"></i><b>6.7</b> Examples</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="joining-data.html"><a href="joining-data.html#three-or-more-tables"><i class="fa fa-check"></i><b>6.7.1</b> Three Or More Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="joining-data.html"><a href="joining-data.html#be-explicit"><i class="fa fa-check"></i><b>6.8</b> Be Explicit</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="joining-data.html"><a href="joining-data.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>6.8.1</b> Handling Duplicate Keys</a></li>
+<li class="chapter" data-level="6.8.2" data-path="joining-data.html"><a href="joining-data.html#ambiguous-columns"><i class="fa fa-check"></i><b>6.8.2</b> Ambiguous Columns</a></li>
+<li class="chapter" data-level="6.8.3" data-path="joining-data.html"><a href="joining-data.html#missing-values"><i class="fa fa-check"></i><b>6.8.3</b> Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="joining-data.html"><a href="joining-data.html#conclusion"><i class="fa fa-check"></i><b>6.9</b> Conclusion</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -304,8 +334,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="assessment" class="section level1 unnumbered hasAnchor">
 <h1>Assessment<a href="assessment.html#assessment" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>If you are taking this workshop to complete a GradPathways Pathway, you can
-download the assessment instructions <a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/assessment/intermediate-r-assessment.Rmd">here</a>.</p>
+<p>If you are taking this workshop to complete a <a href="https://gradpathways.ucdavis.edu/pathways-overview">GradPathways research computing or other DataLab sponsored pathway</a>, you need to complete an assessment and submit to GradPathways to claim your badge.</p>
+<p>For the <strong>“Intermediate R” 4-part </strong> workshop series, you can download the assessment instructions <a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/assessment/intermediate-r-assessment.Rmd">here</a>.</p>
+<p>For the <strong>“Intermediate R: Data Visualizations with Ggplot”</strong> workshop, register for the Data Visualization pathway and complete the following. Submit all materials to GradPathways via the Badgr portal:</p>
+<ul>
+<li>Generate a data visualization from your research data using ggplot in R. Export it as a .jpg titled “figure_v1”. Upload the figure and code used to generate it.</li>
+<li>Next, iterate on the figure using data visualization best practices such that it is a publication-worthy plot. Export this revised plot as “figure_v2”, and upload it along with its respective code and a figure caption.</li>
+<li>Write a narrative explaining the data visualization. This should include a short data biography (what are the data, who collected it and why, and who it affects), the purpose of the plot (audience, goals), and what data story it tells. Discuss what changes you made, and why, from v1 to v2. Also list a few additional changes you would ideally like to make to v2 in the future. If you are happy with v2, instead of listing future changes discuss what other plot types might be appropriate or additional data visualizations you could make to help support your data story.</li>
+</ul>
+<p>If you have questions regarding how to submit your assessment materials, contact <a href="emailto:gpi@ucdavis.edu">GradPathways</a>.</p>
 
 </div>
             </section>
@@ -313,8 +350,8 @@ download the assessment instructions <a href="https://github.com/ucdavisdatalab/
           </div>
         </div>
       </div>
-<a href="references.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="references.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="joining-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

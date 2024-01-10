@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 String &amp; Date Processing | Intermediate R</title>
   <meta name="description" content="3 String &amp; Date Processing | Intermediate R" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 String &amp; Date Processing | Intermediate R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2023-05-11" />
+<meta name="date" content="2024-01-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -285,6 +285,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>IV Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
+<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="joining-data.html"><a href="joining-data.html#objective"><i class="fa fa-check"></i><b>6.1</b> Objective:</a></li>
+<li class="chapter" data-level="6.2" data-path="joining-data.html"><a href="joining-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>6.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="6.3" data-path="joining-data.html"><a href="joining-data.html#gradebook-data"><i class="fa fa-check"></i><b>6.3</b> Gradebook data</a></li>
+<li class="chapter" data-level="6.4" data-path="joining-data.html"><a href="joining-data.html#left-and-right-joins"><i class="fa fa-check"></i><b>6.4</b> Left and Right Joins</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>6.4.1</b> Left Join</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="joining-data.html"><a href="joining-data.html#other-joins"><i class="fa fa-check"></i><b>6.5</b> Other Joins</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="joining-data.html"><a href="joining-data.html#right-join"><i class="fa fa-check"></i><b>6.5.1</b> Right Join</a></li>
+<li class="chapter" data-level="6.5.2" data-path="joining-data.html"><a href="joining-data.html#inner-join"><i class="fa fa-check"></i><b>6.5.2</b> Inner Join</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="joining-data.html"><a href="joining-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>6.6</b> Getting Clever with <code>join_by</code></a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="joining-data.html"><a href="joining-data.html#matching-multiple-columns"><i class="fa fa-check"></i><b>6.6.1</b> Matching multiple columns</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="joining-data.html"><a href="joining-data.html#examples"><i class="fa fa-check"></i><b>6.7</b> Examples</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="joining-data.html"><a href="joining-data.html#three-or-more-tables"><i class="fa fa-check"></i><b>6.7.1</b> Three Or More Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="joining-data.html"><a href="joining-data.html#be-explicit"><i class="fa fa-check"></i><b>6.8</b> Be Explicit</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="joining-data.html"><a href="joining-data.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>6.8.1</b> Handling Duplicate Keys</a></li>
+<li class="chapter" data-level="6.8.2" data-path="joining-data.html"><a href="joining-data.html#ambiguous-columns"><i class="fa fa-check"></i><b>6.8.2</b> Ambiguous Columns</a></li>
+<li class="chapter" data-level="6.8.3" data-path="joining-data.html"><a href="joining-data.html#missing-values"><i class="fa fa-check"></i><b>6.8.3</b> Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="joining-data.html"><a href="joining-data.html#conclusion"><i class="fa fa-check"></i><b>6.9</b> Conclusion</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -568,7 +598,7 @@ appear in the second row, so read those rows separately:</p>
 <span id="cb290-4"><a href="string-date-processing.html#cb290-4" tabindex="-1"></a>noaa_path <span class="ot">=</span> <span class="st">&quot;data/ocean_data/2021_noaa-ndbc_46013.txt&quot;</span></span>
 <span id="cb290-5"><a href="string-date-processing.html#cb290-5" tabindex="-1"></a>noaa_headers <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">n_max =</span> <span class="dv">2</span>, <span class="at">guess_max =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Rows: 2 Columns: 18
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## chr (18): X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, ...
 ## 
@@ -576,7 +606,7 @@ appear in the second row, so read those rows separately:</p>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="string-date-processing.html#cb292-1" tabindex="-1"></a>noaa <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Rows: 3323 Columns: 18
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## chr  (4): X2, X3, X4, X5
 ## dbl (14): X1, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18
@@ -607,7 +637,7 @@ the column units appear in the second row. The <code>read_csv</code> function ha
 names automatically, but you’ll have to remove the unit row as a separate step:</p>
 <div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="string-date-processing.html#cb298-1" tabindex="-1"></a>bml <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ocean_data/2021_ucdavis_bml_wts.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 87283 Columns: 4
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (3): time, sea_water_temperature, z
 ## dbl (1): sea_water_temperature_qc_agg

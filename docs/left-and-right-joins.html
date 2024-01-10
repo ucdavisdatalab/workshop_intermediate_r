@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Intermediate R</title>
-  <meta name="description" content="Intermediate R" />
+  <title>10 Left and Right Joins | Intermediate R</title>
+  <meta name="description" content="10 Left and Right Joins | Intermediate R" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Intermediate R" />
+  <meta property="og:title" content="10 Left and Right Joins | Intermediate R" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ucdavisdatalab/workshop_intermediate_r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Intermediate R" />
+  <meta name="twitter:title" content="10 Left and Right Joins | Intermediate R" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="language-fundamentals.html"/>
+<link rel="prev" href="gradebook-data.html"/>
+<link rel="next" href="other-joins.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -285,36 +285,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>IV Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
-<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a>
+<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a></li>
+<li class="chapter" data-level="7" data-path="objective.html"><a href="objective.html"><i class="fa fa-check"></i><b>7</b> Objective:</a></li>
+<li class="chapter" data-level="8" data-path="the-dplyr-package.html"><a href="the-dplyr-package.html"><i class="fa fa-check"></i><b>8</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="9" data-path="gradebook-data.html"><a href="gradebook-data.html"><i class="fa fa-check"></i><b>9</b> Gradebook data</a></li>
+<li class="chapter" data-level="10" data-path="left-and-right-joins.html"><a href="left-and-right-joins.html"><i class="fa fa-check"></i><b>10</b> Left and Right Joins</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="joining-data.html"><a href="joining-data.html#objective"><i class="fa fa-check"></i><b>6.1</b> Objective:</a></li>
-<li class="chapter" data-level="6.2" data-path="joining-data.html"><a href="joining-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>6.2</b> The <code>dplyr</code> Package</a></li>
-<li class="chapter" data-level="6.3" data-path="joining-data.html"><a href="joining-data.html#gradebook-data"><i class="fa fa-check"></i><b>6.3</b> Gradebook data</a></li>
-<li class="chapter" data-level="6.4" data-path="joining-data.html"><a href="joining-data.html#left-and-right-joins"><i class="fa fa-check"></i><b>6.4</b> Left and Right Joins</a>
+<li class="chapter" data-level="10.1" data-path="left-and-right-joins.html"><a href="left-and-right-joins.html#left-join"><i class="fa fa-check"></i><b>10.1</b> Left Join</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="other-joins.html"><a href="other-joins.html"><i class="fa fa-check"></i><b>11</b> Other Joins</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>6.4.1</b> Left Join</a></li>
+<li class="chapter" data-level="11.1" data-path="other-joins.html"><a href="other-joins.html#right-join"><i class="fa fa-check"></i><b>11.1</b> Right Join</a></li>
+<li class="chapter" data-level="11.2" data-path="other-joins.html"><a href="other-joins.html#inner-join"><i class="fa fa-check"></i><b>11.2</b> Inner Join</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="joining-data.html"><a href="joining-data.html#other-joins"><i class="fa fa-check"></i><b>6.5</b> Other Joins</a>
+<li class="chapter" data-level="12" data-path="getting-clever-with-join_by.html"><a href="getting-clever-with-join_by.html"><i class="fa fa-check"></i><b>12</b> Getting Clever with <code>join_by</code></a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="joining-data.html"><a href="joining-data.html#right-join"><i class="fa fa-check"></i><b>6.5.1</b> Right Join</a></li>
-<li class="chapter" data-level="6.5.2" data-path="joining-data.html"><a href="joining-data.html#inner-join"><i class="fa fa-check"></i><b>6.5.2</b> Inner Join</a></li>
+<li class="chapter" data-level="12.1" data-path="getting-clever-with-join_by.html"><a href="getting-clever-with-join_by.html#matching-multiple-columns"><i class="fa fa-check"></i><b>12.1</b> Matching multiple columns</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="joining-data.html"><a href="joining-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>6.6</b> Getting Clever with <code>join_by</code></a>
+<li class="chapter" data-level="13" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i><b>13</b> Examples</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="joining-data.html"><a href="joining-data.html#matching-multiple-columns"><i class="fa fa-check"></i><b>6.6.1</b> Matching multiple columns</a></li>
+<li class="chapter" data-level="13.1" data-path="examples.html"><a href="examples.html#three-or-more-tables"><i class="fa fa-check"></i><b>13.1</b> Three Or More Tables</a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="joining-data.html"><a href="joining-data.html#examples"><i class="fa fa-check"></i><b>6.7</b> Examples</a>
+<li class="chapter" data-level="14" data-path="be-explicit.html"><a href="be-explicit.html"><i class="fa fa-check"></i><b>14</b> Be Explicit</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="joining-data.html"><a href="joining-data.html#three-or-more-tables"><i class="fa fa-check"></i><b>6.7.1</b> Three Or More Tables</a></li>
-</ul></li>
-<li class="chapter" data-level="6.8" data-path="joining-data.html"><a href="joining-data.html#be-explicit"><i class="fa fa-check"></i><b>6.8</b> Be Explicit</a>
+<li class="chapter" data-level="14.1" data-path="be-explicit.html"><a href="be-explicit.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>14.1</b> Handling Duplicate Keys</a>
 <ul>
-<li class="chapter" data-level="6.8.1" data-path="joining-data.html"><a href="joining-data.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>6.8.1</b> Handling Duplicate Keys</a></li>
-<li class="chapter" data-level="6.8.2" data-path="joining-data.html"><a href="joining-data.html#ambiguous-columns"><i class="fa fa-check"></i><b>6.8.2</b> Ambiguous Columns</a></li>
-<li class="chapter" data-level="6.8.3" data-path="joining-data.html"><a href="joining-data.html#missing-values"><i class="fa fa-check"></i><b>6.8.3</b> Missing Values</a></li>
+<li class="chapter" data-level="14.1.1" data-path="be-explicit.html"><a href="be-explicit.html#specifying-the-expected-relationship"><i class="fa fa-check"></i><b>14.1.1</b> Specifying The Expected Relationship</a></li>
+<li class="chapter" data-level="14.1.2" data-path="be-explicit.html"><a href="be-explicit.html#using-only-distinct-rows"><i class="fa fa-check"></i><b>14.1.2</b> Using Only Distinct Rows</a></li>
 </ul></li>
-<li class="chapter" data-level="6.9" data-path="joining-data.html"><a href="joining-data.html#conclusion"><i class="fa fa-check"></i><b>6.9</b> Conclusion</a></li>
+<li class="chapter" data-level="14.2" data-path="be-explicit.html"><a href="be-explicit.html#ambiguous-columns"><i class="fa fa-check"></i><b>14.2</b> Ambiguous Columns</a></li>
+<li class="chapter" data-level="14.3" data-path="be-explicit.html"><a href="be-explicit.html#missing-values"><i class="fa fa-check"></i><b>14.3</b> Missing Values</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>15</b> Conclusion</a></li>
 </ul>
 
       </nav>
@@ -332,46 +334,90 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Intermediate R</h1>
-<p class="author"><em>Nick Ulle and Wesley Brooks</em></p>
-<p class="date"><em>2024-01-10</em></p>
+<div id="left-and-right-joins" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">10</span> Left and Right Joins<a href="left-and-right-joins.html#left-and-right-joins" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In the previous section, we set a goal of augmenting the table of students with the information in the grades table. To augment means to add to. We are going to be adding to the <code>students</code> table, but do we add rows or columns? Each row of <code>grades</code> is an event that matches one student to one grade. Adding new rows would be like adding new grades that didn’t occur: not good! Each row has a student and each student may have many columns of information in the <code>students</code> table. So we can maintain the relationships in the data while adding new columns of information to <code>students</code>.</p>
+<p>When you want to augment one dataset with information from another, you’ll use a directional join: either left or right. Here, left and right refer to the order that the tables are written in the join command. Left and right joins work almost exactly the same and left joins are far more common in practice, so we will focus on those.</p>
+<div id="left-join" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Left Join<a href="left-and-right-joins.html#left-join" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A left join combines all rows from the left dataset with the matching rows from the right dataset. Let’s get familiar with a contrived example before actually working on the library data. We’ll create two tables of made-up data: the first identifies students by name and ID, and the second lists their grades in a class.</p>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="left-and-right-joins.html#cb558-1" tabindex="-1"></a><span class="co"># load dplyr package</span></span>
+<span id="cb558-2"><a href="left-and-right-joins.html#cb558-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="left-and-right-joins.html#cb562-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb562-2"><a href="left-and-right-joins.html#cb562-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb562-3"><a href="left-and-right-joins.html#cb562-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb562-4"><a href="left-and-right-joins.html#cb562-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>)</span>
+<span id="cb562-5"><a href="left-and-right-joins.html#cb562-5" tabindex="-1"></a>  )</span>
+<span id="cb562-6"><a href="left-and-right-joins.html#cb562-6" tabindex="-1"></a></span>
+<span id="cb562-7"><a href="left-and-right-joins.html#cb562-7" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb562-8"><a href="left-and-right-joins.html#cb562-8" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
+<span id="cb562-9"><a href="left-and-right-joins.html#cb562-9" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">60</span>)</span>
+<span id="cb562-10"><a href="left-and-right-joins.html#cb562-10" tabindex="-1"></a>  )</span>
+<span id="cb562-11"><a href="left-and-right-joins.html#cb562-11" tabindex="-1"></a></span>
+<span id="cb562-12"><a href="left-and-right-joins.html#cb562-12" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb562-13"><a href="left-and-right-joins.html#cb562-13" tabindex="-1"></a>left_result <span class="ot">=</span> <span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="st">&quot;student_id&quot;</span>)</span>
+<span id="cb562-14"><a href="left-and-right-joins.html#cb562-14" tabindex="-1"></a></span>
+<span id="cb562-15"><a href="left-and-right-joins.html#cb562-15" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb562-16"><a href="left-and-right-joins.html#cb562-16" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Left Join Result:&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Left Join Result:&quot;</code></pre>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="left-and-right-joins.html#cb564-1" tabindex="-1"></a><span class="fu">print</span>(left_result)</span></code></pre></div>
+<pre><code>##   student_id    name grade
+## 1          1   Angel    NA
+## 2          2    Beto    90
+## 3          3    Cici    85
+## 4          4 Desmond    80</code></pre>
+<p>There are four rows in the <code>students</code> table, and four rows in the <code>grades</code>
+table. I have provided <code>students</code> as the first table in the left join (it is written on the left in the function) so the result will have one row per row of <code>students</code>. I have also provided <code>student_id</code> as the <strong>by</strong> or <strong>key</strong> column for the join. That means that rows will be matched between the tables based on whether their <code>student_id</code> columns match.</p>
+<p>Note that the keys are not identical between tables: the <code>grades</code> table has no <code>student_id</code> of 1, which is the ID for Angel. This shows up in the result as an <code>NA</code> in the grade column for Angel. There is no row in the result for <code>student_id</code> 5 because a left join brings in augments the left table (<code>students</code>) with columns from the right table (<code>grades</code>). It does not add rows just because they are found in the right table.</p>
+<p>There is one reason that a left join will add rows to the result: when the key is not unique. In that case, every possible match will be provided in the result. For an example, let’s add rows with repeat IDs to both the <code>students</code> and <code>grades</code> tables. Let’s also rename the <code>student_id</code> column of <code>grades</code> to be <code>sid</code> so we can see how to join tables where the key column names don’t match.</p>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="left-and-right-joins.html#cb566-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb566-2"><a href="left-and-right-joins.html#cb566-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb566-3"><a href="left-and-right-joins.html#cb566-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb566-4"><a href="left-and-right-joins.html#cb566-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>, <span class="st">&quot;Erik&quot;</span>))</span>
+<span id="cb566-5"><a href="left-and-right-joins.html#cb566-5" tabindex="-1"></a></span>
+<span id="cb566-6"><a href="left-and-right-joins.html#cb566-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">sid =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb566-7"><a href="left-and-right-joins.html#cb566-7" tabindex="-1"></a>                        <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">60</span>))</span>
+<span id="cb566-8"><a href="left-and-right-joins.html#cb566-8" tabindex="-1"></a></span>
+<span id="cb566-9"><a href="left-and-right-joins.html#cb566-9" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb566-10"><a href="left-and-right-joins.html#cb566-10" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">left_join</span>(students, grades,</span>
+<span id="cb566-11"><a href="left-and-right-joins.html#cb566-11" tabindex="-1"></a>                    <span class="at">by =</span> <span class="fu">join_by</span>(student_id <span class="sc">==</span> sid))</span></code></pre></div>
+<pre><code>## Warning in left_join(students, grades, by = join_by(student_id == sid)): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 2 of `x` matches multiple rows in `y`.
+## ℹ Row 3 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to silence this warning.</code></pre>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="left-and-right-joins.html#cb568-1" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb568-2"><a href="left-and-right-joins.html#cb568-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Left Join Result:&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Left Join Result:&quot;</code></pre>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="left-and-right-joins.html#cb570-1" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<pre><code>##   student_id    name grade
+## 1          1   Angel    NA
+## 2          2    Beto    90
+## 3          2    Beto    60
+## 4          3    Cici    85
+## 5          4 Desmond    80
+## 6          4    Erik    80</code></pre>
+<p>Both of the tables had five rows but the result has six rows because <code>student_id</code> is 4 for two rows of <code>students</code> and <code>sid</code> is 2 for two rows of <code>grades</code>. R has warned us that there is a many-to-many relationship in the join, which means that duplicate keys were matched in the left table and the right table. Where there are no duplicate keys in either table, the match is one-to-one. When there are duplicate in one table only, the match is one-to-many or many-to-one. These are often desired behavior and so R just complies silently. A many-to-many match may be desired but it is often a sign that something has gone wrong, so R gives a warning. You can get funky results when your keys are not unique!</p>
+<div class="float">
+<img src="img/cat-legs-left-join-meme.jpg" alt="Cats join meme" />
+<div class="figcaption">Cats join meme</div>
 </div>
-<div id="overview" class="section level1 unnumbered hasAnchor">
-<h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This is the reader for all of UC Davis DataLab’s Intermediate R workshop
-series. There are currently three:</p>
-<ol style="list-style-type: decimal">
-<li><p><em>Thinking in R</em>, which is about understanding how R works, how to diagnose
-and fix bugs in code, and how to estimate and measure performance
-characteristics of code.</p></li>
-<li><p><em>Cleaning Data &amp; Automating Tasks</em>, which is about how to clean and prepare
-messy data such as dates, times, and text for analysis, and how to use loops
-or other forms of iteration to automate repetitive tasks.</p></li>
-<li><p><em>Data Visualization and Analysis in R</em>, which is about plotting data and models in R.</p></li>
-</ol>
-<p>Each series is independent and consists of 2 sessions (equivalently, 2 chapters
-in this reader).</p>
-<p>After completing both series, students will have a better understanding of
-language features, packages, and programming strategies, which will enable them
-to write more efficient code, be more productive when writing code, and debug
-code more effectively.</p>
-<p>These series are not an introduction to R. Participants are expected to have
-prior experience using R, be comfortable with basic R syntax, and to have it
-pre-installed and running on their laptops. They are appropriate for motivated
-intermediate to advanced users who want a better understanding of base R.</p>
-
 </div>
-
-
-
+</div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="language-fundamentals.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="gradebook-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="other-joins.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -392,7 +438,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/index.Rmd",
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/xx_joins.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -400,7 +446,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/index.Rmd",
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/xx_joins.Rmd",
 "text": null
 },
 "download": null,

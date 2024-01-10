@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>1 Language Fundamentals | Intermediate R</title>
   <meta name="description" content="1 Language Fundamentals | Intermediate R" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
   <meta property="og:title" content="1 Language Fundamentals | Intermediate R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2023-05-11" />
+<meta name="date" content="2024-01-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -56,7 +56,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -285,6 +285,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>IV Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
+<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="joining-data.html"><a href="joining-data.html#objective"><i class="fa fa-check"></i><b>6.1</b> Objective:</a></li>
+<li class="chapter" data-level="6.2" data-path="joining-data.html"><a href="joining-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>6.2</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="6.3" data-path="joining-data.html"><a href="joining-data.html#gradebook-data"><i class="fa fa-check"></i><b>6.3</b> Gradebook data</a></li>
+<li class="chapter" data-level="6.4" data-path="joining-data.html"><a href="joining-data.html#left-and-right-joins"><i class="fa fa-check"></i><b>6.4</b> Left and Right Joins</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>6.4.1</b> Left Join</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="joining-data.html"><a href="joining-data.html#other-joins"><i class="fa fa-check"></i><b>6.5</b> Other Joins</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="joining-data.html"><a href="joining-data.html#right-join"><i class="fa fa-check"></i><b>6.5.1</b> Right Join</a></li>
+<li class="chapter" data-level="6.5.2" data-path="joining-data.html"><a href="joining-data.html#inner-join"><i class="fa fa-check"></i><b>6.5.2</b> Inner Join</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="joining-data.html"><a href="joining-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>6.6</b> Getting Clever with <code>join_by</code></a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="joining-data.html"><a href="joining-data.html#matching-multiple-columns"><i class="fa fa-check"></i><b>6.6.1</b> Matching multiple columns</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="joining-data.html"><a href="joining-data.html#examples"><i class="fa fa-check"></i><b>6.7</b> Examples</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="joining-data.html"><a href="joining-data.html#three-or-more-tables"><i class="fa fa-check"></i><b>6.7.1</b> Three Or More Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="joining-data.html"><a href="joining-data.html#be-explicit"><i class="fa fa-check"></i><b>6.8</b> Be Explicit</a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="joining-data.html"><a href="joining-data.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>6.8.1</b> Handling Duplicate Keys</a></li>
+<li class="chapter" data-level="6.8.2" data-path="joining-data.html"><a href="joining-data.html#ambiguous-columns"><i class="fa fa-check"></i><b>6.8.2</b> Ambiguous Columns</a></li>
+<li class="chapter" data-level="6.8.3" data-path="joining-data.html"><a href="joining-data.html#missing-values"><i class="fa fa-check"></i><b>6.8.3</b> Missing Values</a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="joining-data.html"><a href="joining-data.html#conclusion"><i class="fa fa-check"></i><b>6.9</b> Conclusion</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -345,10 +375,10 @@ section.</p>
 <p>You can use the <code>new.env</code> function to create a new environment:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="language-fundamentals.html#cb1-1" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">new.env</span>()</span>
 <span id="cb1-2"><a href="language-fundamentals.html#cb1-2" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7f8d1ed90dc0&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7fa14daa19a0&gt;</code></pre>
 <p>Unlike most objects, printing an environment doesn’t print its contents.
 Instead, R prints its type (which is <code>environment</code>) and a unique identifier
-(<code>0x7f8d1ed90dc0</code> in this case).</p>
+(<code>0x7fa14daa19a0</code> in this case).</p>
 <p>The unique identifier is actually the <strong>memory address</strong> of the environment.
 Every object you use in R is stored as a series of <a href="https://en.wikipedia.org/wiki/Byte">bytes</a> in your computer’s
 <a href="https://en.wikipedia.org/wiki/Random-access_memory">random-access memory (RAM)</a>. Each byte in memory has a unique address,
@@ -524,7 +554,7 @@ returns the call environment:</p>
 <p>The call environment is not the global environment:</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="language-fundamentals.html#cb55-1" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">my_hello</span>()</span>
 <span id="cb55-2"><a href="language-fundamentals.html#cb55-2" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7f8d1fb8f570&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7fa1561e1a20&gt;</code></pre>
 <p>And the variable <code>hello</code> exists in the call environment, but not in the global
 environment:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="language-fundamentals.html#cb57-1" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">&quot;hello&quot;</span>, g)</span></code></pre></div>
@@ -538,9 +568,9 @@ environment:</p>
 memory address):</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="language-fundamentals.html#cb63-1" tabindex="-1"></a>e2 <span class="ot">=</span> <span class="fu">my_hello</span>()</span>
 <span id="cb63-2"><a href="language-fundamentals.html#cb63-2" tabindex="-1"></a>e</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7f8d1fb8f570&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7fa1561e1a20&gt;</code></pre>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="language-fundamentals.html#cb65-1" tabindex="-1"></a>e2</span></code></pre></div>
-<pre><code>## &lt;environment: 0x7f8d2892a668&gt;</code></pre>
+<pre><code>## &lt;environment: 0x7fa1552a8e80&gt;</code></pre>
 <p>By creating a new environment for every call, R isolates code in the function
 body from code outside of the body. As a result, most R functions have no
 <strong>side effects</strong>. This is a good thing, since it means you generally don’t have
@@ -791,7 +821,7 @@ with the same names.</li>
 ##     else &quot;ts&quot;
 ##     y
 ## }
-## &lt;bytecode: 0x7f8d20220338&gt;
+## &lt;bytecode: 0x7fa156065820&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="language-fundamentals.html#cb110-1" tabindex="-1"></a>dplyr<span class="sc">::</span>filter</span></code></pre></div>
 <pre><code>## function (.data, ..., .by = NULL, .preserve = FALSE) 
@@ -803,14 +833,14 @@ with the same names.</li>
 ##     }
 ##     UseMethod(&quot;filter&quot;)
 ## }
-## &lt;bytecode: 0x7f8d28a8bb38&gt;
+## &lt;bytecode: 0x7fa14dad59a0&gt;
 ## &lt;environment: namespace:dplyr&gt;</code></pre>
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="language-fundamentals.html#cb112-1" tabindex="-1"></a>ggplot2<span class="sc">::</span>ggplot</span></code></pre></div>
 <pre><code>## function (data = NULL, mapping = aes(), ..., environment = parent.frame()) 
 ## {
 ##     UseMethod(&quot;ggplot&quot;)
 ## }
-## &lt;bytecode: 0x7f8d26bbfcd0&gt;
+## &lt;bytecode: 0x7fa14cffc1a8&gt;
 ## &lt;environment: namespace:ggplot2&gt;</code></pre>
 <p>The related triple-colon operator <code>:::</code> gets a <strong>private</strong> variable in a
 package. Generally these are private for a reason! Only use <code>:::</code> if you’re
@@ -1055,13 +1085,13 @@ function, which splits a data frame or vector into groups:</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="language-fundamentals.html#cb147-1" tabindex="-1"></a>split</span></code></pre></div>
 <pre><code>## function (x, f, drop = FALSE, ...) 
 ## UseMethod(&quot;split&quot;)
-## &lt;bytecode: 0x7f8d268f9a58&gt;
+## &lt;bytecode: 0x7fa14cacbb20&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>Another is the <code>plot</code> function, which creates a plot:</p>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="language-fundamentals.html#cb149-1" tabindex="-1"></a>plot</span></code></pre></div>
 <pre><code>## function (x, y, ...) 
 ## UseMethod(&quot;plot&quot;)
-## &lt;bytecode: 0x7f8d28ccc940&gt;
+## &lt;bytecode: 0x7fa14c35c2f8&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>The <code>UseMethod</code> function requires the name of the generic (as a string) as its
 first argument. The second argument is optional and specifies the object to use
@@ -1071,7 +1101,7 @@ dispatch. R checks the class of the argument and selects a matching method.</p>
 <p>You can use the <code>methods</code> function to list all of the methods of a generic. The
 methods for <code>split</code> are:</p>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="language-fundamentals.html#cb151-1" tabindex="-1"></a><span class="fu">methods</span>(split)</span></code></pre></div>
-<pre><code>## [1] split.data.frame* split.Date*       split.default*    split.POSIXct*   
+<pre><code>## [1] split.data.frame split.Date       split.default    split.POSIXct   
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p>Method names always have the form <code>GENERIC.CLASS</code>, where <code>GENERIC</code> is the name
 of the generic and <code>CLASS</code> is the name of a class. For instance,
@@ -1090,7 +1120,7 @@ is:</p>
 ##     lapply(split(x = seq_len(nrow(x)), f = f, drop = drop, ...), 
 ##         function(ind) x[ind, , drop = FALSE])
 ## }
-## &lt;bytecode: 0x7f8d26885e50&gt;
+## &lt;bytecode: 0x7fa14b1345c0&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>Sometimes methods are defined in privately packages and can’t be accessed by
 typing their name at the prompt. You can use the <code>getAnywhere</code> function to get
@@ -1123,7 +1153,7 @@ the code for these methods. For instance, to get the code for
 ##         pairs(data.matrix(x), ...)
 ##     }
 ## }
-## &lt;bytecode: 0x7f8d290f7c80&gt;
+## &lt;bytecode: 0x7fa14eafb3e0&gt;
 ## &lt;environment: namespace:graphics&gt;</code></pre>
 <p>As a demonstration of method dispatch, consider this code to split the <code>mtcars</code>
 dataset by number of cylinders:</p>

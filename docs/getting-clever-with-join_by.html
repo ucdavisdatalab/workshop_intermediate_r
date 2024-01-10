@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Intermediate R</title>
-  <meta name="description" content="Intermediate R" />
+  <title>12 Getting Clever with join_by | Intermediate R</title>
+  <meta name="description" content="12 Getting Clever with join_by | Intermediate R" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Intermediate R" />
+  <meta property="og:title" content="12 Getting Clever with join_by | Intermediate R" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ucdavisdatalab/workshop_intermediate_r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Intermediate R" />
+  <meta name="twitter:title" content="12 Getting Clever with join_by | Intermediate R" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="language-fundamentals.html"/>
+<link rel="prev" href="other-joins.html"/>
+<link rel="next" href="examples.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -285,36 +285,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>IV Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
-<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a>
+<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a></li>
+<li class="chapter" data-level="7" data-path="objective.html"><a href="objective.html"><i class="fa fa-check"></i><b>7</b> Objective:</a></li>
+<li class="chapter" data-level="8" data-path="the-dplyr-package.html"><a href="the-dplyr-package.html"><i class="fa fa-check"></i><b>8</b> The <code>dplyr</code> Package</a></li>
+<li class="chapter" data-level="9" data-path="gradebook-data.html"><a href="gradebook-data.html"><i class="fa fa-check"></i><b>9</b> Gradebook data</a></li>
+<li class="chapter" data-level="10" data-path="left-and-right-joins.html"><a href="left-and-right-joins.html"><i class="fa fa-check"></i><b>10</b> Left and Right Joins</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="joining-data.html"><a href="joining-data.html#objective"><i class="fa fa-check"></i><b>6.1</b> Objective:</a></li>
-<li class="chapter" data-level="6.2" data-path="joining-data.html"><a href="joining-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>6.2</b> The <code>dplyr</code> Package</a></li>
-<li class="chapter" data-level="6.3" data-path="joining-data.html"><a href="joining-data.html#gradebook-data"><i class="fa fa-check"></i><b>6.3</b> Gradebook data</a></li>
-<li class="chapter" data-level="6.4" data-path="joining-data.html"><a href="joining-data.html#left-and-right-joins"><i class="fa fa-check"></i><b>6.4</b> Left and Right Joins</a>
+<li class="chapter" data-level="10.1" data-path="left-and-right-joins.html"><a href="left-and-right-joins.html#left-join"><i class="fa fa-check"></i><b>10.1</b> Left Join</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="other-joins.html"><a href="other-joins.html"><i class="fa fa-check"></i><b>11</b> Other Joins</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>6.4.1</b> Left Join</a></li>
+<li class="chapter" data-level="11.1" data-path="other-joins.html"><a href="other-joins.html#right-join"><i class="fa fa-check"></i><b>11.1</b> Right Join</a></li>
+<li class="chapter" data-level="11.2" data-path="other-joins.html"><a href="other-joins.html#inner-join"><i class="fa fa-check"></i><b>11.2</b> Inner Join</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="joining-data.html"><a href="joining-data.html#other-joins"><i class="fa fa-check"></i><b>6.5</b> Other Joins</a>
+<li class="chapter" data-level="12" data-path="getting-clever-with-join_by.html"><a href="getting-clever-with-join_by.html"><i class="fa fa-check"></i><b>12</b> Getting Clever with <code>join_by</code></a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="joining-data.html"><a href="joining-data.html#right-join"><i class="fa fa-check"></i><b>6.5.1</b> Right Join</a></li>
-<li class="chapter" data-level="6.5.2" data-path="joining-data.html"><a href="joining-data.html#inner-join"><i class="fa fa-check"></i><b>6.5.2</b> Inner Join</a></li>
+<li class="chapter" data-level="12.1" data-path="getting-clever-with-join_by.html"><a href="getting-clever-with-join_by.html#matching-multiple-columns"><i class="fa fa-check"></i><b>12.1</b> Matching multiple columns</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="joining-data.html"><a href="joining-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>6.6</b> Getting Clever with <code>join_by</code></a>
+<li class="chapter" data-level="13" data-path="examples.html"><a href="examples.html"><i class="fa fa-check"></i><b>13</b> Examples</a>
 <ul>
-<li class="chapter" data-level="6.6.1" data-path="joining-data.html"><a href="joining-data.html#matching-multiple-columns"><i class="fa fa-check"></i><b>6.6.1</b> Matching multiple columns</a></li>
+<li class="chapter" data-level="13.1" data-path="examples.html"><a href="examples.html#three-or-more-tables"><i class="fa fa-check"></i><b>13.1</b> Three Or More Tables</a></li>
 </ul></li>
-<li class="chapter" data-level="6.7" data-path="joining-data.html"><a href="joining-data.html#examples"><i class="fa fa-check"></i><b>6.7</b> Examples</a>
+<li class="chapter" data-level="14" data-path="be-explicit.html"><a href="be-explicit.html"><i class="fa fa-check"></i><b>14</b> Be Explicit</a>
 <ul>
-<li class="chapter" data-level="6.7.1" data-path="joining-data.html"><a href="joining-data.html#three-or-more-tables"><i class="fa fa-check"></i><b>6.7.1</b> Three Or More Tables</a></li>
-</ul></li>
-<li class="chapter" data-level="6.8" data-path="joining-data.html"><a href="joining-data.html#be-explicit"><i class="fa fa-check"></i><b>6.8</b> Be Explicit</a>
+<li class="chapter" data-level="14.1" data-path="be-explicit.html"><a href="be-explicit.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>14.1</b> Handling Duplicate Keys</a>
 <ul>
-<li class="chapter" data-level="6.8.1" data-path="joining-data.html"><a href="joining-data.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>6.8.1</b> Handling Duplicate Keys</a></li>
-<li class="chapter" data-level="6.8.2" data-path="joining-data.html"><a href="joining-data.html#ambiguous-columns"><i class="fa fa-check"></i><b>6.8.2</b> Ambiguous Columns</a></li>
-<li class="chapter" data-level="6.8.3" data-path="joining-data.html"><a href="joining-data.html#missing-values"><i class="fa fa-check"></i><b>6.8.3</b> Missing Values</a></li>
+<li class="chapter" data-level="14.1.1" data-path="be-explicit.html"><a href="be-explicit.html#specifying-the-expected-relationship"><i class="fa fa-check"></i><b>14.1.1</b> Specifying The Expected Relationship</a></li>
+<li class="chapter" data-level="14.1.2" data-path="be-explicit.html"><a href="be-explicit.html#using-only-distinct-rows"><i class="fa fa-check"></i><b>14.1.2</b> Using Only Distinct Rows</a></li>
 </ul></li>
-<li class="chapter" data-level="6.9" data-path="joining-data.html"><a href="joining-data.html#conclusion"><i class="fa fa-check"></i><b>6.9</b> Conclusion</a></li>
+<li class="chapter" data-level="14.2" data-path="be-explicit.html"><a href="be-explicit.html#ambiguous-columns"><i class="fa fa-check"></i><b>14.2</b> Ambiguous Columns</a></li>
+<li class="chapter" data-level="14.3" data-path="be-explicit.html"><a href="be-explicit.html#missing-values"><i class="fa fa-check"></i><b>14.3</b> Missing Values</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>15</b> Conclusion</a></li>
 </ul>
 
       </nav>
@@ -332,46 +334,143 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Intermediate R</h1>
-<p class="author"><em>Nick Ulle and Wesley Brooks</em></p>
-<p class="date"><em>2024-01-10</em></p>
+<div id="getting-clever-with-join_by" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">12</span> Getting Clever with <code>join_by</code><a href="getting-clever-with-join_by.html#getting-clever-with-join_by" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>So far, we’ve focused on the join types and the tables. There’s been a third element in all of the examples that we’ve mostly ignored until now: the <code>by</code> argument in the joins. Specifying a single column name (like <code>student_id</code>) works great when the key columns have the same names in both tables. However, real examples are often more complicated. For those times, <code>dplyr</code> provides a function called <code>join_by()</code>, which lets you create <strong>join specifications</strong> to solve even very complicated problems. We begin with an example where the key name in the <code>grades</code> table has been changed from <code>student_id</code> to <code>sid</code>.</p>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="getting-clever-with-join_by.html#cb578-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb578-2"><a href="getting-clever-with-join_by.html#cb578-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb578-3"><a href="getting-clever-with-join_by.html#cb578-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb578-4"><a href="getting-clever-with-join_by.html#cb578-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>))</span>
+<span id="cb578-5"><a href="getting-clever-with-join_by.html#cb578-5" tabindex="-1"></a></span>
+<span id="cb578-6"><a href="getting-clever-with-join_by.html#cb578-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">sid =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb578-7"><a href="getting-clever-with-join_by.html#cb578-7" tabindex="-1"></a>                        <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>))</span>
+<span id="cb578-8"><a href="getting-clever-with-join_by.html#cb578-8" tabindex="-1"></a></span>
+<span id="cb578-9"><a href="getting-clever-with-join_by.html#cb578-9" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb578-10"><a href="getting-clever-with-join_by.html#cb578-10" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">left_join</span>(students, grades,</span>
+<span id="cb578-11"><a href="getting-clever-with-join_by.html#cb578-11" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">join_by</span>(student_id<span class="sc">==</span>sid))</span>
+<span id="cb578-12"><a href="getting-clever-with-join_by.html#cb578-12" tabindex="-1"></a></span>
+<span id="cb578-13"><a href="getting-clever-with-join_by.html#cb578-13" tabindex="-1"></a></span>
+<span id="cb578-14"><a href="getting-clever-with-join_by.html#cb578-14" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb578-15"><a href="getting-clever-with-join_by.html#cb578-15" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Left Join Result:&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Left Join Result:&quot;</code></pre>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="getting-clever-with-join_by.html#cb580-1" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<pre><code>##   student_id    name grade
+## 1          1   Angel    NA
+## 2          2    Beto    90
+## 3          3    Cici    85
+## 4          4 Desmond    80</code></pre>
+<p>Since the key column names don’t match, I have provied a <code>join_by</code> specification. Specifying a match via <code>join_by</code> is very powerful and flexible, but the main thing to recognize here is that R searches for the column name on the left of the double-equals in the left table and searches for the column name on the right of the double-equals in the right table. In this example, that means the join will try to match <code>students$student_id</code> to <code>grades$sid</code>.</p>
+<div id="matching-multiple-columns" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Matching multiple columns<a href="getting-clever-with-join_by.html#matching-multiple-columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sometimes it takes more than one key to uniquely identify a row of data. For example, suppose some of our students are retaking the class in 2023 because they got a failing grade in 2022. Then we would need to combine the student ID with the year to uniquely identify a student’s grade. You can include multiple comparisons in a <code>join_by</code> specification by separating them with commas. In the following example, student ID still has different names between the tables but the year column has the same name in both tables.</p>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="getting-clever-with-join_by.html#cb582-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb582-2"><a href="getting-clever-with-join_by.html#cb582-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb582-3"><a href="getting-clever-with-join_by.html#cb582-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb582-4"><a href="getting-clever-with-join_by.html#cb582-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>))</span>
+<span id="cb582-5"><a href="getting-clever-with-join_by.html#cb582-5" tabindex="-1"></a></span>
+<span id="cb582-6"><a href="getting-clever-with-join_by.html#cb582-6" tabindex="-1"></a><span class="co"># duplicate the students for two years</span></span>
+<span id="cb582-7"><a href="getting-clever-with-join_by.html#cb582-7" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb582-8"><a href="getting-clever-with-join_by.html#cb582-8" tabindex="-1"></a>  <span class="fu">mutate</span>(students, <span class="at">year=</span><span class="dv">2022</span>),</span>
+<span id="cb582-9"><a href="getting-clever-with-join_by.html#cb582-9" tabindex="-1"></a>  <span class="fu">mutate</span>(students, <span class="at">year=</span><span class="dv">2023</span>)</span>
+<span id="cb582-10"><a href="getting-clever-with-join_by.html#cb582-10" tabindex="-1"></a>)</span>
+<span id="cb582-11"><a href="getting-clever-with-join_by.html#cb582-11" tabindex="-1"></a>                      </span>
+<span id="cb582-12"><a href="getting-clever-with-join_by.html#cb582-12" tabindex="-1"></a><span class="co"># create the grades data.frame</span></span>
+<span id="cb582-13"><a href="getting-clever-with-join_by.html#cb582-13" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb582-14"><a href="getting-clever-with-join_by.html#cb582-14" tabindex="-1"></a>  <span class="at">sid =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb582-15"><a href="getting-clever-with-join_by.html#cb582-15" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>)</span>
+<span id="cb582-16"><a href="getting-clever-with-join_by.html#cb582-16" tabindex="-1"></a>  )</span>
+<span id="cb582-17"><a href="getting-clever-with-join_by.html#cb582-17" tabindex="-1"></a></span>
+<span id="cb582-18"><a href="getting-clever-with-join_by.html#cb582-18" tabindex="-1"></a><span class="co"># duplicate the grades table for two years</span></span>
+<span id="cb582-19"><a href="getting-clever-with-join_by.html#cb582-19" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb582-20"><a href="getting-clever-with-join_by.html#cb582-20" tabindex="-1"></a>  <span class="fu">mutate</span>(grades, <span class="at">grade =</span> grade<span class="dv">-50</span>, <span class="at">year=</span><span class="dv">2022</span>),</span>
+<span id="cb582-21"><a href="getting-clever-with-join_by.html#cb582-21" tabindex="-1"></a>  <span class="fu">mutate</span>(grades, <span class="at">year=</span><span class="dv">2023</span>)</span>
+<span id="cb582-22"><a href="getting-clever-with-join_by.html#cb582-22" tabindex="-1"></a>)</span>
+<span id="cb582-23"><a href="getting-clever-with-join_by.html#cb582-23" tabindex="-1"></a></span>
+<span id="cb582-24"><a href="getting-clever-with-join_by.html#cb582-24" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb582-25"><a href="getting-clever-with-join_by.html#cb582-25" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">left_join</span>(students, grades,</span>
+<span id="cb582-26"><a href="getting-clever-with-join_by.html#cb582-26" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">join_by</span>(student_id<span class="sc">==</span>sid, year))</span>
+<span id="cb582-27"><a href="getting-clever-with-join_by.html#cb582-27" tabindex="-1"></a></span>
+<span id="cb582-28"><a href="getting-clever-with-join_by.html#cb582-28" tabindex="-1"></a></span>
+<span id="cb582-29"><a href="getting-clever-with-join_by.html#cb582-29" tabindex="-1"></a><span class="co"># View the results</span></span>
+<span id="cb582-30"><a href="getting-clever-with-join_by.html#cb582-30" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Left Join Result:&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Left Join Result:&quot;</code></pre>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="getting-clever-with-join_by.html#cb584-1" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div>
+<pre><code>##   student_id    name year grade
+## 1          1   Angel 2022    NA
+## 2          2    Beto 2022    40
+## 3          3    Cici 2022    35
+## 4          4 Desmond 2022    30
+## 5          1   Angel 2023    NA
+## 6          2    Beto 2023    90
+## 7          3    Cici 2023    85
+## 8          4 Desmond 2023    80</code></pre>
+<p>To learn clever tricks for complicated joins, see the documentation at <code>?join_by</code>.</p>
+<!--
+# 12. Conclusion and Resources (10 mins)
+- Summary of key concepts learned.
+- Recommended resources for further learning.
+
+
+# Special topics
+
+## Semi Joins
+The semi_join() function in the dplyr package is used to return all rows from the first (left) data frame that have matching rows in the second (right) data frame based on specified columns. Unlike other join functions in dplyr, semi_join() only retains the rows from the left data frame where there is a match in the right data frame, but it does not include any columns from the right data frame in the result. It is a way to filter rows from the left data frame based on their presence in the right data frame.
+
+### Syntax:
+`semi_join(x, y, by = "common_column")`
+`x`: The left data frame.
+`y`: The right data frame.
+`by`: A character vector specifying the column(s) by which the data frames should be joined.
+
+### Example:
+
+
+```r
+# Example datasets
+employees = data.frame(emp_id = c(1, 2, 3, 4),
+                        name = c("Angel", "Beto", "Cici", "Desmond"))
+
+salaries = data.frame(emp_id = c(2, 3, 4, 5),
+                        salary = c(60000, 75000, 80000, 70000))
+
+# Semi-join
+semi_result = semi_join(employees, salaries, by = "emp_id")
+
+# View the result
+print(semi_result)
+```
+
+```
+##   emp_id    name
+## 1      2    Beto
+## 2      3    Cici
+## 3      4 Desmond
+```
+
+In this example, the `semi_join()` function is used to retain only those rows from the `employees` data frame where the `emp_id` values have a match in the `salaries` data frame. The resulting `semi_result` will only contain the rows with `emp_id` values 2, 3, and 4.
+
+### Use Cases:
+Filtering rows in the left data frame based on the presence of matching values in the right data frame.
+Useful when you are interested in a subset of records from the left data frame that has corresponding records in the right data frame.
+
+## Anti Joins
+The `semi_join()` function is the opposite of `anti_join()`, which returns rows from the left data frame that do not have matching rows in the right data frame.
+
+
+```r
+# Example of anti-join (rows in employees without a match in salaries)
+anti_result = anti_join(employees, salaries, by = "emp_id")
+```
+-->
 </div>
-<div id="overview" class="section level1 unnumbered hasAnchor">
-<h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This is the reader for all of UC Davis DataLab’s Intermediate R workshop
-series. There are currently three:</p>
-<ol style="list-style-type: decimal">
-<li><p><em>Thinking in R</em>, which is about understanding how R works, how to diagnose
-and fix bugs in code, and how to estimate and measure performance
-characteristics of code.</p></li>
-<li><p><em>Cleaning Data &amp; Automating Tasks</em>, which is about how to clean and prepare
-messy data such as dates, times, and text for analysis, and how to use loops
-or other forms of iteration to automate repetitive tasks.</p></li>
-<li><p><em>Data Visualization and Analysis in R</em>, which is about plotting data and models in R.</p></li>
-</ol>
-<p>Each series is independent and consists of 2 sessions (equivalently, 2 chapters
-in this reader).</p>
-<p>After completing both series, students will have a better understanding of
-language features, packages, and programming strategies, which will enable them
-to write more efficient code, be more productive when writing code, and debug
-code more effectively.</p>
-<p>These series are not an introduction to R. Participants are expected to have
-prior experience using R, be comfortable with basic R syntax, and to have it
-pre-installed and running on their laptops. They are appropriate for motivated
-intermediate to advanced users who want a better understanding of base R.</p>
-
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="language-fundamentals.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="other-joins.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -392,7 +491,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/index.Rmd",
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/xx_joins.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -400,7 +499,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/index.Rmd",
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/xx_joins.Rmd",
 "text": null
 },
 "download": null,
