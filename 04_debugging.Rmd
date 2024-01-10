@@ -1,10 +1,9 @@
-Output, Errors, and Bugs
-========================
+Squashing Bugs with R's Debugging Tools
+=======================================
 
-This chapter is part 2 (of 2) of _Thinking in R_, a workshop series about how R
-works and how to examine code critically. The major topics of this chapter are
-how to print output, how R's conditions system for warnings and errors works,
-how to use the R debugger, and how to estimate the performance of R code.
+The major topics of this chapter are how to print output, how R's conditions
+system for warnings and errors works, how to use the R debugger, and how to
+estimate the performance of R code.
 
 #### Learning Objectives {-}
 

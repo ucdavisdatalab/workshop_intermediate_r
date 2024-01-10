@@ -1,4 +1,4 @@
-# (PART) Data Visualization and Analysis in R {-}
+# (PART) Data Visualization & Analysis in R {-}
 
 # Data Visualization in R
 
