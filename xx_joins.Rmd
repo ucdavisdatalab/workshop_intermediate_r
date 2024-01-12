@@ -2,11 +2,14 @@ Joining Data
 ====================
 You will often have two or more data sets that are part of the same project. For example, our library keeps track of its books using three tables: one identifying books, one identifying borrowers, and one that records each book checkout. 
 
-## Objective:
-The goal of this workshop is to familiarize students with the concept of joining tables in R using the dplyr package. Participants will learn how to merge datasets based on common columns, handle different types of joins, and understand the implications of each type.
+## Learning Objectives {-}:
+The goal of this workshop is to familiarize students with the concept of joining tables in R using the dplyr package. Participants will learn how to 
 
-
-
+* Join tables based on common columns
+* Decide which kind of join to use: left join, inner join, or full join
+* Join tables based on columns with different names
+* Join tables where multiple columns are used to match rows
+* Join more than two tables
 
 ## The `dplyr` Package
 This workshop uses R and the [`dplyr` package](https://dplyr.tidyverse.org/index.html). The next link goes to a [list of all the functions provided by `dplyr`](https://dplyr.tidyverse.org/reference/index.html). Let's check them out. If you've ever used SQL, youll probably recognize functions like `select()`, `left_join()`, `group_by()`. In fact, `dplyr` was designed to bring SQL-style data manipulation to R. As a result the concepts of `dplyr` and SQL are nearly identical, and even the language overlaps a lot. I'll point out some examples of this as we go, because I think some people might find it helpful.
