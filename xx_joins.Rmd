@@ -65,27 +65,28 @@ students = data.frame(
   student_id = c(1, 2, 3, 4, 4),
   name = c("Angel", "Beto", "Cici", "Desmond", "Erik"))
 
-grades = data.frame(sid = c(2, 3, 4, 5, 2),
-                        grade = c(90, 85, 80, 75, 60))
+grades = data.frame(
+  student_id = c(2, 3, 4, 5, 2),
+  grade = c(90, 85, 80, 75, 60))
 
 # Left join
-left_join(students, grades, by = join_by(student_id == sid)) |>
+left_join(students, grades, by = "student_id") |>
   kable()
 ```
 
-Both of the tables had five rows but the result has six rows because `student_id` is 4 for two rows of `students` and `sid` is 2 for two rows of `grades`. R has warned us that there is a many-to-many relationship in the join, which means that duplicate keys were matched in the left table and the right table. Where there are no duplicate keys in either table, the match is one-to-one. When there are duplicate in one table only, the match is one-to-many or many-to-one. These are often desired behavior and so R just complies silently. A many-to-many match may be desired but it is often a sign that something has gone wrong, so R gives a warning. You can get funky results when your keys are not unique!
+Both of the tables had five rows but the result has six rows because `student_id` is 4 for two rows of `students` and is 2 for two rows of `grades`. R has warned us that there is a many-to-many relationship in the join, which means that duplicate keys were matched in the left table and the right table. Where there are no duplicate keys in either table, the match is one-to-one. When there are duplicate in one table only, the match is one-to-many or many-to-one. These are often desired behavior and so R just complies silently. A many-to-many match may be desired but it is often a sign that something has gone wrong, so R gives a warning. You can get funky results when your keys are not unique!
 
 ![Cats join meme](img/cat-legs-left-join-meme.jpg)
 
 
 
 ## Other Joins
-I've already mentioned that a right join is like a left join, but augments the right table with the left, rather than vice versa. The next most commong join is an inner join, which includes only the rows that match. And a full join includes all rows from both tables, even if there was no match. I've created a picture to help identify the differences.
+I've already mentioned that a right join is like a left join, but augments the right table with the left, rather than vice versa. The next most common join is an inner join, which includes only the rows that match. And a full join includes all rows from both tables, even if there was no match. I've created a picture to help identify the differences.
 
 ![Disney characters illustrate differences between joins](img/disney-meme.jpg)
 
 ### Right Join
-A right join is exactly like a left join, except...
+A right join is exactly like a left join, except that it augments the rows of the right table with columns from the left table. Recall that a left join augments the rows of the left table with columns from the right table.
 
 ### Inner Join
 An inner join returns the same columns as a left join, but potentially fewer rows. The result of a inner join only includes the rows that matched according to the join specification. This will leave out some rows from the left table if they aren't matched in the right table, which is the difference between an inner join and a left join.
@@ -105,6 +106,9 @@ inner_join(students, grades, by="student_id") |>
   kable()
 ```
 
+
+### Full Join
+A full join returns all the rows from both tables, even if there is no matching key. Where a key does match, the rows are joined but where there is no match, there will be `NA` values filling the columns from the other table.
 
 ## Getting Clever with `join_by`
 
@@ -165,60 +169,6 @@ To learn clever tricks for complicated joins, see the documentation at `?join_by
 
 
 
-
-
-
-
-
-<!--
-# 12. Conclusion and Resources (10 mins)
-- Summary of key concepts learned.
-- Recommended resources for further learning.
-
-
-# Special topics
-
-## Semi Joins
-The semi_join() function in the dplyr package is used to return all rows from the first (left) data frame that have matching rows in the second (right) data frame based on specified columns. Unlike other join functions in dplyr, semi_join() only retains the rows from the left data frame where there is a match in the right data frame, but it does not include any columns from the right data frame in the result. It is a way to filter rows from the left data frame based on their presence in the right data frame.
-
-### Syntax:
-`semi_join(x, y, by = "common_column")`
-`x`: The left data frame.
-`y`: The right data frame.
-`by`: A character vector specifying the column(s) by which the data frames should be joined.
-
-### Example:
-
-```{r semi-join-example}
-# Example datasets
-employees = data.frame(emp_id = c(1, 2, 3, 4),
-                        name = c("Angel", "Beto", "Cici", "Desmond"))
-
-salaries = data.frame(emp_id = c(2, 3, 4, 5),
-                        salary = c(60000, 75000, 80000, 70000))
-
-# Semi-join
-semi_result = semi_join(employees, salaries, by = "emp_id")
-
-# View the result
-print(semi_result)
-```
-
-In this example, the `semi_join()` function is used to retain only those rows from the `employees` data frame where the `emp_id` values have a match in the `salaries` data frame. The resulting `semi_result` will only contain the rows with `emp_id` values 2, 3, and 4.
-
-### Use Cases:
-Filtering rows in the left data frame based on the presence of matching values in the right data frame.
-Useful when you are interested in a subset of records from the left data frame that has corresponding records in the right data frame.
-
-## Anti Joins
-The `semi_join()` function is the opposite of `anti_join()`, which returns rows from the left data frame that do not have matching rows in the right data frame.
-
-```{r anti-join-example}
-# Example of anti-join (rows in employees without a match in salaries)
-anti_result = anti_join(employees, salaries, by = "emp_id")
-```
--->
-
 ## Examples
 We've seen enough of the made-up grades example! Let's look at some real data and practice our skills! 
 
@@ -247,9 +197,7 @@ One thing we can see is that the `books` table refers to physical copies of a bo
 
 In the previous section, we set a goal of augmenting the `checkouts` table with the information in the `books` table. To augment means to add to. We are going to be adding to the `checkouts` table, but do we add rows or columns? Each row of `checkouts` is an event that matches one book and one borrower. Adding new rows would be like adding new events that didn't occur: not good! Each row has a book and each book has many columns of information in the `books` table. So we can maintain the relationships in the data while adding new columns of information to `checkouts`. 
 
-How are we to know which books were checked out most often, or were generaly checked out by the same people? The tables have different numbers of rows and columns, so we won't be able to stack them side-by-side or one on top of the other. The "key" pieces of information are the columns `books$book_id` and `borrowers$borrower_id`. If you've ever used SQL, you may recall that each table should have a **primary key**, which is a column of values that identify the rows. In a database, the primary key must be unique - there can be no duplicates. Most spreadsheets are not designed as databases, and they may have key or ID columns that are not unique. How to handle non-unique keys is going to be a recurring feature of this workshop.
-
-Now look at the `checkouts` table again. It has two ID columns: `book_id` and `borrower_id`. These match the borrower and book IDs in the `borrowers` and `books` tables. Obviously, these aren't unique: one person may check out multiple books, and an exceptionaly popular book might be checked out as many as three times from the same library! These are columns that identify unique keys other tables, which SQL calls **foreign keys**.
+Now look at the `checkouts` table again. It has two ID columns: `book_id` and `borrower_id`. These match the borrower and book IDs in the `borrowers` and `books` tables. Obviously, these aren't unique: one person may check out multiple books, and an exceptionally popular book might be checked out as many as three times from the same library! So `book_id` is a foreign key in the `checkouts` table.
 
 Now we can begin to reason about how to approach the goal of identifying the books that are most often checked out. We want to augment the `checkouts` table with the information in the `books` table, matching rows where `book_id` matches. Every row in the checkouts table should match exactly one row in the results and every row in the results should match exactly one row in the checkouts table. In the next section we will translate this plain-english description into the language used by `dplyr`.
 
@@ -274,7 +222,7 @@ left_join(checkouts, books, by="book_id") |>
   kable()
 ```
 
-The problem is that the `author` column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name ([this is what ORCID does for scientific publishing](https://orcid.org)). 
+The problem is that the `author` column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed in some rows, and middle initials are only sometimes included. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name ([this is what ORCID does for scientific publishing](https://orcid.org)). 
 
 ### Three Or More Tables
 All of he join functions can only work on two tables but you can join as many tables as you want by iteratively building them up two at a time. We are going to look at an example that combines `checkouts`, `books`, and `borrowers` in order to see how many books were checked out by students, faculty, and staff.
