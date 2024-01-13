@@ -510,7 +510,7 @@ dplyr][dplyr-ref].
 If you've ever used SQL, you're probably familiar with relational datasets and
 recognize functions like `select`, `left_join`, and `group_by`. In fact,
 `dplyr` was designed to bring SQL-style data manipulation to R. As a result,
-many concepts of `dplyr` and SQL are nearly identical, and even the language
+many concepts of dplyr and SQL are nearly identical, and even the language
 overlaps a lot. I'll point out some examples of this as we go, because I think
 some people might find it helpful.
 
@@ -629,7 +629,7 @@ inner_join(students, grades, by="student_id") |>
 
 ### Getting Clever with `join_by`
 
-So far, we've focused on the join types and the tables. There's been a third element in all of the examples that we've mostly ignored until now: the `by` argument in the joins. Specifying a single column name (like `student_id`) works great when the key columns have the same names in both tables. However, real examples are often more complicated. For those times, `dplyr` provides a function called `join_by()`, which lets you create **join specifications** to solve even very complicated problems. We begin with an example where the key name in the `grades` table has been changed from `student_id` to `sid`.
+So far, we've focused on the join types and the tables. There's been a third element in all of the examples that we've mostly ignored until now: the `by` argument in the joins. Specifying a single column name (like `student_id`) works great when the key columns have the same names in both tables. However, real examples are often more complicated. For those times, dplyr provides a function called `join_by()`, which lets you create **join specifications** to solve even very complicated problems. We begin with an example where the key name in the `grades` table has been changed from `student_id` to `sid`.
 
 
 ```{r different-key-names}
@@ -774,7 +774,7 @@ How are we to know which books were checked out most often, or were generaly che
 
 Now look at the `checkouts` table again. It has two ID columns: `book_id` and `borrower_id`. These match the borrower and book IDs in the `borrowers` and `books` tables. Obviously, these aren't unique: one person may check out multiple books, and an exceptionaly popular book might be checked out as many as three times from the same library! These are columns that identify unique keys other tables, which SQL calls **foreign keys**.
 
-Now we can begin to reason about how to approach the goal of identifying the books that are most often checked out. We want to augment the `checkouts` table with the information in the `books` table, matching rows where `book_id` matches. Every row in the checkouts table should match exactly one row in the results and every row in the results should match exactly one row in the checkouts table. In the next section we will translate this plain-english description into the language used by `dplyr`.
+Now we can begin to reason about how to approach the goal of identifying the books that are most often checked out. We want to augment the `checkouts` table with the information in the `books` table, matching rows where `book_id` matches. Every row in the checkouts table should match exactly one row in the results and every row in the results should match exactly one row in the checkouts table. In the next section we will translate this plain-english description into the language used by dplyr.
 
 ```{r most-checked-out-books}
 # Top ten books with most checkouts
@@ -851,7 +851,7 @@ If you leave the `relationship` parameter blank, R will allow a many-to-many joi
 
 ##### Using Only Distinct Rows
 
-An alternative to handling duplicate keys is to subset the data to avoid duplicates in the first place. The `dplyr` package provides a function, `distinct()`, which can help. When `distinct()` finds duplicated rows, it keeps the first one. 
+An alternative to handling duplicate keys is to subset the data to avoid duplicates in the first place. The dplyr package provides a function, `distinct()`, which can help. When `distinct()` finds duplicated rows, it keeps the first one. 
 
 ```{r duplicate-keys-example-distinct}
 # Example datasets
@@ -898,7 +898,7 @@ By specifying the `suffix` argument, we get column names in the result with more
 
 #### Missing Values
 
-The `dplyr` package has a default behavior that I think is dangerous. In the conditions of a join, `NA==NA` evaluates to `TRUE`, which is unlike the behavior anywhere else in R. This means that keys identified as `NA` will match other `NA`s in the join. This is a very strong assumption that seems to contradict the idea of a missing value since if we actually don't know two keys, how can we say that they match? And if we know two keys have the same value then they should be labeled in the data. In my opinion, it's a mistake to have the computer make strong assumptions by default, and especially if it does so without warning the user. Fortunately, there is a way to make the more sensible decision that `NA`s don't match anything: include the argument `na_matches='never'` in the join. 
+The dplyr package has a default behavior that I think is dangerous. In the conditions of a join, `NA==NA` evaluates to `TRUE`, which is unlike the behavior anywhere else in R. This means that keys identified as `NA` will match other `NA`s in the join. This is a very strong assumption that seems to contradict the idea of a missing value since if we actually don't know two keys, how can we say that they match? And if we know two keys have the same value then they should be labeled in the data. In my opinion, it's a mistake to have the computer make strong assumptions by default, and especially if it does so without warning the user. Fortunately, there is a way to make the more sensible decision that `NA`s don't match anything: include the argument `na_matches='never'` in the join. 
 
 ```{r missing-values-example}
 # Example datasets
