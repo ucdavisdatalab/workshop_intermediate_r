@@ -4,3 +4,472 @@ Part 2
 This chapter is part 2 (of 2) of _Thinking in R_, a workshop series about how R
 works and how to examine code critically.
 
+Iteration Strategies
+--------------------
+
+R is powerful tool for automating tasks that have repetitive steps. For
+example, you can:
+
+* Apply a transformation to an entire column of data.
+* Compute distances between all pairs from a set of points.
+* Read a large collection of files from disk in order to combine and analyze
+  the data they contain.
+* Simulate how a system evolves over time from a specific set of starting
+  parameters.
+* Scrape data from many pages of a website.
+
+You can implement concise, efficient solutions for these kinds of tasks in R by
+using **iteration**, which means repeating a computation many times. R provides
+four different strategies for writing iterative code:
+
+1. Vectorization, where a function is implicitly called on each element of a
+   vector. See [this section][vectorization] of the R Basics for more details.
+2. Apply functions, where a function is explicitly called on each element of a
+   vector or array. See [this section][apply-functions] of the R Basics reader
+   for more details.
+3. Loops, where an expression is evaluated repeatedly until some condition is
+   met.
+4. Recursion, where a function calls itself.
+
+[vectorization]: https://ucdavisdatalab.github.io/workshop_r_basics/data-structures.html#vectorization
+[apply-functions]: https://ucdavisdatalab.github.io/workshop_r_basics/exploring-data.html#apply-functions
+
+Vectorization is the most efficient and most concise iteration strategy, but
+also the least flexible, because it only works with vectorized functions and
+vectors. Apply functions are more flexible---they work with any function and
+any data structure with elements---but less efficient and less concise. Loops
+and recursion provide the most flexibility but are the least concise. In recent
+versions of R, apply functions and loops are similar in terms of efficiency.
+Recursion tends to be the least efficient iteration strategy in R.
+
+The rest of this section explains how to write loops and how to choose which
+iteration strategy to use. We assume you're already comfortable with
+vectorization and have at least some familiarity with apply functions.
+
+
+### For-loops
+
+A **for-loop** evaluates an expression once for each element of a vector or
+list. The `for` keyword creates a for-loop. The syntax is:
+
+```{r, eval = FALSE}
+for (I in DATA) {
+  # Your code goes here
+}
+```
+
+The variable `I` is called an **induction variable**. At the beginning of each
+iteration, `I` is assigned the next element of `DATA`. The loop iterates once
+for each element, unless a keyword instructs R to exit the loop early (more
+about this in Section \@ref(break-next)). As with if-statements and functions,
+the curly braces `{ }` are only required if the body contains multiple lines of
+code. Here's a simple for-loop:
+
+```{r}
+for (i in 1:10)
+  message("Hi from iteration  ", i)
+```
+
+When some or all of the iterations in a task depend on results from prior
+iterations, loops tend to be the most appropriate iteration strategy. For
+instance, loops are a good way to implement time-based simulations or compute
+values in recursively defined sequences.
+
+As a concrete example, suppose you want to compute the result of starting from
+the value 1 and composing the sine function 100 times:
+
+```{r}
+result = 1
+for (i in 1:100) {
+  result = sin(result)
+}
+
+result
+```
+
+Unlike other iteration strategies, loops don't return a result automatically.
+It's up to you to use variables to store any results you want to use later. If
+you want to save a result from every iteration, you can use a vector or a list
+indexed on the iteration number:
+
+```{r}
+n = 1 + 100
+result = numeric(n)
+result[1] = 1
+for (i in 2:n) {
+  result[i] = sin(result[i - 1])
+}
+
+plot(result)
+```
+
+Section \@ref(saving-multiple-results) explains this in more detail.
+
+If the iterations in a task are not dependent, it's preferable to use
+vectorization or apply functions instead of a loop. Vectorization is more
+efficient, and apply functions are usually more concise.
+
+In some cases, you can use vectorization to handle a task even if the
+iterations are dependent. For example, you can use vectorized exponentiation
+and the `sum` function to compute the sum of the cubes of many numbers:
+
+```{r}
+numbers = c(10, 3, 100, -5, 2, 10)
+sum(numbers^3)
+```
+
+
+### While-loops
+
+A **while-loop** runs a block of code repeatedly as long as some condition is
+`TRUE`. The `while` keyword creates a while-loop. The syntax is:
+
+```{r, eval = FALSE}
+while (CONDITION) {
+  # Your code goes here
+}
+```
+
+The `CONDITION` should be a scalar logical value or an expression that returns
+one. At the beginning of each iteration, R checks the `CONDITION` and exits the
+loop if it's `FALSE`. As always, the curly braces `{ }` are only required if
+the body contains multiple lines of code. Here's a simple while-loop:
+
+```{r}
+i = 0
+while (i < 10) {
+  i = i + 1
+  message("Hello from iteration ", i)
+}
+```
+
+Notice that this example does the same thing as the simple for-loop in Section
+\@ref(for-loops), but requires 5 lines of code instead of 2. While-loops are a
+generalization of for-loops, and only do the bare minimum necessary to iterate.
+They tend to be most useful when you don't know how many iterations will be
+necessary to complete a task.
+
+As an example, suppose you want to add up the integers in order until the total
+is greater than 50:
+
+```{r}
+total = 0
+i = 1
+while (total < 50) {
+  total = total + i
+  message("i is ", i, " total is ", total)
+  i = i + 1
+}
+
+total
+i
+```
+
+
+### Saving Multiple Results
+
+Loops often produce a different result for each iteration. If you want to save
+more than one result, there are a few things you must do.
+
+First, set up an index vector. The index vector should usually correspond to
+the positions of the elements in the data you want to process. The `seq_along`
+function returns an index vector when passed a vector or list. For instance:
+
+```{r}
+numbers = c(-1, 21, 3, -8, 5)
+index = seq_along(numbers)
+```
+
+The loop will iterate over the index rather than the input, so the induction
+variable will track the current iteration number. On the first iteration, the
+induction variable will be 1, on the second it will be 2, and so on. Then you
+can use the induction variable and indexing to get the input for each
+iteration.
+
+Second, set up an empty output vector or list. This should usually also
+correspond to the input, or one element longer (the extra element comes from
+the initial value). R has several functions for creating vectors:
+
+* `logical`, `integer`, `numeric`, `complex`, and `character` create an empty
+  vector with a specific type and length
+
+* `vector` creates an empty vector with a specific type and length
+
+* `rep` creates a vector by repeating elements of some other vector
+
+Empty vectors are filled with `FALSE`, `0`, or `""`, depending on the type of
+the vector. Here are some examples:
+
+```{r}
+logical(3)
+numeric(4)
+rep(c(1, 2), 2)
+```
+
+Let's create an empty numeric vector congruent to the `numbers` vector:
+
+```{r}
+n = length(numbers)
+result = numeric(n)
+```
+
+As with the input, you can use the induction variable and indexing to set the
+output for each iteration.
+
+Creating a vector or list in advance to store something, as we've just done, is
+called **preallocation**. Preallocation is extremely important for efficiency
+in loops. Avoid the temptation to use `c` or `append` to build up the output
+bit by bit in each iteration.
+
+Finally, write the loop, making sure to get the input and set the output. As an
+example, this loop adds each element of `numbers` to a running total and
+squares the new running total:
+
+```{r}
+for (i in index) {
+  prev = if (i > 1) result[i - 1] else 0
+  result[i] = (numbers[i] + prev)^2
+}
+result
+```
+
+
+### Break & Next
+
+The `break` keyword causes a loop to immediately exit. It only makes sense to
+use `break` inside of an if-statement.
+
+For example, suppose you want to print each string in a vector, but stop at the
+first missing value. You can do this with a for-loop and the `break` keyword:
+
+```{r}
+my_messages = c("Hi", "Hello", NA, "Goodbye")
+
+for (msg in my_messages) {
+  if (is.na(msg))
+    break
+
+  message(msg)
+}
+```
+
+The `next` keyword causes a loop to immediately go to the next iteration. As
+with `break`, it only makes sense to use `next` inside of an if-statement.
+
+Let's modify the previous example so that missing values are skipped, but don't
+cause printing to stop. Here's the code:
+
+```{r}
+for (msg in my_messages) {
+  if (is.na(msg))
+    next
+
+  message(msg)
+}
+```
+
+These keywords work with both for-loops and while-loops.
+
+
+### Planning for Iteration
+
+At first it may seem difficult to decide if and what kind of iteration to use.
+Start by thinking about whether you need to do something over and over. If you
+don't, then you probably don't need to use iteration. If you do, then try
+iteration strategies in this order:
+
+1. Vectorization
+2. Apply functions
+    * Try an apply function if iterations are independent.
+3. Loops
+    * Try a for-loop if some iterations depend on others.
+    * Try a while-loop if the number of iterations is unknown.
+4. Recursion (which isn't covered here)
+    * Convenient for naturally recursive problems (like Fibonacci),
+      but often there are faster solutions.
+
+
+Start by writing the code for just one iteration. Make sure that code works;
+it's easy to test code for one iteration.
+
+When you have one iteration working, then try using the code with an iteration
+strategy (you will have to make some small changes). If it doesn't work, try to
+figure out which iteration is causing the problem. One way to do this is to use
+`message` to print out information. Then try to write the code for the broken
+iteration, get that iteration working, and repeat this whole process.
+
+
+### Case Study: The Collatz Conjecture
+
+The [Collatz Conjecture][collatz] is a conjecture in math that was introduced
+in 1937 by Lothar Collatz and remains unproven today, despite being relatively
+easy to explain. Here's a statement of the conjecture:
+
+[collatz]: https://en.wikipedia.org/wiki/Collatz_conjecture
+
+> Start from any positive integer. If the integer is even, divide by 2. If the
+> integer is odd, multiply by 3 and add 1.
+>
+> If the result is not 1, repeat using the result as the new starting value.
+>
+> The result will always reach 1 eventually, regardless of the starting value.
+
+The sequences of numbers this process generates are called **Collatz
+sequences**. For instance, the Collatz sequence starting from 2 is `2, 1`. The
+Collatz sequence starting from 12 is `12, 6, 3, 10, 5, 16, 8, 4, 2, 1`.
+
+You can use iteration to compute the Collatz sequence for a given starting
+value. Since each number in the sequence depends on the previous one, and since
+the length of the sequence varies, a while-loop is the most appropriate
+iteration strategy:
+
+```{r}
+n = 5
+i = 0
+while (n != 1) {
+  i = i + 1
+  if (n %% 2 == 0) {
+    n = n / 2
+  } else {
+    n = 3 * n + 1
+  }
+  message(n, " ", appendLF = FALSE)
+}
+```
+
+As of 2020, scientists have used computers to check the Collatz sequences for
+every number up to approximately $2^{64}$. For more details about the Collatz
+Conjecture, check out [this video][collatz-video].
+
+[collatz-video]: https://www.youtube.com/watch?v=094y1Z2wpJg
+
+
+
+### Case Study: U.S. Fruit Prices
+
+The U.S. Department of Agriculture (USDA) Economic Research Service (ERS)
+publishes data about consumer food prices. For instance, in 2018 they posted a
+[dataset that estimates average retail prices for various fruits, vegetables,
+and snack foods][fruit-veg-prices]. The estimates are formatted as a collection
+of Excel files, one for each type of fruit or vegetable. In this case study,
+you'll use iteration to get the estimated "fresh" price for all of the fruits
+in the dataset that are sold fresh.
+
+[fruit-veg-prices]: https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices/
+
+To get started, download the [zipped collection of fruit
+spreadsheets][fruit-zip] and save it somewhere on your computer. Then unzip the
+file with a zip program or R's own `unzip` function.
+
+[fruit-zip]: https://www.ers.usda.gov/webdocs/DataFiles/51035/fruit%202013.zip?v=2437.6
+
+The first sheet of each file contains a table with the name of the fruit and
+prices sorted by how the fruit was prepared. You can see this for yourself if
+you use a spreadsheet program to inspect some of the files.
+
+In order to read the files into R, first get a vector of their names. You can
+use the `list.files` function to list all of the files in a directory. If you
+set `full.names = TRUE`, the function will return the absolute path to each
+file:
+
+```{r}
+paths = list.files("data/fruit", full.names = TRUE)
+paths
+```
+
+The files are in Excel format, which you can read with the `read_excel`
+function from the [readxl][] package. First try reading one file and extracting
+the fresh price:
+
+```{r}
+library("readxl")
+
+prices = read_excel(paths[1])
+```
+
+The name of the fruit is the first word in the first column's name. The fresh
+price appears in the row where the word in column 1 starts with `"Fresh"`. You
+can use `str_which` from the stringr package (Section
+\@ref(the-stringr-package)) to find and extract this row:
+
+```{r}
+library("stringr")
+
+idx_fresh = str_which(prices[[1]], "^Fresh")
+prices[idx_fresh, ]
+```
+
+The price and unit appear in column 2 and column 3.
+
+Now generalize these steps by making a `read_fresh_price` function. The
+function should accept a path as input and return a vector that contains the
+fruit name, fresh price, and unit. Don't worry about cleaning up the fruit name
+at this point---you can do that with a vectorized operation after combining the
+data from all of the files. A few fruits don't have a fresh price, and the
+function should return `NA` for the price and unit for those. Here's one way to
+implement the `read_fresh_price` function:
+
+```{r}
+read_fresh_price = function(path) {
+  prices = read_excel(path)
+
+  # Get fruit name.
+  fruit = names(prices)[[1]]
+
+  # Find fresh price.
+  idx = str_which(prices[[1]], "^Fresh")
+  if (length(idx) > 0) {
+    prices = prices[idx, ]
+    c(fruit, prices[[2]], prices[[3]])
+  } else {
+    c(fruit, NA, NA)
+  }
+}
+```
+
+Test that the function returns the correct result for a few of the files:
+
+```{r}
+read_fresh_price(paths[[1]])
+read_fresh_price(paths[[4]])
+read_fresh_price(paths[[8]])
+```
+
+Now that the function is working, it's time to choose an iteration strategy.
+The `read_fresh_price` function is not vectorized, so that strategy isn't
+possible. Reading one file doesn't depend on reading any of the others, so
+apply functions are the best strategy here. The `read_fresh_price` function
+always returns a character vector with 3 elements, so you can use `sapply` to
+process all of the files and get a matrix of results:
+
+```{r}
+all_prices = sapply(paths, read_fresh_price)
+
+# Transpose, convert to a data frame, and set names for easy reading.
+all_prices = t(all_prices)
+all_prices = data.frame(all_prices)
+rownames(all_prices) = NULL
+colnames(all_prices) = c("fruit", "price", "unit")
+all_prices
+```
+
+Finally, the last step is to remove the extra text from the fruit name. One way
+to do this is with the `str_split_fixed` function from the stringr package.
+There's an en dash `—` after each fruit name, which you can use for the split:
+
+```{r}
+fruit = str_split_fixed(all_prices$fruit, "—", 2)[, 1]
+all_prices$fruit = fruit
+all_prices
+```
+
+Now the data are ready for analysis. You could extend the reader function to
+extract more of the data (e.g., dried and frozen prices), but the overall
+process is fundamentally the same. Write the code to handle one file (one
+step), generalize it to work on several, and then iterate.
+
+For another example, see Liza Wood's [Real-world Function Writing
+Mini-reader][liza-reader].
+
+[liza-reader]: https://d-rug.github.io/realworld_functions_iteration/
+
