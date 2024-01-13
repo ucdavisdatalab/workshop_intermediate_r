@@ -663,7 +663,7 @@ students = bind_rows(
   mutate(students, year=2022),
   mutate(students, year=2023)
 )
-                      
+
 # create the grades data.frame
 grades = data.frame(
   sid = c(2, 3, 4, 5),
@@ -743,9 +743,9 @@ anti_result = anti_join(employees, salaries, by = "emp_id")
 
 ### Examples
 
-We've seen enough of the made-up grades example! Let's look at some real data and practice our skills! 
+We've seen enough of the made-up grades example! Let's look at some real data and practice our skills!
 
-Let's begin by looking at the data on books, borrowers, and checkouts. 
+Let's begin by looking at the data on books, borrowers, and checkouts.
 
 ```{r import-data}
 #| warning: false
@@ -768,7 +768,7 @@ print(dim(checkouts))
 
 One thing we can see is that the `books` table refers to physical copies of a book, so if the library owns two copies of the same book then the same title, publisher, etc. will appear on the same row.
 
-In the previous section, we set a goal of augmenting the `checkouts` table with the information in the `books` table. To augment means to add to. We are going to be adding to the `checkouts` table, but do we add rows or columns? Each row of `checkouts` is an event that matches one book and one borrower. Adding new rows would be like adding new events that didn't occur: not good! Each row has a book and each book has many columns of information in the `books` table. So we can maintain the relationships in the data while adding new columns of information to `checkouts`. 
+In the previous section, we set a goal of augmenting the `checkouts` table with the information in the `books` table. To augment means to add to. We are going to be adding to the `checkouts` table, but do we add rows or columns? Each row of `checkouts` is an event that matches one book and one borrower. Adding new rows would be like adding new events that didn't occur: not good! Each row has a book and each book has many columns of information in the `books` table. So we can maintain the relationships in the data while adding new columns of information to `checkouts`.
 
 How are we to know which books were checked out most often, or were generaly checked out by the same people? The tables have different numbers of rows and columns, so we won't be able to stack them side-by-side or one on top of the other. The "key" pieces of information are the columns `books$book_id` and `borrowers$borrower_id`. If you've ever used SQL, you may recall that each table should have a **primary key**, which is a column of values that identify the rows. In a database, the primary key must be unique - there can be no duplicates. Most spreadsheets are not designed as databases, and they may have key or ID columns that are not unique. How to handle non-unique keys is going to be a recurring feature of this workshop.
 
@@ -797,7 +797,7 @@ left_join(checkouts, books, by="book_id") |>
   kable()
 ```
 
-The problem is that the `author` column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name ([this is what ORCID does for scientific publishing](https://orcid.org)). 
+The problem is that the `author` column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name ([this is what ORCID does for scientific publishing](https://orcid.org)).
 
 #### Three Or More Tables
 
@@ -825,7 +825,7 @@ A general principle of programming is that explicit is better than implicit beca
 
 #### Handling Duplicate Keys
 
-Values in the key columns may not be unique. What do you think happens when you join using keys that aren't unique? 
+Values in the key columns may not be unique. What do you think happens when you join using keys that aren't unique?
 
 ```{r duplicate-keys-example}
 # Example datasets
@@ -851,7 +851,7 @@ If you leave the `relationship` parameter blank, R will allow a many-to-many joi
 
 ##### Using Only Distinct Rows
 
-An alternative to handling duplicate keys is to subset the data to avoid duplicates in the first place. The dplyr package provides a function, `distinct()`, which can help. When `distinct()` finds duplicated rows, it keeps the first one. 
+An alternative to handling duplicate keys is to subset the data to avoid duplicates in the first place. The dplyr package provides a function, `distinct()`, which can help. When `distinct()` finds duplicated rows, it keeps the first one.
 
 ```{r duplicate-keys-example-distinct}
 # Example datasets
@@ -898,7 +898,7 @@ By specifying the `suffix` argument, we get column names in the result with more
 
 #### Missing Values
 
-The dplyr package has a default behavior that I think is dangerous. In the conditions of a join, `NA==NA` evaluates to `TRUE`, which is unlike the behavior anywhere else in R. This means that keys identified as `NA` will match other `NA`s in the join. This is a very strong assumption that seems to contradict the idea of a missing value since if we actually don't know two keys, how can we say that they match? And if we know two keys have the same value then they should be labeled in the data. In my opinion, it's a mistake to have the computer make strong assumptions by default, and especially if it does so without warning the user. Fortunately, there is a way to make the more sensible decision that `NA`s don't match anything: include the argument `na_matches='never'` in the join. 
+The dplyr package has a default behavior that I think is dangerous. In the conditions of a join, `NA==NA` evaluates to `TRUE`, which is unlike the behavior anywhere else in R. This means that keys identified as `NA` will match other `NA`s in the join. This is a very strong assumption that seems to contradict the idea of a missing value since if we actually don't know two keys, how can we say that they match? And if we know two keys have the same value then they should be labeled in the data. In my opinion, it's a mistake to have the computer make strong assumptions by default, and especially if it does so without warning the user. Fortunately, there is a way to make the more sensible decision that `NA`s don't match anything: include the argument `na_matches='never'` in the join.
 
 ```{r missing-values-example}
 # Example datasets
