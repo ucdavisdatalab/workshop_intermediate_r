@@ -629,7 +629,7 @@ inner_join(students, grades, by="student_id") |>
 
 ### Getting Clever with `join_by`
 
-So far, we've focused on the join types and the tables. There's been a third element in all of the examples that we've mostly ignored until now: the `by` argument in the joins. Specifying a single column name (like `student_id`) works great when the key columns have the same names in both tables. However, real examples are often more complicated. For those times, dplyr provides a function called `join_by()`, which lets you create **join specifications** to solve even very complicated problems. We begin with an example where the key name in the `grades` table has been changed from `student_id` to `sid`.
+So far, we've focused on the join types and the tables. There's been a third element in all of the examples that we've mostly ignored until now: the `by` argument in the joins. Specifying a single column name (like `student_id`) works great when the key columns have the same names in both tables. However, real examples are often more complicated. For those times, dplyr provides a function called `join_by`, which lets you create **join specifications** to solve even very complicated problems. We begin with an example where the key name in the `grades` table has been changed from `student_id` to `sid`.
 
 
 ```{r different-key-names}
@@ -726,14 +726,14 @@ semi_result = semi_join(employees, salaries, by = "emp_id")
 print(semi_result)
 ```
 
-In this example, the `semi_join()` function is used to retain only those rows from the `employees` data frame where the `emp_id` values have a match in the `salaries` data frame. The resulting `semi_result` will only contain the rows with `emp_id` values 2, 3, and 4.
+In this example, the `semi_join` function is used to retain only those rows from the `employees` data frame where the `emp_id` values have a match in the `salaries` data frame. The resulting `semi_result` will only contain the rows with `emp_id` values 2, 3, and 4.
 
 ### Use Cases:
 Filtering rows in the left data frame based on the presence of matching values in the right data frame.
 Useful when you are interested in a subset of records from the left data frame that has corresponding records in the right data frame.
 
 ## Anti Joins
-The `semi_join()` function is the opposite of `anti_join()`, which returns rows from the left data frame that do not have matching rows in the right data frame.
+The `semi_join` function is the opposite of `anti_join`, which returns rows from the left data frame that do not have matching rows in the right data frame.
 
 ```{r anti-join-example}
 # Example of anti-join (rows in employees without a match in salaries)
@@ -817,7 +817,7 @@ left_join(checkouts, books, by="book_id") |>
 
 ### Be Explicit
 
-Do you find it odd that we have to tell R exactly what kind of data join to do by calling one of `left_join()`, `right_join()`, `inner_join()`, or `full_join()`? Why isn't there just one function called `join()` that assumes you're doing a left join unless you specifically provide an argument `type` like `join(..., type="inner")`? If you think it would be confusing for R to make assumptions about what kind of data join we want, then you're on the right track but you'll want to watch out for these other cases where R has strong assumptions about what the default behavior should be.
+Do you find it odd that we have to tell R exactly what kind of data join to do by calling one of `left_join`, `right_join`, `inner_join`, or `full_join`? Why isn't there just one function called `join` that assumes you're doing a left join unless you specifically provide an argument `type` like `join(..., type="inner")`? If you think it would be confusing for R to make assumptions about what kind of data join we want, then you're on the right track but you'll want to watch out for these other cases where R has strong assumptions about what the default behavior should be.
 
 A general principle of programming is that explicit is better than implicit because writing information into your code explicitly makes it easier to understand what the code does. Here are some examples of implicit assumptions R will make unless you provide explicit instructions.
 
@@ -851,7 +851,7 @@ If you leave the `relationship` parameter blank, R will allow a many-to-many joi
 
 ##### Using Only Distinct Rows
 
-An alternative to handling duplicate keys is to subset the data to avoid duplicates in the first place. The dplyr package provides a function, `distinct()`, which can help. When `distinct()` finds duplicated rows, it keeps the first one.
+An alternative to handling duplicate keys is to subset the data to avoid duplicates in the first place. The dplyr package provides a function, `distinct`, which can help. When `distinct` finds duplicated rows, it keeps the first one.
 
 ```{r duplicate-keys-example-distinct}
 # Example datasets
