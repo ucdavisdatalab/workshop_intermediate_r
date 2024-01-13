@@ -4,6 +4,14 @@ Part 2
 This chapter is part 2 (of 2) of _Thinking in R_, a workshop series about how R
 works and how to examine code critically.
 
+
+#### Learning Objectives {-}
+
+* Describe and use R's for, while, and repeat loops
+* Identify the most appropriate iteration strategy for a given problem
+* Explain strategies to organize iterative code
+
+
 Iteration Strategies
 --------------------
 

@@ -1,5 +1,5 @@
-Tidy Data & Relational Data
-===========================
+Tidy & Relational Data
+======================
 
 This chapter is part 2 (of 2) of _Cleaning & Reshaping Data_, a workshop
 series about how to prepare data for analysis. The major topics of this chapter
@@ -10,12 +10,14 @@ computations.
 
 #### Learning Objectives {-}
 
+After completing this session, learners should be able to:
+
 * Explain what it means for data to be tidy
 * Use the tidyr package to reshape data
-* Describe and use R's for, while, and repeat loops
-* Identify the most appropriate iteration strategy for a given problem
-* Explain strategies to organize iterative code
-
+* Explain what a relational dataset is
+* Use the dplyr package to join data based on common columns
+* Describe the different types of joins
+* Identify which types of joins to use when faced with a relational dataset
 
 
 Tidy Datasets
@@ -467,38 +469,82 @@ rbind(df99, df00)
 ```
 
 
-Joining Data
-------------
+Relational Datasets
+-------------------
 
-You will often have two or more data sets that are part of the same project. For example, our library keeps track of its books using three tables: one identifying books, one identifying borrowers, and one that records each book checkout. 
+Many datasets contain multiple tables (or data frames) that are all closely
+related to each other. Sometimes, the rows in one table may be connected the
+rows in others through columns they have in common.
 
-### Objective:
+For example, our library keeps track of its books using three tables: one
+identifying books, one identifying borrowers, and one that records each book
+checkout. Each book and each borrower has a unique identification number,
+recorded in the book and borrower tables, respectively. These ID numbers are
+also recorded in the checkouts table. Using the ID numbers, you can connect
+rows from one table to rows in another. We call this kind of dataset a
+**relational** dataset, because there are relationships between the tables.
 
-The goal of this workshop is to familiarize students with the concept of joining tables in R using the dplyr package. Participants will learn how to merge datasets based on common columns, handle different types of joins, and understand the implications of each type.
+Storing relational datasets as several small tables rather than one large table
+has many benefits. Perhaps the most important is that it reduces redundancy and
+thereby reduces the size (in bytes) of the dataset. As a result, most
+**databases** are designed to store relational datasets.
+
+Because the data are split across many different tables, relational datasets
+also pose a unique challenge: to explore, compute statistics, make
+visualizations, and answer questions, you'll typically need to combine the data
+of interest into a single table. One way to do this is with a **join**, an
+operation that combines rows from two tables based on values of a column they
+have in common. There are many different types of joins, which are covered in
+the subsequent sections.
 
 
-### The `dplyr` Package
+### The dplyr Package
 
-This workshop uses R and the [`dplyr` package](https://dplyr.tidyverse.org/index.html). The next link goes to a [list of all the functions provided by `dplyr`](https://dplyr.tidyverse.org/reference/index.html). Let's check them out. If you've ever used SQL, youll probably recognize functions like `select()`, `left_join()`, `group_by()`. In fact, `dplyr` was designed to bring SQL-style data manipulation to R. As a result the concepts of `dplyr` and SQL are nearly identical, and even the language overlaps a lot. I'll point out some examples of this as we go, because I think some people might find it helpful.
+The [dplyr][] package provides functions to join related data frames, among
+other things. Check out [this list of all the functions provided by
+dplyr][dplyr-ref].
+
+[dplyr]: https://dplyr.tidyverse.org/
+[dplyr-ref]: https://dplyr.tidyverse.org/reference/index.html
+
+If you've ever used SQL, you're probably familiar with relational datasets and
+recognize functions like `select`, `left_join`, and `group_by`. In fact,
+`dplyr` was designed to bring SQL-style data manipulation to R. As a result,
+many concepts of `dplyr` and SQL are nearly identical, and even the language
+overlaps a lot. I'll point out some examples of this as we go, because I think
+some people might find it helpful.
+
 
 ### Gradebook data
 
-Data joins are what make databases possible because they link separate tables. There are a lot of benefits of storing data in several small tables rather than one comprehensive table (reducing repetition and reducing storage requirements are probably the two biggest reasons). An example of databases that we all interact with regularly is the university gradebook. One table stores information about students and another table stores grades. The grades are linked to the student records by student ID. Looking at a student's grades requires joining these two tables.
+Another example of a relational dataset that we all interact with regularly is
+the university gradebook. One table stores information about students and
+another table stores grades. The grades are linked to the student records by
+student ID. Looking at a student's grades requires joining these two tables.
 
-We are going to use made-up gradebook data for some preliminary examples. The rows and columns of these tables have different meanings, so we won't be able to stack them side-by-side or one on top of the other. The "key" piece of information is the student ID that is a column in both tables. If you've ever used SQL, you may recall that each table should have a **primary key**, which is a column of values that identify the rows. In a database, the primary key must be unique - there can be no duplicates. Most spreadsheets are not designed as databases, and they may have key columns that are not unique. How to handle non-unique keys is going to be a recurring feature of this workshop.
+We are going to use made-up gradebook data for some preliminary examples. The
+rows and columns of these tables have different meanings, so we won't be able
+to stack them side-by-side or one on top of the other. The "key" piece of
+information is the student ID that is a column in both tables. If you've ever
+used SQL, you may recall that each table should have a **primary key**, which
+is a column of values that identify the rows. In most databases, the primary
+key must be unique---there can be no duplicates. Relational datasets are not
+always designed for use as databases, and they may have key columns that are
+not unique. How to handle non-unique keys is going to be a recurring feature of
+this workshop.
 
 In our made-up gradebook data, `student_id` will be the primary key for the table of students. Each student should have grades for each class they take, so the student ID is not a unique identifier in the table of grades. When the primary key of one table is used as an indicator in another table, it is called a **foreign key**.
 
 
 ### Left and Right Joins
 
-In the previous section, we set a goal of augmenting the table of students with the information in the grades table. To augment means to add to. We are going to be adding to the `students` table, but do we add rows or columns? Each row of `grades` is an event that matches one student to one grade. Adding new rows would be like adding new grades that didn't occur: not good! Each row has a student and each student may have many columns of information in the `students` table. So we can maintain the relationships in the data while adding new columns of information to `students`. 
+In the previous section, we set a goal of augmenting the table of students with the information in the grades table. To augment means to add to. We are going to be adding to the `students` table, but do we add rows or columns? Each row of `grades` is an event that matches one student to one grade. Adding new rows would be like adding new grades that didn't occur: not good! Each row has a student and each student may have many columns of information in the `students` table. So we can maintain the relationships in the data while adding new columns of information to `students`.
 
 When you want to augment one dataset with information from another, you'll use a directional join: either left or right. Here, left and right refer to the order that the tables are written in the join command. Left and right joins work almost exactly the same and left joins are far more common in practice, so we will focus on those.
 
 #### Left Join
 
-A left join combines all rows from the left dataset with the matching rows from the right dataset. Let's get familiar with a contrived example before actually working on the library data. We'll create two tables of made-up data: the first identifies students by name and ID, and the second lists their grades in a class.  
+A left join combines all rows from the left dataset with the matching rows from the right dataset. Let's get familiar with a contrived example before actually working on the library data. We'll create two tables of made-up data: the first identifies students by name and ID, and the second lists their grades in a class.
 
 
 ```{r left-join-example}
