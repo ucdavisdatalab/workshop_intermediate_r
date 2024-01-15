@@ -512,40 +512,94 @@ recognize functions like `select`, `left_join`, and `group_by`. In fact,
 `dplyr` was designed to bring SQL-style data manipulation to R. As a result,
 many concepts of dplyr and SQL are nearly identical, and even the language
 overlaps a lot. I'll point out some examples of this as we go, because I think
-some people might find it helpful.
+some people might find it helpful. If you haven't used SQL, don't worry---all
+of the functions will be explained in detail.
 
 
-### Gradebook data
+### Gradebook Dataset
 
 Another example of a relational dataset that we all interact with regularly is
-the university gradebook. One table stores information about students and
-another table stores grades. The grades are linked to the student records by
-student ID. Looking at a student's grades requires joining these two tables.
+the university gradebook. One table might store information about students and
+another might store their grades. The grades are linked to the student records
+by student ID. Looking at a student's grades requires combining the two tables
+with a join.
 
-We are going to use made-up gradebook data for some preliminary examples. The
-rows and columns of these tables have different meanings, so we won't be able
-to stack them side-by-side or one on top of the other. The "key" piece of
-information is the student ID that is a column in both tables. If you've ever
-used SQL, you may recall that each table should have a **primary key**, which
-is a column of values that identify the rows. In most databases, the primary
-key must be unique---there can be no duplicates. Relational datasets are not
-always designed for use as databases, and they may have key columns that are
-not unique. How to handle non-unique keys is going to be a recurring feature of
-this workshop.
-
-In our made-up gradebook data, `student_id` will be the primary key for the table of students. Each student should have grades for each class they take, so the student ID is not a unique identifier in the table of grades. When the primary key of one table is used as an indicator in another table, it is called a **foreign key**.
+Let's use a made-up gradebook dataset to make the idea of joins concrete. We'll
+create two tables: the first identifies students by name and ID, and the second
+lists their grades in a class.
 
 
-### Left and Right Joins
+```{r students-data}
+# Example datasets
+students = data.frame(
+  student_id = c(1, 2, 3, 4),
+  name = c("Angel", "Beto", "Cici", "Desmond"))
 
-In the previous section, we set a goal of augmenting the table of students with the information in the grades table. To augment means to add to. We are going to be adding to the `students` table, but do we add rows or columns? Each row of `grades` is an event that matches one student to one grade. Adding new rows would be like adding new grades that didn't occur: not good! Each row has a student and each student may have many columns of information in the `students` table. So we can maintain the relationships in the data while adding new columns of information to `students`.
+students
+```
 
-When you want to augment one dataset with information from another, you'll use a directional join: either left or right. Here, left and right refer to the order that the tables are written in the join command. Left and right joins work almost exactly the same and left joins are far more common in practice, so we will focus on those.
+```{r grades-data}
+grades = data.frame(
+  student_id = c(2, 3, 4, 5, 6),
+  grade = c(90, 85, 80, 75, 60))
 
-#### Left Join
+grades
+```
 
-A left join combines all rows from the left dataset with the matching rows from the right dataset. Let's get familiar with a contrived example before actually working on the library data. We'll create two tables of made-up data: the first identifies students by name and ID, and the second lists their grades in a class.
+The rows and columns of these tables have different meanings, so we can't stack
+them side-by-side or one on top of the other. The "key" piece of information
+for linking them is the `student_id` column present in both.
 
+In relational datasets, each table usually has a **primary key**, a column of
+values that uniquely identify the rows. Key columns are important because they
+link rows in one table to rows in other tables.
+
+In the gradebook dataset, `student_id` is the primary key for the `students`
+table. Although the values of `student_id` in the `grades` table are unique, it
+is not a primary key for the `grades` table, because a student could have
+grades for more than one class.
+
+When one table's primary key is included in another table, it's called a
+**foreign key**. So `student_id` is a foreign key in the `grades` table.
+
+If you've used SQL, you've probably heard the terms primary key and foreign key
+before. They have the same meaning in R.
+
+In most databases, the primary key must be unique---there can be no duplicates.
+That said, relational datasets are not always designed for use as databases,
+and they may have key columns that are not unique. How to handle non-unique
+keys is going to be a recurring feature of this section.
+
+
+
+### Left Joins
+
+Suppose we want a table with each student's name and grade. This is a
+combination of information from both the `students` table and the `grades`
+table, but how can we combine the two?
+
+The `students` table contains the student names and has one row for each
+student. So we can use the `students` table as a starting point. Then we need
+to use each student's ID number to look up their grade in the `grades` table.
+
+When you want combine data from two tables like this, you should think of using
+a join. In joins terminology, the two tables are usually called the **left
+table** and **right table** so that it's easy to refer to each without
+ambiguity.
+
+For this particular example, we'll use a **left join**. A left join keeps all
+of the rows in the left table and combines them with rows from the right table
+that match the primary key.
+
+We want to keep every student in the `students` table, so we'll use it as the
+left table. The `grades` table will be the right table. The key that links the
+two tables is `student_id`. This left join will only keep rows from the
+`grades` table that match student IDs present in the `students` table.
+
+In dplyr, you can use the `left_join` function to carry out a left join. The
+first argument is the left table and the second argument is the right table.
+You can also set an argument for the `by` parameter to specify which column(s)
+to use as the key. Thus:
 
 ```{r left-join-example}
 #| message: false
@@ -553,63 +607,82 @@ A left join combines all rows from the left dataset with the matching rows from 
 library(dplyr)
 library(knitr)
 
-# Example datasets
-students = data.frame(
-  student_id = c(1, 2, 3, 4),
-  name = c("Angel", "Beto", "Cici", "Desmond")
-  )
-
-grades = data.frame(
-  student_id = c(2, 3, 4, 5, 6),
-  grade = c(90, 85, 80, 75, 60)
-  )
-
 # Left join
-left_join(students, grades, by = "student_id") |>
-  kable()
+left_join(students, grades, by = "student_id")
+# |> kable()
 ```
 
-There are four rows in the `students` table, and four rows in the `grades`
-table. I have provided `students` as the first table in the left join (it is written on the left in the function) so the result will have one row per row of `students`. I have also provided `student_id` as the **by** or **key** column for the join. That means that rows will be matched  between the tables based on whether their `student_id` columns match.
+Note that the keys do not match up perfectly between the tables: the `grades`
+table has no rows with `student_id` 1 (Angel) and has rows with `student_id` 5
+(an unknown student). Because we used a left join, the result has a missing
+value (`NA`) in the grade column for Angel and no entry for `student_id` 5. A
+left join augments the left table (`students`) with columns from the right
+table (`grades`). So the result of a left join will often have the same number
+of rows as the left table. New rows are not added for rows in the right table
+with non-matching key values.
 
-Note that the keys are not identical between tables: the `grades` table has no `student_id` of 1, which is the ID for Angel. This shows up in the result as an `NA` in the grade column for Angel. There is no row in the result for `student_id` 5 because a left join brings in augments the left table (`students`) with columns from the right table (`grades`). It does not add rows just because they are found in the right table.
-
-There is one reason that a left join will add rows to the result: when the key is not unique. In that case, every possible match will be provided in the result. For an example, let's add rows with repeat IDs to both the `students` and `grades` tables. Let's also rename the `student_id` column of `grades` to be `sid` so we can see how to join tables where the key column names don't match.
+There is one case where the result of a left join will have more rows than the
+left table: when a key value is repeated in either table. In that case, every
+possible match will be provided in the result. For an example, let's add rows
+with repeat IDs to both the `students` and `grades` tables. Let's also rename
+the `student_id` column of `grades` to be `sid` so we can see how to join
+tables where the key column names don't match.
 
 ```{r left-join-example-duplicate-keys}
-
 # Example datasets
 students = data.frame(
   student_id = c(1, 2, 3, 4, 4),
   name = c("Angel", "Beto", "Cici", "Desmond", "Erik"))
 
-grades = data.frame(sid = c(2, 3, 4, 5, 2),
-                        grade = c(90, 85, 80, 75, 60))
+grades = data.frame(
+  sid = c(2, 3, 4, 5, 2),
+  grade = c(90, 85, 80, 75, 60))
 
 # Left join
-left_join(students, grades, by = join_by(student_id == sid)) |>
-  kable()
+left_join(students, grades, by = join_by(student_id == sid))
+
+#|> kable()
 ```
 
-Both of the tables had five rows but the result has six rows because `student_id` is 4 for two rows of `students` and `sid` is 2 for two rows of `grades`. R has warned us that there is a many-to-many relationship in the join, which means that duplicate keys were matched in the left table and the right table. Where there are no duplicate keys in either table, the match is one-to-one. When there are duplicate in one table only, the match is one-to-many or many-to-one. These are often desired behavior and so R just complies silently. A many-to-many match may be desired but it is often a sign that something has gone wrong, so R gives a warning. You can get funky results when your keys are not unique!
+Both of the tables had five rows, but the result has six rows because
+`student_id` is 4 for two rows of `students` and `sid` is 2 for two rows of
+`grades`. R warns that there is a many-to-many relationship in the
+join, which means that duplicate keys were matched in the left table and the
+right table. When there are no duplicate keys in either table, the match is
+one-to-one. When there are duplicates in one table only, the match is
+one-to-many or many-to-one. These are often desired behavior and so R just
+complies silently. A many-to-many match may be desired, but it is often a sign
+that something has gone wrong, so R emits a warning. You can get funky results
+when your keys are not unique!
 
 ![Cats join meme](img/cat-legs-left-join-meme.jpg)
 
 
-
 ### Other Joins
 
-I've already mentioned that a right join is like a left join, but augments the right table with the left, rather than vice versa. The next most commong join is an inner join, which includes only the rows that match. And a full join includes all rows from both tables, even if there was no match. I've created a picture to help identify the differences.
+There are several other kinds of joins:
+
+* A **right join** is almost the same as a left join, but reverses the roles of
+  the left and right table. All rows from the right table are augmented with
+  columns from the left table where the key matches.
+* An **inner join** returns rows from the left and right tables only if they
+  match (their key appears in both tables).
+* A **full join** returns all rows from the left table and from the right
+  table, even if they do not match.
+
+Here's visualization to help identify the differences:
 
 ![Disney characters illustrate differences between joins](img/disney-meme.jpg)
 
-#### Right Join
-
-A right join is exactly like a left join, except...
+The following subsections provide examples of different types of joins.
 
 #### Inner Join
 
-An inner join returns the same columns as a left join, but potentially fewer rows. The result of a inner join only includes the rows that matched according to the join specification. This will leave out some rows from the left table if they aren't matched in the right table, which is the difference between an inner join and a left join.
+An inner join returns the same columns as a left join, but potentially fewer
+rows. The result of a inner join only includes the rows that matched according
+to the join specification. This will leave out some rows from the left table if
+they aren't matched in the right table, which is the difference between an
+inner join and a left join.
 
 
 ```{r inner-join-example-duplicate-key}
@@ -618,11 +691,12 @@ students = data.frame(
   student_id = c(1, 2, 3, 4, 4),
   name = c("Angel", "Beto", "Cici", "Desmond", "Erik"))
 
-grades = data.frame(student_id = c(2, 3, 4, 5, 2),
-                        grade = c(90, 85, 80, 75, 60))
+grades = data.frame(
+  student_id = c(2, 3, 4, 5, 2),
+  grade = c(90, 85, 80, 75, 60))
 
 # Inner join
-inner_join(students, grades, by="student_id") |>
+inner_join(students, grades, by = "student_id") |>
   kable()
 ```
 
@@ -638,15 +712,21 @@ students = data.frame(
   student_id = c(1, 2, 3, 4),
   name = c("Angel", "Beto", "Cici", "Desmond"))
 
-grades = data.frame(sid = c(2, 3, 4, 5),
-                        grade = c(90, 85, 80, 75))
+grades = data.frame(
+  sid = c(2, 3, 4, 5),
+  grade = c(90, 85, 80, 75))
 
 # Left join
 left_join(students, grades, by = join_by(student_id==sid)) |>
   kable()
 ```
 
-Since the key column names don't match, I have provied a `join_by` specification. Specifying a match via `join_by` is very powerful and flexible, but the main thing to recognize here is that R searches for the column name on the left of the double-equals in the left table and searches for the column name on the right of the double-equals in the right table. In this example, that means the join will try to match `students$student_id` to `grades$sid`.
+Since the key column names don't match, I have provided a `join_by`
+specification. Specifying a match via `join_by` is very powerful and flexible,
+but the main thing to recognize here is that R searches for the column name on
+the left of the double-equals in the left table and searches for the column
+name on the right of the double-equals in the right table. In this example,
+that means the join will try to match `students$student_id` to `grades$sid`.
 
 #### Matching multiple columns
 
@@ -660,8 +740,8 @@ students = data.frame(
 
 # duplicate the students for two years
 students = bind_rows(
-  mutate(students, year=2022),
-  mutate(students, year=2023)
+  mutate(students, year = 2022),
+  mutate(students, year = 2023)
 )
 
 # create the grades data.frame
@@ -672,8 +752,8 @@ grades = data.frame(
 
 # duplicate the grades table for two years
 grades = bind_rows(
-  mutate(grades, grade = grade-50, year=2022),
-  mutate(grades, year=2023)
+  mutate(grades, grade = grade - 50, year = 2022),
+  mutate(grades, year = 2023)
 )
 
 # Left join
@@ -799,9 +879,13 @@ left_join(checkouts, books, by="book_id") |>
 
 The problem is that the `author` column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name ([this is what ORCID does for scientific publishing](https://orcid.org)).
 
-#### Three Or More Tables
 
-All of he join functions can only work on two tables but you can join as many tables as you want by iteratively building them up two at a time. We are going to look at an example that combines `checkouts`, `books`, and `borrowers` in order to see how many books were checked out by students, faculty, and staff.
+#### Three or More Tables
+
+A join operates on two tables, but you can combine multiple tables by doing
+several joins in a row. Let's look at an example that combines `checkouts`,
+`books`, and `borrowers` in order to see how many books were checked out by
+students, faculty, and staff.
 
 ```{r three-tables}
 # list the account types who checked out the most books
@@ -843,7 +927,7 @@ left_join(students, grades, by = "student_id") |>
 
 We get one row in the result for every possible combination of the matching keys. Sometimes that is what you want, and other times not. In this case, it might be reasonable that Beto, Desmond, and Erik have multiple grades in the book, but it is probably not reasonable that both Desmond and Erik have student ID 4 and have the same grades as each other. This is a many-to-many match, with all the risks we've mentioned before.
 
-##### Specifying The Expected Relationship
+##### Specifying the Expected Relationship
 
 You can be explicit about what kind of relationship you expect in the join by specifying the `relationship` parameter. Your options are `one-to-one`, `one-to-many`, or `many-to-one`. Any of those will stop the code with an error if the data doesn't match the relationship you told it to expect.
 
