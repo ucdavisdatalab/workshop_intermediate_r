@@ -7,7 +7,6 @@ estimate the performance of R code.
 
 #### Learning Objectives {-}
 
-* Identify and explain the difference between R's various printing functions
 * Use R's conditions system to raise and catch messages, warnings, and errors
 * Use R's debugging functions to diagnose bugs in code
 * Estimate the amount of memory a data set will require
@@ -17,20 +16,13 @@ estimate the performance of R code.
 
 
 
-Printing Output
----------------
+Printing
+--------
 
 Perhaps the simplest thing you can do to get a better understanding of some
 code is make it print out lots of information about what's happening as it
-runs. This section introduces several different functions for printing output
-and making that output easier to read.
-
-
-### The `print` Function
-
-The `print` function prints a **string representation** of an object to the
-console. The string representation is usually formatted in a way that exposes
-detail important programmers rather than users.
+runs. You can use the `print` function to print values in a way that exposes
+details important to programmers.
 
 For example, when printing a vector, the function prints the position of the
 first element on each line in square brackets `[ ]`:
@@ -46,278 +38,7 @@ print("Hi")
 ```
 
 These features make the `print` function ideal for printing information when
-you're trying to understand some code or diagnose a bug. On the other hand,
-these features also make `print` a bad choice for printing output or status
-messages for users (including you).
-
-R calls the `print` function automatically anytime a result is returned at the
-prompt. Thus it's not necessary to call `print` to print something when you're
-working directly in the console---only from within loops, functions, scripts,
-and other code that runs non-interactively.
-
-The `print` function is an S3 generic (see Section \@ref(s3)), so you if you
-create an S3 class, you can define a custom print method for it. For S4
-objects, R uses the S4 generic `show` instead of `print`.
-
-
-### The `message` Function
-
-To print output for users, the `message` function is the one you should use.
-The main reason for this is that the `message` function is part of R's
-**conditions system** for reporting status information as code runs. This makes
-it easier for other code to detect, record, respond to, or suppress the output.
-Section \@ref(the-conditions-system) will explain the conditions system in more
-detail.
-
-The `message` function prints its argument(s) and a newline to the console:
-
-```{r}
-message("Hello world!")
-```
-
-If an argument isn't a string, the function automatically and silently attempts
-to coerce it to one:
-
-```{r}
-message(4)
-```
-
-Some types of objects can't be coerced to a string:
-
-```{r, error = TRUE}
-message(sqrt)
-```
-
-For objects with multiple elements, the function pastes together the string
-representations of the elements with no separators in between:
-
-```{r}
-x = c(1, 2, 3)
-message(x)
-```
-
-Similarly, if you pass the `message` function multiple arguments, it pastes
-them together with no separators:
-
-```{r}
-name = "R"
-message("Hi, my name is ", name, " and x is ", x)
-```
-
-This is a convenient way to print names or descriptions alongside values from
-your code without having to call a formatting function like `paste`. 
-
-You can make the message function print something without adding a newline at
-the end by setting the argument `appendLF = FALSE`. The difference can be easy
-to miss unless you make several calls to `message`, so the `say_hello` function
-in this example calls `message` twice:
-
-```{r}
-say_hello = function(appendLF) {
-  message("Hello", appendLF = appendLF)
-  message(" world!")
-}
-
-say_hello(appendLF = TRUE)
-
-say_hello(appendLF = FALSE)
-```
-
-Note that RStudio always adds a newline in front of the prompt, so making an
-isolated call to `message` with `appendLF = FALSE` appears to produce the same
-output as with `appendLF = TRUE`. This is an example of a situation where
-RStudio leads you astray: in an ordinary R console, the two are clearly
-different.
-
-
-### The `cat` Function
-
-The `cat` function, whose name stands for "concatenate and print," is a
-low-level way to print output to the console or a file. The `message` function
-prints output by calling `cat`, but `cat` is not part of R's conditions system.
-
-The `cat` function prints its argument(s) to the console. It does not add a
-newline at the end:
-
-```{r}
-cat("Hello")
-```
-
-As with `message`, RStudio hides the fact that there's no newline if you make
-an isolated call to `cat`.
-
-The `cat` function coerces its arguments to strings and concatenates them. By
-default, a space ` ` is inserted between arguments and their elements:
-
-```{r}
-cat(4)
-cat(x)
-cat("Hello", "Nick")
-```
-
-You can set the `sep` parameter to control the separator `cat` inserts:
-
-```{r}
-cat("Hello", "world", x, sep = "|")
-```
-
-If you want to write output to a file rather than to the console, you can call
-`cat` with the `file` parameter set. However, it's preferable to use functions
-tailored to writing specific kinds of data, such as `writeLines` (for text) or
-`write.table` (for tabular data), since they provide additional options to
-control the output.
-
-Many scripts and packages still use `cat` to print output, but the `message`
-function provides more flexibility and control to people running the code. Thus
-it's generally preferable to use `message` in new code. Nevertheless, there are
-a few specific cases where `cat` is useful---for example, if you want to pipe
-data to a UNIX shell command. See `?cat` for details.
-
-
-### Formatting Output
-
-R provides a variety of ways to format data before you print it. Taking the
-time to format output carefully makes it easier to read and understand, as well
-as making your scripts seem more professional.
-
-#### Escape Sequences
-
-One way to format strings is by adding (or removing) **escape sequences**. An
-escape sequence is a sequence of characters that represents some other
-character, usually one that's invisible (such as whitespace) or doesn't appear
-on a standard keyboard.
-
-In R, escape sequences always begin with a backslash. For example, `\n` is a
-newline. The `message` and `cat` functions automatically convert escape
-sequences to the characters they represent:
-
-```{r}
-x = "Hello\nworld!"
-message(x)
-```
-
-The `print` function doesn't convert escape sequences:
-
-```{r}
-print(x)
-```
-
-Some escape sequences trigger special behavior in the console. For example,
-ending a line with a carriage return `\r` makes the console print the next line
-over the line. Try running this code in a console (it's not possible to see the
-result in a static book):
-
-```{r, eval = FALSE}
-# Run this in an R console.
-for (i in 1:10) {
-  message(i, "\r", appendLF = FALSE)
-  # Wait 0.5 seconds.
-  Sys.sleep(0.5)
-}
-```
-
-You can find a complete list of escape sequences in `?Quotes`.
-
-
-#### Formatting Functions
-
-You can use the `sprintf` function to apply specific formatting to values and
-substitute them into strings. The function uses a mini-language to describe the
-formatting and substitutions. The `sprintf` function (or something like it) is
-available in many programming languages, so being familiar with it will serve
-you well on your programming journey.
-
-The key idea is that substitutions are marked by a percent sign `%` and a
-character. The character indicates the kind of data to be substituted: `s` for
-strings, `i` for integers, `f` for floating point numbers, and so on.
-
-The first argument to `sprintf` must be a string, and subsequent arguments are
-values to substitute into the string (from left to right).  For example:
-
-```{r}
-sprintf("My age is %i, and my name is %s", 32, "Nick")
-```
-
-You can use the mini-language to do things like specify how many digits to
-print after a decimal point. Format settings for a substituted value go between
-the percent sign `%` and the character. For instance, here's how to print `pi`
-with 2 digits after the decimal:
-
-```{r}
-sprintf("%.2f", pi)
-```
-
-You can learn more by reading `?sprintf`.
-
-Much simpler are the `paste` and `paste0` functions, which coerce their
-arguments to strings and concatenate (or "paste together") them. The `paste`
-function inserts a space ` ` between each argument, while the `paste0`
-function doesn't:
-
-```{r}
-paste("Hello", "world")
-paste0("Hello",  "world")
-```
-
-You can control the character inserted between arguments with the `sep`
-parameter.
-
-By setting an argument for the `collapse` parameter, you can also use the
-`paste` and `paste0` functions to concatenate the elements of a vector. The
-argument to `collapse` is inserted between the elements. For example, suppose
-you want to paste together elements of a vector inserting  a comma and space
-`,` in between:
-
-```{r}
-paste(1:3, collapse = ", ")
-```
-
-Members of the R community have developed many packages to make formatting
-strings easier:
-
-* [cli][] -- helper functions for developing command-line interfaces,
-  including functions to add color, progress bars, and more.
-* [glue][] -- alternatives to `sprintf` for string iterpolation.
-* [stringr][] -- a collection of general-purpose string manipulation functions.
-
-[cli]: https://cli.r-lib.org/
-[glue]: https://glue.tidyverse.org/
-[stringr]: https://stringr.tidyverse.org/
-
-
-### Logging Output
-
-**Logging** means saving the output from some code to a file as the code runs.
-The file where the output is saved is called a **log file** or log, but this
-name isn't indicative of a specific format (unlike, say, a "CSV file").
-
-It's a good idea to set up some kind of logging for any code that takes more
-than a few minutes to run, because then if something goes wrong you can inspect
-the log to diagnose the problem. Think of any output that's not logged as
-ephemeral: it could disappear if someone reboots the computer, or there's a
-power outage, or some other, unforeseen event.
-
-R's built-in tools for logging are rudimentary, but members of the community
-have developed a variety of packages for logging. Here are a few that are still
-actively maintained as of January 2023:
-
-* [logger][] -- a relatively new package that aims to improve aspects of other
-  logging packages that R users find confusing.
-* [futile.logger][] -- a popular, mature logging package based on Apache's
-  Log4j utility and on R idioms.
-* [logging][] -- a mature logging package based on Python's `logging` module.
-* [loggit][] -- integrates with R's conditions system and writes logs in
-  JavaScript Object Notation (JSON) format so they are easy to inspect
-  programmatically.
-* [log4r][] -- another package based on Log4j with an object-oriented
-  programming approach.
-
-[futile.logger]: https://github.com/zatonovo/futile.logger
-[logging]: https://github.com/WLOGSolutions/r-logging
-[loggit]: https://github.com/ryapric/loggit
-[logger]: https://github.com/daroczig/logger
-[log4r]: https://github.com/johnmyleswhite/log4r
-
+you're trying to understand some code or diagnose a bug.
 
 
 The Conditions System
@@ -338,10 +59,11 @@ robust.
 The `message`, `warning`, and `stop` functions are the primary ways to
 **raise**, or signal, conditions.
 
-The `message` function was described in Section \@ref(the-message-function). A
-message provides status information about running code, but does not
-necessarily indicate that something has gone wrong. You can use messages to
-print out any information you think might be relevant to users.
+The `message` function is the primary way to print output (see Section
+\@ref(printing-output) for alternatives). A message provides status information
+about running code, but does not necessarily indicate that something has gone
+wrong. You can use messages to print out any information you think might be
+relevant to users.
 
 The `warning` function raises a **warning**. Warnings indicate that something
 unexpected happened, but that it didn't stop the code from running. By default,
@@ -591,7 +313,7 @@ the marks of an experienced R user. If you define a `.First` function in your
 ```
 
 You can learn more about the `.Rprofile` file and R's startup process at
-`?Startup`. 
+`?Startup`.
 
 [homedir]: https://ucdavisdatalab.github.io/workshop_r_basics/getting-started.html#absolute-relative-paths
 
