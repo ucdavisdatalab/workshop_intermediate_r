@@ -3,10 +3,8 @@ Tidy & Relational Data
 
 This chapter is part 2 (of 2) of _Cleaning & Reshaping Data_, a workshop
 series about how to prepare data for analysis. The major topics of this chapter
-are how to reshape datasets with pivots, how to combine related datasets with
-joins, and how to select and use iteration strategies that automate repetitive
-computations.
-
+are how to reshape datasets with pivots and how to combine related datasets
+with joins
 
 #### Learning Objectives {-}
 
