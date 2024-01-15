@@ -5,7 +5,14 @@ Best Practices for Writing R Scripts
 
 #### Learning Objectives {-}
 
+After completing this session, learners should be able to:
+
+* Describe the advantages and disadvantages of using scripts
+* Develop modular scripts that serve as applications and libraries
 * Identify and explain the difference between R's various printing functions
+* Read user input from the command line into R
+* Read data from configuration files into R
+* Inspect and manage R's software (package) environment
 * Describe and use R's for, while, and repeat loops
 * Identify the most appropriate iteration strategy for a given problem
 * Explain strategies to organize iterative code
