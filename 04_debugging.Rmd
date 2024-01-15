@@ -7,6 +7,8 @@ estimate the performance of R code.
 
 #### Learning Objectives {-}
 
+After completing this session, learners should be able to:
+
 * Use R's conditions system to raise and catch messages, warnings, and errors
 * Use R's debugging functions to diagnose bugs in code
 * Estimate the amount of memory a data set will require

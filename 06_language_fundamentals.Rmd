@@ -11,6 +11,8 @@ and in packages, and how some of R's object-oriented programming systems work.
 
 #### Learning Objectives {-}
 
+After completing this session, learners should be able to:
+
 * Explain what an environment is and how R uses them
 * Explain how R looks up variables
 * Explain what attributes are and how R uses them

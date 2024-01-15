@@ -12,6 +12,8 @@ such as `$`, `%`, and `,`).
 
 #### Learning Objectives {-}
 
+After completing this session, learners should be able to:
+
 * Explain why we use special data structures for dates & times
 * Identify the correct data structure for a given date/time
 * Use lubridate to parse a date
