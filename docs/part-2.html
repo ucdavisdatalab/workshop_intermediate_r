@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Part 2 | Intermediate R</title>
+  <meta name="description" content="7 Part 2 | Intermediate R" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Part 2 | Intermediate R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="ucdavisdatalab/workshop_intermediate_r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Part 2 | Intermediate R" />
+  
+  
+  
+
+<meta name="author" content="Nick Ulle and Wesley Brooks" />
+
+
+<meta name="date" content="2024-01-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="language-fundamentals.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://datalab.ucdavis.edu/">
+  <img src="https://datalab.ucdavis.edu/wp-content/uploads/2019/07/datalab-logo-full-color-rgb-1.png" style="height: 100%; width: 100%; object-fit: contain" />
+</a></li>
+<li><a href="./" style="font-size: 18px">Intermediate R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="part"><span><b>I Cleaning &amp; Reshaping Data</b></span></li>
+<li class="chapter" data-level="1" data-path="string-date-processing.html"><a href="string-date-processing.html"><i class="fa fa-check"></i><b>1</b> String &amp; Date Processing</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-tidyverse"><i class="fa fa-check"></i><b>1.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="1.2" data-path="string-date-processing.html"><a href="string-date-processing.html#parsing-dates-times"><i class="fa fa-check"></i><b>1.2</b> Parsing Dates &amp; Times</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-lubridate-package"><i class="fa fa-check"></i><b>1.2.1</b> The lubridate Package</a></li>
+<li class="chapter" data-level="1.2.2" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-ocean-temperatures"><i class="fa fa-check"></i><b>1.2.2</b> Case Study: Ocean Temperatures</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="string-date-processing.html"><a href="string-date-processing.html#string-fundamentals"><i class="fa fa-check"></i><b>1.3</b> String Fundamentals</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#printing"><i class="fa fa-check"></i><b>1.3.1</b> Printing</a></li>
+<li class="chapter" data-level="1.3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences"><i class="fa fa-check"></i><b>1.3.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="1.3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#raw-strings"><i class="fa fa-check"></i><b>1.3.3</b> Raw Strings</a></li>
+<li class="chapter" data-level="1.3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-encodings"><i class="fa fa-check"></i><b>1.3.4</b> Character Encodings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="string-date-processing.html"><a href="string-date-processing.html#processing-strings"><i class="fa fa-check"></i><b>1.4</b> Processing Strings</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-stringr-package"><i class="fa fa-check"></i><b>1.4.1</b> The stringr Package</a></li>
+<li class="chapter" data-level="1.4.2" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expressions"><i class="fa fa-check"></i><b>1.4.2</b> Regular Expressions</a></li>
+<li class="chapter" data-level="1.4.3" data-path="string-date-processing.html"><a href="string-date-processing.html#replacing-parts-of-strings"><i class="fa fa-check"></i><b>1.4.3</b> Replacing Parts of Strings</a></li>
+<li class="chapter" data-level="1.4.4" data-path="string-date-processing.html"><a href="string-date-processing.html#splitting-strings"><i class="fa fa-check"></i><b>1.4.4</b> Splitting Strings</a></li>
+<li class="chapter" data-level="1.4.5" data-path="string-date-processing.html"><a href="string-date-processing.html#extracting-matches"><i class="fa fa-check"></i><b>1.4.5</b> Extracting Matches</a></li>
+<li class="chapter" data-level="1.4.6" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-u.s.-warehouse-stocks"><i class="fa fa-check"></i><b>1.4.6</b> Case Study: U.S. Warehouse Stocks</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expression-examples"><i class="fa fa-check"></i><b>1.5</b> Regular Expression Examples</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-wildcard"><i class="fa fa-check"></i><b>1.5.1</b> The Wildcard</a></li>
+<li class="chapter" data-level="1.5.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-1"><i class="fa fa-check"></i><b>1.5.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="1.5.3" data-path="string-date-processing.html"><a href="string-date-processing.html#anchors"><i class="fa fa-check"></i><b>1.5.3</b> Anchors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-classes"><i class="fa fa-check"></i><b>1.5.4</b> Character Classes</a></li>
+<li class="chapter" data-level="1.5.5" data-path="string-date-processing.html"><a href="string-date-processing.html#quantifiers"><i class="fa fa-check"></i><b>1.5.5</b> Quantifiers</a></li>
+<li class="chapter" data-level="1.5.6" data-path="string-date-processing.html"><a href="string-date-processing.html#groups"><i class="fa fa-check"></i><b>1.5.6</b> Groups</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html"><i class="fa fa-check"></i><b>2</b> Tidy &amp; Relational Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#tidy-datasets"><i class="fa fa-check"></i><b>2.1</b> Tidy Datasets</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#the-tidyr-package"><i class="fa fa-check"></i><b>2.1.1</b> The tidyr Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#rows-into-columns"><i class="fa fa-check"></i><b>2.1.2</b> Rows into Columns</a></li>
+<li class="chapter" data-level="2.1.3" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#columns-into-rows"><i class="fa fa-check"></i><b>2.1.3</b> Columns into Rows</a></li>
+<li class="chapter" data-level="2.1.4" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#separating-values"><i class="fa fa-check"></i><b>2.1.4</b> Separating Values</a></li>
+<li class="chapter" data-level="2.1.5" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#case-study-smart-ridership"><i class="fa fa-check"></i><b>2.1.5</b> Case Study: SMART Ridership</a></li>
+<li class="chapter" data-level="2.1.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#without-tidyr"><i class="fa fa-check"></i><b>2.1.6</b> Without tidyr</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#relational-datasets"><i class="fa fa-check"></i><b>2.2</b> Relational Datasets</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>2.2.1</b> The dplyr Package</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#gradebook-dataset"><i class="fa fa-check"></i><b>2.2.2</b> Gradebook Dataset</a></li>
+<li class="chapter" data-level="2.2.3" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#left-joins"><i class="fa fa-check"></i><b>2.2.3</b> Left Joins</a></li>
+<li class="chapter" data-level="2.2.4" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#other-joins"><i class="fa fa-check"></i><b>2.2.4</b> Other Joins</a></li>
+<li class="chapter" data-level="2.2.5" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>2.2.5</b> Getting Clever with <code>join_by</code></a></li>
+<li class="chapter" data-level="2.2.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#examples"><i class="fa fa-check"></i><b>2.2.6</b> Examples</a></li>
+<li class="chapter" data-level="2.2.7" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#be-explicit"><i class="fa fa-check"></i><b>2.2.7</b> Be Explicit</a></li>
+<li class="chapter" data-level="2.2.8" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#conclusion"><i class="fa fa-check"></i><b>2.2.8</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Writing &amp; Debugging R Code</b></span></li>
+<li class="chapter" data-level="3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html"><i class="fa fa-check"></i><b>3</b> Best Practices for Writing R Scripts</a></li>
+<li class="chapter" data-level="4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html"><i class="fa fa-check"></i><b>4</b> Squashing Bugs with R’s Debugging Tools</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#printing-output"><i class="fa fa-check"></i><b>4.1</b> Printing Output</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-print-function"><i class="fa fa-check"></i><b>4.1.1</b> The <code>print</code> Function</a></li>
+<li class="chapter" data-level="4.1.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-message-function"><i class="fa fa-check"></i><b>4.1.2</b> The <code>message</code> Function</a></li>
+<li class="chapter" data-level="4.1.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-cat-function"><i class="fa fa-check"></i><b>4.1.3</b> The <code>cat</code> Function</a></li>
+<li class="chapter" data-level="4.1.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#formatting-output"><i class="fa fa-check"></i><b>4.1.4</b> Formatting Output</a></li>
+<li class="chapter" data-level="4.1.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#logging-output"><i class="fa fa-check"></i><b>4.1.5</b> Logging Output</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-conditions-system"><i class="fa fa-check"></i><b>4.2</b> The Conditions System</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#raising-conditions"><i class="fa fa-check"></i><b>4.2.1</b> Raising Conditions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#handling-conditions"><i class="fa fa-check"></i><b>4.2.2</b> Handling Conditions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#global-options"><i class="fa fa-check"></i><b>4.3</b> Global Options</a></li>
+<li class="chapter" data-level="4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging"><i class="fa fa-check"></i><b>4.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.1</b> Other Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#measuring-performance"><i class="fa fa-check"></i><b>4.5</b> Measuring Performance</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#estimating-memory-usage"><i class="fa fa-check"></i><b>4.5.1</b> Estimating Memory Usage</a></li>
+<li class="chapter" data-level="4.5.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#benchmarking"><i class="fa fa-check"></i><b>4.5.2</b> Benchmarking</a></li>
+<li class="chapter" data-level="4.5.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#profiling"><i class="fa fa-check"></i><b>4.5.3</b> Profiling</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Data Visualization &amp; Analysis in R</b></span></li>
+<li class="chapter" data-level="5" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html"><i class="fa fa-check"></i><b>5</b> Data Visualization in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#our-friend-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Our Friend <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>5.1.1</b> The Grammar of Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#example-palmer-penguins"><i class="fa fa-check"></i><b>5.2</b> Example: Palmer Penguins</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#examining-the-plot"><i class="fa fa-check"></i><b>5.2.1</b> Examining the Plot</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#duplicating-the-palmer-penguins-plot"><i class="fa fa-check"></i><b>5.2.2</b> Duplicating the Palmer Penguins Plot</a></li>
+<li class="chapter" data-level="5.2.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#analysis"><i class="fa fa-check"></i><b>5.2.3</b> Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#layers"><i class="fa fa-check"></i><b>5.3</b> Layers</a></li>
+<li class="chapter" data-level="5.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#guidelines-for-graphics"><i class="fa fa-check"></i><b>5.4</b> Guidelines for Graphics</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#data"><i class="fa fa-check"></i><b>5.4.1</b> Data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#feature-types"><i class="fa fa-check"></i><b>5.4.2</b> Feature Types</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#theme-guidelines"><i class="fa fa-check"></i><b>5.4.3</b> Theme Guidelines</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#scale-guidelines"><i class="fa fa-check"></i><b>5.4.4</b> Scale Guidelines</a></li>
+<li class="chapter" data-level="5.4.5" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#facet-guidelines"><i class="fa fa-check"></i><b>5.4.5</b> Facet Guidelines</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#case-studies"><i class="fa fa-check"></i><b>5.5</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#counting-penguins"><i class="fa fa-check"></i><b>5.5.1</b> Counting Penguins</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#experimental-data-with-error-bars"><i class="fa fa-check"></i><b>5.5.2</b> Experimental Data with Error Bars</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#bird-flu-mortality"><i class="fa fa-check"></i><b>5.5.3</b> Bird Flu Mortality</a></li>
+<li class="chapter" data-level="5.5.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#small-business-loans"><i class="fa fa-check"></i><b>5.5.4</b> Small Business Loans</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Thinking in R</b></span></li>
+<li class="chapter" data-level="6" data-path="language-fundamentals.html"><a href="language-fundamentals.html"><i class="fa fa-check"></i><b>6</b> Language Fundamentals</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variables-environments"><i class="fa fa-check"></i><b>6.1</b> Variables &amp; Environments</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#whats-an-environment"><i class="fa fa-check"></i><b>6.1.1</b> What’s an Environment?</a></li>
+<li class="chapter" data-level="6.1.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#reference-objects"><i class="fa fa-check"></i><b>6.1.2</b> Reference Objects</a></li>
+<li class="chapter" data-level="6.1.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-local-environment"><i class="fa fa-check"></i><b>6.1.3</b> The Local Environment</a></li>
+<li class="chapter" data-level="6.1.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#call-environments"><i class="fa fa-check"></i><b>6.1.4</b> Call Environments</a></li>
+<li class="chapter" data-level="6.1.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#lexical-scoping"><i class="fa fa-check"></i><b>6.1.5</b> Lexical Scoping</a></li>
+<li class="chapter" data-level="6.1.6" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variable-lookup"><i class="fa fa-check"></i><b>6.1.6</b> Variable Lookup</a></li>
+<li class="chapter" data-level="6.1.7" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-search-path"><i class="fa fa-check"></i><b>6.1.7</b> The Search Path</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#closures"><i class="fa fa-check"></i><b>6.2</b> Closures</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#tidy-closures"><i class="fa fa-check"></i><b>6.2.1</b> Tidy Closures</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#attributes"><i class="fa fa-check"></i><b>6.3</b> Attributes</a></li>
+<li class="chapter" data-level="6.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#s3"><i class="fa fa-check"></i><b>6.4</b> S3</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#method-dispatch"><i class="fa fa-check"></i><b>6.4.1</b> Method Dispatch</a></li>
+<li class="chapter" data-level="6.4.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#creating-objects"><i class="fa fa-check"></i><b>6.4.2</b> Creating Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#other-object-systems"><i class="fa fa-check"></i><b>6.5</b> Other Object Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>7</b> Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="part-2.html"><a href="part-2.html#iteration-strategies"><i class="fa fa-check"></i><b>7.1</b> Iteration Strategies</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="part-2.html"><a href="part-2.html#for-loops"><i class="fa fa-check"></i><b>7.1.1</b> For-loops</a></li>
+<li class="chapter" data-level="7.1.2" data-path="part-2.html"><a href="part-2.html#while-loops"><i class="fa fa-check"></i><b>7.1.2</b> While-loops</a></li>
+<li class="chapter" data-level="7.1.3" data-path="part-2.html"><a href="part-2.html#saving-multiple-results"><i class="fa fa-check"></i><b>7.1.3</b> Saving Multiple Results</a></li>
+<li class="chapter" data-level="7.1.4" data-path="part-2.html"><a href="part-2.html#break-next"><i class="fa fa-check"></i><b>7.1.4</b> Break &amp; Next</a></li>
+<li class="chapter" data-level="7.1.5" data-path="part-2.html"><a href="part-2.html#planning-for-iteration"><i class="fa fa-check"></i><b>7.1.5</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="7.1.6" data-path="part-2.html"><a href="part-2.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>7.1.6</b> Case Study: The Collatz Conjecture</a></li>
+<li class="chapter" data-level="7.1.7" data-path="part-2.html"><a href="part-2.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>7.1.7</b> Case Study: U.S. Fruit Prices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Backmatter</b></span></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Intermediate R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="part-2" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Part 2<a href="part-2.html#part-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter is part 2 (of 2) of <em>Thinking in R</em>, a workshop series about how R
+works and how to examine code critically.</p>
+<div id="learning-objectives-4" class="section level4 unnumbered hasAnchor">
+<h4>Learning Objectives<a href="part-2.html#learning-objectives-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Describe and use R’s for, while, and repeat loops</li>
+<li>Identify the most appropriate iteration strategy for a given problem</li>
+<li>Explain strategies to organize iterative code</li>
+</ul>
+</div>
+<div id="iteration-strategies" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Iteration Strategies<a href="part-2.html#iteration-strategies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R is powerful tool for automating tasks that have repetitive steps. For
+example, you can:</p>
+<ul>
+<li>Apply a transformation to an entire column of data.</li>
+<li>Compute distances between all pairs from a set of points.</li>
+<li>Read a large collection of files from disk in order to combine and analyze
+the data they contain.</li>
+<li>Simulate how a system evolves over time from a specific set of starting
+parameters.</li>
+<li>Scrape data from many pages of a website.</li>
+</ul>
+<p>You can implement concise, efficient solutions for these kinds of tasks in R by
+using <strong>iteration</strong>, which means repeating a computation many times. R provides
+four different strategies for writing iterative code:</p>
+<ol style="list-style-type: decimal">
+<li>Vectorization, where a function is implicitly called on each element of a
+vector. See <a href="https://ucdavisdatalab.github.io/workshop_r_basics/data-structures.html#vectorization">this section</a> of the R Basics for more details.</li>
+<li>Apply functions, where a function is explicitly called on each element of a
+vector or array. See <a href="https://ucdavisdatalab.github.io/workshop_r_basics/exploring-data.html#apply-functions">this section</a> of the R Basics reader
+for more details.</li>
+<li>Loops, where an expression is evaluated repeatedly until some condition is
+met.</li>
+<li>Recursion, where a function calls itself.</li>
+</ol>
+<p>Vectorization is the most efficient and most concise iteration strategy, but
+also the least flexible, because it only works with vectorized functions and
+vectors. Apply functions are more flexible—they work with any function and
+any data structure with elements—but less efficient and less concise. Loops
+and recursion provide the most flexibility but are the least concise. In recent
+versions of R, apply functions and loops are similar in terms of efficiency.
+Recursion tends to be the least efficient iteration strategy in R.</p>
+<p>The rest of this section explains how to write loops and how to choose which
+iteration strategy to use. We assume you’re already comfortable with
+vectorization and have at least some familiarity with apply functions.</p>
+<div id="for-loops" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> For-loops<a href="part-2.html#for-loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>for-loop</strong> evaluates an expression once for each element of a vector or
+list. The <code>for</code> keyword creates a for-loop. The syntax is:</p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="part-2.html#cb510-1" tabindex="-1"></a><span class="cf">for</span> (I <span class="cf">in</span> DATA) {</span>
+<span id="cb510-2"><a href="part-2.html#cb510-2" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
+<span id="cb510-3"><a href="part-2.html#cb510-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>The variable <code>I</code> is called an <strong>induction variable</strong>. At the beginning of each
+iteration, <code>I</code> is assigned the next element of <code>DATA</code>. The loop iterates once
+for each element, unless a keyword instructs R to exit the loop early (more
+about this in Section <a href="part-2.html#break-next">7.1.4</a>). As with if-statements and functions,
+the curly braces <code>{ }</code> are only required if the body contains multiple lines of
+code. Here’s a simple for-loop:</p>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="part-2.html#cb511-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb511-2"><a href="part-2.html#cb511-2" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hi from iteration  &quot;</span>, i)</span></code></pre></div>
+<pre><code>## Hi from iteration  1</code></pre>
+<pre><code>## Hi from iteration  2</code></pre>
+<pre><code>## Hi from iteration  3</code></pre>
+<pre><code>## Hi from iteration  4</code></pre>
+<pre><code>## Hi from iteration  5</code></pre>
+<pre><code>## Hi from iteration  6</code></pre>
+<pre><code>## Hi from iteration  7</code></pre>
+<pre><code>## Hi from iteration  8</code></pre>
+<pre><code>## Hi from iteration  9</code></pre>
+<pre><code>## Hi from iteration  10</code></pre>
+<p>When some or all of the iterations in a task depend on results from prior
+iterations, loops tend to be the most appropriate iteration strategy. For
+instance, loops are a good way to implement time-based simulations or compute
+values in recursively defined sequences.</p>
+<p>As a concrete example, suppose you want to compute the result of starting from
+the value 1 and composing the sine function 100 times:</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="part-2.html#cb522-1" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb522-2"><a href="part-2.html#cb522-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb522-3"><a href="part-2.html#cb522-3" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">sin</span>(result)</span>
+<span id="cb522-4"><a href="part-2.html#cb522-4" tabindex="-1"></a>}</span>
+<span id="cb522-5"><a href="part-2.html#cb522-5" tabindex="-1"></a></span>
+<span id="cb522-6"><a href="part-2.html#cb522-6" tabindex="-1"></a>result</span></code></pre></div>
+<pre><code>## [1] 0.1688525</code></pre>
+<p>Unlike other iteration strategies, loops don’t return a result automatically.
+It’s up to you to use variables to store any results you want to use later. If
+you want to save a result from every iteration, you can use a vector or a list
+indexed on the iteration number:</p>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="part-2.html#cb524-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb524-2"><a href="part-2.html#cb524-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb524-3"><a href="part-2.html#cb524-3" tabindex="-1"></a>result[<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb524-4"><a href="part-2.html#cb524-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb524-5"><a href="part-2.html#cb524-5" tabindex="-1"></a>  result[i] <span class="ot">=</span> <span class="fu">sin</span>(result[i <span class="sc">-</span> <span class="dv">1</span>])</span>
+<span id="cb524-6"><a href="part-2.html#cb524-6" tabindex="-1"></a>}</span>
+<span id="cb524-7"><a href="part-2.html#cb524-7" tabindex="-1"></a></span>
+<span id="cb524-8"><a href="part-2.html#cb524-8" tabindex="-1"></a><span class="fu">plot</span>(result)</span></code></pre></div>
+<p><img src="07_language_fundamentals_2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Section <a href="part-2.html#saving-multiple-results">7.1.3</a> explains this in more detail.</p>
+<p>If the iterations in a task are not dependent, it’s preferable to use
+vectorization or apply functions instead of a loop. Vectorization is more
+efficient, and apply functions are usually more concise.</p>
+<p>In some cases, you can use vectorization to handle a task even if the
+iterations are dependent. For example, you can use vectorized exponentiation
+and the <code>sum</code> function to compute the sum of the cubes of many numbers:</p>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="part-2.html#cb525-1" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">100</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb525-2"><a href="part-2.html#cb525-2" tabindex="-1"></a><span class="fu">sum</span>(numbers<span class="sc">^</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 1001910</code></pre>
+</div>
+<div id="while-loops" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> While-loops<a href="part-2.html#while-loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>while-loop</strong> runs a block of code repeatedly as long as some condition is
+<code>TRUE</code>. The <code>while</code> keyword creates a while-loop. The syntax is:</p>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="part-2.html#cb527-1" tabindex="-1"></a><span class="cf">while</span> (CONDITION) {</span>
+<span id="cb527-2"><a href="part-2.html#cb527-2" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
+<span id="cb527-3"><a href="part-2.html#cb527-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>CONDITION</code> should be a scalar logical value or an expression that returns
+one. At the beginning of each iteration, R checks the <code>CONDITION</code> and exits the
+loop if it’s <code>FALSE</code>. As always, the curly braces <code>{ }</code> are only required if
+the body contains multiple lines of code. Here’s a simple while-loop:</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="part-2.html#cb528-1" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb528-2"><a href="part-2.html#cb528-2" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> <span class="dv">10</span>) {</span>
+<span id="cb528-3"><a href="part-2.html#cb528-3" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb528-4"><a href="part-2.html#cb528-4" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hello from iteration &quot;</span>, i)</span>
+<span id="cb528-5"><a href="part-2.html#cb528-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Hello from iteration 1</code></pre>
+<pre><code>## Hello from iteration 2</code></pre>
+<pre><code>## Hello from iteration 3</code></pre>
+<pre><code>## Hello from iteration 4</code></pre>
+<pre><code>## Hello from iteration 5</code></pre>
+<pre><code>## Hello from iteration 6</code></pre>
+<pre><code>## Hello from iteration 7</code></pre>
+<pre><code>## Hello from iteration 8</code></pre>
+<pre><code>## Hello from iteration 9</code></pre>
+<pre><code>## Hello from iteration 10</code></pre>
+<p>Notice that this example does the same thing as the simple for-loop in Section
+<a href="part-2.html#for-loops">7.1.1</a>, but requires 5 lines of code instead of 2. While-loops are a
+generalization of for-loops, and only do the bare minimum necessary to iterate.
+They tend to be most useful when you don’t know how many iterations will be
+necessary to complete a task.</p>
+<p>As an example, suppose you want to add up the integers in order until the total
+is greater than 50:</p>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="part-2.html#cb539-1" tabindex="-1"></a>total <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb539-2"><a href="part-2.html#cb539-2" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb539-3"><a href="part-2.html#cb539-3" tabindex="-1"></a><span class="cf">while</span> (total <span class="sc">&lt;</span> <span class="dv">50</span>) {</span>
+<span id="cb539-4"><a href="part-2.html#cb539-4" tabindex="-1"></a>  total <span class="ot">=</span> total <span class="sc">+</span> i</span>
+<span id="cb539-5"><a href="part-2.html#cb539-5" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;i is &quot;</span>, i, <span class="st">&quot; total is &quot;</span>, total)</span>
+<span id="cb539-6"><a href="part-2.html#cb539-6" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb539-7"><a href="part-2.html#cb539-7" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## i is 1 total is 1</code></pre>
+<pre><code>## i is 2 total is 3</code></pre>
+<pre><code>## i is 3 total is 6</code></pre>
+<pre><code>## i is 4 total is 10</code></pre>
+<pre><code>## i is 5 total is 15</code></pre>
+<pre><code>## i is 6 total is 21</code></pre>
+<pre><code>## i is 7 total is 28</code></pre>
+<pre><code>## i is 8 total is 36</code></pre>
+<pre><code>## i is 9 total is 45</code></pre>
+<pre><code>## i is 10 total is 55</code></pre>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="part-2.html#cb550-1" tabindex="-1"></a>total</span></code></pre></div>
+<pre><code>## [1] 55</code></pre>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="part-2.html#cb552-1" tabindex="-1"></a>i</span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+</div>
+<div id="saving-multiple-results" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Saving Multiple Results<a href="part-2.html#saving-multiple-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Loops often produce a different result for each iteration. If you want to save
+more than one result, there are a few things you must do.</p>
+<p>First, set up an index vector. The index vector should usually correspond to
+the positions of the elements in the data you want to process. The <code>seq_along</code>
+function returns an index vector when passed a vector or list. For instance:</p>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="part-2.html#cb554-1" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">21</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb554-2"><a href="part-2.html#cb554-2" tabindex="-1"></a>index <span class="ot">=</span> <span class="fu">seq_along</span>(numbers)</span></code></pre></div>
+<p>The loop will iterate over the index rather than the input, so the induction
+variable will track the current iteration number. On the first iteration, the
+induction variable will be 1, on the second it will be 2, and so on. Then you
+can use the induction variable and indexing to get the input for each
+iteration.</p>
+<p>Second, set up an empty output vector or list. This should usually also
+correspond to the input, or one element longer (the extra element comes from
+the initial value). R has several functions for creating vectors:</p>
+<ul>
+<li><p><code>logical</code>, <code>integer</code>, <code>numeric</code>, <code>complex</code>, and <code>character</code> create an empty
+vector with a specific type and length</p></li>
+<li><p><code>vector</code> creates an empty vector with a specific type and length</p></li>
+<li><p><code>rep</code> creates a vector by repeating elements of some other vector</p></li>
+</ul>
+<p>Empty vectors are filled with <code>FALSE</code>, <code>0</code>, or <code>""</code>, depending on the type of
+the vector. Here are some examples:</p>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="part-2.html#cb555-1" tabindex="-1"></a><span class="fu">logical</span>(<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="part-2.html#cb557-1" tabindex="-1"></a><span class="fu">numeric</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 0 0 0 0</code></pre>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="part-2.html#cb559-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1 2 1 2</code></pre>
+<p>Let’s create an empty numeric vector congruent to the <code>numbers</code> vector:</p>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="part-2.html#cb561-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(numbers)</span>
+<span id="cb561-2"><a href="part-2.html#cb561-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span></code></pre></div>
+<p>As with the input, you can use the induction variable and indexing to set the
+output for each iteration.</p>
+<p>Creating a vector or list in advance to store something, as we’ve just done, is
+called <strong>preallocation</strong>. Preallocation is extremely important for efficiency
+in loops. Avoid the temptation to use <code>c</code> or <code>append</code> to build up the output
+bit by bit in each iteration.</p>
+<p>Finally, write the loop, making sure to get the input and set the output. As an
+example, this loop adds each element of <code>numbers</code> to a running total and
+squares the new running total:</p>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="part-2.html#cb562-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> index) {</span>
+<span id="cb562-2"><a href="part-2.html#cb562-2" tabindex="-1"></a>  prev <span class="ot">=</span> <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">1</span>) result[i <span class="sc">-</span> <span class="dv">1</span>] <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb562-3"><a href="part-2.html#cb562-3" tabindex="-1"></a>  result[i] <span class="ot">=</span> (numbers[i] <span class="sc">+</span> prev)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb562-4"><a href="part-2.html#cb562-4" tabindex="-1"></a>}</span>
+<span id="cb562-5"><a href="part-2.html#cb562-5" tabindex="-1"></a>result</span></code></pre></div>
+<pre><code>## [1] 1.000000e+00 4.840000e+02 2.371690e+05 5.624534e+10 3.163538e+21</code></pre>
+</div>
+<div id="break-next" class="section level3 hasAnchor" number="7.1.4">
+<h3><span class="header-section-number">7.1.4</span> Break &amp; Next<a href="part-2.html#break-next" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>break</code> keyword causes a loop to immediately exit. It only makes sense to
+use <code>break</code> inside of an if-statement.</p>
+<p>For example, suppose you want to print each string in a vector, but stop at the
+first missing value. You can do this with a for-loop and the <code>break</code> keyword:</p>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="part-2.html#cb564-1" tabindex="-1"></a>my_messages <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Hi&quot;</span>, <span class="st">&quot;Hello&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Goodbye&quot;</span>)</span>
+<span id="cb564-2"><a href="part-2.html#cb564-2" tabindex="-1"></a></span>
+<span id="cb564-3"><a href="part-2.html#cb564-3" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
+<span id="cb564-4"><a href="part-2.html#cb564-4" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
+<span id="cb564-5"><a href="part-2.html#cb564-5" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb564-6"><a href="part-2.html#cb564-6" tabindex="-1"></a></span>
+<span id="cb564-7"><a href="part-2.html#cb564-7" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
+<span id="cb564-8"><a href="part-2.html#cb564-8" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Hi</code></pre>
+<pre><code>## Hello</code></pre>
+<p>The <code>next</code> keyword causes a loop to immediately go to the next iteration. As
+with <code>break</code>, it only makes sense to use <code>next</code> inside of an if-statement.</p>
+<p>Let’s modify the previous example so that missing values are skipped, but don’t
+cause printing to stop. Here’s the code:</p>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="part-2.html#cb567-1" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
+<span id="cb567-2"><a href="part-2.html#cb567-2" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
+<span id="cb567-3"><a href="part-2.html#cb567-3" tabindex="-1"></a>    <span class="cf">next</span></span>
+<span id="cb567-4"><a href="part-2.html#cb567-4" tabindex="-1"></a></span>
+<span id="cb567-5"><a href="part-2.html#cb567-5" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
+<span id="cb567-6"><a href="part-2.html#cb567-6" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Hi</code></pre>
+<pre><code>## Hello</code></pre>
+<pre><code>## Goodbye</code></pre>
+<p>These keywords work with both for-loops and while-loops.</p>
+</div>
+<div id="planning-for-iteration" class="section level3 hasAnchor" number="7.1.5">
+<h3><span class="header-section-number">7.1.5</span> Planning for Iteration<a href="part-2.html#planning-for-iteration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>At first it may seem difficult to decide if and what kind of iteration to use.
+Start by thinking about whether you need to do something over and over. If you
+don’t, then you probably don’t need to use iteration. If you do, then try
+iteration strategies in this order:</p>
+<ol style="list-style-type: decimal">
+<li>Vectorization</li>
+<li>Apply functions
+<ul>
+<li>Try an apply function if iterations are independent.</li>
+</ul></li>
+<li>Loops
+<ul>
+<li>Try a for-loop if some iterations depend on others.</li>
+<li>Try a while-loop if the number of iterations is unknown.</li>
+</ul></li>
+<li>Recursion (which isn’t covered here)
+<ul>
+<li>Convenient for naturally recursive problems (like Fibonacci),
+but often there are faster solutions.</li>
+</ul></li>
+</ol>
+<p>Start by writing the code for just one iteration. Make sure that code works;
+it’s easy to test code for one iteration.</p>
+<p>When you have one iteration working, then try using the code with an iteration
+strategy (you will have to make some small changes). If it doesn’t work, try to
+figure out which iteration is causing the problem. One way to do this is to use
+<code>message</code> to print out information. Then try to write the code for the broken
+iteration, get that iteration working, and repeat this whole process.</p>
+</div>
+<div id="case-study-the-collatz-conjecture" class="section level3 hasAnchor" number="7.1.6">
+<h3><span class="header-section-number">7.1.6</span> Case Study: The Collatz Conjecture<a href="part-2.html#case-study-the-collatz-conjecture" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Collatz_conjecture">Collatz Conjecture</a> is a conjecture in math that was introduced
+in 1937 by Lothar Collatz and remains unproven today, despite being relatively
+easy to explain. Here’s a statement of the conjecture:</p>
+<blockquote>
+<p>Start from any positive integer. If the integer is even, divide by 2. If the
+integer is odd, multiply by 3 and add 1.</p>
+<p>If the result is not 1, repeat using the result as the new starting value.</p>
+<p>The result will always reach 1 eventually, regardless of the starting value.</p>
+</blockquote>
+<p>The sequences of numbers this process generates are called <strong>Collatz
+sequences</strong>. For instance, the Collatz sequence starting from 2 is <code>2, 1</code>. The
+Collatz sequence starting from 12 is <code>12, 6, 3, 10, 5, 16, 8, 4, 2, 1</code>.</p>
+<p>You can use iteration to compute the Collatz sequence for a given starting
+value. Since each number in the sequence depends on the previous one, and since
+the length of the sequence varies, a while-loop is the most appropriate
+iteration strategy:</p>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="part-2.html#cb571-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb571-2"><a href="part-2.html#cb571-2" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb571-3"><a href="part-2.html#cb571-3" tabindex="-1"></a><span class="cf">while</span> (n <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb571-4"><a href="part-2.html#cb571-4" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb571-5"><a href="part-2.html#cb571-5" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb571-6"><a href="part-2.html#cb571-6" tabindex="-1"></a>    n <span class="ot">=</span> n <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb571-7"><a href="part-2.html#cb571-7" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb571-8"><a href="part-2.html#cb571-8" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">3</span> <span class="sc">*</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb571-9"><a href="part-2.html#cb571-9" tabindex="-1"></a>  }</span>
+<span id="cb571-10"><a href="part-2.html#cb571-10" tabindex="-1"></a>  <span class="fu">message</span>(n, <span class="st">&quot; &quot;</span>, <span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb571-11"><a href="part-2.html#cb571-11" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## 16 8 4 2 1</code></pre>
+<p>As of 2020, scientists have used computers to check the Collatz sequences for
+every number up to approximately <span class="math inline">\(2^{64}\)</span>. For more details about the Collatz
+Conjecture, check out <a href="https://www.youtube.com/watch?v=094y1Z2wpJg">this video</a>.</p>
+</div>
+<div id="case-study-u.s.-fruit-prices" class="section level3 hasAnchor" number="7.1.7">
+<h3><span class="header-section-number">7.1.7</span> Case Study: U.S. Fruit Prices<a href="part-2.html#case-study-u.s.-fruit-prices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The U.S. Department of Agriculture (USDA) Economic Research Service (ERS)
+publishes data about consumer food prices. For instance, in 2018 they posted a
+<a href="https://www.ers.usda.gov/data-products/fruit-and-vegetable-prices/">dataset that estimates average retail prices for various fruits, vegetables,
+and snack foods</a>. The estimates are formatted as a collection
+of Excel files, one for each type of fruit or vegetable. In this case study,
+you’ll use iteration to get the estimated “fresh” price for all of the fruits
+in the dataset that are sold fresh.</p>
+<p>To get started, download the <a href="https://www.ers.usda.gov/webdocs/DataFiles/51035/fruit%202013.zip?v=2437.6">zipped collection of fruit
+spreadsheets</a> and save it somewhere on your computer. Then unzip the
+file with a zip program or R’s own <code>unzip</code> function.</p>
+<p>The first sheet of each file contains a table with the name of the fruit and
+prices sorted by how the fruit was prepared. You can see this for yourself if
+you use a spreadsheet program to inspect some of the files.</p>
+<p>In order to read the files into R, first get a vector of their names. You can
+use the <code>list.files</code> function to list all of the files in a directory. If you
+set <code>full.names = TRUE</code>, the function will return the absolute path to each
+file:</p>
+<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="part-2.html#cb573-1" tabindex="-1"></a>paths <span class="ot">=</span> <span class="fu">list.files</span>(<span class="st">&quot;data/fruit&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb573-2"><a href="part-2.html#cb573-2" tabindex="-1"></a>paths</span></code></pre></div>
+<pre><code>##  [1] &quot;data/fruit/apples_2013.xlsx&quot;         &quot;data/fruit/apricots_2013.xlsx&quot;      
+##  [3] &quot;data/fruit/bananas_2013.xlsx&quot;        &quot;data/fruit/berries_mixed_2013.xlsx&quot; 
+##  [5] &quot;data/fruit/blackberries_2013.xlsx&quot;   &quot;data/fruit/blueberries_2013.xlsx&quot;   
+##  [7] &quot;data/fruit/cantaloupe_2013.xlsx&quot;     &quot;data/fruit/cherries_2013.xlsx&quot;      
+##  [9] &quot;data/fruit/cranberries_2013.xlsx&quot;    &quot;data/fruit/dates_2013.xlsx&quot;         
+## [11] &quot;data/fruit/figs_2013.xlsx&quot;           &quot;data/fruit/fruit_cocktail_2013.xlsx&quot;
+## [13] &quot;data/fruit/grapefruit_2013.xlsx&quot;     &quot;data/fruit/grapes_2013.xlsx&quot;        
+## [15] &quot;data/fruit/honeydew_2013.xlsx&quot;       &quot;data/fruit/kiwi_2013.xlsx&quot;          
+## [17] &quot;data/fruit/mangoes_2013.xlsx&quot;        &quot;data/fruit/nectarines_2013.xlsx&quot;    
+## [19] &quot;data/fruit/oranges_2013.xlsx&quot;        &quot;data/fruit/papaya_2013.xlsx&quot;        
+## [21] &quot;data/fruit/peaches_2013.xlsx&quot;        &quot;data/fruit/pears_2013.xlsx&quot;         
+## [23] &quot;data/fruit/pineapple_2013.xlsx&quot;      &quot;data/fruit/plums_2013.xlsx&quot;         
+## [25] &quot;data/fruit/pomegranate_2013.xlsx&quot;    &quot;data/fruit/raspberries_2013.xlsx&quot;   
+## [27] &quot;data/fruit/strawberries_2013.xlsx&quot;   &quot;data/fruit/tangerines_2013.xlsx&quot;    
+## [29] &quot;data/fruit/watermelon_2013.xlsx&quot;</code></pre>
+<p>The files are in Excel format, which you can read with the <code>read_excel</code>
+function from the <a href="https://readxl.tidyverse.org/">readxl</a> package. First try reading one file and extracting
+the fresh price:</p>
+<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="part-2.html#cb575-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span>
+<span id="cb575-2"><a href="part-2.html#cb575-2" tabindex="-1"></a></span>
+<span id="cb575-3"><a href="part-2.html#cb575-3" tabindex="-1"></a>prices <span class="ot">=</span> <span class="fu">read_excel</span>(paths[<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<p>The name of the fruit is the first word in the first column’s name. The fresh
+price appears in the row where the word in column 1 starts with <code>"Fresh"</code>. You
+can use <code>str_which</code> from the stringr package (Section
+<a href="string-date-processing.html#the-stringr-package">1.4.1</a>) to find and extract this row:</p>
+<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="part-2.html#cb577-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stringr&quot;</span>)</span>
+<span id="cb577-2"><a href="part-2.html#cb577-2" tabindex="-1"></a></span>
+<span id="cb577-3"><a href="part-2.html#cb577-3" tabindex="-1"></a>idx_fresh <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
+<span id="cb577-4"><a href="part-2.html#cb577-4" tabindex="-1"></a>prices[idx_fresh, ]</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 7
+##   Apples—Average retail price per pound or…¹ ...2  ...3  ...4  ...5  ...6  ...7 
+##   &lt;chr&gt;                                      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 Fresh1                                     1.56… per … 0.9   0.24… poun… 0.42…
+## # ℹ abbreviated name:
+## #   ¹​`Apples—Average retail price per pound or pint and per cup equivalent, 2013`</code></pre>
+<p>The price and unit appear in column 2 and column 3.</p>
+<p>Now generalize these steps by making a <code>read_fresh_price</code> function. The
+function should accept a path as input and return a vector that contains the
+fruit name, fresh price, and unit. Don’t worry about cleaning up the fruit name
+at this point—you can do that with a vectorized operation after combining the
+data from all of the files. A few fruits don’t have a fresh price, and the
+function should return <code>NA</code> for the price and unit for those. Here’s one way to
+implement the <code>read_fresh_price</code> function:</p>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="part-2.html#cb579-1" tabindex="-1"></a>read_fresh_price <span class="ot">=</span> <span class="cf">function</span>(path) {</span>
+<span id="cb579-2"><a href="part-2.html#cb579-2" tabindex="-1"></a>  prices <span class="ot">=</span> <span class="fu">read_excel</span>(path)</span>
+<span id="cb579-3"><a href="part-2.html#cb579-3" tabindex="-1"></a></span>
+<span id="cb579-4"><a href="part-2.html#cb579-4" tabindex="-1"></a>  <span class="co"># Get fruit name.</span></span>
+<span id="cb579-5"><a href="part-2.html#cb579-5" tabindex="-1"></a>  fruit <span class="ot">=</span> <span class="fu">names</span>(prices)[[<span class="dv">1</span>]]</span>
+<span id="cb579-6"><a href="part-2.html#cb579-6" tabindex="-1"></a></span>
+<span id="cb579-7"><a href="part-2.html#cb579-7" tabindex="-1"></a>  <span class="co"># Find fresh price.</span></span>
+<span id="cb579-8"><a href="part-2.html#cb579-8" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
+<span id="cb579-9"><a href="part-2.html#cb579-9" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(idx) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb579-10"><a href="part-2.html#cb579-10" tabindex="-1"></a>    prices <span class="ot">=</span> prices[idx, ]</span>
+<span id="cb579-11"><a href="part-2.html#cb579-11" tabindex="-1"></a>    <span class="fu">c</span>(fruit, prices[[<span class="dv">2</span>]], prices[[<span class="dv">3</span>]])</span>
+<span id="cb579-12"><a href="part-2.html#cb579-12" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb579-13"><a href="part-2.html#cb579-13" tabindex="-1"></a>    <span class="fu">c</span>(fruit, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb579-14"><a href="part-2.html#cb579-14" tabindex="-1"></a>  }</span>
+<span id="cb579-15"><a href="part-2.html#cb579-15" tabindex="-1"></a>}</span></code></pre></div>
+<p>Test that the function returns the correct result for a few of the files:</p>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="part-2.html#cb580-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">1</span>]])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<pre><code>## [1] &quot;Apples—Average retail price per pound or pint and per cup equivalent, 2013&quot;
+## [2] &quot;1.5675153914496354&quot;                                                        
+## [3] &quot;per pound&quot;</code></pre>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="part-2.html#cb583-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">4</span>]])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<pre><code>## [1] &quot;Mixed berries—Average retail price per pound and per cup equivalent, 2013&quot;
+## [2] NA                                                                         
+## [3] NA</code></pre>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="part-2.html#cb586-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">8</span>]])</span></code></pre></div>
+<pre><code>## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<pre><code>## [1] &quot;Cherries—Average retail price per pound and per cup equivalent, 2013&quot;
+## [2] &quot;3.5929897554945156&quot;                                                  
+## [3] &quot;per pound&quot;</code></pre>
+<p>Now that the function is working, it’s time to choose an iteration strategy.
+The <code>read_fresh_price</code> function is not vectorized, so that strategy isn’t
+possible. Reading one file doesn’t depend on reading any of the others, so
+apply functions are the best strategy here. The <code>read_fresh_price</code> function
+always returns a character vector with 3 elements, so you can use <code>sapply</code> to
+process all of the files and get a matrix of results:</p>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="part-2.html#cb589-1" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">sapply</span>(paths, read_fresh_price)</span></code></pre></div>
+<pre><code>## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## New names:
+## • `` -&gt; `...2`
+## • `` -&gt; `...3`
+## • `` -&gt; `...4`
+## • `` -&gt; `...5`
+## • `` -&gt; `...6`
+## • `` -&gt; `...7`</code></pre>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="part-2.html#cb591-1" tabindex="-1"></a><span class="co"># Transpose, convert to a data frame, and set names for easy reading.</span></span>
+<span id="cb591-2"><a href="part-2.html#cb591-2" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">t</span>(all_prices)</span>
+<span id="cb591-3"><a href="part-2.html#cb591-3" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">data.frame</span>(all_prices)</span>
+<span id="cb591-4"><a href="part-2.html#cb591-4" tabindex="-1"></a><span class="fu">rownames</span>(all_prices) <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb591-5"><a href="part-2.html#cb591-5" tabindex="-1"></a><span class="fu">colnames</span>(all_prices) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;fruit&quot;</span>, <span class="st">&quot;price&quot;</span>, <span class="st">&quot;unit&quot;</span>)</span>
+<span id="cb591-6"><a href="part-2.html#cb591-6" tabindex="-1"></a>all_prices</span></code></pre></div>
+<pre><code>##                                                                              fruit
+## 1       Apples—Average retail price per pound or pint and per cup equivalent, 2013
+## 2             Apricots—Average retail price per pound and per cup equivalent, 2013
+## 3              Bananas—Average retail price per pound and per cup equivalent, 2013
+## 4        Mixed berries—Average retail price per pound and per cup equivalent, 2013
+## 5         Blackberries—Average retail price per pound and per cup equivalent, 2013
+## 6          Blueberries—Average retail price per pound and per cup equivalent, 2013
+## 7           Cantaloupe—Average retail price per pound and per cup equivalent, 2013
+## 8             Cherries—Average retail price per pound and per cup equivalent, 2013
+## 9          Cranberries—Average retail price per pound and per cup equivalent, 2013
+## 10               Dates—Average retail price per pound and per cup equivalent, 2013
+## 11                Figs—Average retail price per pound and per cup equivalent, 2013
+## 12      Fruit cocktail—Average retail price per pound and per cup equivalent, 2013
+## 13  Grapefruit—Average retail price per pound or pint and per cup equivalent, 2013
+## 14      Grapes—Average retail price per pound or pint and per cup equivalent, 2013
+## 15      Honeydew melon—Average retail price per pound and per cup equivalent, 2013
+## 16                Kiwi—Average retail price per pound and per cup equivalent, 2013
+## 17             Mangoes—Average retail price per pound and per cup equivalent, 2013
+## 18          Nectarines—Average retail price per pound and per cup equivalent, 2013
+## 19     Oranges—Average retail price per pound or pint and per cup equivalent, 2013
+## 20              Papaya—Average retail price per pound and per cup equivalent, 2013
+## 21             Peaches—Average retail price per pound and per cup equivalent, 2013
+## 22               Pears—Average retail price per pound and per cup equivalent, 2013
+## 23   Pineapple—Average retail price per pound or pint and per cup equivalent, 2013
+## 24       Plums—Average retail price per pound or pint and per cup equivalent, 2013
+## 25 Pomegranate—Average retail price per pound or pint and per cup equivalent, 2013
+## 26         Raspberries—Average retail price per pound and per cup equivalent, 2013
+## 27        Strawberries—Average retail price per pound and per cup equivalent, 2013
+## 28  Tangerines—Average retail price per pound or pint and per cup equivalent, 2013
+## 29          Watermelon—Average retail price per pound and per cup equivalent, 2013
+##                  price      unit
+## 1   1.5675153914496354 per pound
+## 2   3.0400719670964378 per pound
+## 3  0.56698341453144807 per pound
+## 4                 &lt;NA&gt;      &lt;NA&gt;
+## 5   5.7747082503535152 per pound
+## 6   4.7346216897250253 per pound
+## 7  0.53587377610644515 per pound
+## 8   3.5929897554945156 per pound
+## 9                 &lt;NA&gt;      &lt;NA&gt;
+## 10                &lt;NA&gt;      &lt;NA&gt;
+## 11                &lt;NA&gt;      &lt;NA&gt;
+## 12                &lt;NA&gt;      &lt;NA&gt;
+## 13 0.89780204117954143 per pound
+## 14  2.0938274120049827 per pound
+## 15 0.79665620543008364 per pound
+## 16  2.0446834079658482 per pound
+## 17  1.3775634470319702 per pound
+## 18  1.7611484827950696 per pound
+## 19  1.0351727302444853 per pound
+## 20  1.2980115892049107 per pound
+## 21  1.5911868532458617 per pound
+## 22  1.4615746043999458 per pound
+## 23 0.62766194593569868 per pound
+## 24  1.8274160078099031 per pound
+## 25  2.1735904118559191 per pound
+## 26  6.9758107988552958 per pound
+## 27  2.3588084831103004 per pound
+## 28  1.3779618772323634 per pound
+## 29 0.33341203532340097 per pound</code></pre>
+<p>Finally, the last step is to remove the extra text from the fruit name. One way
+to do this is with the <code>str_split_fixed</code> function from the stringr package.
+There’s an en dash <code>—</code> after each fruit name, which you can use for the split:</p>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="part-2.html#cb593-1" tabindex="-1"></a>fruit <span class="ot">=</span> <span class="fu">str_split_fixed</span>(all_prices<span class="sc">$</span>fruit, <span class="st">&quot;—&quot;</span>, <span class="dv">2</span>)[, <span class="dv">1</span>]</span>
+<span id="cb593-2"><a href="part-2.html#cb593-2" tabindex="-1"></a>all_prices<span class="sc">$</span>fruit <span class="ot">=</span> fruit</span>
+<span id="cb593-3"><a href="part-2.html#cb593-3" tabindex="-1"></a>all_prices</span></code></pre></div>
+<pre><code>##             fruit               price      unit
+## 1          Apples  1.5675153914496354 per pound
+## 2        Apricots  3.0400719670964378 per pound
+## 3         Bananas 0.56698341453144807 per pound
+## 4   Mixed berries                &lt;NA&gt;      &lt;NA&gt;
+## 5    Blackberries  5.7747082503535152 per pound
+## 6     Blueberries  4.7346216897250253 per pound
+## 7      Cantaloupe 0.53587377610644515 per pound
+## 8        Cherries  3.5929897554945156 per pound
+## 9     Cranberries                &lt;NA&gt;      &lt;NA&gt;
+## 10          Dates                &lt;NA&gt;      &lt;NA&gt;
+## 11           Figs                &lt;NA&gt;      &lt;NA&gt;
+## 12 Fruit cocktail                &lt;NA&gt;      &lt;NA&gt;
+## 13     Grapefruit 0.89780204117954143 per pound
+## 14         Grapes  2.0938274120049827 per pound
+## 15 Honeydew melon 0.79665620543008364 per pound
+## 16           Kiwi  2.0446834079658482 per pound
+## 17        Mangoes  1.3775634470319702 per pound
+## 18     Nectarines  1.7611484827950696 per pound
+## 19        Oranges  1.0351727302444853 per pound
+## 20         Papaya  1.2980115892049107 per pound
+## 21        Peaches  1.5911868532458617 per pound
+## 22          Pears  1.4615746043999458 per pound
+## 23      Pineapple 0.62766194593569868 per pound
+## 24          Plums  1.8274160078099031 per pound
+## 25    Pomegranate  2.1735904118559191 per pound
+## 26    Raspberries  6.9758107988552958 per pound
+## 27   Strawberries  2.3588084831103004 per pound
+## 28     Tangerines  1.3779618772323634 per pound
+## 29     Watermelon 0.33341203532340097 per pound</code></pre>
+<p>Now the data are ready for analysis. You could extend the reader function to
+extract more of the data (e.g., dried and frozen prices), but the overall
+process is fundamentally the same. Write the code to handle one file (one
+step), generalize it to work on several, and then iterate.</p>
+<p>For another example, see Liza Wood’s <a href="https://d-rug.github.io/realworld_functions_iteration/">Real-world Function Writing
+Mini-reader</a>.</p>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="language-fundamentals.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/07_language_fundamentals_2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/07_language_fundamentals_2.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

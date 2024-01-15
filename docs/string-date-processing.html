@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 String &amp; Date Processing | Intermediate R</title>
-  <meta name="description" content="3 String &amp; Date Processing | Intermediate R" />
+  <title>1 String &amp; Date Processing | Intermediate R</title>
+  <meta name="description" content="1 String &amp; Date Processing | Intermediate R" />
   <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 String &amp; Date Processing | Intermediate R" />
+  <meta property="og:title" content="1 String &amp; Date Processing | Intermediate R" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ucdavisdatalab/workshop_intermediate_r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 String &amp; Date Processing | Intermediate R" />
+  <meta name="twitter:title" content="1 String &amp; Date Processing | Intermediate R" />
   
   
   
@@ -23,15 +23,15 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2024-01-10" />
+<meta name="date" content="2024-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="output-errors-and-bugs.html"/>
-<link rel="next" href="reshaping-data-automating-tasks.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="tidy-relational-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -143,116 +143,94 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
-<li class="part"><span><b>I Thinking in R</b></span></li>
-<li class="chapter" data-level="1" data-path="language-fundamentals.html"><a href="language-fundamentals.html"><i class="fa fa-check"></i><b>1</b> Language Fundamentals</a>
+<li class="part"><span><b>I Cleaning &amp; Reshaping Data</b></span></li>
+<li class="chapter" data-level="1" data-path="string-date-processing.html"><a href="string-date-processing.html"><i class="fa fa-check"></i><b>1</b> String &amp; Date Processing</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variables-environments"><i class="fa fa-check"></i><b>1.1</b> Variables &amp; Environments</a>
+<li class="chapter" data-level="1.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-tidyverse"><i class="fa fa-check"></i><b>1.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="1.2" data-path="string-date-processing.html"><a href="string-date-processing.html#parsing-dates-times"><i class="fa fa-check"></i><b>1.2</b> Parsing Dates &amp; Times</a>
 <ul>
-<li class="chapter" data-level="1.1.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#whats-an-environment"><i class="fa fa-check"></i><b>1.1.1</b> What’s an Environment?</a></li>
-<li class="chapter" data-level="1.1.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#reference-objects"><i class="fa fa-check"></i><b>1.1.2</b> Reference Objects</a></li>
-<li class="chapter" data-level="1.1.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-local-environment"><i class="fa fa-check"></i><b>1.1.3</b> The Local Environment</a></li>
-<li class="chapter" data-level="1.1.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#call-environments"><i class="fa fa-check"></i><b>1.1.4</b> Call Environments</a></li>
-<li class="chapter" data-level="1.1.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#lexical-scoping"><i class="fa fa-check"></i><b>1.1.5</b> Lexical Scoping</a></li>
-<li class="chapter" data-level="1.1.6" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variable-lookup"><i class="fa fa-check"></i><b>1.1.6</b> Variable Lookup</a></li>
-<li class="chapter" data-level="1.1.7" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-search-path"><i class="fa fa-check"></i><b>1.1.7</b> The Search Path</a></li>
+<li class="chapter" data-level="1.2.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-lubridate-package"><i class="fa fa-check"></i><b>1.2.1</b> The lubridate Package</a></li>
+<li class="chapter" data-level="1.2.2" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-ocean-temperatures"><i class="fa fa-check"></i><b>1.2.2</b> Case Study: Ocean Temperatures</a></li>
 </ul></li>
-<li class="chapter" data-level="1.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#closures"><i class="fa fa-check"></i><b>1.2</b> Closures</a>
+<li class="chapter" data-level="1.3" data-path="string-date-processing.html"><a href="string-date-processing.html#string-fundamentals"><i class="fa fa-check"></i><b>1.3</b> String Fundamentals</a>
 <ul>
-<li class="chapter" data-level="1.2.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#tidy-closures"><i class="fa fa-check"></i><b>1.2.1</b> Tidy Closures</a></li>
+<li class="chapter" data-level="1.3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#printing"><i class="fa fa-check"></i><b>1.3.1</b> Printing</a></li>
+<li class="chapter" data-level="1.3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences"><i class="fa fa-check"></i><b>1.3.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="1.3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#raw-strings"><i class="fa fa-check"></i><b>1.3.3</b> Raw Strings</a></li>
+<li class="chapter" data-level="1.3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-encodings"><i class="fa fa-check"></i><b>1.3.4</b> Character Encodings</a></li>
 </ul></li>
-<li class="chapter" data-level="1.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#attributes"><i class="fa fa-check"></i><b>1.3</b> Attributes</a></li>
-<li class="chapter" data-level="1.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#s3"><i class="fa fa-check"></i><b>1.4</b> S3</a>
+<li class="chapter" data-level="1.4" data-path="string-date-processing.html"><a href="string-date-processing.html#processing-strings"><i class="fa fa-check"></i><b>1.4</b> Processing Strings</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#method-dispatch"><i class="fa fa-check"></i><b>1.4.1</b> Method Dispatch</a></li>
-<li class="chapter" data-level="1.4.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#creating-objects"><i class="fa fa-check"></i><b>1.4.2</b> Creating Objects</a></li>
+<li class="chapter" data-level="1.4.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-stringr-package"><i class="fa fa-check"></i><b>1.4.1</b> The stringr Package</a></li>
+<li class="chapter" data-level="1.4.2" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expressions"><i class="fa fa-check"></i><b>1.4.2</b> Regular Expressions</a></li>
+<li class="chapter" data-level="1.4.3" data-path="string-date-processing.html"><a href="string-date-processing.html#replacing-parts-of-strings"><i class="fa fa-check"></i><b>1.4.3</b> Replacing Parts of Strings</a></li>
+<li class="chapter" data-level="1.4.4" data-path="string-date-processing.html"><a href="string-date-processing.html#splitting-strings"><i class="fa fa-check"></i><b>1.4.4</b> Splitting Strings</a></li>
+<li class="chapter" data-level="1.4.5" data-path="string-date-processing.html"><a href="string-date-processing.html#extracting-matches"><i class="fa fa-check"></i><b>1.4.5</b> Extracting Matches</a></li>
+<li class="chapter" data-level="1.4.6" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-u.s.-warehouse-stocks"><i class="fa fa-check"></i><b>1.4.6</b> Case Study: U.S. Warehouse Stocks</a></li>
 </ul></li>
-<li class="chapter" data-level="1.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#other-object-systems"><i class="fa fa-check"></i><b>1.5</b> Other Object Systems</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html"><i class="fa fa-check"></i><b>2</b> Output, Errors, and Bugs</a>
+<li class="chapter" data-level="1.5" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expression-examples"><i class="fa fa-check"></i><b>1.5</b> Regular Expression Examples</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#printing-output"><i class="fa fa-check"></i><b>2.1</b> Printing Output</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-print-function"><i class="fa fa-check"></i><b>2.1.1</b> The <code>print</code> Function</a></li>
-<li class="chapter" data-level="2.1.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-message-function"><i class="fa fa-check"></i><b>2.1.2</b> The <code>message</code> Function</a></li>
-<li class="chapter" data-level="2.1.3" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-cat-function"><i class="fa fa-check"></i><b>2.1.3</b> The <code>cat</code> Function</a></li>
-<li class="chapter" data-level="2.1.4" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#formatting-output"><i class="fa fa-check"></i><b>2.1.4</b> Formatting Output</a></li>
-<li class="chapter" data-level="2.1.5" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#logging-output"><i class="fa fa-check"></i><b>2.1.5</b> Logging Output</a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#the-conditions-system"><i class="fa fa-check"></i><b>2.2</b> The Conditions System</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#raising-conditions"><i class="fa fa-check"></i><b>2.2.1</b> Raising Conditions</a></li>
-<li class="chapter" data-level="2.2.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#handling-conditions"><i class="fa fa-check"></i><b>2.2.2</b> Handling Conditions</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#global-options"><i class="fa fa-check"></i><b>2.3</b> Global Options</a></li>
-<li class="chapter" data-level="2.4" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#debugging"><i class="fa fa-check"></i><b>2.4</b> Debugging</a>
-<ul>
-<li class="chapter" data-level="2.4.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#other-functions"><i class="fa fa-check"></i><b>2.4.1</b> Other Functions</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#measuring-performance"><i class="fa fa-check"></i><b>2.5</b> Measuring Performance</a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#estimating-memory-usage"><i class="fa fa-check"></i><b>2.5.1</b> Estimating Memory Usage</a></li>
-<li class="chapter" data-level="2.5.2" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#benchmarking"><i class="fa fa-check"></i><b>2.5.2</b> Benchmarking</a></li>
-<li class="chapter" data-level="2.5.3" data-path="output-errors-and-bugs.html"><a href="output-errors-and-bugs.html#profiling"><i class="fa fa-check"></i><b>2.5.3</b> Profiling</a></li>
+<li class="chapter" data-level="1.5.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-wildcard"><i class="fa fa-check"></i><b>1.5.1</b> The Wildcard</a></li>
+<li class="chapter" data-level="1.5.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-1"><i class="fa fa-check"></i><b>1.5.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="1.5.3" data-path="string-date-processing.html"><a href="string-date-processing.html#anchors"><i class="fa fa-check"></i><b>1.5.3</b> Anchors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-classes"><i class="fa fa-check"></i><b>1.5.4</b> Character Classes</a></li>
+<li class="chapter" data-level="1.5.5" data-path="string-date-processing.html"><a href="string-date-processing.html#quantifiers"><i class="fa fa-check"></i><b>1.5.5</b> Quantifiers</a></li>
+<li class="chapter" data-level="1.5.6" data-path="string-date-processing.html"><a href="string-date-processing.html#groups"><i class="fa fa-check"></i><b>1.5.6</b> Groups</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>II Cleaning Data &amp; Automating Tasks</b></span></li>
-<li class="chapter" data-level="3" data-path="string-date-processing.html"><a href="string-date-processing.html"><i class="fa fa-check"></i><b>3</b> String &amp; Date Processing</a>
+<li class="chapter" data-level="2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html"><i class="fa fa-check"></i><b>2</b> Tidy &amp; Relational Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-tidyverse"><i class="fa fa-check"></i><b>3.1</b> The Tidyverse</a></li>
-<li class="chapter" data-level="3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#parsing-dates-times"><i class="fa fa-check"></i><b>3.2</b> Parsing Dates &amp; Times</a>
+<li class="chapter" data-level="2.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#tidy-datasets"><i class="fa fa-check"></i><b>2.1</b> Tidy Datasets</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-lubridate-package"><i class="fa fa-check"></i><b>3.2.1</b> The lubridate Package</a></li>
-<li class="chapter" data-level="3.2.2" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-ocean-temperatures"><i class="fa fa-check"></i><b>3.2.2</b> Case Study: Ocean Temperatures</a></li>
+<li class="chapter" data-level="2.1.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#the-tidyr-package"><i class="fa fa-check"></i><b>2.1.1</b> The tidyr Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#rows-into-columns"><i class="fa fa-check"></i><b>2.1.2</b> Rows into Columns</a></li>
+<li class="chapter" data-level="2.1.3" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#columns-into-rows"><i class="fa fa-check"></i><b>2.1.3</b> Columns into Rows</a></li>
+<li class="chapter" data-level="2.1.4" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#separating-values"><i class="fa fa-check"></i><b>2.1.4</b> Separating Values</a></li>
+<li class="chapter" data-level="2.1.5" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#case-study-smart-ridership"><i class="fa fa-check"></i><b>2.1.5</b> Case Study: SMART Ridership</a></li>
+<li class="chapter" data-level="2.1.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#without-tidyr"><i class="fa fa-check"></i><b>2.1.6</b> Without tidyr</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#string-fundamentals"><i class="fa fa-check"></i><b>3.3</b> String Fundamentals</a>
+<li class="chapter" data-level="2.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#relational-datasets"><i class="fa fa-check"></i><b>2.2</b> Relational Datasets</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#printing"><i class="fa fa-check"></i><b>3.3.1</b> Printing</a></li>
-<li class="chapter" data-level="3.3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-1"><i class="fa fa-check"></i><b>3.3.2</b> Escape Sequences</a></li>
-<li class="chapter" data-level="3.3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#raw-strings"><i class="fa fa-check"></i><b>3.3.3</b> Raw Strings</a></li>
-<li class="chapter" data-level="3.3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-encodings"><i class="fa fa-check"></i><b>3.3.4</b> Character Encodings</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#processing-strings"><i class="fa fa-check"></i><b>3.4</b> Processing Strings</a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-stringr-package"><i class="fa fa-check"></i><b>3.4.1</b> The stringr Package</a></li>
-<li class="chapter" data-level="3.4.2" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expressions"><i class="fa fa-check"></i><b>3.4.2</b> Regular Expressions</a></li>
-<li class="chapter" data-level="3.4.3" data-path="string-date-processing.html"><a href="string-date-processing.html#replacing-parts-of-strings"><i class="fa fa-check"></i><b>3.4.3</b> Replacing Parts of Strings</a></li>
-<li class="chapter" data-level="3.4.4" data-path="string-date-processing.html"><a href="string-date-processing.html#splitting-strings"><i class="fa fa-check"></i><b>3.4.4</b> Splitting Strings</a></li>
-<li class="chapter" data-level="3.4.5" data-path="string-date-processing.html"><a href="string-date-processing.html#extracting-matches"><i class="fa fa-check"></i><b>3.4.5</b> Extracting Matches</a></li>
-<li class="chapter" data-level="3.4.6" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-u.s.-warehouse-stocks"><i class="fa fa-check"></i><b>3.4.6</b> Case Study: U.S. Warehouse Stocks</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expression-examples"><i class="fa fa-check"></i><b>3.5</b> Regular Expression Examples</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-wildcard"><i class="fa fa-check"></i><b>3.5.1</b> The Wildcard</a></li>
-<li class="chapter" data-level="3.5.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-2"><i class="fa fa-check"></i><b>3.5.2</b> Escape Sequences</a></li>
-<li class="chapter" data-level="3.5.3" data-path="string-date-processing.html"><a href="string-date-processing.html#anchors"><i class="fa fa-check"></i><b>3.5.3</b> Anchors</a></li>
-<li class="chapter" data-level="3.5.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-classes"><i class="fa fa-check"></i><b>3.5.4</b> Character Classes</a></li>
-<li class="chapter" data-level="3.5.5" data-path="string-date-processing.html"><a href="string-date-processing.html#quantifiers"><i class="fa fa-check"></i><b>3.5.5</b> Quantifiers</a></li>
-<li class="chapter" data-level="3.5.6" data-path="string-date-processing.html"><a href="string-date-processing.html#groups"><i class="fa fa-check"></i><b>3.5.6</b> Groups</a></li>
+<li class="chapter" data-level="2.2.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>2.2.1</b> The dplyr Package</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#gradebook-dataset"><i class="fa fa-check"></i><b>2.2.2</b> Gradebook Dataset</a></li>
+<li class="chapter" data-level="2.2.3" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#left-joins"><i class="fa fa-check"></i><b>2.2.3</b> Left Joins</a></li>
+<li class="chapter" data-level="2.2.4" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#other-joins"><i class="fa fa-check"></i><b>2.2.4</b> Other Joins</a></li>
+<li class="chapter" data-level="2.2.5" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>2.2.5</b> Getting Clever with <code>join_by</code></a></li>
+<li class="chapter" data-level="2.2.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#examples"><i class="fa fa-check"></i><b>2.2.6</b> Examples</a></li>
+<li class="chapter" data-level="2.2.7" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#be-explicit"><i class="fa fa-check"></i><b>2.2.7</b> Be Explicit</a></li>
+<li class="chapter" data-level="2.2.8" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#conclusion"><i class="fa fa-check"></i><b>2.2.8</b> Conclusion</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html"><i class="fa fa-check"></i><b>4</b> Reshaping Data &amp; Automating Tasks</a>
+<li class="part"><span><b>II Writing &amp; Debugging R Code</b></span></li>
+<li class="chapter" data-level="3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html"><i class="fa fa-check"></i><b>3</b> Best Practices for Writing R Scripts</a></li>
+<li class="chapter" data-level="4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html"><i class="fa fa-check"></i><b>4</b> Squashing Bugs with R’s Debugging Tools</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#tidy-datasets"><i class="fa fa-check"></i><b>4.1</b> Tidy Datasets</a>
+<li class="chapter" data-level="4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#printing-output"><i class="fa fa-check"></i><b>4.1</b> Printing Output</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#the-tidyr-package"><i class="fa fa-check"></i><b>4.1.1</b> The tidyr Package</a></li>
-<li class="chapter" data-level="4.1.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#rows-into-columns"><i class="fa fa-check"></i><b>4.1.2</b> Rows into Columns</a></li>
-<li class="chapter" data-level="4.1.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#columns-into-rows"><i class="fa fa-check"></i><b>4.1.3</b> Columns into Rows</a></li>
-<li class="chapter" data-level="4.1.4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#separating-values"><i class="fa fa-check"></i><b>4.1.4</b> Separating Values</a></li>
-<li class="chapter" data-level="4.1.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-smart-ridership"><i class="fa fa-check"></i><b>4.1.5</b> Case Study: SMART Ridership</a></li>
-<li class="chapter" data-level="4.1.6" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#without-tidyr"><i class="fa fa-check"></i><b>4.1.6</b> Without tidyr</a></li>
+<li class="chapter" data-level="4.1.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-print-function"><i class="fa fa-check"></i><b>4.1.1</b> The <code>print</code> Function</a></li>
+<li class="chapter" data-level="4.1.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-message-function"><i class="fa fa-check"></i><b>4.1.2</b> The <code>message</code> Function</a></li>
+<li class="chapter" data-level="4.1.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-cat-function"><i class="fa fa-check"></i><b>4.1.3</b> The <code>cat</code> Function</a></li>
+<li class="chapter" data-level="4.1.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#formatting-output"><i class="fa fa-check"></i><b>4.1.4</b> Formatting Output</a></li>
+<li class="chapter" data-level="4.1.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#logging-output"><i class="fa fa-check"></i><b>4.1.5</b> Logging Output</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#iteration-strategies"><i class="fa fa-check"></i><b>4.2</b> Iteration Strategies</a>
+<li class="chapter" data-level="4.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-conditions-system"><i class="fa fa-check"></i><b>4.2</b> The Conditions System</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#for-loops"><i class="fa fa-check"></i><b>4.2.1</b> For-loops</a></li>
-<li class="chapter" data-level="4.2.2" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#while-loops"><i class="fa fa-check"></i><b>4.2.2</b> While-loops</a></li>
-<li class="chapter" data-level="4.2.3" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#saving-multiple-results"><i class="fa fa-check"></i><b>4.2.3</b> Saving Multiple Results</a></li>
-<li class="chapter" data-level="4.2.4" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#break-next"><i class="fa fa-check"></i><b>4.2.4</b> Break &amp; Next</a></li>
-<li class="chapter" data-level="4.2.5" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#planning-for-iteration"><i class="fa fa-check"></i><b>4.2.5</b> Planning for Iteration</a></li>
-<li class="chapter" data-level="4.2.6" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>4.2.6</b> Case Study: The Collatz Conjecture</a></li>
-<li class="chapter" data-level="4.2.7" data-path="reshaping-data-automating-tasks.html"><a href="reshaping-data-automating-tasks.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>4.2.7</b> Case Study: U.S. Fruit Prices</a></li>
+<li class="chapter" data-level="4.2.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#raising-conditions"><i class="fa fa-check"></i><b>4.2.1</b> Raising Conditions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#handling-conditions"><i class="fa fa-check"></i><b>4.2.2</b> Handling Conditions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#global-options"><i class="fa fa-check"></i><b>4.3</b> Global Options</a></li>
+<li class="chapter" data-level="4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging"><i class="fa fa-check"></i><b>4.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.1</b> Other Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#measuring-performance"><i class="fa fa-check"></i><b>4.5</b> Measuring Performance</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#estimating-memory-usage"><i class="fa fa-check"></i><b>4.5.1</b> Estimating Memory Usage</a></li>
+<li class="chapter" data-level="4.5.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#benchmarking"><i class="fa fa-check"></i><b>4.5.2</b> Benchmarking</a></li>
+<li class="chapter" data-level="4.5.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#profiling"><i class="fa fa-check"></i><b>4.5.3</b> Profiling</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>III Data Visualization and Analysis in R</b></span></li>
+<li class="part"><span><b>III Data Visualization &amp; Analysis in R</b></span></li>
 <li class="chapter" data-level="5" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html"><i class="fa fa-check"></i><b>5</b> Data Visualization in R</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#our-friend-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Our Friend <code>ggplot2</code></a>
@@ -282,39 +260,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#small-business-loans"><i class="fa fa-check"></i><b>5.5.4</b> Small Business Loans</a></li>
 </ul></li>
 </ul></li>
-<li class="part"><span><b>IV Backmatter</b></span></li>
+<li class="part"><span><b>IV Thinking in R</b></span></li>
+<li class="chapter" data-level="6" data-path="language-fundamentals.html"><a href="language-fundamentals.html"><i class="fa fa-check"></i><b>6</b> Language Fundamentals</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variables-environments"><i class="fa fa-check"></i><b>6.1</b> Variables &amp; Environments</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#whats-an-environment"><i class="fa fa-check"></i><b>6.1.1</b> What’s an Environment?</a></li>
+<li class="chapter" data-level="6.1.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#reference-objects"><i class="fa fa-check"></i><b>6.1.2</b> Reference Objects</a></li>
+<li class="chapter" data-level="6.1.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-local-environment"><i class="fa fa-check"></i><b>6.1.3</b> The Local Environment</a></li>
+<li class="chapter" data-level="6.1.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#call-environments"><i class="fa fa-check"></i><b>6.1.4</b> Call Environments</a></li>
+<li class="chapter" data-level="6.1.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#lexical-scoping"><i class="fa fa-check"></i><b>6.1.5</b> Lexical Scoping</a></li>
+<li class="chapter" data-level="6.1.6" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variable-lookup"><i class="fa fa-check"></i><b>6.1.6</b> Variable Lookup</a></li>
+<li class="chapter" data-level="6.1.7" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-search-path"><i class="fa fa-check"></i><b>6.1.7</b> The Search Path</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#closures"><i class="fa fa-check"></i><b>6.2</b> Closures</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#tidy-closures"><i class="fa fa-check"></i><b>6.2.1</b> Tidy Closures</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#attributes"><i class="fa fa-check"></i><b>6.3</b> Attributes</a></li>
+<li class="chapter" data-level="6.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#s3"><i class="fa fa-check"></i><b>6.4</b> S3</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#method-dispatch"><i class="fa fa-check"></i><b>6.4.1</b> Method Dispatch</a></li>
+<li class="chapter" data-level="6.4.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#creating-objects"><i class="fa fa-check"></i><b>6.4.2</b> Creating Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#other-object-systems"><i class="fa fa-check"></i><b>6.5</b> Other Object Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>7</b> Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="part-2.html"><a href="part-2.html#iteration-strategies"><i class="fa fa-check"></i><b>7.1</b> Iteration Strategies</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="part-2.html"><a href="part-2.html#for-loops"><i class="fa fa-check"></i><b>7.1.1</b> For-loops</a></li>
+<li class="chapter" data-level="7.1.2" data-path="part-2.html"><a href="part-2.html#while-loops"><i class="fa fa-check"></i><b>7.1.2</b> While-loops</a></li>
+<li class="chapter" data-level="7.1.3" data-path="part-2.html"><a href="part-2.html#saving-multiple-results"><i class="fa fa-check"></i><b>7.1.3</b> Saving Multiple Results</a></li>
+<li class="chapter" data-level="7.1.4" data-path="part-2.html"><a href="part-2.html#break-next"><i class="fa fa-check"></i><b>7.1.4</b> Break &amp; Next</a></li>
+<li class="chapter" data-level="7.1.5" data-path="part-2.html"><a href="part-2.html#planning-for-iteration"><i class="fa fa-check"></i><b>7.1.5</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="7.1.6" data-path="part-2.html"><a href="part-2.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>7.1.6</b> Case Study: The Collatz Conjecture</a></li>
+<li class="chapter" data-level="7.1.7" data-path="part-2.html"><a href="part-2.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>7.1.7</b> Case Study: U.S. Fruit Prices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Backmatter</b></span></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
-<li class="chapter" data-level="6" data-path="joining-data.html"><a href="joining-data.html"><i class="fa fa-check"></i><b>6</b> Joining Data</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="joining-data.html"><a href="joining-data.html#objective"><i class="fa fa-check"></i><b>6.1</b> Objective:</a></li>
-<li class="chapter" data-level="6.2" data-path="joining-data.html"><a href="joining-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>6.2</b> The <code>dplyr</code> Package</a></li>
-<li class="chapter" data-level="6.3" data-path="joining-data.html"><a href="joining-data.html#gradebook-data"><i class="fa fa-check"></i><b>6.3</b> Gradebook data</a></li>
-<li class="chapter" data-level="6.4" data-path="joining-data.html"><a href="joining-data.html#left-and-right-joins"><i class="fa fa-check"></i><b>6.4</b> Left and Right Joins</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="joining-data.html"><a href="joining-data.html#left-join"><i class="fa fa-check"></i><b>6.4.1</b> Left Join</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="joining-data.html"><a href="joining-data.html#other-joins"><i class="fa fa-check"></i><b>6.5</b> Other Joins</a>
-<ul>
-<li class="chapter" data-level="6.5.1" data-path="joining-data.html"><a href="joining-data.html#right-join"><i class="fa fa-check"></i><b>6.5.1</b> Right Join</a></li>
-<li class="chapter" data-level="6.5.2" data-path="joining-data.html"><a href="joining-data.html#inner-join"><i class="fa fa-check"></i><b>6.5.2</b> Inner Join</a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="joining-data.html"><a href="joining-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>6.6</b> Getting Clever with <code>join_by</code></a>
-<ul>
-<li class="chapter" data-level="6.6.1" data-path="joining-data.html"><a href="joining-data.html#matching-multiple-columns"><i class="fa fa-check"></i><b>6.6.1</b> Matching multiple columns</a></li>
-</ul></li>
-<li class="chapter" data-level="6.7" data-path="joining-data.html"><a href="joining-data.html#examples"><i class="fa fa-check"></i><b>6.7</b> Examples</a>
-<ul>
-<li class="chapter" data-level="6.7.1" data-path="joining-data.html"><a href="joining-data.html#three-or-more-tables"><i class="fa fa-check"></i><b>6.7.1</b> Three Or More Tables</a></li>
-</ul></li>
-<li class="chapter" data-level="6.8" data-path="joining-data.html"><a href="joining-data.html#be-explicit"><i class="fa fa-check"></i><b>6.8</b> Be Explicit</a>
-<ul>
-<li class="chapter" data-level="6.8.1" data-path="joining-data.html"><a href="joining-data.html#handling-duplicate-keys"><i class="fa fa-check"></i><b>6.8.1</b> Handling Duplicate Keys</a></li>
-<li class="chapter" data-level="6.8.2" data-path="joining-data.html"><a href="joining-data.html#ambiguous-columns"><i class="fa fa-check"></i><b>6.8.2</b> Ambiguous Columns</a></li>
-<li class="chapter" data-level="6.8.3" data-path="joining-data.html"><a href="joining-data.html#missing-values"><i class="fa fa-check"></i><b>6.8.3</b> Missing Values</a></li>
-</ul></li>
-<li class="chapter" data-level="6.9" data-path="joining-data.html"><a href="joining-data.html#conclusion"><i class="fa fa-check"></i><b>6.9</b> Conclusion</a></li>
-</ul></li>
 </ul>
 
       </nav>
@@ -332,15 +318,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="string-date-processing" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> String &amp; Date Processing<a href="string-date-processing.html#string-date-processing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This chapter is part 1 (of 2) of <em>Cleaning Data &amp; Automating Tasks</em>, a workshop
-series about how to prepare data for analysis and automate tedious repetitive
-tasks. The major topics of this chapter are how to convert dates and times into
-appropriate R data types and how to extract and clean up data from strings
-(including numbers with non-numeric characters such as <code>$</code>, <code>%</code>, and <code>,</code>).</p>
-<div id="learning-objectives-2" class="section level4 unnumbered hasAnchor">
-<h4>Learning Objectives<a href="string-date-processing.html#learning-objectives-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="string-date-processing" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> String &amp; Date Processing<a href="string-date-processing.html#string-date-processing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter is part 1 (of 2) of <em>Cleaning &amp; Reshaping Data</em>, a workshop series
+about how to prepare data for analysis. The major topics of this chapter are
+how to convert dates and times into appropriate R data types and how to extract
+and clean up data from strings (including numbers with non-numeric characters
+such as <code>$</code>, <code>%</code>, and <code>,</code>).</p>
+<div id="learning-objectives" class="section level4 unnumbered hasAnchor">
+<h4>Learning Objectives<a href="string-date-processing.html#learning-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>Explain why we use special data structures for dates &amp; times</li>
 <li>Identify the correct data structure for a given date/time</li>
@@ -352,8 +338,8 @@ appropriate R data types and how to extract and clean up data from strings
 <li>Use the regular expressions mini-language</li>
 </ul>
 </div>
-<div id="the-tidyverse" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> The Tidyverse<a href="string-date-processing.html#the-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-tidyverse" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> The Tidyverse<a href="string-date-processing.html#the-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For working with dates, times, and strings, we recommend using packages from
 the <a href="https://www.tidyverse.org/">Tidyverse</a>, a popular collection of packages for doing data science.
 Compared to R’s built-in functions, we’ve found that the functions in Tidyverse
@@ -380,8 +366,8 @@ useful to be literate in both base R and the Tidyverse, since both are popular.<
 well-documented and provide lots of examples. Every package has a documentation
 website and the most popular ones also have <a href="https://posit.co/resources/cheatsheets/">cheatsheets</a>.</p>
 </div>
-<div id="parsing-dates-times" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Parsing Dates &amp; Times<a href="string-date-processing.html#parsing-dates-times" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="parsing-dates-times" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Parsing Dates &amp; Times<a href="string-date-processing.html#parsing-dates-times" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When working with dates and times, you might want to:</p>
 <ul>
 <li>Use them to sort other data</li>
@@ -397,9 +383,9 @@ built-in functions for loading data <em>do not</em> automatically recognize date
 times. This section describes several data types that represent dates and
 times, and explains how to use R to <strong>parse</strong>—break down and convert—dates
 and times to these types.</p>
-<div id="the-lubridate-package" class="section level3 hasAnchor" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> The lubridate Package<a href="string-date-processing.html#the-lubridate-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>As explained in Section <a href="string-date-processing.html#the-tidyverse">3.1</a>, we recommend the Tidyverse
+<div id="the-lubridate-package" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> The lubridate Package<a href="string-date-processing.html#the-lubridate-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As explained in Section <a href="string-date-processing.html#the-tidyverse">1.1</a>, we recommend the Tidyverse
 packages for working with dates and times over other packages or R’s built-in
 functions. There are two:</p>
 <ul>
@@ -410,8 +396,8 @@ functions. There are two:</p>
 The package has detailed <a href="https://lubridate.tidyverse.org/">documentation</a> and a
 <a href="https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf">cheatsheet</a>.</p>
 <p>You’ll have to install the package if you haven’t already, and then load it:</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="string-date-processing.html#cb265-1" tabindex="-1"></a><span class="co"># install.packages(&quot;lubridate&quot;)</span></span>
-<span id="cb265-2"><a href="string-date-processing.html#cb265-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;lubridate&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="string-date-processing.html#cb1-1" tabindex="-1"></a><span class="co"># install.packages(&quot;lubridate&quot;)</span></span>
+<span id="cb1-2"><a href="string-date-processing.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;lubridate&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;lubridate&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
@@ -421,8 +407,8 @@ The package has detailed <a href="https://lubridate.tidyverse.org/">documentatio
 convert from strings to more appropriate data types. This is because R’s
 built-in functions for reading data from a text format, such as <code>read.csv</code>,
 read dates and times as strings. For example, here are some dates as strings:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="string-date-processing.html#cb268-1" tabindex="-1"></a>date_strings <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Jan 10, 2021&quot;</span>, <span class="st">&quot;Sep 3, 2018&quot;</span>, <span class="st">&quot;Feb 28, 1982&quot;</span>)</span>
-<span id="cb268-2"><a href="string-date-processing.html#cb268-2" tabindex="-1"></a>date_strings</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="string-date-processing.html#cb4-1" tabindex="-1"></a>date_strings <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Jan 10, 2021&quot;</span>, <span class="st">&quot;Sep 3, 2018&quot;</span>, <span class="st">&quot;Feb 28, 1982&quot;</span>)</span>
+<span id="cb4-2"><a href="string-date-processing.html#cb4-2" tabindex="-1"></a>date_strings</span></code></pre></div>
 <pre><code>## [1] &quot;Jan 10, 2021&quot; &quot;Sep 3, 2018&quot;  &quot;Feb 28, 1982&quot;</code></pre>
 <p><em>You</em> can tell that these are dates, but as far as R is concerned, they’re
 text.</p>
@@ -432,10 +418,10 @@ with one letter per component of the date or time. The order of the letters
 must match the order of the components in the string you want to parse.</p>
 <p>In the example, the strings have the month (<code>m</code>), then the day (<code>d</code>), and then
 the year (<code>y</code>), so you can use the <code>mdy</code> function to parse them automatically:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="string-date-processing.html#cb270-1" tabindex="-1"></a>dates <span class="ot">=</span> <span class="fu">mdy</span>(date_strings)</span>
-<span id="cb270-2"><a href="string-date-processing.html#cb270-2" tabindex="-1"></a>dates</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="string-date-processing.html#cb6-1" tabindex="-1"></a>dates <span class="ot">=</span> <span class="fu">mdy</span>(date_strings)</span>
+<span id="cb6-2"><a href="string-date-processing.html#cb6-2" tabindex="-1"></a>dates</span></code></pre></div>
 <pre><code>## [1] &quot;2021-01-10&quot; &quot;2018-09-03&quot; &quot;1982-02-28&quot;</code></pre>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="string-date-processing.html#cb272-1" tabindex="-1"></a><span class="fu">class</span>(dates)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="string-date-processing.html#cb8-1" tabindex="-1"></a><span class="fu">class</span>(dates)</span></code></pre></div>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <p>Notice that the dates now have class <code>Date</code>, one of R’s built-in classes for
 representing dates, and that R prints them differently. Now R recognizes that
@@ -522,11 +508,11 @@ meaning. Here are a few of the most useful ones:</p>
 format string do not have any special meaning. Write the format string so that
 it matches the format of the dates you want to parse.</p>
 <p>For example, let’s try parsing an unusual time format:</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="string-date-processing.html#cb274-1" tabindex="-1"></a>time_string <span class="ot">=</span> <span class="st">&quot;6 minutes, 32 seconds after 10 o&#39;clock&quot;</span></span>
-<span id="cb274-2"><a href="string-date-processing.html#cb274-2" tabindex="-1"></a>time <span class="ot">=</span> <span class="fu">fast_strptime</span>(time_string, <span class="st">&quot;%M minutes, %S seconds after %H o&#39;clock&quot;</span>)</span>
-<span id="cb274-3"><a href="string-date-processing.html#cb274-3" tabindex="-1"></a>time</span></code></pre></div>
-<pre><code>## [1] &quot;0000-01-01 10:06:32 UTC&quot;</code></pre>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="string-date-processing.html#cb276-1" tabindex="-1"></a><span class="fu">class</span>(time)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="string-date-processing.html#cb10-1" tabindex="-1"></a>time_string <span class="ot">=</span> <span class="st">&quot;6 minutes, 32 seconds after 10 o&#39;clock&quot;</span></span>
+<span id="cb10-2"><a href="string-date-processing.html#cb10-2" tabindex="-1"></a>time <span class="ot">=</span> <span class="fu">fast_strptime</span>(time_string, <span class="st">&quot;%M minutes, %S seconds after %H o&#39;clock&quot;</span>)</span>
+<span id="cb10-3"><a href="string-date-processing.html#cb10-3" tabindex="-1"></a>time</span></code></pre></div>
+<pre><code>## [1] &quot;0-01-01 10:06:32 UTC&quot;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="string-date-processing.html#cb12-1" tabindex="-1"></a><span class="fu">class</span>(time)</span></code></pre></div>
 <pre><code>## [1] &quot;POSIXlt&quot; &quot;POSIXt&quot;</code></pre>
 <p>R represents date-times with the classes <code>POSIXlt</code> and <code>POSIXct</code>. There’s no
 built-in class to represent times alone, which is why the result in the example
@@ -537,15 +523,15 @@ point number (type <code>double</code>). If you want to store your time data in 
 frame, use <code>POSIXct</code> objects, since data frames don’t work well with columns of
 lists. You can control whether <code>fast_strptime</code> returns a <code>POSIXlt</code> or <code>POSIXct</code>
 object by setting the <code>lt</code> parameter to <code>TRUE</code> or <code>FALSE</code>:</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="string-date-processing.html#cb278-1" tabindex="-1"></a>time_ct <span class="ot">=</span> <span class="fu">fast_strptime</span>(time_string, <span class="st">&quot;%M minutes, %S seconds after %H o&#39;clock&quot;</span>,</span>
-<span id="cb278-2"><a href="string-date-processing.html#cb278-2" tabindex="-1"></a>  <span class="at">lt =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb278-3"><a href="string-date-processing.html#cb278-3" tabindex="-1"></a></span>
-<span id="cb278-4"><a href="string-date-processing.html#cb278-4" tabindex="-1"></a><span class="fu">class</span>(time_ct)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="string-date-processing.html#cb14-1" tabindex="-1"></a>time_ct <span class="ot">=</span> <span class="fu">fast_strptime</span>(time_string, <span class="st">&quot;%M minutes, %S seconds after %H o&#39;clock&quot;</span>,</span>
+<span id="cb14-2"><a href="string-date-processing.html#cb14-2" tabindex="-1"></a>  <span class="at">lt =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-3"><a href="string-date-processing.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="string-date-processing.html#cb14-4" tabindex="-1"></a><span class="fu">class</span>(time_ct)</span></code></pre></div>
 <pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
 <p>Another common task is combining the numeric components of a date or time into
 a single object. You can use the <code>make_date</code> and <code>make_datetime</code> functions to
 do this. The parameters are named for the different components. For example:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="string-date-processing.html#cb280-1" tabindex="-1"></a><span class="fu">make_date</span>(<span class="at">day =</span> <span class="dv">10</span>, <span class="at">year =</span> <span class="dv">2023</span>, <span class="at">month =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="string-date-processing.html#cb16-1" tabindex="-1"></a><span class="fu">make_date</span>(<span class="at">day =</span> <span class="dv">10</span>, <span class="at">year =</span> <span class="dv">2023</span>, <span class="at">month =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2023-01-10&quot;</code></pre>
 <p>These functions are <a href="https://ucdavisdatalab.github.io/workshop_r_basics/data-structures.html#vectorization">vectorized</a>, so you can use them to combine the
 components of many dates or times at once. They’re especially useful for
@@ -555,21 +541,21 @@ stored in a separate column.</p>
 any of the operations listed at the beginning of this section. For example, you
 can use lubridate’s <code>period</code> function to create an offset to add to a date or
 time:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="string-date-processing.html#cb282-1" tabindex="-1"></a>dates</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="string-date-processing.html#cb18-1" tabindex="-1"></a>dates</span></code></pre></div>
 <pre><code>## [1] &quot;2021-01-10&quot; &quot;2018-09-03&quot; &quot;1982-02-28&quot;</code></pre>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="string-date-processing.html#cb284-1" tabindex="-1"></a>dates <span class="sc">+</span> <span class="fu">period</span>(<span class="dv">1</span>, <span class="st">&quot;month&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="string-date-processing.html#cb20-1" tabindex="-1"></a>dates <span class="sc">+</span> <span class="fu">period</span>(<span class="dv">1</span>, <span class="st">&quot;month&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;2021-02-10&quot; &quot;2018-10-03&quot; &quot;1982-03-28&quot;</code></pre>
 <p>You can also use lubridate functions to get or set the components. These
 functions usually have the same name as the component. For instance:</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="string-date-processing.html#cb286-1" tabindex="-1"></a><span class="fu">day</span>(dates)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="string-date-processing.html#cb22-1" tabindex="-1"></a><span class="fu">day</span>(dates)</span></code></pre></div>
 <pre><code>## [1] 10  3 28</code></pre>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="string-date-processing.html#cb288-1" tabindex="-1"></a><span class="fu">month</span>(dates)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="string-date-processing.html#cb24-1" tabindex="-1"></a><span class="fu">month</span>(dates)</span></code></pre></div>
 <pre><code>## [1] 1 9 2</code></pre>
 <p>See <a href="https://lubridate.tidyverse.org/">the lubridate documentation</a> for even more details about
 what you can do.</p>
 </div>
-<div id="case-study-ocean-temperatures" class="section level3 hasAnchor" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Case Study: Ocean Temperatures<a href="string-date-processing.html#case-study-ocean-temperatures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="case-study-ocean-temperatures" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Case Study: Ocean Temperatures<a href="string-date-processing.html#case-study-ocean-temperatures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The U.S. National Oceanic and Atmospheric Administration (NOAA) publishes ocean
 temperature data collected by sensor buoys off the coast on the <a href="https://www.ndbc.noaa.gov/">National Data
 Buoy Center (NDBC) website</a>. California also has many sensors collecting
@@ -592,40 +578,40 @@ width in characters over all rows. The <a href="https://readr.tidyverse.org/">re
 <code>read_fwf</code> that can automatically guess the column widths and read the data
 into a data frame. The column names appear in the first row and column units
 appear in the second row, so read those rows separately:</p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="string-date-processing.html#cb290-1" tabindex="-1"></a><span class="co"># install.packages(&quot;readr&quot;)</span></span>
-<span id="cb290-2"><a href="string-date-processing.html#cb290-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readr&quot;</span>)</span>
-<span id="cb290-3"><a href="string-date-processing.html#cb290-3" tabindex="-1"></a></span>
-<span id="cb290-4"><a href="string-date-processing.html#cb290-4" tabindex="-1"></a>noaa_path <span class="ot">=</span> <span class="st">&quot;data/ocean_data/2021_noaa-ndbc_46013.txt&quot;</span></span>
-<span id="cb290-5"><a href="string-date-processing.html#cb290-5" tabindex="-1"></a>noaa_headers <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">n_max =</span> <span class="dv">2</span>, <span class="at">guess_max =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="string-date-processing.html#cb26-1" tabindex="-1"></a><span class="co"># install.packages(&quot;readr&quot;)</span></span>
+<span id="cb26-2"><a href="string-date-processing.html#cb26-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readr&quot;</span>)</span>
+<span id="cb26-3"><a href="string-date-processing.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="string-date-processing.html#cb26-4" tabindex="-1"></a>noaa_path <span class="ot">=</span> <span class="st">&quot;data/ocean_data/2021_noaa-ndbc_46013.txt&quot;</span></span>
+<span id="cb26-5"><a href="string-date-processing.html#cb26-5" tabindex="-1"></a>noaa_headers <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">n_max =</span> <span class="dv">2</span>, <span class="at">guess_max =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Rows: 2 Columns: 18
-## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## chr (18): X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, ...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="string-date-processing.html#cb292-1" tabindex="-1"></a>noaa <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="string-date-processing.html#cb28-1" tabindex="-1"></a>noaa <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Rows: 3323 Columns: 18
-## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## 
 ## chr  (4): X2, X3, X4, X5
 ## dbl (14): X1, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="string-date-processing.html#cb294-1" tabindex="-1"></a><span class="fu">names</span>(noaa) <span class="ot">=</span> <span class="fu">as.character</span>(noaa_headers[<span class="dv">1</span>, ])</span>
-<span id="cb294-2"><a href="string-date-processing.html#cb294-2" tabindex="-1"></a><span class="fu">names</span>(noaa)[<span class="dv">1</span>] <span class="ot">=</span> <span class="st">&quot;YY&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="string-date-processing.html#cb30-1" tabindex="-1"></a><span class="fu">names</span>(noaa) <span class="ot">=</span> <span class="fu">as.character</span>(noaa_headers[<span class="dv">1</span>, ])</span>
+<span id="cb30-2"><a href="string-date-processing.html#cb30-2" tabindex="-1"></a><span class="fu">names</span>(noaa)[<span class="dv">1</span>] <span class="ot">=</span> <span class="st">&quot;YY&quot;</span></span></code></pre></div>
 <p>The dates and times for the observations are separated into component columns,
 and the <code>read_fwf</code> function does not convert some of these to numbers
 automatically. You can use <code>as.numeric</code> to convert them to numbers:</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="string-date-processing.html#cb295-1" tabindex="-1"></a>cols <span class="ot">=</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb295-2"><a href="string-date-processing.html#cb295-2" tabindex="-1"></a>noaa[cols] <span class="ot">=</span> <span class="fu">lapply</span>(noaa[cols], as.numeric)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="string-date-processing.html#cb31-1" tabindex="-1"></a>cols <span class="ot">=</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb31-2"><a href="string-date-processing.html#cb31-2" tabindex="-1"></a>noaa[cols] <span class="ot">=</span> <span class="fu">lapply</span>(noaa[cols], as.numeric)</span></code></pre></div>
 <p>Finally, use the <code>make_datetime</code> function to combine the components into
 date-time objects:</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="string-date-processing.html#cb296-1" tabindex="-1"></a>noaa_dt <span class="ot">=</span> <span class="fu">make_datetime</span>(<span class="at">year =</span> noaa<span class="sc">$</span>YY, <span class="at">month =</span> noaa<span class="sc">$</span>MM, <span class="at">day =</span> noaa<span class="sc">$</span>DD,</span>
-<span id="cb296-2"><a href="string-date-processing.html#cb296-2" tabindex="-1"></a>  <span class="at">hour =</span> noaa<span class="sc">$</span>hh, <span class="at">min =</span> noaa<span class="sc">$</span>mm)</span>
-<span id="cb296-3"><a href="string-date-processing.html#cb296-3" tabindex="-1"></a>noaa<span class="sc">$</span>date <span class="ot">=</span> noaa_dt</span>
-<span id="cb296-4"><a href="string-date-processing.html#cb296-4" tabindex="-1"></a><span class="fu">head</span>(noaa_dt)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="string-date-processing.html#cb32-1" tabindex="-1"></a>noaa_dt <span class="ot">=</span> <span class="fu">make_datetime</span>(<span class="at">year =</span> noaa<span class="sc">$</span>YY, <span class="at">month =</span> noaa<span class="sc">$</span>MM, <span class="at">day =</span> noaa<span class="sc">$</span>DD,</span>
+<span id="cb32-2"><a href="string-date-processing.html#cb32-2" tabindex="-1"></a>  <span class="at">hour =</span> noaa<span class="sc">$</span>hh, <span class="at">min =</span> noaa<span class="sc">$</span>mm)</span>
+<span id="cb32-3"><a href="string-date-processing.html#cb32-3" tabindex="-1"></a>noaa<span class="sc">$</span>date <span class="ot">=</span> noaa_dt</span>
+<span id="cb32-4"><a href="string-date-processing.html#cb32-4" tabindex="-1"></a><span class="fu">head</span>(noaa_dt)</span></code></pre></div>
 <pre><code>## [1] &quot;2021-01-01 00:00:00 UTC&quot; &quot;2021-01-01 00:10:00 UTC&quot;
 ## [3] &quot;2021-01-01 00:20:00 UTC&quot; &quot;2021-01-01 00:30:00 UTC&quot;
 ## [5] &quot;2021-01-01 00:40:00 UTC&quot; &quot;2021-01-01 00:50:00 UTC&quot;</code></pre>
@@ -635,21 +621,21 @@ the readr package’s <code>read_csv</code> function. The latter is faster and u
 better at guessing column types. The column names appear in the first row and
 the column units appear in the second row. The <code>read_csv</code> function handles the
 names automatically, but you’ll have to remove the unit row as a separate step:</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="string-date-processing.html#cb298-1" tabindex="-1"></a>bml <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ocean_data/2021_ucdavis_bml_wts.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="string-date-processing.html#cb34-1" tabindex="-1"></a>bml <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ocean_data/2021_ucdavis_bml_wts.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 87283 Columns: 4
-## ── Column specification ────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (3): time, sea_water_temperature, z
 ## dbl (1): sea_water_temperature_qc_agg
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="string-date-processing.html#cb300-1" tabindex="-1"></a>bml <span class="ot">=</span> bml[<span class="sc">-</span><span class="dv">1</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="string-date-processing.html#cb36-1" tabindex="-1"></a>bml <span class="ot">=</span> bml[<span class="sc">-</span><span class="dv">1</span>, ]</span></code></pre></div>
 <p>The dates and times of the observations were loaded as strings. You can use
 lubridate’s <code>ymd_hms</code> function to automatically parse them:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="string-date-processing.html#cb301-1" tabindex="-1"></a>bml_dt <span class="ot">=</span> <span class="fu">ymd_hms</span>(bml<span class="sc">$</span>time)</span>
-<span id="cb301-2"><a href="string-date-processing.html#cb301-2" tabindex="-1"></a>bml<span class="sc">$</span>date <span class="ot">=</span> bml_dt</span>
-<span id="cb301-3"><a href="string-date-processing.html#cb301-3" tabindex="-1"></a><span class="fu">head</span>(bml_dt)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="string-date-processing.html#cb37-1" tabindex="-1"></a>bml_dt <span class="ot">=</span> <span class="fu">ymd_hms</span>(bml<span class="sc">$</span>time)</span>
+<span id="cb37-2"><a href="string-date-processing.html#cb37-2" tabindex="-1"></a>bml<span class="sc">$</span>date <span class="ot">=</span> bml_dt</span>
+<span id="cb37-3"><a href="string-date-processing.html#cb37-3" tabindex="-1"></a><span class="fu">head</span>(bml_dt)</span></code></pre></div>
 <pre><code>## [1] &quot;2020-12-31 09:06:00 UTC&quot; &quot;2020-12-31 09:12:00 UTC&quot;
 ## [3] &quot;2020-12-31 09:18:00 UTC&quot; &quot;2020-12-31 09:24:00 UTC&quot;
 ## [5] &quot;2020-12-31 09:30:00 UTC&quot; &quot;2020-12-31 09:36:00 UTC&quot;</code></pre>
@@ -659,8 +645,8 @@ from each, create a new column identifying the data source, and then row-bind
 the datasets together.</p>
 </div>
 </div>
-<div id="string-fundamentals" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> String Fundamentals<a href="string-date-processing.html#string-fundamentals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="string-fundamentals" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> String Fundamentals<a href="string-date-processing.html#string-fundamentals" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Strings represent text, but even if your datasets are composed entirely of
 numbers, you’ll need to know how to work with strings. Text formats for data
 are widespread: comma-separated values (CSV), tab-separated values (TSV),
@@ -670,12 +656,12 @@ will correctly convert the values to appropriate non-string types. The rest of
 the time, you need to know how to work with strings so that you can fix
 whatever went wrong and convert the data yourself.</p>
 <p>This section introduces several fundamental concepts related to working with
-strings. The next section, Section <a href="string-date-processing.html#the-stringr-package">3.4.1</a>, describes the
+strings. The next section, Section <a href="string-date-processing.html#the-stringr-package">1.4.1</a>, describes the
 stringr package for working with strings. The last section, Section
-<a href="string-date-processing.html#regular-expressions">3.4.2</a>, builds on both and explains how to do powerful
+<a href="string-date-processing.html#regular-expressions">1.4.2</a>, builds on both and explains how to do powerful
 pattern matching.</p>
-<div id="printing" class="section level3 hasAnchor" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Printing<a href="string-date-processing.html#printing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="printing" class="section level3 hasAnchor" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Printing<a href="string-date-processing.html#printing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are two different ways to print strings: you can print a representation
 of the characters in the string or you can print the actual characters in the
 string.</p>
@@ -686,10 +672,10 @@ normally visible, such as tabs and the characters that mark the end of a line.</
 <p>This important difference in how the <code>print</code> and <code>message</code> functions print
 strings is demonstrated in the next section.</p>
 <p>You can learn more about different ways to print output in R by reading Section
-<a href="output-errors-and-bugs.html#printing-output">2.1</a>.</p>
+<a href="squashing-bugs-with-rs-debugging-tools.html#printing-output">4.1</a>.</p>
 </div>
-<div id="escape-sequences-1" class="section level3 hasAnchor" number="3.3.2">
-<h3><span class="header-section-number">3.3.2</span> Escape Sequences<a href="string-date-processing.html#escape-sequences-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="escape-sequences" class="section level3 hasAnchor" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Escape Sequences<a href="string-date-processing.html#escape-sequences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In a string, an <strong>escape sequence</strong> or <strong>escape code</strong> consists of a backslash
 followed by one or more characters. Escape sequences make it possible to:</p>
 <ol style="list-style-type: decimal">
@@ -700,51 +686,51 @@ in a foreign language)</li>
 <p>For example, the escape sequence <code>\n</code> corresponds to the newline character.
 Notice that the <code>message</code> function translates <code>\n</code> into a literal new line,
 whereas the <code>print</code> function doesn’t:</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="string-date-processing.html#cb303-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;Hello</span><span class="sc">\n</span><span class="st">Nick&quot;</span></span>
-<span id="cb303-2"><a href="string-date-processing.html#cb303-2" tabindex="-1"></a></span>
-<span id="cb303-3"><a href="string-date-processing.html#cb303-3" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="string-date-processing.html#cb39-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;Hello</span><span class="sc">\n</span><span class="st">Nick&quot;</span></span>
+<span id="cb39-2"><a href="string-date-processing.html#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="string-date-processing.html#cb39-3" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
 <pre><code>## Hello
 ## Nick</code></pre>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="string-date-processing.html#cb305-1" tabindex="-1"></a><span class="fu">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="string-date-processing.html#cb41-1" tabindex="-1"></a><span class="fu">print</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;Hello\nNick&quot;</code></pre>
 <p>As another example, suppose we want to put a literal quote in a string. We can
 either enclose the string in the other kind of quotes, or escape the quotes in
 the string:</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="string-date-processing.html#cb307-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&#39;She said, &quot;Hi&quot;&#39;</span></span>
-<span id="cb307-2"><a href="string-date-processing.html#cb307-2" tabindex="-1"></a></span>
-<span id="cb307-3"><a href="string-date-processing.html#cb307-3" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="string-date-processing.html#cb43-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&#39;She said, &quot;Hi&quot;&#39;</span></span>
+<span id="cb43-2"><a href="string-date-processing.html#cb43-2" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="string-date-processing.html#cb43-3" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
 <pre><code>## She said, &quot;Hi&quot;</code></pre>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="string-date-processing.html#cb309-1" tabindex="-1"></a>y <span class="ot">=</span> <span class="st">&quot;She said, </span><span class="sc">\&quot;</span><span class="st">Hi</span><span class="sc">\&quot;</span><span class="st">&quot;</span></span>
-<span id="cb309-2"><a href="string-date-processing.html#cb309-2" tabindex="-1"></a></span>
-<span id="cb309-3"><a href="string-date-processing.html#cb309-3" tabindex="-1"></a><span class="fu">message</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="string-date-processing.html#cb45-1" tabindex="-1"></a>y <span class="ot">=</span> <span class="st">&quot;She said, </span><span class="sc">\&quot;</span><span class="st">Hi</span><span class="sc">\&quot;</span><span class="st">&quot;</span></span>
+<span id="cb45-2"><a href="string-date-processing.html#cb45-2" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="string-date-processing.html#cb45-3" tabindex="-1"></a><span class="fu">message</span>(y)</span></code></pre></div>
 <pre><code>## She said, &quot;Hi&quot;</code></pre>
 <p>Since escape sequences begin with backslash, we also need to use an escape
 sequence to write a literal backslash. The escape sequence for a literal
 backslash is two backslashes:</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="string-date-processing.html#cb311-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">&quot;</span></span>
-<span id="cb311-2"><a href="string-date-processing.html#cb311-2" tabindex="-1"></a></span>
-<span id="cb311-3"><a href="string-date-processing.html#cb311-3" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="string-date-processing.html#cb47-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">&quot;</span></span>
+<span id="cb47-2"><a href="string-date-processing.html#cb47-2" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="string-date-processing.html#cb47-3" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
 <pre><code>## \</code></pre>
 <p>There’s a complete list of escape sequences for R in the <code>?Quotes</code> help file.
 Other programming languages also use escape sequences, and many of them are the
 same as in R.</p>
 </div>
-<div id="raw-strings" class="section level3 hasAnchor" number="3.3.3">
-<h3><span class="header-section-number">3.3.3</span> Raw Strings<a href="string-date-processing.html#raw-strings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="raw-strings" class="section level3 hasAnchor" number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> Raw Strings<a href="string-date-processing.html#raw-strings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A <strong>raw string</strong> is a string where escape sequences are turned off. Raw strings
 are especially useful for writing regular expressions (covered in Section
-<a href="string-date-processing.html#regular-expressions">3.4.2</a>).</p>
+<a href="string-date-processing.html#regular-expressions">1.4.2</a>).</p>
 <p>Raw strings begin with <code>r"</code> and an opening delimiter <code>(</code>, <code>[</code>, or <code>{</code>. Raw
 strings end with a matching closing delimiter and quote. For example:</p>
-<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="string-date-processing.html#cb313-1" tabindex="-1"></a>x <span class="ot">=</span> r<span class="st">&quot;(quotes &quot;</span> and backslashes \<span class="er">)</span><span class="st">&quot;</span></span>
-<span id="cb313-2"><a href="string-date-processing.html#cb313-2" tabindex="-1"></a></span>
-<span id="cb313-3"><a href="string-date-processing.html#cb313-3" tabindex="-1"></a><span class="st">message(x)</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="string-date-processing.html#cb49-1" tabindex="-1"></a>x <span class="ot">=</span> r<span class="st">&quot;(quotes &quot;</span> and backslashes \<span class="er">)</span><span class="st">&quot;</span></span>
+<span id="cb49-2"><a href="string-date-processing.html#cb49-2" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="string-date-processing.html#cb49-3" tabindex="-1"></a><span class="st">message(x)</span></span></code></pre></div>
 <pre><code>## quotes &quot; and backslashes \</code></pre>
 <p>Raw strings were added to R in version 4.0 (April 2020), and won’t work
 correctly in older versions.</p>
 </div>
-<div id="character-encodings" class="section level3 hasAnchor" number="3.3.4">
-<h3><span class="header-section-number">3.3.4</span> Character Encodings<a href="string-date-processing.html#character-encodings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="character-encodings" class="section level3 hasAnchor" number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> Character Encodings<a href="string-date-processing.html#character-encodings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Computers store data as numbers. In order to store text on a computer, people
 have to agree on a <strong>character encoding</strong>, a system for mapping characters to
 numbers. For example, in <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>, one of
@@ -765,9 +751,9 @@ support and are synonymous with Unicode. The most popular of these is UTF-8.</p>
 by the number for the character in <a href="https://en.wikipedia.org/wiki/Hexadecimal">base 16</a>. For instance, the number for
 <code>a</code> in Unicode is 97 (the same as in ASCII). In base 16, 97 is <code>61</code>. So you can
 write an <code>a</code> as:</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="string-date-processing.html#cb315-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;\U61&quot;</span> <span class="co"># or &quot;\u61&quot;</span></span>
-<span id="cb315-2"><a href="string-date-processing.html#cb315-2" tabindex="-1"></a></span>
-<span id="cb315-3"><a href="string-date-processing.html#cb315-3" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="string-date-processing.html#cb51-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;\U61&quot;</span> <span class="co"># or &quot;\u61&quot;</span></span>
+<span id="cb51-2"><a href="string-date-processing.html#cb51-2" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="string-date-processing.html#cb51-3" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>## [1] &quot;a&quot;</code></pre>
 <p>Unicode escape sequences are usually only used for characters that are not easy
 to type. For example, the cat emoji is number <code>1f408</code> (in base 16) in Unicode.
@@ -779,8 +765,8 @@ character. Many fonts are limited to a small number of languages. The
 have better Unicode coverage. Using a font with good Unicode coverage is not
 essential, but it’s convenient if you expect to work with many different
 natural languages or love using emoji.</p>
-<div id="character-encodings-in-text-files" class="section level4 hasAnchor" number="3.3.4.1">
-<h4><span class="header-section-number">3.3.4.1</span> Character Encodings in Text Files<a href="string-date-processing.html#character-encodings-in-text-files" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="character-encodings-in-text-files" class="section level4 hasAnchor" number="1.3.4.1">
+<h4><span class="header-section-number">1.3.4.1</span> Character Encodings in Text Files<a href="string-date-processing.html#character-encodings-in-text-files" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Most of the time, R will handle character encodings for you automatically.
 However, if you ever read or write a text file (including CSV and other
 formats) and the text <a href="https://en.wikipedia.org/wiki/Mojibake">looks like gibberish</a>, it might be an encoding
@@ -789,7 +775,7 @@ that does not (yet) use UTF-8 as the default encoding.</p>
 <p>Encoding problems when reading a file can usually be fixed by passing the
 encoding to the function doing the reading. For instance, the code to read a
 UTF-8 encoded CSV file on Windows is:</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="string-date-processing.html#cb317-1" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;my_data.csv&quot;</span>, <span class="at">fileEncoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="string-date-processing.html#cb53-1" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;my_data.csv&quot;</span>, <span class="at">fileEncoding =</span> <span class="st">&quot;UTF-8&quot;</span>)</span></code></pre></div>
 <p>Other reader functions may use a different parameter to set the encoding, so
 always check the documentation. On computers where the native language is not
 set to English, it can also help to set R’s native language to English with
@@ -799,8 +785,8 @@ set to English, it can also help to set R’s native language to English with
 </div>
 </div>
 </div>
-<div id="processing-strings" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Processing Strings<a href="string-date-processing.html#processing-strings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="processing-strings" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Processing Strings<a href="string-date-processing.html#processing-strings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>String processing encompasses a variety of tasks such as searching for patterns
 within strings, extracting data from within strings, splitting strings into
 component parts, and removing or replacing unwanted characters (excess
@@ -808,12 +794,12 @@ whitespace, punctuation, and so on). If you work with data, sooner or later
 you’ll run into a dataset in text format that needs a few text corrections
 before or after you read it into R, and for that you’ll find familiarity with
 string processing invaluable.</p>
-<div id="the-stringr-package" class="section level3 hasAnchor" number="3.4.1">
-<h3><span class="header-section-number">3.4.1</span> The stringr Package<a href="string-date-processing.html#the-stringr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-stringr-package" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> The stringr Package<a href="string-date-processing.html#the-stringr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Although R has built-in functions for string processing, we recommend using the
 <a href="https://stringr.tidyverse.org/">stringr</a> package for all of your string processing needs. The package is
 part of the Tidyverse, a collection of packages introduced in Section
-<a href="string-date-processing.html#the-tidyverse">3.1</a>. Major advantages of stringr over other packages and R’s
+<a href="string-date-processing.html#the-tidyverse">1.1</a>. Major advantages of stringr over other packages and R’s
 built-in functions include:</p>
 <ul>
 <li>Correctness: the package builds on <a href="https://en.wikipedia.org/wiki/International_Components_for_Unicode">International Components for Unicode
@@ -830,10 +816,10 @@ second argument</li>
 <p>The first time you use stringr, you’ll have to install it with
 <code>install.packages</code> (the same as any other package). Then you can load the
 package with the <code>library</code> function:</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="string-date-processing.html#cb318-1" tabindex="-1"></a><span class="co"># install.packages(&quot;stringr&quot;)</span></span>
-<span id="cb318-2"><a href="string-date-processing.html#cb318-2" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="string-date-processing.html#cb54-1" tabindex="-1"></a><span class="co"># install.packages(&quot;stringr&quot;)</span></span>
+<span id="cb54-2"><a href="string-date-processing.html#cb54-2" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code></pre></div>
 <p>The typical syntax of a stringr function is:</p>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="string-date-processing.html#cb319-1" tabindex="-1"></a><span class="fu">str_name</span>(string, pattern, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="string-date-processing.html#cb55-1" tabindex="-1"></a><span class="fu">str_name</span>(string, pattern, ...)</span></code></pre></div>
 <p>Where:</p>
 <ul>
 <li><code>name</code> describes what the function does</li>
@@ -844,18 +830,18 @@ package with the <code>library</code> function:</p>
 <p>For example, the <code>str_detect</code> function <em>detects</em> whether a pattern appears
 within a string. The function returns <code>TRUE</code> if the pattern is found and
 <code>FALSE</code> if it isn’t:</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="string-date-processing.html#cb320-1" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;el&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="string-date-processing.html#cb56-1" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;el&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="string-date-processing.html#cb322-1" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;ol&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="string-date-processing.html#cb58-1" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;ol&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Most of the stringr functions are vectorized in the <code>string</code> parameter:</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="string-date-processing.html#cb324-1" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;goodbye&quot;</span>, <span class="st">&quot;lo&quot;</span>), <span class="st">&quot;lo&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="string-date-processing.html#cb60-1" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="fu">c</span>(<span class="st">&quot;hello&quot;</span>, <span class="st">&quot;goodbye&quot;</span>, <span class="st">&quot;lo&quot;</span>), <span class="st">&quot;lo&quot;</span>)</span></code></pre></div>
 <pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
 <p>As another example, the <code>str_sub</code> function extracts a <em>substring</em> from a
 string, given the substring’s position. The first argument is the string, the
 second is the position of the substring’s first character, and the third is the
 position of the substring’s last character:</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="string-date-processing.html#cb326-1" tabindex="-1"></a><span class="fu">str_sub</span>(<span class="st">&quot;You speak of destiny as if it was fixed.&quot;</span>, <span class="dv">5</span>, <span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="string-date-processing.html#cb62-1" tabindex="-1"></a><span class="fu">str_sub</span>(<span class="st">&quot;You speak of destiny as if it was fixed.&quot;</span>, <span class="dv">5</span>, <span class="dv">9</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;speak&quot;</code></pre>
 <p>The <code>str_sub</code> function is especially useful for extracting data from strings
 that have a fixed width (although the <a href="https://readr.tidyverse.org/">readr</a> package’s <code>read_fwf</code> is usually
@@ -873,8 +859,8 @@ are explained in this reader are:</p>
 documentation’s <a href="https://stringr.tidyverse.org/reference/">reference page</a> and the
 <a href="https://github.com/rstudio/cheatsheets/blob/master/strings.pdf">cheatsheet</a>.</p>
 </div>
-<div id="regular-expressions" class="section level3 hasAnchor" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> Regular Expressions<a href="string-date-processing.html#regular-expressions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="regular-expressions" class="section level3 hasAnchor" number="1.4.2">
+<h3><span class="header-section-number">1.4.2</span> Regular Expressions<a href="string-date-processing.html#regular-expressions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The stringr functions use a special language called <strong>regular expressions</strong> or
 <strong>regex</strong> to describe patterns in strings. Many other programming languages
 also have string processing tools that use regular expressions, so fluency with
@@ -902,7 +888,7 @@ letters or numbers, which always have their literal meaning.</p>
 </tr>
 <tr class="even">
 <td><code>\</code></td>
-<td>escape character (in both R and regex), see Section <a href="output-errors-and-bugs.html#escape-sequences">2.1.4.1</a></td>
+<td>escape character (in both R and regex), see Section <a href="string-date-processing.html#escape-sequences">1.3.2</a></td>
 </tr>
 <tr class="odd">
 <td><code>^</code></td>
@@ -942,7 +928,7 @@ letters or numbers, which always have their literal meaning.</p>
 </tr>
 </tbody>
 </table>
-<p>Section <a href="string-date-processing.html#regular-expression-examples">3.5</a> provides examples of how most of the
+<p>Section <a href="string-date-processing.html#regular-expression-examples">1.5</a> provides examples of how most of the
 metacharacters work. Even more examples are presented in the stringr package’s
 <a href="https://stringr.tidyverse.org/articles/regular-expressions.html">regular expressions vignette</a>. You can find a complete listing
 of regex metacharacters in <code>?regex</code> or on the stringr
@@ -950,15 +936,15 @@ of regex metacharacters in <code>?regex</code> or on the stringr
 <p>You can disable regular expressions in a stringr function by calling the
 <code>fixed</code> function on the pattern. For example, to test whether a string contains
 a literal dot <code>.</code>:</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="string-date-processing.html#cb328-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No dot&quot;</span>, <span class="st">&quot;Lotsa dots...&quot;</span>)</span>
-<span id="cb328-2"><a href="string-date-processing.html#cb328-2" tabindex="-1"></a><span class="fu">str_detect</span>(x, <span class="fu">fixed</span>(<span class="st">&quot;.&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="string-date-processing.html#cb64-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;No dot&quot;</span>, <span class="st">&quot;Lotsa dots...&quot;</span>)</span>
+<span id="cb64-2"><a href="string-date-processing.html#cb64-2" tabindex="-1"></a><span class="fu">str_detect</span>(x, <span class="fu">fixed</span>(<span class="st">&quot;.&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] FALSE  TRUE</code></pre>
 <p>It’s a good idea to call <code>fixed</code> on any pattern that doesn’t contain regex
 metacharacters, because it communicates to the reader that you’re not using
 regex, it helps to prevent bugs, and it provides a small speed boost.</p>
 </div>
-<div id="replacing-parts-of-strings" class="section level3 hasAnchor" number="3.4.3">
-<h3><span class="header-section-number">3.4.3</span> Replacing Parts of Strings<a href="string-date-processing.html#replacing-parts-of-strings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="replacing-parts-of-strings" class="section level3 hasAnchor" number="1.4.3">
+<h3><span class="header-section-number">1.4.3</span> Replacing Parts of Strings<a href="string-date-processing.html#replacing-parts-of-strings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Replacing part of a string is a common string processing task. For instance,
 quantitative data often contain non-numeric characters such as commas, currency
 symbols, and percent signs. These must be removed before converting to numeric
@@ -975,33 +961,33 @@ commas. You want to remove <em>all</em> of the commas, so <code>str_replace_all<
 function to use. As usual, the first argument is the string and the second is
 the pattern. The third argument is the replacement, which is the empty string
 <code>""</code> in this case:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="string-date-processing.html#cb330-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;1,000,000&quot;</span></span>
-<span id="cb330-2"><a href="string-date-processing.html#cb330-2" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="string-date-processing.html#cb66-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;1,000,000&quot;</span></span>
+<span id="cb66-2"><a href="string-date-processing.html#cb66-2" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1000000&quot;</code></pre>
 <p>The <code>str_replace</code> function doesn’t work as well for this task, since it only
 replaces the first match to the pattern:</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="string-date-processing.html#cb332-1" tabindex="-1"></a><span class="fu">str_replace</span>(x, <span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="string-date-processing.html#cb68-1" tabindex="-1"></a><span class="fu">str_replace</span>(x, <span class="st">&quot;,&quot;</span>, <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1000,000&quot;</code></pre>
 <p>You can also use these functions to replace or remove longer patterns within
 words. For instance, suppose you want to change the word <code>"dog"</code> to <code>"cat"</code>:</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="string-date-processing.html#cb334-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;dogs are great, dogs are fun&quot;</span>, <span class="st">&quot;dogs are fluffy&quot;</span>)</span>
-<span id="cb334-2"><a href="string-date-processing.html#cb334-2" tabindex="-1"></a><span class="fu">str_replace</span>(x, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="string-date-processing.html#cb70-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;dogs are great, dogs are fun&quot;</span>, <span class="st">&quot;dogs are fluffy&quot;</span>)</span>
+<span id="cb70-2"><a href="string-date-processing.html#cb70-2" tabindex="-1"></a><span class="fu">str_replace</span>(x, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;cats are great, dogs are fun&quot; &quot;cats are fluffy&quot;</code></pre>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="string-date-processing.html#cb336-1" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="string-date-processing.html#cb72-1" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;cats are great, cats are fun&quot; &quot;cats are fluffy&quot;</code></pre>
 <p>As a final example, you can use the replacement functions and a regex pattern
 to replace repeated spaces with a single space. This is a good standardization
 step if you’re working with text. The key is to use the regex quantifier <code>+</code>,
 which means a character “repeats one or more times” in the pattern, and to use
 a single space <code>" "</code> as the replacement:</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="string-date-processing.html#cb338-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;This    sentence  has  extra      space.&quot;</span></span>
-<span id="cb338-2"><a href="string-date-processing.html#cb338-2" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="st">&quot; +&quot;</span>, <span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="string-date-processing.html#cb74-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;This    sentence  has  extra      space.&quot;</span></span>
+<span id="cb74-2"><a href="string-date-processing.html#cb74-2" tabindex="-1"></a><span class="fu">str_replace_all</span>(x, <span class="st">&quot; +&quot;</span>, <span class="st">&quot; &quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;This sentence has extra space.&quot;</code></pre>
 <p>If you just want to <strong>trim</strong> (remove) all whitespace from the beginning and end
 of a string, you can use the <code>str_trim</code> function instead.</p>
 </div>
-<div id="splitting-strings" class="section level3 hasAnchor" number="3.4.4">
-<h3><span class="header-section-number">3.4.4</span> Splitting Strings<a href="string-date-processing.html#splitting-strings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="splitting-strings" class="section level3 hasAnchor" number="1.4.4">
+<h3><span class="header-section-number">1.4.4</span> Splitting Strings<a href="string-date-processing.html#splitting-strings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Distinct data in a text are generally separated by a character like a space or
 a comma, to make them easy for people to read. Often these separators also make
 the data easy for R to parse. The idea is to split the string into a separate
@@ -1010,22 +996,22 @@ value at each separator.</p>
 matching characters—that is, the separators—are discarded.</p>
 <p>For example, suppose you want to split several numbers separated by commas and
 spaces:</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="string-date-processing.html#cb340-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;21, 32.3, 5, 64&quot;</span></span>
-<span id="cb340-2"><a href="string-date-processing.html#cb340-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">str_split</span>(x, <span class="st">&quot;, &quot;</span>)</span>
-<span id="cb340-3"><a href="string-date-processing.html#cb340-3" tabindex="-1"></a>result</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="string-date-processing.html#cb76-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;21, 32.3, 5, 64&quot;</span></span>
+<span id="cb76-2"><a href="string-date-processing.html#cb76-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">str_split</span>(x, <span class="st">&quot;, &quot;</span>)</span>
+<span id="cb76-3"><a href="string-date-processing.html#cb76-3" tabindex="-1"></a>result</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;21&quot;   &quot;32.3&quot; &quot;5&quot;    &quot;64&quot;</code></pre>
 <p>The <code>str_split</code> function always returns a list with one element for each input
 string. Here the list only has one element because <code>x</code> only has one element.
 You can get the first element with:</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="string-date-processing.html#cb342-1" tabindex="-1"></a>result[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="string-date-processing.html#cb78-1" tabindex="-1"></a>result[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## [1] &quot;21&quot;   &quot;32.3&quot; &quot;5&quot;    &quot;64&quot;</code></pre>
 <p>You then convert the values with <code>as.numeric</code>.</p>
 <p>To see why the <code>str_split</code> function always returns a list, consider what
 happens if you try to split two different strings at once:</p>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="string-date-processing.html#cb344-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(x, <span class="st">&quot;10, 15, 1.3&quot;</span>)</span>
-<span id="cb344-2"><a href="string-date-processing.html#cb344-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">str_split</span>(x, <span class="st">&quot;, &quot;</span>)</span>
-<span id="cb344-3"><a href="string-date-processing.html#cb344-3" tabindex="-1"></a>result</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="string-date-processing.html#cb80-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(x, <span class="st">&quot;10, 15, 1.3&quot;</span>)</span>
+<span id="cb80-2"><a href="string-date-processing.html#cb80-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">str_split</span>(x, <span class="st">&quot;, &quot;</span>)</span>
+<span id="cb80-3"><a href="string-date-processing.html#cb80-3" tabindex="-1"></a>result</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;21&quot;   &quot;32.3&quot; &quot;5&quot;    &quot;64&quot;  
 ## 
@@ -1035,8 +1021,8 @@ happens if you try to split two different strings at once:</p>
 different lengths. So a list is the only way to store them.</p>
 <p>You can also use the <code>str_split</code> function to split a sentence into words. Use
 spaces for the split:</p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="string-date-processing.html#cb346-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;The students in this workshop are great!&quot;</span></span>
-<span id="cb346-2"><a href="string-date-processing.html#cb346-2" tabindex="-1"></a><span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="string-date-processing.html#cb82-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;The students in this workshop are great!&quot;</span></span>
+<span id="cb82-2"><a href="string-date-processing.html#cb82-2" tabindex="-1"></a><span class="fu">str_split</span>(x, <span class="st">&quot; &quot;</span>)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;The&quot;      &quot;students&quot; &quot;in&quot;       &quot;this&quot;     &quot;workshop&quot; &quot;are&quot;      &quot;great!&quot;</code></pre>
 <p>When you know exactly how many parts you expect a string to have, use the
@@ -1044,8 +1030,8 @@ spaces for the split:</p>
 for the maximum number of splits to make. Because the number of splits is
 fixed, the function can return the result in a matrix instead of a list. For
 example:</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="string-date-processing.html#cb348-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;1, 2, 3&quot;</span>, <span class="st">&quot;10, 20, 30&quot;</span>)</span>
-<span id="cb348-2"><a href="string-date-processing.html#cb348-2" tabindex="-1"></a><span class="fu">str_split_fixed</span>(x, <span class="st">&quot;, &quot;</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="string-date-processing.html#cb84-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;1, 2, 3&quot;</span>, <span class="st">&quot;10, 20, 30&quot;</span>)</span>
+<span id="cb84-2"><a href="string-date-processing.html#cb84-2" tabindex="-1"></a><span class="fu">str_split_fixed</span>(x, <span class="st">&quot;, &quot;</span>, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,] &quot;1&quot;  &quot;2&quot;  &quot;3&quot; 
 ## [2,] &quot;10&quot; &quot;20&quot; &quot;30&quot;</code></pre>
@@ -1053,19 +1039,19 @@ example:</p>
 because the <code>n</code>th piece of each input string is just the <code>n</code>th column of the
 result.</p>
 <p>For example, suppose you want to get the area codes from some phone numbers:</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="string-date-processing.html#cb350-1" tabindex="-1"></a>phones <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;717-555-3421&quot;</span>, <span class="st">&quot;629-555-8902&quot;</span>, <span class="st">&quot;903-555-6781&quot;</span>)</span>
-<span id="cb350-2"><a href="string-date-processing.html#cb350-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">str_split_fixed</span>(phones, <span class="st">&quot;-&quot;</span>, <span class="dv">3</span>)</span>
-<span id="cb350-3"><a href="string-date-processing.html#cb350-3" tabindex="-1"></a></span>
-<span id="cb350-4"><a href="string-date-processing.html#cb350-4" tabindex="-1"></a>result[, <span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="string-date-processing.html#cb86-1" tabindex="-1"></a>phones <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;717-555-3421&quot;</span>, <span class="st">&quot;629-555-8902&quot;</span>, <span class="st">&quot;903-555-6781&quot;</span>)</span>
+<span id="cb86-2"><a href="string-date-processing.html#cb86-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">str_split_fixed</span>(phones, <span class="st">&quot;-&quot;</span>, <span class="dv">3</span>)</span>
+<span id="cb86-3"><a href="string-date-processing.html#cb86-3" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="string-date-processing.html#cb86-4" tabindex="-1"></a>result[, <span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] &quot;717&quot; &quot;629&quot; &quot;903&quot;</code></pre>
 </div>
-<div id="extracting-matches" class="section level3 hasAnchor" number="3.4.5">
-<h3><span class="header-section-number">3.4.5</span> Extracting Matches<a href="string-date-processing.html#extracting-matches" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="extracting-matches" class="section level3 hasAnchor" number="1.4.5">
+<h3><span class="header-section-number">1.4.5</span> Extracting Matches<a href="string-date-processing.html#extracting-matches" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Occasionally, you might need to extract parts of a string in a more complicated
 way than string splitting allows. One solution is to write a regular expression
 that will match all of the data you want to capture, with parentheses <code>( )</code>,
 the regex metacharacter for a group, around each distinct value. Then you can
-use the <code>str_match</code> function to extract the groups. Section <a href="string-date-processing.html#groups">3.5.6</a>
+use the <code>str_match</code> function to extract the groups. Section <a href="string-date-processing.html#groups">1.5.6</a>
 presents some examples of regex groups.</p>
 <p>For example, suppose you want to split an email address into three parts: the
 user name, the domain name, and the [top-level domain][tld]. To create a
@@ -1077,9 +1063,9 @@ which you can represent with the “word” metacharacter <code>\w</code>:</p>
 <pre><code>(\w+)@(\w+)[.](\w+)</code></pre>
 <p>Finally, use this pattern in <code>str_match</code>, adding extra backslashes so that
 everything is escaped correctly:</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="string-date-processing.html#cb354-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;datalab@ucdavis.edu&quot;</span></span>
-<span id="cb354-2"><a href="string-date-processing.html#cb354-2" tabindex="-1"></a>regex <span class="ot">=</span> <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">w+)@(</span><span class="sc">\\</span><span class="st">w+)[.](</span><span class="sc">\\</span><span class="st">w+)&quot;</span></span>
-<span id="cb354-3"><a href="string-date-processing.html#cb354-3" tabindex="-1"></a><span class="fu">str_match</span>(x, regex)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="string-date-processing.html#cb90-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;datalab@ucdavis.edu&quot;</span></span>
+<span id="cb90-2"><a href="string-date-processing.html#cb90-2" tabindex="-1"></a>regex <span class="ot">=</span> <span class="st">&quot;(</span><span class="sc">\\</span><span class="st">w+)@(</span><span class="sc">\\</span><span class="st">w+)[.](</span><span class="sc">\\</span><span class="st">w+)&quot;</span></span>
+<span id="cb90-3"><a href="string-date-processing.html#cb90-3" tabindex="-1"></a><span class="fu">str_match</span>(x, regex)</span></code></pre></div>
 <pre><code>##      [,1]                  [,2]      [,3]      [,4] 
 ## [1,] &quot;datalab@ucdavis.edu&quot; &quot;datalab&quot; &quot;ucdavis&quot; &quot;edu&quot;</code></pre>
 <p>The function extracts the overall match to the pattern, as well as the match to
@@ -1089,8 +1075,8 @@ alphanumeric. You could generalize the pattern if necessary. The point is that
 the <code>str_match</code> function and groups provide an extremely flexible way to
 extract data from strings.</p>
 </div>
-<div id="case-study-u.s.-warehouse-stocks" class="section level3 hasAnchor" number="3.4.6">
-<h3><span class="header-section-number">3.4.6</span> Case Study: U.S. Warehouse Stocks<a href="string-date-processing.html#case-study-u.s.-warehouse-stocks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="case-study-u.s.-warehouse-stocks" class="section level3 hasAnchor" number="1.4.6">
+<h3><span class="header-section-number">1.4.6</span> Case Study: U.S. Warehouse Stocks<a href="string-date-processing.html#case-study-u.s.-warehouse-stocks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The U.S. Department of Agriculture (USDA) publishes a variety of datasets
 online, particularly through its National Agricultural Statistics Service
 (NASS). Unfortunately, most of are published in PDF or semi-structured text
@@ -1113,8 +1099,8 @@ use string processing functions to find and extract the table.</p>
 <p>The <code>readLines</code> function reads a text file into a character vector with one
 element for each line. This makes the function useful for reading unstructured
 or semi-structured text. Use the function to read the report:</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="string-date-processing.html#cb356-1" tabindex="-1"></a>report <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">&quot;data/cost1222.txt&quot;</span>)</span>
-<span id="cb356-2"><a href="string-date-processing.html#cb356-2" tabindex="-1"></a><span class="fu">head</span>(report)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="string-date-processing.html#cb92-1" tabindex="-1"></a>report <span class="ot">=</span> <span class="fu">readLines</span>(<span class="st">&quot;data/cost1222.txt&quot;</span>)</span>
+<span id="cb92-2"><a href="string-date-processing.html#cb92-2" tabindex="-1"></a><span class="fu">head</span>(report)</span></code></pre></div>
 <pre><code>## [1] &quot;&quot;                                                                            
 ## [2] &quot;Cold Storage&quot;                                                                
 ## [3] &quot;&quot;                                                                            
@@ -1127,18 +1113,18 @@ or semi-structured text. Use the function to read the report:</p>
 a pattern. The only difference is that <code>str_which</code> returns the indexes of the
 strings that matched (as if you had called <code>which</code>) rather than a logical
 vector. Use <code>str_which</code> to find the all-dash lines:</p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="string-date-processing.html#cb358-1" tabindex="-1"></a><span class="co"># The regex means:</span></span>
-<span id="cb358-2"><a href="string-date-processing.html#cb358-2" tabindex="-1"></a><span class="co">#   ^  begining of string</span></span>
-<span id="cb358-3"><a href="string-date-processing.html#cb358-3" tabindex="-1"></a><span class="co">#   -+ one or more dashes</span></span>
-<span id="cb358-4"><a href="string-date-processing.html#cb358-4" tabindex="-1"></a><span class="co">#   $  end of string</span></span>
-<span id="cb358-5"><a href="string-date-processing.html#cb358-5" tabindex="-1"></a></span>
-<span id="cb358-6"><a href="string-date-processing.html#cb358-6" tabindex="-1"></a>dashes <span class="ot">=</span> <span class="fu">str_which</span>(report, <span class="st">&quot;^-+$&quot;</span>)</span>
-<span id="cb358-7"><a href="string-date-processing.html#cb358-7" tabindex="-1"></a><span class="fu">head</span>(report[dashes], <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="string-date-processing.html#cb94-1" tabindex="-1"></a><span class="co"># The regex means:</span></span>
+<span id="cb94-2"><a href="string-date-processing.html#cb94-2" tabindex="-1"></a><span class="co">#   ^  begining of string</span></span>
+<span id="cb94-3"><a href="string-date-processing.html#cb94-3" tabindex="-1"></a><span class="co">#   -+ one or more dashes</span></span>
+<span id="cb94-4"><a href="string-date-processing.html#cb94-4" tabindex="-1"></a><span class="co">#   $  end of string</span></span>
+<span id="cb94-5"><a href="string-date-processing.html#cb94-5" tabindex="-1"></a></span>
+<span id="cb94-6"><a href="string-date-processing.html#cb94-6" tabindex="-1"></a>dashes <span class="ot">=</span> <span class="fu">str_which</span>(report, <span class="st">&quot;^-+$&quot;</span>)</span>
+<span id="cb94-7"><a href="string-date-processing.html#cb94-7" tabindex="-1"></a><span class="fu">head</span>(report[dashes], <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;--------------------------------------------------------------------------------------------------------------------------&quot;
 ## [2] &quot;--------------------------------------------------------------------------------------------------------------------------&quot;</code></pre>
 <p>Each table contains three dash lines—one separates the header and body. The
 header and body of the first table are:</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="string-date-processing.html#cb360-1" tabindex="-1"></a>report[dashes[<span class="dv">1</span>]<span class="sc">:</span>dashes[<span class="dv">2</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="string-date-processing.html#cb96-1" tabindex="-1"></a>report[dashes[<span class="dv">1</span>]<span class="sc">:</span>dashes[<span class="dv">2</span>]]</span></code></pre></div>
 <pre><code>## [1] &quot;--------------------------------------------------------------------------------------------------------------------------&quot;
 ## [2] &quot;                                      :             :                           :     November 30, 2022     :   Public    &quot;
 ## [3] &quot;                                      :        Stocks in all warehouses         :      as a percent of      :  warehouse  &quot;
@@ -1147,8 +1133,8 @@ header and body of the first table are:</p>
 ## [6] &quot;                                      :November 30, : October 31, :November 30, :November 30, : October 31, :November 30, &quot;
 ## [7] &quot;                                      :    2021     :    2022     :    2022     :    2021     :    2022     :    2022     &quot;
 ## [8] &quot;--------------------------------------------------------------------------------------------------------------------------&quot;</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="string-date-processing.html#cb362-1" tabindex="-1"></a>bod <span class="ot">=</span> report[dashes[<span class="dv">2</span>]<span class="sc">:</span>dashes[<span class="dv">3</span>]]</span>
-<span id="cb362-2"><a href="string-date-processing.html#cb362-2" tabindex="-1"></a><span class="fu">head</span>(bod)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="string-date-processing.html#cb98-1" tabindex="-1"></a>bod <span class="ot">=</span> report[dashes[<span class="dv">2</span>]<span class="sc">:</span>dashes[<span class="dv">3</span>]]</span>
+<span id="cb98-2"><a href="string-date-processing.html#cb98-2" tabindex="-1"></a><span class="fu">head</span>(bod)</span></code></pre></div>
 <pre><code>## [1] &quot;--------------------------------------------------------------------------------------------------------------------------&quot;
 ## [2] &quot;                                      :  ------------ 1,000 pounds -----------        ---- percent ----      1,000 pounds &quot;
 ## [3] &quot;                                      :                                                                                   &quot;
@@ -1160,14 +1146,14 @@ with <code>str_sub</code> if you can get the offsets. In the last line of the he
 columns are separated by colons <code>:</code>. Thus you can use the <code>str_locate_all</code>
 function, which returns the locations of a pattern in a string, to get the
 offsets:</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="string-date-processing.html#cb364-1" tabindex="-1"></a><span class="co"># The regex means:</span></span>
-<span id="cb364-2"><a href="string-date-processing.html#cb364-2" tabindex="-1"></a><span class="co">#   [^:]+  one or more characters, excluding colons</span></span>
-<span id="cb364-3"><a href="string-date-processing.html#cb364-3" tabindex="-1"></a><span class="co">#   (:|$)  a colon or the end of the line</span></span>
-<span id="cb364-4"><a href="string-date-processing.html#cb364-4" tabindex="-1"></a></span>
-<span id="cb364-5"><a href="string-date-processing.html#cb364-5" tabindex="-1"></a>cols <span class="ot">=</span> <span class="fu">str_locate_all</span>(report[dashes[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span>], <span class="st">&quot;[^:]+(:|$)&quot;</span>)</span>
-<span id="cb364-6"><a href="string-date-processing.html#cb364-6" tabindex="-1"></a><span class="co"># Like str_split, str_locate_all returns a list</span></span>
-<span id="cb364-7"><a href="string-date-processing.html#cb364-7" tabindex="-1"></a>cols <span class="ot">=</span> cols[[<span class="dv">1</span>]]</span>
-<span id="cb364-8"><a href="string-date-processing.html#cb364-8" tabindex="-1"></a>cols</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="string-date-processing.html#cb100-1" tabindex="-1"></a><span class="co"># The regex means:</span></span>
+<span id="cb100-2"><a href="string-date-processing.html#cb100-2" tabindex="-1"></a><span class="co">#   [^:]+  one or more characters, excluding colons</span></span>
+<span id="cb100-3"><a href="string-date-processing.html#cb100-3" tabindex="-1"></a><span class="co">#   (:|$)  a colon or the end of the line</span></span>
+<span id="cb100-4"><a href="string-date-processing.html#cb100-4" tabindex="-1"></a></span>
+<span id="cb100-5"><a href="string-date-processing.html#cb100-5" tabindex="-1"></a>cols <span class="ot">=</span> <span class="fu">str_locate_all</span>(report[dashes[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span>], <span class="st">&quot;[^:]+(:|$)&quot;</span>)</span>
+<span id="cb100-6"><a href="string-date-processing.html#cb100-6" tabindex="-1"></a><span class="co"># Like str_split, str_locate_all returns a list</span></span>
+<span id="cb100-7"><a href="string-date-processing.html#cb100-7" tabindex="-1"></a>cols <span class="ot">=</span> cols[[<span class="dv">1</span>]]</span>
+<span id="cb100-8"><a href="string-date-processing.html#cb100-8" tabindex="-1"></a>cols</span></code></pre></div>
 <pre><code>##      start end
 ## [1,]     1  39
 ## [2,]    40  53
@@ -1178,7 +1164,7 @@ offsets:</p>
 ## [7,]   110 122</code></pre>
 <p>You can use these offsets with <code>str_sub</code> to break a line in the body of the
 table into columns:</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="string-date-processing.html#cb366-1" tabindex="-1"></a><span class="fu">str_sub</span>(bod[<span class="dv">6</span>], cols)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="string-date-processing.html#cb102-1" tabindex="-1"></a><span class="fu">str_sub</span>(bod[<span class="dv">6</span>], cols)</span></code></pre></div>
 <pre><code>## [1] &quot;  Pecans .............................:&quot;
 ## [2] &quot;     30,906   &quot;                         
 ## [3] &quot;     38,577   &quot;                         
@@ -1189,11 +1175,11 @@ table into columns:</p>
 <p>Because of the way <code>str_sub</code> is vectorized, you can’t process every line in the
 body of the table in one vectorized call. Instead, you can use <code>sapply</code> to call
 <code>str_sub</code> on each line:</p>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="string-date-processing.html#cb368-1" tabindex="-1"></a><span class="co"># Set USE.NAMES to make the table easier to read</span></span>
-<span id="cb368-2"><a href="string-date-processing.html#cb368-2" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">sapply</span>(bod, str_sub, cols, <span class="at">USE.NAMES =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb368-3"><a href="string-date-processing.html#cb368-3" tabindex="-1"></a><span class="co"># The sapply function transposes the table</span></span>
-<span id="cb368-4"><a href="string-date-processing.html#cb368-4" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">t</span>(tab)</span>
-<span id="cb368-5"><a href="string-date-processing.html#cb368-5" tabindex="-1"></a><span class="fu">head</span>(tab)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="string-date-processing.html#cb104-1" tabindex="-1"></a><span class="co"># Set USE.NAMES to make the table easier to read</span></span>
+<span id="cb104-2"><a href="string-date-processing.html#cb104-2" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">sapply</span>(bod, str_sub, cols, <span class="at">USE.NAMES =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb104-3"><a href="string-date-processing.html#cb104-3" tabindex="-1"></a><span class="co"># The sapply function transposes the table</span></span>
+<span id="cb104-4"><a href="string-date-processing.html#cb104-4" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">t</span>(tab)</span>
+<span id="cb104-5"><a href="string-date-processing.html#cb104-5" tabindex="-1"></a><span class="fu">head</span>(tab)</span></code></pre></div>
 <pre><code>##      [,1]                                      [,2]            
 ## [1,] &quot;---------------------------------------&quot; &quot;--------------&quot;
 ## [2,] &quot;                                      :&quot; &quot;  ------------&quot;
@@ -1218,18 +1204,18 @@ body of the table in one vectorized call. Instead, you can use <code>sapply</cod
 <p>The columns still contain undesirable punctuation and whitespace, but you can
 remove these with <code>str_replace_all</code> and <code>str_trim</code>. Since the table is a
 matrix, it’s necessary to use <code>apply</code> to process it column-by-column:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="string-date-processing.html#cb370-1" tabindex="-1"></a><span class="co"># The regex means:</span></span>
-<span id="cb370-2"><a href="string-date-processing.html#cb370-2" tabindex="-1"></a><span class="co">#   ,     a comma</span></span>
-<span id="cb370-3"><a href="string-date-processing.html#cb370-3" tabindex="-1"></a><span class="co">#   |     OR</span></span>
-<span id="cb370-4"><a href="string-date-processing.html#cb370-4" tabindex="-1"></a><span class="co">#   [.]*  zero or more literal dots</span></span>
-<span id="cb370-5"><a href="string-date-processing.html#cb370-5" tabindex="-1"></a><span class="co">#   :     a colon</span></span>
-<span id="cb370-6"><a href="string-date-processing.html#cb370-6" tabindex="-1"></a><span class="co">#   $     the end of the line</span></span>
-<span id="cb370-7"><a href="string-date-processing.html#cb370-7" tabindex="-1"></a></span>
-<span id="cb370-8"><a href="string-date-processing.html#cb370-8" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">apply</span>(tab, <span class="dv">2</span>, <span class="cf">function</span>(col) {</span>
-<span id="cb370-9"><a href="string-date-processing.html#cb370-9" tabindex="-1"></a>  col <span class="ot">=</span> <span class="fu">str_replace_all</span>(col, <span class="st">&quot;,|[.]*:$&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
-<span id="cb370-10"><a href="string-date-processing.html#cb370-10" tabindex="-1"></a>  <span class="fu">str_trim</span>(col)</span>
-<span id="cb370-11"><a href="string-date-processing.html#cb370-11" tabindex="-1"></a>})</span>
-<span id="cb370-12"><a href="string-date-processing.html#cb370-12" tabindex="-1"></a><span class="fu">head</span>(tab)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="string-date-processing.html#cb106-1" tabindex="-1"></a><span class="co"># The regex means:</span></span>
+<span id="cb106-2"><a href="string-date-processing.html#cb106-2" tabindex="-1"></a><span class="co">#   ,     a comma</span></span>
+<span id="cb106-3"><a href="string-date-processing.html#cb106-3" tabindex="-1"></a><span class="co">#   |     OR</span></span>
+<span id="cb106-4"><a href="string-date-processing.html#cb106-4" tabindex="-1"></a><span class="co">#   [.]*  zero or more literal dots</span></span>
+<span id="cb106-5"><a href="string-date-processing.html#cb106-5" tabindex="-1"></a><span class="co">#   :     a colon</span></span>
+<span id="cb106-6"><a href="string-date-processing.html#cb106-6" tabindex="-1"></a><span class="co">#   $     the end of the line</span></span>
+<span id="cb106-7"><a href="string-date-processing.html#cb106-7" tabindex="-1"></a></span>
+<span id="cb106-8"><a href="string-date-processing.html#cb106-8" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">apply</span>(tab, <span class="dv">2</span>, <span class="cf">function</span>(col) {</span>
+<span id="cb106-9"><a href="string-date-processing.html#cb106-9" tabindex="-1"></a>  col <span class="ot">=</span> <span class="fu">str_replace_all</span>(col, <span class="st">&quot;,|[.]*:$&quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb106-10"><a href="string-date-processing.html#cb106-10" tabindex="-1"></a>  <span class="fu">str_trim</span>(col)</span>
+<span id="cb106-11"><a href="string-date-processing.html#cb106-11" tabindex="-1"></a>})</span>
+<span id="cb106-12"><a href="string-date-processing.html#cb106-12" tabindex="-1"></a><span class="fu">head</span>(tab)</span></code></pre></div>
 <pre><code>##      [,1]                                      [,2]            
 ## [1,] &quot;---------------------------------------&quot; &quot;--------------&quot;
 ## [2,] &quot;&quot;                                        &quot;------------&quot;  
@@ -1254,10 +1240,10 @@ matrix, it’s necessary to use <code>apply</code> to process it column-by-colum
 <p>The first few rows and the last row can be removed, since they don’t contain
 data. Then you can convert the table to a data frame and convert the individual
 columns to appropriate data types:</p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="string-date-processing.html#cb372-1" tabindex="-1"></a>tab <span class="ot">=</span> tab[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">nrow</span>(tab)), ]</span>
-<span id="cb372-2"><a href="string-date-processing.html#cb372-2" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">data.frame</span>(tab)</span>
-<span id="cb372-3"><a href="string-date-processing.html#cb372-3" tabindex="-1"></a>tab[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>] <span class="ot">=</span> <span class="fu">lapply</span>(tab[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>], as.numeric)</span>
-<span id="cb372-4"><a href="string-date-processing.html#cb372-4" tabindex="-1"></a><span class="fu">head</span>(tab, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="string-date-processing.html#cb108-1" tabindex="-1"></a>tab <span class="ot">=</span> tab[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">nrow</span>(tab)), ]</span>
+<span id="cb108-2"><a href="string-date-processing.html#cb108-2" tabindex="-1"></a>tab <span class="ot">=</span> <span class="fu">data.frame</span>(tab)</span>
+<span id="cb108-3"><a href="string-date-processing.html#cb108-3" tabindex="-1"></a>tab[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>] <span class="ot">=</span> <span class="fu">lapply</span>(tab[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>], as.numeric)</span>
+<span id="cb108-4"><a href="string-date-processing.html#cb108-4" tabindex="-1"></a><span class="fu">head</span>(tab, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                X1     X2     X3     X4  X5  X6     X7
 ## 1            Nuts     NA     NA     NA  NA  NA     NA
 ## 2         Shelled     NA     NA     NA  NA  NA     NA
@@ -1277,8 +1263,8 @@ These entail more string processing and data frame manipulation—if you want
 to practice your R skills, try doing them on your own.</p>
 </div>
 </div>
-<div id="regular-expression-examples" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> Regular Expression Examples<a href="string-date-processing.html#regular-expression-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regular-expression-examples" class="section level2 hasAnchor" number="1.5">
+<h2><span class="header-section-number">1.5</span> Regular Expression Examples<a href="string-date-processing.html#regular-expression-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This section provides examples of several different regular expression
 metacharacters and other features. Most of the examples use the <code>str_view</code>
 function, which is especially helpful for testing regular expressions. The
@@ -1287,19 +1273,19 @@ highlighted.</p>
 <p>The <a href="https://regexr.com/">RegExr</a> website is also helpful for testing regular expressions; it
 provides an interactive interface where you can write regular expressions and
 see where they match a string.</p>
-<div id="the-wildcard" class="section level3 hasAnchor" number="3.5.1">
-<h3><span class="header-section-number">3.5.1</span> The Wildcard<a href="string-date-processing.html#the-wildcard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-wildcard" class="section level3 hasAnchor" number="1.5.1">
+<h3><span class="header-section-number">1.5.1</span> The Wildcard<a href="string-date-processing.html#the-wildcard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The regex <strong>wildcard</strong> character is <code>.</code> and matches any single character. For
 example:</p>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="string-date-processing.html#cb374-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;dog&quot;</span></span>
-<span id="cb374-2"><a href="string-date-processing.html#cb374-2" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;d.g&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="string-date-processing.html#cb110-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;dog&quot;</span></span>
+<span id="cb110-2"><a href="string-date-processing.html#cb110-2" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;d.g&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;dog&gt;</code></pre>
 <p>By default, regex searches from left to right:</p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="string-date-processing.html#cb376-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="string-date-processing.html#cb112-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;d&gt;&lt;o&gt;&lt;g&gt;</code></pre>
 </div>
-<div id="escape-sequences-2" class="section level3 hasAnchor" number="3.5.2">
-<h3><span class="header-section-number">3.5.2</span> Escape Sequences<a href="string-date-processing.html#escape-sequences-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="escape-sequences-1" class="section level3 hasAnchor" number="1.5.2">
+<h3><span class="header-section-number">1.5.2</span> Escape Sequences<a href="string-date-processing.html#escape-sequences-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Like R, regular expressions can contain escape sequences that begin with a
 backslash. These are computed separately and after R escape sequences. The main
 use for escape sequences in regex is to turn a metacharacter into a literal
@@ -1307,58 +1293,58 @@ character.</p>
 <p>For example, suppose you want to match a literal dot <code>.</code>. The regex for a
 literal dot is <code>\.</code>. Since backslashes in R strings have to be escaped, the R
 string for this regex is <code>"\\.</code>. For example:</p>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="string-date-processing.html#cb378-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;this.string&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="string-date-processing.html#cb114-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;this.string&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ this&lt;.&gt;string</code></pre>
 <p>The double backslash can be confusing, and it gets worse if you want to match a
 literal backslash. You have to escape the backslash in the regex (because
 backslash is the regex escape character) and then also have to escape the
 backslashes in R (because backslash is also the R escape character). So to
 match a single literal backslash in R, the code is:</p>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="string-date-processing.html#cb380-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;this</span><span class="sc">\\</span><span class="st">that&quot;</span>, <span class="st">&quot;</span><span class="sc">\\\\</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="string-date-processing.html#cb116-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;this</span><span class="sc">\\</span><span class="st">that&quot;</span>, <span class="st">&quot;</span><span class="sc">\\\\</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ this&lt;\&gt;that</code></pre>
-<p>Raw strings (see Section <a href="string-date-processing.html#raw-strings">3.3.3</a>) make regular expressions easier to
+<p>Raw strings (see Section <a href="string-date-processing.html#raw-strings">1.3.3</a>) make regular expressions easier to
 read, because they make backslashes literal (but they still mark the beginning
 of an escape sequence in regex). You can use a raw string to write the above
 as:</p>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="string-date-processing.html#cb382-1" tabindex="-1"></a><span class="fu">str_view</span>(r<span class="st">&quot;(this</span><span class="sc">\t</span><span class="st">hat)&quot;</span>, r<span class="st">&quot;(</span><span class="sc">\\</span><span class="st">)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="string-date-processing.html#cb118-1" tabindex="-1"></a><span class="fu">str_view</span>(r<span class="st">&quot;(this</span><span class="sc">\t</span><span class="st">hat)&quot;</span>, r<span class="st">&quot;(</span><span class="sc">\\</span><span class="st">)&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ this&lt;\&gt;that</code></pre>
 </div>
-<div id="anchors" class="section level3 hasAnchor" number="3.5.3">
-<h3><span class="header-section-number">3.5.3</span> Anchors<a href="string-date-processing.html#anchors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="anchors" class="section level3 hasAnchor" number="1.5.3">
+<h3><span class="header-section-number">1.5.3</span> Anchors<a href="string-date-processing.html#anchors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>By default, a regex will match anywhere in the string. If you want to force a
 match at specific place, use an <strong>anchor</strong>.</p>
 <p>The beginning of string anchor is <code>^</code>. It marks the beginning of the string,
 but doesn’t count as a character in the pattern.</p>
 <p>For example, suppose you want to match an <code>a</code> at the beginning of the string:</p>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="string-date-processing.html#cb384-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;cab&quot;</span>)</span>
-<span id="cb384-2"><a href="string-date-processing.html#cb384-2" tabindex="-1"></a></span>
-<span id="cb384-3"><a href="string-date-processing.html#cb384-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;a&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="string-date-processing.html#cb120-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;cab&quot;</span>)</span>
+<span id="cb120-2"><a href="string-date-processing.html#cb120-2" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="string-date-processing.html#cb120-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;a&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;a&gt;bc
 ## [2] │ c&lt;a&gt;b</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="string-date-processing.html#cb386-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;^a&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="string-date-processing.html#cb122-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;^a&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;a&gt;bc</code></pre>
 <p>It doesn’t make sense to put characters before <code>^</code>, since no characters can
 come before the beginning of the string.</p>
 <p>Likewise, the end of string anchor is <code>$</code>. It marks the end of the string, but
 doesn’t count as a character in the pattern.</p>
 </div>
-<div id="character-classes" class="section level3 hasAnchor" number="3.5.4">
-<h3><span class="header-section-number">3.5.4</span> Character Classes<a href="string-date-processing.html#character-classes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="character-classes" class="section level3 hasAnchor" number="1.5.4">
+<h3><span class="header-section-number">1.5.4</span> Character Classes<a href="string-date-processing.html#character-classes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In regex, square brackets <code>[ ]</code> denote a <strong>character class</strong>. A character class
 matches exactly one character, but that character can be any of the characters
 inside of the square brackets. The square brackets themselves don’t count as
 characters in the pattern.</p>
 <p>For example, suppose you want to match <code>c</code> followed by either <code>a</code> or <code>t</code>:</p>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="string-date-processing.html#cb388-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;ca&quot;</span>, <span class="st">&quot;ct&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;cta&quot;</span>)</span>
-<span id="cb388-2"><a href="string-date-processing.html#cb388-2" tabindex="-1"></a></span>
-<span id="cb388-3"><a href="string-date-processing.html#cb388-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;c[ta]&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="string-date-processing.html#cb124-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;ca&quot;</span>, <span class="st">&quot;ct&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;cta&quot;</span>)</span>
+<span id="cb124-2"><a href="string-date-processing.html#cb124-2" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="string-date-processing.html#cb124-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;c[ta]&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;ca&gt;
 ## [2] │ &lt;ct&gt;
 ## [3] │ &lt;ca&gt;t
 ## [4] │ &lt;ct&gt;a</code></pre>
 <p>You can use a dash <code>-</code> in a character class to create a <strong>range</strong>. For example,
 to match letters <code>p</code> through <code>z</code>:</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="string-date-processing.html#cb390-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;c[p-z]&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="string-date-processing.html#cb126-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;c[p-z]&quot;</span>)</span></code></pre></div>
 <pre><code>## [2] │ &lt;ct&gt;
 ## [4] │ &lt;ct&gt;a</code></pre>
 <p>Ranges also work with numbers and capital letters. To match a literal dash,
@@ -1368,26 +1354,26 @@ characters), as in <code>[abc-]</code>.</p>
 <code>[.]</code> matches a literal dot.</p>
 <p>A hat <code>^</code> at the beginning of the character class negates the class. So for
 example, <code>[^abc]</code> matches any one character <em>except</em> for <code>a</code>, <code>b</code>, or <code>c</code>:</p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="string-date-processing.html#cb392-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="st">&quot;[^abc]&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="string-date-processing.html#cb128-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;abcdef&quot;</span>, <span class="st">&quot;[^abc]&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ abc&lt;d&gt;&lt;e&gt;&lt;f&gt;</code></pre>
 </div>
-<div id="quantifiers" class="section level3 hasAnchor" number="3.5.5">
-<h3><span class="header-section-number">3.5.5</span> Quantifiers<a href="string-date-processing.html#quantifiers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="quantifiers" class="section level3 hasAnchor" number="1.5.5">
+<h3><span class="header-section-number">1.5.5</span> Quantifiers<a href="string-date-processing.html#quantifiers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Quantifiers</strong> are metacharacters that affect how many times the preceding
 character must appear in a match. The quantifier itself doesn’t count as a
 character in the match.</p>
 <p>For example, the question mark <code>?</code> quantifier means the preceding character can
 appear 0 or 1 times. In other words, <code>?</code> makes the preceding character
 optional. For example:</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="string-date-processing.html#cb394-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;ab&quot;</span>, <span class="st">&quot;ac&quot;</span>, <span class="st">&quot;abbc&quot;</span>)</span>
-<span id="cb394-2"><a href="string-date-processing.html#cb394-2" tabindex="-1"></a></span>
-<span id="cb394-3"><a href="string-date-processing.html#cb394-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;ab?c&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="string-date-processing.html#cb130-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;abc&quot;</span>, <span class="st">&quot;ab&quot;</span>, <span class="st">&quot;ac&quot;</span>, <span class="st">&quot;abbc&quot;</span>)</span>
+<span id="cb130-2"><a href="string-date-processing.html#cb130-2" tabindex="-1"></a></span>
+<span id="cb130-3"><a href="string-date-processing.html#cb130-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;ab?c&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;abc&gt;
 ## [3] │ &lt;ac&gt;</code></pre>
 <p>The star <code>*</code> quantifier means the preceding character can appear 0 or more
 times. In other words, <code>*</code> means the preceding character can appear any number
 of times or not at all. For instance:</p>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="string-date-processing.html#cb396-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;ab*c&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="string-date-processing.html#cb132-1" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;ab*c&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;abc&gt;
 ## [3] │ &lt;ac&gt;
 ## [4] │ &lt;abbc&gt;</code></pre>
@@ -1396,23 +1382,23 @@ times.</p>
 <p>Quantifiers are <strong>greedy</strong>, meaning they always match as many characters as
 possible. In this example, notice that the pattern matches the entire string,
 even though it could also match just <code>abba</code>:</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="string-date-processing.html#cb398-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;abbabbba&quot;</span>, <span class="st">&quot;.+a&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="string-date-processing.html#cb134-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;abbabbba&quot;</span>, <span class="st">&quot;.+a&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;abbabbba&gt;</code></pre>
 <p>You can add a question mark <code>?</code> after another quantifier to make it non-greedy:</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="string-date-processing.html#cb400-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;abbabbba&quot;</span>, <span class="st">&quot;.+?a&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="string-date-processing.html#cb136-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;abbabbba&quot;</span>, <span class="st">&quot;.+?a&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;abba&gt;&lt;bbba&gt;</code></pre>
 </div>
-<div id="groups" class="section level3 hasAnchor" number="3.5.6">
-<h3><span class="header-section-number">3.5.6</span> Groups<a href="string-date-processing.html#groups" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="groups" class="section level3 hasAnchor" number="1.5.6">
+<h3><span class="header-section-number">1.5.6</span> Groups<a href="string-date-processing.html#groups" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In regex, parentheses <code>( )</code> denote a <strong>group</strong>. The parentheses themselves
 don’t count as characters in the pattern. Groups are useful for repeating or
-extracting specific parts of a pattern (see Section <a href="string-date-processing.html#extracting-matches">3.4.5</a>).</p>
+extracting specific parts of a pattern (see Section <a href="string-date-processing.html#extracting-matches">1.4.5</a>).</p>
 <p>Quantifiers can act on groups in addition to individual characters. For
 example, suppose you want to make the entire substring <code>", dogs,"</code> optional in
 a pattern, so that both of the test strings in this example match:</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="string-date-processing.html#cb402-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;cats, dogs, and frogs&quot;</span>, <span class="st">&quot;cats and frogs&quot;</span>)</span>
-<span id="cb402-2"><a href="string-date-processing.html#cb402-2" tabindex="-1"></a></span>
-<span id="cb402-3"><a href="string-date-processing.html#cb402-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;cats(, dogs,)? and frogs&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="string-date-processing.html#cb138-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;cats, dogs, and frogs&quot;</span>, <span class="st">&quot;cats and frogs&quot;</span>)</span>
+<span id="cb138-2"><a href="string-date-processing.html#cb138-2" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="string-date-processing.html#cb138-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;cats(, dogs,)? and frogs&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] │ &lt;cats, dogs, and frogs&gt;
 ## [2] │ &lt;cats and frogs&gt;</code></pre>
 
@@ -1424,8 +1410,8 @@ a pattern, so that both of the test strings in this example match:</p>
           </div>
         </div>
       </div>
-<a href="output-errors-and-bugs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="reshaping-data-automating-tasks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidy-relational-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1446,7 +1432,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/03_string_date_processing.Rmd",
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/01_string_date_processing.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -1454,7 +1440,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/03_string_date_processing.Rmd",
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/01_string_date_processing.Rmd",
 "text": null
 },
 "download": null,

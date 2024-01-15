@@ -1,0 +1,2365 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Tidy &amp; Relational Data | Intermediate R</title>
+  <meta name="description" content="2 Tidy &amp; Relational Data | Intermediate R" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Tidy &amp; Relational Data | Intermediate R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="ucdavisdatalab/workshop_intermediate_r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Tidy &amp; Relational Data | Intermediate R" />
+  
+  
+  
+
+<meta name="author" content="Nick Ulle and Wesley Brooks" />
+
+
+<meta name="date" content="2024-01-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="string-date-processing.html"/>
+<link rel="next" href="best-practices-for-writing-r-scripts.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://datalab.ucdavis.edu/">
+  <img src="https://datalab.ucdavis.edu/wp-content/uploads/2019/07/datalab-logo-full-color-rgb-1.png" style="height: 100%; width: 100%; object-fit: contain" />
+</a></li>
+<li><a href="./" style="font-size: 18px">Intermediate R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="part"><span><b>I Cleaning &amp; Reshaping Data</b></span></li>
+<li class="chapter" data-level="1" data-path="string-date-processing.html"><a href="string-date-processing.html"><i class="fa fa-check"></i><b>1</b> String &amp; Date Processing</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-tidyverse"><i class="fa fa-check"></i><b>1.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="1.2" data-path="string-date-processing.html"><a href="string-date-processing.html#parsing-dates-times"><i class="fa fa-check"></i><b>1.2</b> Parsing Dates &amp; Times</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-lubridate-package"><i class="fa fa-check"></i><b>1.2.1</b> The lubridate Package</a></li>
+<li class="chapter" data-level="1.2.2" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-ocean-temperatures"><i class="fa fa-check"></i><b>1.2.2</b> Case Study: Ocean Temperatures</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="string-date-processing.html"><a href="string-date-processing.html#string-fundamentals"><i class="fa fa-check"></i><b>1.3</b> String Fundamentals</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="string-date-processing.html"><a href="string-date-processing.html#printing"><i class="fa fa-check"></i><b>1.3.1</b> Printing</a></li>
+<li class="chapter" data-level="1.3.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences"><i class="fa fa-check"></i><b>1.3.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="1.3.3" data-path="string-date-processing.html"><a href="string-date-processing.html#raw-strings"><i class="fa fa-check"></i><b>1.3.3</b> Raw Strings</a></li>
+<li class="chapter" data-level="1.3.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-encodings"><i class="fa fa-check"></i><b>1.3.4</b> Character Encodings</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="string-date-processing.html"><a href="string-date-processing.html#processing-strings"><i class="fa fa-check"></i><b>1.4</b> Processing Strings</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-stringr-package"><i class="fa fa-check"></i><b>1.4.1</b> The stringr Package</a></li>
+<li class="chapter" data-level="1.4.2" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expressions"><i class="fa fa-check"></i><b>1.4.2</b> Regular Expressions</a></li>
+<li class="chapter" data-level="1.4.3" data-path="string-date-processing.html"><a href="string-date-processing.html#replacing-parts-of-strings"><i class="fa fa-check"></i><b>1.4.3</b> Replacing Parts of Strings</a></li>
+<li class="chapter" data-level="1.4.4" data-path="string-date-processing.html"><a href="string-date-processing.html#splitting-strings"><i class="fa fa-check"></i><b>1.4.4</b> Splitting Strings</a></li>
+<li class="chapter" data-level="1.4.5" data-path="string-date-processing.html"><a href="string-date-processing.html#extracting-matches"><i class="fa fa-check"></i><b>1.4.5</b> Extracting Matches</a></li>
+<li class="chapter" data-level="1.4.6" data-path="string-date-processing.html"><a href="string-date-processing.html#case-study-u.s.-warehouse-stocks"><i class="fa fa-check"></i><b>1.4.6</b> Case Study: U.S. Warehouse Stocks</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="string-date-processing.html"><a href="string-date-processing.html#regular-expression-examples"><i class="fa fa-check"></i><b>1.5</b> Regular Expression Examples</a>
+<ul>
+<li class="chapter" data-level="1.5.1" data-path="string-date-processing.html"><a href="string-date-processing.html#the-wildcard"><i class="fa fa-check"></i><b>1.5.1</b> The Wildcard</a></li>
+<li class="chapter" data-level="1.5.2" data-path="string-date-processing.html"><a href="string-date-processing.html#escape-sequences-1"><i class="fa fa-check"></i><b>1.5.2</b> Escape Sequences</a></li>
+<li class="chapter" data-level="1.5.3" data-path="string-date-processing.html"><a href="string-date-processing.html#anchors"><i class="fa fa-check"></i><b>1.5.3</b> Anchors</a></li>
+<li class="chapter" data-level="1.5.4" data-path="string-date-processing.html"><a href="string-date-processing.html#character-classes"><i class="fa fa-check"></i><b>1.5.4</b> Character Classes</a></li>
+<li class="chapter" data-level="1.5.5" data-path="string-date-processing.html"><a href="string-date-processing.html#quantifiers"><i class="fa fa-check"></i><b>1.5.5</b> Quantifiers</a></li>
+<li class="chapter" data-level="1.5.6" data-path="string-date-processing.html"><a href="string-date-processing.html#groups"><i class="fa fa-check"></i><b>1.5.6</b> Groups</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html"><i class="fa fa-check"></i><b>2</b> Tidy &amp; Relational Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#tidy-datasets"><i class="fa fa-check"></i><b>2.1</b> Tidy Datasets</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#the-tidyr-package"><i class="fa fa-check"></i><b>2.1.1</b> The tidyr Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#rows-into-columns"><i class="fa fa-check"></i><b>2.1.2</b> Rows into Columns</a></li>
+<li class="chapter" data-level="2.1.3" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#columns-into-rows"><i class="fa fa-check"></i><b>2.1.3</b> Columns into Rows</a></li>
+<li class="chapter" data-level="2.1.4" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#separating-values"><i class="fa fa-check"></i><b>2.1.4</b> Separating Values</a></li>
+<li class="chapter" data-level="2.1.5" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#case-study-smart-ridership"><i class="fa fa-check"></i><b>2.1.5</b> Case Study: SMART Ridership</a></li>
+<li class="chapter" data-level="2.1.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#without-tidyr"><i class="fa fa-check"></i><b>2.1.6</b> Without tidyr</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#relational-datasets"><i class="fa fa-check"></i><b>2.2</b> Relational Datasets</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#the-dplyr-package"><i class="fa fa-check"></i><b>2.2.1</b> The dplyr Package</a></li>
+<li class="chapter" data-level="2.2.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#gradebook-dataset"><i class="fa fa-check"></i><b>2.2.2</b> Gradebook Dataset</a></li>
+<li class="chapter" data-level="2.2.3" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#left-joins"><i class="fa fa-check"></i><b>2.2.3</b> Left Joins</a></li>
+<li class="chapter" data-level="2.2.4" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#other-joins"><i class="fa fa-check"></i><b>2.2.4</b> Other Joins</a></li>
+<li class="chapter" data-level="2.2.5" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#getting-clever-with-join_by"><i class="fa fa-check"></i><b>2.2.5</b> Getting Clever with <code>join_by</code></a></li>
+<li class="chapter" data-level="2.2.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#examples"><i class="fa fa-check"></i><b>2.2.6</b> Examples</a></li>
+<li class="chapter" data-level="2.2.7" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#be-explicit"><i class="fa fa-check"></i><b>2.2.7</b> Be Explicit</a></li>
+<li class="chapter" data-level="2.2.8" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#conclusion"><i class="fa fa-check"></i><b>2.2.8</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>II Writing &amp; Debugging R Code</b></span></li>
+<li class="chapter" data-level="3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html"><i class="fa fa-check"></i><b>3</b> Best Practices for Writing R Scripts</a></li>
+<li class="chapter" data-level="4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html"><i class="fa fa-check"></i><b>4</b> Squashing Bugs with R’s Debugging Tools</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#printing-output"><i class="fa fa-check"></i><b>4.1</b> Printing Output</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-print-function"><i class="fa fa-check"></i><b>4.1.1</b> The <code>print</code> Function</a></li>
+<li class="chapter" data-level="4.1.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-message-function"><i class="fa fa-check"></i><b>4.1.2</b> The <code>message</code> Function</a></li>
+<li class="chapter" data-level="4.1.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-cat-function"><i class="fa fa-check"></i><b>4.1.3</b> The <code>cat</code> Function</a></li>
+<li class="chapter" data-level="4.1.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#formatting-output"><i class="fa fa-check"></i><b>4.1.4</b> Formatting Output</a></li>
+<li class="chapter" data-level="4.1.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#logging-output"><i class="fa fa-check"></i><b>4.1.5</b> Logging Output</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#the-conditions-system"><i class="fa fa-check"></i><b>4.2</b> The Conditions System</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#raising-conditions"><i class="fa fa-check"></i><b>4.2.1</b> Raising Conditions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#handling-conditions"><i class="fa fa-check"></i><b>4.2.2</b> Handling Conditions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#global-options"><i class="fa fa-check"></i><b>4.3</b> Global Options</a></li>
+<li class="chapter" data-level="4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging"><i class="fa fa-check"></i><b>4.4</b> Debugging</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.1</b> Other Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#measuring-performance"><i class="fa fa-check"></i><b>4.5</b> Measuring Performance</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#estimating-memory-usage"><i class="fa fa-check"></i><b>4.5.1</b> Estimating Memory Usage</a></li>
+<li class="chapter" data-level="4.5.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#benchmarking"><i class="fa fa-check"></i><b>4.5.2</b> Benchmarking</a></li>
+<li class="chapter" data-level="4.5.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#profiling"><i class="fa fa-check"></i><b>4.5.3</b> Profiling</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>III Data Visualization &amp; Analysis in R</b></span></li>
+<li class="chapter" data-level="5" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html"><i class="fa fa-check"></i><b>5</b> Data Visualization in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#our-friend-ggplot2"><i class="fa fa-check"></i><b>5.1</b> Our Friend <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#the-grammar-of-graphics"><i class="fa fa-check"></i><b>5.1.1</b> The Grammar of Graphics</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#example-palmer-penguins"><i class="fa fa-check"></i><b>5.2</b> Example: Palmer Penguins</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#examining-the-plot"><i class="fa fa-check"></i><b>5.2.1</b> Examining the Plot</a></li>
+<li class="chapter" data-level="5.2.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#duplicating-the-palmer-penguins-plot"><i class="fa fa-check"></i><b>5.2.2</b> Duplicating the Palmer Penguins Plot</a></li>
+<li class="chapter" data-level="5.2.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#analysis"><i class="fa fa-check"></i><b>5.2.3</b> Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#layers"><i class="fa fa-check"></i><b>5.3</b> Layers</a></li>
+<li class="chapter" data-level="5.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#guidelines-for-graphics"><i class="fa fa-check"></i><b>5.4</b> Guidelines for Graphics</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#data"><i class="fa fa-check"></i><b>5.4.1</b> Data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#feature-types"><i class="fa fa-check"></i><b>5.4.2</b> Feature Types</a></li>
+<li class="chapter" data-level="5.4.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#theme-guidelines"><i class="fa fa-check"></i><b>5.4.3</b> Theme Guidelines</a></li>
+<li class="chapter" data-level="5.4.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#scale-guidelines"><i class="fa fa-check"></i><b>5.4.4</b> Scale Guidelines</a></li>
+<li class="chapter" data-level="5.4.5" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#facet-guidelines"><i class="fa fa-check"></i><b>5.4.5</b> Facet Guidelines</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#case-studies"><i class="fa fa-check"></i><b>5.5</b> Case Studies</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#counting-penguins"><i class="fa fa-check"></i><b>5.5.1</b> Counting Penguins</a></li>
+<li class="chapter" data-level="5.5.2" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#experimental-data-with-error-bars"><i class="fa fa-check"></i><b>5.5.2</b> Experimental Data with Error Bars</a></li>
+<li class="chapter" data-level="5.5.3" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#bird-flu-mortality"><i class="fa fa-check"></i><b>5.5.3</b> Bird Flu Mortality</a></li>
+<li class="chapter" data-level="5.5.4" data-path="data-visualization-in-r.html"><a href="data-visualization-in-r.html#small-business-loans"><i class="fa fa-check"></i><b>5.5.4</b> Small Business Loans</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>IV Thinking in R</b></span></li>
+<li class="chapter" data-level="6" data-path="language-fundamentals.html"><a href="language-fundamentals.html"><i class="fa fa-check"></i><b>6</b> Language Fundamentals</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variables-environments"><i class="fa fa-check"></i><b>6.1</b> Variables &amp; Environments</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#whats-an-environment"><i class="fa fa-check"></i><b>6.1.1</b> What’s an Environment?</a></li>
+<li class="chapter" data-level="6.1.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#reference-objects"><i class="fa fa-check"></i><b>6.1.2</b> Reference Objects</a></li>
+<li class="chapter" data-level="6.1.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-local-environment"><i class="fa fa-check"></i><b>6.1.3</b> The Local Environment</a></li>
+<li class="chapter" data-level="6.1.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#call-environments"><i class="fa fa-check"></i><b>6.1.4</b> Call Environments</a></li>
+<li class="chapter" data-level="6.1.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#lexical-scoping"><i class="fa fa-check"></i><b>6.1.5</b> Lexical Scoping</a></li>
+<li class="chapter" data-level="6.1.6" data-path="language-fundamentals.html"><a href="language-fundamentals.html#variable-lookup"><i class="fa fa-check"></i><b>6.1.6</b> Variable Lookup</a></li>
+<li class="chapter" data-level="6.1.7" data-path="language-fundamentals.html"><a href="language-fundamentals.html#the-search-path"><i class="fa fa-check"></i><b>6.1.7</b> The Search Path</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#closures"><i class="fa fa-check"></i><b>6.2</b> Closures</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#tidy-closures"><i class="fa fa-check"></i><b>6.2.1</b> Tidy Closures</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="language-fundamentals.html"><a href="language-fundamentals.html#attributes"><i class="fa fa-check"></i><b>6.3</b> Attributes</a></li>
+<li class="chapter" data-level="6.4" data-path="language-fundamentals.html"><a href="language-fundamentals.html#s3"><i class="fa fa-check"></i><b>6.4</b> S3</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="language-fundamentals.html"><a href="language-fundamentals.html#method-dispatch"><i class="fa fa-check"></i><b>6.4.1</b> Method Dispatch</a></li>
+<li class="chapter" data-level="6.4.2" data-path="language-fundamentals.html"><a href="language-fundamentals.html#creating-objects"><i class="fa fa-check"></i><b>6.4.2</b> Creating Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="language-fundamentals.html"><a href="language-fundamentals.html#other-object-systems"><i class="fa fa-check"></i><b>6.5</b> Other Object Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="part-2.html"><a href="part-2.html"><i class="fa fa-check"></i><b>7</b> Part 2</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="part-2.html"><a href="part-2.html#iteration-strategies"><i class="fa fa-check"></i><b>7.1</b> Iteration Strategies</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="part-2.html"><a href="part-2.html#for-loops"><i class="fa fa-check"></i><b>7.1.1</b> For-loops</a></li>
+<li class="chapter" data-level="7.1.2" data-path="part-2.html"><a href="part-2.html#while-loops"><i class="fa fa-check"></i><b>7.1.2</b> While-loops</a></li>
+<li class="chapter" data-level="7.1.3" data-path="part-2.html"><a href="part-2.html#saving-multiple-results"><i class="fa fa-check"></i><b>7.1.3</b> Saving Multiple Results</a></li>
+<li class="chapter" data-level="7.1.4" data-path="part-2.html"><a href="part-2.html#break-next"><i class="fa fa-check"></i><b>7.1.4</b> Break &amp; Next</a></li>
+<li class="chapter" data-level="7.1.5" data-path="part-2.html"><a href="part-2.html#planning-for-iteration"><i class="fa fa-check"></i><b>7.1.5</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="7.1.6" data-path="part-2.html"><a href="part-2.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>7.1.6</b> Case Study: The Collatz Conjecture</a></li>
+<li class="chapter" data-level="7.1.7" data-path="part-2.html"><a href="part-2.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>7.1.7</b> Case Study: U.S. Fruit Prices</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>V Backmatter</b></span></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="assessment.html"><a href="assessment.html"><i class="fa fa-check"></i>Assessment</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Intermediate R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tidy-relational-data" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Tidy &amp; Relational Data<a href="tidy-relational-data.html#tidy-relational-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter is part 2 (of 2) of <em>Cleaning &amp; Reshaping Data</em>, a workshop
+series about how to prepare data for analysis. The major topics of this chapter
+are how to reshape datasets with pivots, how to combine related datasets with
+joins, and how to select and use iteration strategies that automate repetitive
+computations.</p>
+<div id="learning-objectives-1" class="section level4 unnumbered hasAnchor">
+<h4>Learning Objectives<a href="tidy-relational-data.html#learning-objectives-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>After completing this session, learners should be able to:</p>
+<ul>
+<li>Explain what it means for data to be tidy</li>
+<li>Use the tidyr package to reshape data</li>
+<li>Explain what a relational dataset is</li>
+<li>Use the dplyr package to join data based on common columns</li>
+<li>Describe the different types of joins</li>
+<li>Identify which types of joins to use when faced with a relational dataset</li>
+</ul>
+</div>
+<div id="tidy-datasets" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Tidy Datasets<a href="tidy-relational-data.html#tidy-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The structure of a dataset—its shape and organization—has enormous
+influence on how difficult it will be to analyze, so making structural changes
+is an important part of the cleaning process. Researchers conventionally
+arrange tabular datasets so that each row contains a single <strong>observation</strong> or
+case, and each column contains a single kind of measurement or identifier,
+called a <strong>feature</strong>.</p>
+<p>In 2014, <a href="https://hadley.nz/">Hadley Wickham</a> refined and formalized the conventions for
+tabular datasets by <a href="https://vita.had.co.nz/papers/tidy-data.html">introducing the concept of <strong>tidy datasets</strong></a>, which
+have a specific structure. Paraphrasing Wickham, the rules for a tidy dataset
+are:</p>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li>Every column is a single feature.</li>
+<li>Every row is a single observation.</li>
+<li>Every cell is a single value.</li>
+</ol>
+</blockquote>
+<p>These rules ensure that all of the values in a dataset are visually organized
+and are easy to access with indexing operations. They’re also specific enough
+to make tidiness a convenient standard for functions that operate on tabular
+datasets. In fact, the <a href="https://www.tidyverse.org/">Tidyverse</a> packages (see Section
+<a href="string-date-processing.html#the-tidyverse">1.1</a>) are designed from the ground up for working with tidy
+datasets. Tidy datesets have also been adopted as a standard in other software,
+including various packages for Python and Julia.</p>
+<p>This section explains how to <strong>reshape</strong> tabular datasets into tidy datasets.
+While reshaping can seem tricky at first, making sure your dataset has the
+right structure before you begin analysis saves time and frustration in the
+long run.</p>
+<!--
+The Tidyverse is so named because many functions in Tidyverse packages require
+data frames that are in **tidy** form. Before we see the requirements for a
+data set to be tidy, we need to define or review some terminology from
+statistics.
+
+A **feature** (also called a **covariate** or a **variable**) is a measurement
+of something, usually across multiple subjects. For example, we might decide to
+measure the heights of everyone in the class. Each person in the class is a
+subject, and the height measurement is a feature. Features don't have to be
+quantitative. If we also asked each person their favorite color, then favorite
+color would be another feature in our data set. Features are usually, but not
+always, the columns in a tabular data set.
+
+An **observation** is a set of features measured for a single subject or at a
+single time. So in the preceding example, the combined height and favorite
+color measurement for one student is one observation. Observations are usually,
+but not always, the rows in a tabular data set.
+-->
+<div id="the-tidyr-package" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> The tidyr Package<a href="tidy-relational-data.html#the-tidyr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <a href="https://tidyr.tidyverse.org/">tidyr</a> package provides functions to reshape tabular datasets. It also
+provides examples of tidy and untidy datasets. Like most Tidyverse packages, it
+comes with detailed <a href="https://tidyr.tidyverse.org/">documentation</a> and a <a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">cheatsheet</a>.</p>
+<p>As usual, install the package if you haven’t already, and then load it:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="tidy-relational-data.html#cb140-1" tabindex="-1"></a><span class="co"># install.packages(&quot;tidyr&quot;)</span></span>
+<span id="cb140-2"><a href="tidy-relational-data.html#cb140-2" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div>
+<p>Let’s start with an example of a tidy dataset. The <code>table1</code> dataset in the
+package records the number of tuberculosis cases across several different
+countries and years:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="tidy-relational-data.html#cb141-1" tabindex="-1"></a>table1</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>Each of the four columns contains a single kind of measurement or identifier,
+so the dataset satifies tidy rule 1. The measurements were taken at the
+country-year level, and each row contains data for one country-year pair, so
+the dataset also satisfies tidy rule 2. Each cell in the data frame only
+contains one value, so the dataset also satisfies tidy rule 3.</p>
+<p>The same data are recorded in <code>table2</code>, <code>table3</code>, and the pair <code>table4a</code> with
+<code>table4b</code>, but these are all <em>untidy</em> datasets. For example, <code>table2</code> breaks
+rule 1 because the column <code>count</code> contains two different kinds of
+measurements—case counts and population counts:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="tidy-relational-data.html#cb143-1" tabindex="-1"></a>table2</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+<p>When considering whether you should reshape a dataset, think about what the
+features are and what the observations are. These depend on the dataset itself,
+but also on what kinds of analyses you want to do. Datasets sometimes have
+closely related features or multiple (nested) levels of observation. The tidyr
+documentation includes a <a href="https://tidyr.tidyverse.org/articles/tidy-data.html">detailed article on how to reason about reshaping
+datasets</a>.</p>
+<p>If you do decide to reshape a dataset, then you should also think about what
+role each feature serves:</p>
+<ul>
+<li><p><strong>Identifiers</strong> are labels that distinguish observations from one another.
+They are often but not always categorical. Examples include names or
+identification numbers, treatment groups, and dates or times. In the
+tuberculosis data set, the <code>country</code> and <code>year</code> columns are identifiers.</p></li>
+<li><p><strong>Measurements</strong> are the values collected for each observation and typically
+the values of research interest. For the tuberculosis data set, the <code>cases</code>
+and <code>population</code> columns are measurements.</p></li>
+</ul>
+<p>Having a clear understanding of which features are identifiers and which are
+measurements makes it easier to use the tidyr functions.</p>
+</div>
+<div id="rows-into-columns" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Rows into Columns<a href="tidy-relational-data.html#rows-into-columns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tidy data rule 1 is that each column must be a single feature. The <code>table2</code>
+dataset breaks this rule:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="tidy-relational-data.html#cb145-1" tabindex="-1"></a>table2</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 4
+##    country      year type            count
+##    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+##  1 Afghanistan  1999 cases             745
+##  2 Afghanistan  1999 population   19987071
+##  3 Afghanistan  2000 cases            2666
+##  4 Afghanistan  2000 population   20595360
+##  5 Brazil       1999 cases           37737
+##  6 Brazil       1999 population  172006362
+##  7 Brazil       2000 cases           80488
+##  8 Brazil       2000 population  174504898
+##  9 China        1999 cases          212258
+## 10 China        1999 population 1272915272
+## 11 China        2000 cases          213766
+## 12 China        2000 population 1280428583</code></pre>
+<p>To make the dataset tidy, the measurements in the <code>count</code> column need to be
+separated into two separate columns, <code>cases</code> and <code>population</code>, based on the
+categories in the <code>type</code> column.</p>
+<p>You can use the <code>pivot_wider</code> function to <strong>pivot</strong> the single <code>count</code> column
+into two columns according to the <code>type</code> column. This makes the dataset wider,
+hence the name <code>pivot_wider</code>.</p>
+<p>The function’s first parameter is the dataset to pivot. Other important
+parameters are:</p>
+<ul>
+<li><code>values_from</code> – The column(s) to pivot.</li>
+<li><code>names_from</code> – The column that contains names for the new columns.</li>
+<li><code>id_cols</code> – The identifier columns, which are not pivoted. This defaults to
+all columns except those in <code>values_from</code> and <code>names_from</code>.</li>
+</ul>
+<p>Here’s how to use the function to make <code>table2</code> tidy:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="tidy-relational-data.html#cb147-1" tabindex="-1"></a><span class="fu">pivot_wider</span>(table2, <span class="at">values_from =</span> count, <span class="at">names_from =</span> type)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>The function automatically removes values from the <code>country</code> and <code>year</code> columns
+as needed to maintain their original correspondence with the pivoted values.</p>
+</div>
+<div id="columns-into-rows" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Columns into Rows<a href="tidy-relational-data.html#columns-into-rows" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tidy data rule 2 is that every row must be a single observation. The <code>table4a</code>
+and <code>table4b</code> datasets break this rule because each row in each dataset
+contains measurements for two different years:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="tidy-relational-data.html#cb149-1" tabindex="-1"></a>table4a</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   country     `1999` `2000`
+##   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="tidy-relational-data.html#cb151-1" tabindex="-1"></a>table4b</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 3
+##   country         `1999`     `2000`
+##   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan   19987071   20595360
+## 2 Brazil       172006362  174504898
+## 3 China       1272915272 1280428583</code></pre>
+<p>The tuberculosis case counts are in <code>table4a</code>. The population counts are in
+<code>table4b</code>. Neither is tidy.</p>
+<p>To make the <code>table4a</code> dataset tidy, the <code>1999</code> and <code>2000</code> columns need to be
+pivoted into two new columns: one for the measurements (the counts) and one for
+the identifiers (the years). It might help to visualize this as stacking the
+two separate columns <code>1999</code> and <code>2000</code> together, one on top of the other, and
+then adding a second column with the appropriate years. The same process makes
+<code>table4b</code> tidy.</p>
+<p>You can use the <code>pivot_longer</code> function to pivot the two columns <code>1999</code> and
+<code>2000</code> into a column of counts and a column of years. This makes the dataset
+longer, hence the name <code>pivot_longer</code>.</p>
+<p>Again the function’s first parameter is the dataset to pivot. Other important
+parameters are:</p>
+<ul>
+<li><code>cols</code> – The columns to pivot.</li>
+<li><code>values_to</code> – Name(s) for the new measurement column(s)</li>
+<li><code>names_to</code> – Name(s) for the new identifier column(s)</li>
+</ul>
+<p>Here’s how to use the function to make <code>table4a</code> tidy:</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="tidy-relational-data.html#cb153-1" tabindex="-1"></a>tidy4a <span class="ot">=</span> <span class="fu">pivot_longer</span>(table4a, <span class="sc">-</span>country, <span class="at">values_to =</span> <span class="st">&quot;cases&quot;</span>,</span>
+<span id="cb153-2"><a href="tidy-relational-data.html#cb153-2" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb153-3"><a href="tidy-relational-data.html#cb153-3" tabindex="-1"></a>tidy4a</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   country     year   cases
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;
+## 1 Afghanistan 1999     745
+## 2 Afghanistan 2000    2666
+## 3 Brazil      1999   37737
+## 4 Brazil      2000   80488
+## 5 China       1999  212258
+## 6 China       2000  213766</code></pre>
+<p>In this case, the <code>cols</code> parameter is set to all columns <em>except</em> the <code>country</code>
+column, because the <code>country</code> column does not need to be pivoted. The function
+automatically repeats values in the <code>country</code> column as needed to maintain its
+original correspondence with the pivoted values.</p>
+<p>Here’s the same for <code>table4b</code>:</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="tidy-relational-data.html#cb155-1" tabindex="-1"></a>tidy4b <span class="ot">=</span> <span class="fu">pivot_longer</span>(table4b, <span class="sc">-</span>country, <span class="at">values_to =</span> <span class="st">&quot;population&quot;</span>,</span>
+<span id="cb155-2"><a href="tidy-relational-data.html#cb155-2" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb155-3"><a href="tidy-relational-data.html#cb155-3" tabindex="-1"></a>tidy4b</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   country     year  population
+##   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;
+## 1 Afghanistan 1999    19987071
+## 2 Afghanistan 2000    20595360
+## 3 Brazil      1999   172006362
+## 4 Brazil      2000   174504898
+## 5 China       1999  1272915272
+## 6 China       2000  1280428583</code></pre>
+<p>Once the two datasets are tidy, you can join them with the <code>merge</code> function to
+reproduce <code>table1</code>:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="tidy-relational-data.html#cb157-1" tabindex="-1"></a><span class="fu">merge</span>(tidy4a, tidy4b)</span></code></pre></div>
+<pre><code>##       country year  cases population
+## 1 Afghanistan 1999    745   19987071
+## 2 Afghanistan 2000   2666   20595360
+## 3      Brazil 1999  37737  172006362
+## 4      Brazil 2000  80488  174504898
+## 5       China 1999 212258 1272915272
+## 6       China 2000 213766 1280428583</code></pre>
+</div>
+<div id="separating-values" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Separating Values<a href="tidy-relational-data.html#separating-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Tidy data rule 3 says each value must have its own cell. The <code>table3</code> dataset
+breaks this rule because the <code>rate</code> column contains two values per cell:</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="tidy-relational-data.html#cb159-1" tabindex="-1"></a>table3</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   country      year rate             
+##   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
+<p>The two values separated by <code>/</code> in the <code>rate</code> column are the tuberculosis case
+count and the population count.</p>
+<p>To make this dataset tidy, the <code>rate</code> column needs to be split into two
+columns, <code>cases</code> and <code>population</code>. The values in the <code>rate</code> column are strings,
+so one way to do this is with the stringr package’s <code>str_split_fixed</code> function,
+described in Section <a href="string-date-processing.html#splitting-strings">1.4.4</a>:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="tidy-relational-data.html#cb161-1" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb161-2"><a href="tidy-relational-data.html#cb161-2" tabindex="-1"></a></span>
+<span id="cb161-3"><a href="tidy-relational-data.html#cb161-3" tabindex="-1"></a><span class="co"># Split the rate column into 2 columns.</span></span>
+<span id="cb161-4"><a href="tidy-relational-data.html#cb161-4" tabindex="-1"></a>cols <span class="ot">=</span> <span class="fu">str_split_fixed</span>(table3<span class="sc">$</span>rate, <span class="fu">fixed</span>(<span class="st">&quot;/&quot;</span>), <span class="dv">2</span>)</span>
+<span id="cb161-5"><a href="tidy-relational-data.html#cb161-5" tabindex="-1"></a></span>
+<span id="cb161-6"><a href="tidy-relational-data.html#cb161-6" tabindex="-1"></a><span class="co"># Remove the rate column and append the 2 new columns.</span></span>
+<span id="cb161-7"><a href="tidy-relational-data.html#cb161-7" tabindex="-1"></a>tidy3 <span class="ot">=</span> table3[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb161-8"><a href="tidy-relational-data.html#cb161-8" tabindex="-1"></a>tidy3<span class="sc">$</span>cases <span class="ot">=</span> <span class="fu">as.numeric</span>(cols[, <span class="dv">1</span>])</span>
+<span id="cb161-9"><a href="tidy-relational-data.html#cb161-9" tabindex="-1"></a>tidy3<span class="sc">$</span>population <span class="ot">=</span> <span class="fu">as.numeric</span>(cols[, <span class="dv">2</span>])</span>
+<span id="cb161-10"><a href="tidy-relational-data.html#cb161-10" tabindex="-1"></a>tidy3</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>Extracting values, converting to appropriate data types, and then combining
+everything back into a single data frame is an extremely common pattern in data
+science.</p>
+<p>The tidyr package provides the <code>separate</code> function to streamline the steps
+taken above. The first parameter is the dataset, the second is the column to
+split, the third is the names of the new columns, and the fourth is the
+delimiter. The <code>convert</code> parameter controls whether the new columns are
+automatically converted to appropriate data types:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="tidy-relational-data.html#cb163-1" tabindex="-1"></a><span class="fu">separate</span>(table3, rate, <span class="fu">c</span>(<span class="st">&quot;cases&quot;</span>, <span class="st">&quot;population&quot;</span>), <span class="st">&quot;/&quot;</span>, <span class="at">convert =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   country      year  cases population
+##   &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afghanistan  1999    745   19987071
+## 2 Afghanistan  2000   2666   20595360
+## 3 Brazil       1999  37737  172006362
+## 4 Brazil       2000  80488  174504898
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
+<p>As of writing, the tidyr developers have deprecated the <code>separate</code> function in
+favor of several more specific functions (<code>separate_wider_delim</code>,
+<code>separate_wider_position</code>, and <code>separate_wider_regex</code>). These functions are
+still experimental, so we still recommend using the <code>separate</code> function in the
+short term.</p>
+</div>
+<div id="case-study-smart-ridership" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Case Study: SMART Ridership<a href="tidy-relational-data.html#case-study-smart-ridership" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="http://sonomamarintrain.org/">Sonoma-Marin Area Rail Transit (SMART)</a> is a single-line passenger rail
+service between the San Francisco Bay and Santa Rosa. They publish <a href="https://www.sonomamarintrain.org/RidershipReports">data about
+monthly ridership</a> in PDF and Excel format. In this case study,
+you’ll reshape and clean the dataset to prepare it for analysis.</p>
+<p>To get started, download the <a href="https://www.sonomamarintrain.org/sites/default/files/Ridership%20Reports/SMART%20Ridership%20Web%20Posting_Dec.22.xlsx">December 2022 report it Excel
+format</a>. Pay attention to where you save the file—or move it to
+a directory just for files related to this case study—so that you can load it
+into R. If you want, you can use R’s <code>download.file</code> function to download the
+file rather than your browser.</p>
+<p>The <a href="https://readxl.tidyverse.org/">readxl</a> package provides functions to read data from Excel files.
+Install the package if you don’t already have it installed, and then load it:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="tidy-relational-data.html#cb165-1" tabindex="-1"></a><span class="co"># install.packages(&quot;readxl&quot;)</span></span>
+<span id="cb165-2"><a href="tidy-relational-data.html#cb165-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span></code></pre></div>
+<p>You can use the <code>read_excel</code> function to read a sheet from an Excel
+spreadsheet. Before doing so, it’s a good idea to manually inspect the
+spreadsheet in a spreadsheet program. The SMART dataset contains two tables in
+the first sheet, one for total monthly ridership and another for average
+weekday ridership (by month).</p>
+<p>Let’s focus on the total monthly ridership table, which occupies cells B4 to
+H16. You can specify a range of cells when you call <code>read_excel</code> by setting the
+<code>range</code> parameter:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="tidy-relational-data.html#cb166-1" tabindex="-1"></a>smart_path <span class="ot">=</span> <span class="st">&quot;./data/SMART Ridership Web Posting_Mar.23.xlsx&quot;</span></span>
+<span id="cb166-2"><a href="tidy-relational-data.html#cb166-2" tabindex="-1"></a>smart <span class="ot">=</span> <span class="fu">read_excel</span>(smart_path, <span class="at">range =</span> <span class="st">&quot;B4:H16&quot;</span>)</span>
+<span id="cb166-3"><a href="tidy-relational-data.html#cb166-3" tabindex="-1"></a>smart</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 7
+##    Month FY18   FY19   FY20  FY21   FY22 `FY23 (DRAFT)`
+##    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+##  1 Jul   -     63864 62851   9427 24627           43752
+##  2 Aug   54484 74384 65352   8703 25020           48278
+##  3 Sep   65019 62314 62974   8910 27967           49134
+##  4 Oct   57453 65492 57222   9851 26998.          59322
+##  5 Nov   56125 52774 64966   8145 26575           51383
+##  6 Dec   56425 51670 58199.  7414 24050           47606
+##  7 Jan   56527 57136 71974   6728 22710           46149
+##  8 Feb   54797 51130 71676   7412 26652           49724
+##  9 Mar   57312 58091 33624   9933 35291           53622
+## 10 Apr   56631 60256  4571  11908 34258              NA
+## 11 May   59428 64036  5308  13949 38655              NA
+## 12 Jun   61828 55700  8386  20469 41525              NA</code></pre>
+<p>The loaded dataset needs to be cleaned. The <code>FY18</code> column uses a hyphen to
+indicate missing data and has the wrong data type. The dates—months and
+years—are identifiers for observations, so the dataset is also not tidy.</p>
+<p>You can correct the missing value in the <code>FY18</code> column with indexing, and the
+type with the <code>as.numeric</code> function:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="tidy-relational-data.html#cb168-1" tabindex="-1"></a>smart<span class="sc">$</span>FY18[smart<span class="sc">$</span>FY18 <span class="sc">==</span> <span class="st">&quot;-&quot;</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb168-2"><a href="tidy-relational-data.html#cb168-2" tabindex="-1"></a>smart<span class="sc">$</span>FY18 <span class="ot">=</span> <span class="fu">as.numeric</span>(smart<span class="sc">$</span>FY18)</span>
+<span id="cb168-3"><a href="tidy-relational-data.html#cb168-3" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   Month  FY18  FY19   FY20  FY21   FY22 `FY23 (DRAFT)`
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;          &lt;dbl&gt;
+## 1 Jul      NA 63864 62851   9427 24627           43752
+## 2 Aug   54484 74384 65352   8703 25020           48278
+## 3 Sep   65019 62314 62974   8910 27967           49134
+## 4 Oct   57453 65492 57222   9851 26998.          59322
+## 5 Nov   56125 52774 64966   8145 26575           51383
+## 6 Dec   56425 51670 58199.  7414 24050           47606</code></pre>
+<p>To make the dataset tidy, it needs to be reshaped so that the values in the
+various fiscal year columns are all in one column. In other words, the dataset
+needs to be pivoted longer (Section <a href="tidy-relational-data.html#columns-into-rows">2.1.3</a>). The result of
+the pivot will be easier to understand if you rename the columns as their years
+first. Here’s one way to do that:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="tidy-relational-data.html#cb170-1" tabindex="-1"></a><span class="fu">names</span>(smart)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">=</span> <span class="dv">2018</span><span class="sc">:</span><span class="dv">2023</span></span>
+<span id="cb170-2"><a href="tidy-relational-data.html#cb170-2" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 7
+##   Month `2018` `2019` `2020` `2021` `2022` `2023`
+##   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Jul       NA  63864 62851    9427 24627   43752
+## 2 Aug    54484  74384 65352    8703 25020   48278
+## 3 Sep    65019  62314 62974    8910 27967   49134
+## 4 Oct    57453  65492 57222    9851 26998.  59322
+## 5 Nov    56125  52774 64966    8145 26575   51383
+## 6 Dec    56425  51670 58199.   7414 24050   47606</code></pre>
+<p>Next, use <code>pivot_longer</code> to pivot the dataset:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="tidy-relational-data.html#cb172-1" tabindex="-1"></a>smart <span class="ot">=</span> <span class="fu">pivot_longer</span>(smart, <span class="sc">-</span>Month, <span class="at">values_to =</span> <span class="st">&quot;riders&quot;</span>,</span>
+<span id="cb172-2"><a href="tidy-relational-data.html#cb172-2" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;fiscal_year&quot;</span>)</span>
+<span id="cb172-3"><a href="tidy-relational-data.html#cb172-3" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   Month fiscal_year riders
+##   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
+## 1 Jul   2018            NA
+## 2 Jul   2019         63864
+## 3 Jul   2020         62851
+## 4 Jul   2021          9427
+## 5 Jul   2022         24627
+## 6 Jul   2023         43752</code></pre>
+<p>Now the dataset is tidy, but it’s still not completely clean. To make it easy
+to study time trends, let’s combine and convert the <code>month</code> and <code>fiscal_year</code>
+columns into a calendar date. You can use functions from the lubridate package
+(Section <a href="string-date-processing.html#the-lubridate-package">1.2.1</a>) to do this. First paste the year and
+month together and use the <code>my</code> function to parse them as dates:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="tidy-relational-data.html#cb174-1" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     date, intersect, setdiff, union</code></pre>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="tidy-relational-data.html#cb177-1" tabindex="-1"></a>dates <span class="ot">=</span> <span class="fu">my</span>(<span class="fu">paste</span>(smart<span class="sc">$</span>Month, smart<span class="sc">$</span>fiscal_year))</span>
+<span id="cb177-2"><a href="tidy-relational-data.html#cb177-2" tabindex="-1"></a>dates</span></code></pre></div>
+<pre><code>##  [1] &quot;2018-07-01&quot; &quot;2019-07-01&quot; &quot;2020-07-01&quot; &quot;2021-07-01&quot; &quot;2022-07-01&quot;
+##  [6] &quot;2023-07-01&quot; &quot;2018-08-01&quot; &quot;2019-08-01&quot; &quot;2020-08-01&quot; &quot;2021-08-01&quot;
+## [11] &quot;2022-08-01&quot; &quot;2023-08-01&quot; &quot;2018-09-01&quot; &quot;2019-09-01&quot; &quot;2020-09-01&quot;
+## [16] &quot;2021-09-01&quot; &quot;2022-09-01&quot; &quot;2023-09-01&quot; &quot;2018-10-01&quot; &quot;2019-10-01&quot;
+## [21] &quot;2020-10-01&quot; &quot;2021-10-01&quot; &quot;2022-10-01&quot; &quot;2023-10-01&quot; &quot;2018-11-01&quot;
+## [26] &quot;2019-11-01&quot; &quot;2020-11-01&quot; &quot;2021-11-01&quot; &quot;2022-11-01&quot; &quot;2023-11-01&quot;
+## [31] &quot;2018-12-01&quot; &quot;2019-12-01&quot; &quot;2020-12-01&quot; &quot;2021-12-01&quot; &quot;2022-12-01&quot;
+## [36] &quot;2023-12-01&quot; &quot;2018-01-01&quot; &quot;2019-01-01&quot; &quot;2020-01-01&quot; &quot;2021-01-01&quot;
+## [41] &quot;2022-01-01&quot; &quot;2023-01-01&quot; &quot;2018-02-01&quot; &quot;2019-02-01&quot; &quot;2020-02-01&quot;
+## [46] &quot;2021-02-01&quot; &quot;2022-02-01&quot; &quot;2023-02-01&quot; &quot;2018-03-01&quot; &quot;2019-03-01&quot;
+## [51] &quot;2020-03-01&quot; &quot;2021-03-01&quot; &quot;2022-03-01&quot; &quot;2023-03-01&quot; &quot;2018-04-01&quot;
+## [56] &quot;2019-04-01&quot; &quot;2020-04-01&quot; &quot;2021-04-01&quot; &quot;2022-04-01&quot; &quot;2023-04-01&quot;
+## [61] &quot;2018-05-01&quot; &quot;2019-05-01&quot; &quot;2020-05-01&quot; &quot;2021-05-01&quot; &quot;2022-05-01&quot;
+## [66] &quot;2023-05-01&quot; &quot;2018-06-01&quot; &quot;2019-06-01&quot; &quot;2020-06-01&quot; &quot;2021-06-01&quot;
+## [71] &quot;2022-06-01&quot; &quot;2023-06-01&quot;</code></pre>
+<p>The SMART fiscal year extends from July to the following June and equals the
+calendar year at the end of the period. So for observations from July to
+December, the calendar year is the fiscal year minus 1. You can use indexing to
+make this adjustment efficiently, and then append the dates to the data frame:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="tidy-relational-data.html#cb179-1" tabindex="-1"></a>jul2dec <span class="ot">=</span> <span class="fu">month</span>(dates) <span class="sc">&gt;=</span> <span class="dv">7</span></span>
+<span id="cb179-2"><a href="tidy-relational-data.html#cb179-2" tabindex="-1"></a>dates[jul2dec] <span class="ot">=</span> dates[jul2dec] <span class="sc">-</span> <span class="fu">period</span>(<span class="dv">1</span>, <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb179-3"><a href="tidy-relational-data.html#cb179-3" tabindex="-1"></a>smart<span class="sc">$</span>date <span class="ot">=</span> dates</span>
+<span id="cb179-4"><a href="tidy-relational-data.html#cb179-4" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   Month fiscal_year riders date      
+##   &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;    
+## 1 Jul   2018            NA 2017-07-01
+## 2 Jul   2019         63864 2018-07-01
+## 3 Jul   2020         62851 2019-07-01
+## 4 Jul   2021          9427 2020-07-01
+## 5 Jul   2022         24627 2021-07-01
+## 6 Jul   2023         43752 2022-07-01</code></pre>
+<p>As a final adjustment, you can use the <code>tolower</code> function to convert the column
+names to lowercase, so that they’re easier to use during analysis:</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="tidy-relational-data.html#cb181-1" tabindex="-1"></a><span class="fu">names</span>(smart) <span class="ot">=</span> <span class="fu">tolower</span>(<span class="fu">names</span>(smart))</span>
+<span id="cb181-2"><a href="tidy-relational-data.html#cb181-2" tabindex="-1"></a>smart</span></code></pre></div>
+<pre><code>## # A tibble: 72 × 4
+##    month fiscal_year riders date      
+##    &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;date&gt;    
+##  1 Jul   2018            NA 2017-07-01
+##  2 Jul   2019         63864 2018-07-01
+##  3 Jul   2020         62851 2019-07-01
+##  4 Jul   2021          9427 2020-07-01
+##  5 Jul   2022         24627 2021-07-01
+##  6 Jul   2023         43752 2022-07-01
+##  7 Aug   2018         54484 2017-08-01
+##  8 Aug   2019         74384 2018-08-01
+##  9 Aug   2020         65352 2019-08-01
+## 10 Aug   2021          8703 2020-08-01
+## # ℹ 62 more rows</code></pre>
+<p>Now that the dataset is tidied and cleaned, it’s straightforward to do things
+like plot it as a time series:</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="tidy-relational-data.html#cb183-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb183-2"><a href="tidy-relational-data.html#cb183-2" tabindex="-1"></a></span>
+<span id="cb183-3"><a href="tidy-relational-data.html#cb183-3" tabindex="-1"></a><span class="fu">ggplot</span>(smart) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> riders) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb183-4"><a href="tidy-relational-data.html#cb183-4" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 4 rows containing missing values (`geom_line()`).</code></pre>
+<p><img src="02_reshaping_data_files/figure-html/smart-plot-1.png" width="672" /></p>
+<p>Notice the huge drop (more than 90%) in April of 2020 due to the COVID-19
+pandemic!</p>
+</div>
+<div id="without-tidyr" class="section level3 hasAnchor" number="2.1.6">
+<h3><span class="header-section-number">2.1.6</span> Without tidyr<a href="tidy-relational-data.html#without-tidyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section shows how to pivot datasets without the help of the tidyr package.
+In practice, we recommend that you use the package, but the examples here may
+make it easier to understand what’s actually happening when you pivot a
+dataset.</p>
+<div id="rows-into-columns-1" class="section level4 hasAnchor" number="2.1.6.1">
+<h4><span class="header-section-number">2.1.6.1</span> Rows into Columns<a href="tidy-relational-data.html#rows-into-columns-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The steps for pivoting <code>table2</code> wider are:</p>
+<ol style="list-style-type: decimal">
+<li>Subset rows to separate <code>cases</code> and <code>population</code> values.</li>
+<li>Remove the <code>type</code> column from each.</li>
+<li>Rename the <code>count</code> column to <code>cases</code> and <code>population</code>.</li>
+<li>Merge the two subsets by matching <code>country</code> and <code>year</code>.</li>
+</ol>
+<p>And the code is:</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="tidy-relational-data.html#cb185-1" tabindex="-1"></a><span class="co"># Step 1</span></span>
+<span id="cb185-2"><a href="tidy-relational-data.html#cb185-2" tabindex="-1"></a>cases <span class="ot">=</span> table2[table2<span class="sc">$</span>type <span class="sc">==</span> <span class="st">&quot;cases&quot;</span>, ]</span>
+<span id="cb185-3"><a href="tidy-relational-data.html#cb185-3" tabindex="-1"></a>pop <span class="ot">=</span> table2[table2<span class="sc">$</span>type <span class="sc">==</span> <span class="st">&quot;population&quot;</span>, ]</span>
+<span id="cb185-4"><a href="tidy-relational-data.html#cb185-4" tabindex="-1"></a><span class="co"># Step 2</span></span>
+<span id="cb185-5"><a href="tidy-relational-data.html#cb185-5" tabindex="-1"></a>cases <span class="ot">=</span> cases[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb185-6"><a href="tidy-relational-data.html#cb185-6" tabindex="-1"></a>pop <span class="ot">=</span> pop[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb185-7"><a href="tidy-relational-data.html#cb185-7" tabindex="-1"></a><span class="co"># Step 3</span></span>
+<span id="cb185-8"><a href="tidy-relational-data.html#cb185-8" tabindex="-1"></a><span class="fu">names</span>(cases)[<span class="dv">3</span>] <span class="ot">=</span> <span class="st">&quot;cases&quot;</span></span>
+<span id="cb185-9"><a href="tidy-relational-data.html#cb185-9" tabindex="-1"></a><span class="fu">names</span>(pop)[<span class="dv">3</span>] <span class="ot">=</span> <span class="st">&quot;population&quot;</span></span>
+<span id="cb185-10"><a href="tidy-relational-data.html#cb185-10" tabindex="-1"></a><span class="co"># Step 4</span></span>
+<span id="cb185-11"><a href="tidy-relational-data.html#cb185-11" tabindex="-1"></a><span class="fu">merge</span>(cases, pop)</span></code></pre></div>
+<pre><code>##       country year  cases population
+## 1 Afghanistan 1999    745   19987071
+## 2 Afghanistan 2000   2666   20595360
+## 3      Brazil 1999  37737  172006362
+## 4      Brazil 2000  80488  174504898
+## 5       China 1999 212258 1272915272
+## 6       China 2000 213766 1280428583</code></pre>
+</div>
+<div id="columns-into-rows-1" class="section level4 hasAnchor" number="2.1.6.2">
+<h4><span class="header-section-number">2.1.6.2</span> Columns into Rows<a href="tidy-relational-data.html#columns-into-rows-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The steps for pivoting <code>table4a</code> longer are:</p>
+<ol style="list-style-type: decimal">
+<li>Subset columns to separate <code>1999</code> and <code>2000</code> into two data frames.</li>
+<li>Add a <code>year</code> column to each.</li>
+<li>Rename the <code>1999</code> and <code>2000</code> columns to <code>cases</code>.</li>
+<li>Stack the two data frames with <code>rbind</code>.</li>
+</ol>
+<p>And the code is:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="tidy-relational-data.html#cb187-1" tabindex="-1"></a><span class="co"># Step 1</span></span>
+<span id="cb187-2"><a href="tidy-relational-data.html#cb187-2" tabindex="-1"></a>df99 <span class="ot">=</span> table4a[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb187-3"><a href="tidy-relational-data.html#cb187-3" tabindex="-1"></a>df00 <span class="ot">=</span> table4a[<span class="sc">-</span><span class="dv">2</span>]</span>
+<span id="cb187-4"><a href="tidy-relational-data.html#cb187-4" tabindex="-1"></a><span class="co"># Step 2</span></span>
+<span id="cb187-5"><a href="tidy-relational-data.html#cb187-5" tabindex="-1"></a>df99<span class="sc">$</span>year <span class="ot">=</span> <span class="st">&quot;1999&quot;</span></span>
+<span id="cb187-6"><a href="tidy-relational-data.html#cb187-6" tabindex="-1"></a>df00<span class="sc">$</span>year <span class="ot">=</span> <span class="st">&quot;2000&quot;</span></span>
+<span id="cb187-7"><a href="tidy-relational-data.html#cb187-7" tabindex="-1"></a><span class="co"># Step 3</span></span>
+<span id="cb187-8"><a href="tidy-relational-data.html#cb187-8" tabindex="-1"></a><span class="fu">names</span>(df99)[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">&quot;cases&quot;</span></span>
+<span id="cb187-9"><a href="tidy-relational-data.html#cb187-9" tabindex="-1"></a><span class="fu">names</span>(df00)[<span class="dv">2</span>] <span class="ot">=</span> <span class="st">&quot;cases&quot;</span></span>
+<span id="cb187-10"><a href="tidy-relational-data.html#cb187-10" tabindex="-1"></a><span class="co"># Step 4</span></span>
+<span id="cb187-11"><a href="tidy-relational-data.html#cb187-11" tabindex="-1"></a><span class="fu">rbind</span>(df99, df00)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   country      cases year 
+##   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;
+## 1 Afghanistan    745 1999 
+## 2 Brazil       37737 1999 
+## 3 China       212258 1999 
+## 4 Afghanistan   2666 2000 
+## 5 Brazil       80488 2000 
+## 6 China       213766 2000</code></pre>
+</div>
+</div>
+</div>
+<div id="relational-datasets" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Relational Datasets<a href="tidy-relational-data.html#relational-datasets" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many datasets contain multiple tables (or data frames) that are all closely
+related to each other. Sometimes, the rows in one table may be connected the
+rows in others through columns they have in common.</p>
+<p>For example, our library keeps track of its books using three tables: one
+identifying books, one identifying borrowers, and one that records each book
+checkout. Each book and each borrower has a unique identification number,
+recorded in the book and borrower tables, respectively. These ID numbers are
+also recorded in the checkouts table. Using the ID numbers, you can connect
+rows from one table to rows in another. We call this kind of dataset a
+<strong>relational</strong> dataset, because there are relationships between the tables.</p>
+<p>Storing relational datasets as several small tables rather than one large table
+has many benefits. Perhaps the most important is that it reduces redundancy and
+thereby reduces the size (in bytes) of the dataset. As a result, most
+<strong>databases</strong> are designed to store relational datasets.</p>
+<p>Because the data are split across many different tables, relational datasets
+also pose a unique challenge: to explore, compute statistics, make
+visualizations, and answer questions, you’ll typically need to combine the data
+of interest into a single table. One way to do this is with a <strong>join</strong>, an
+operation that combines rows from two tables based on values of a column they
+have in common. There are many different types of joins, which are covered in
+the subsequent sections.</p>
+<div id="the-dplyr-package" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> The dplyr Package<a href="tidy-relational-data.html#the-dplyr-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <a href="https://dplyr.tidyverse.org/">dplyr</a> package provides functions to join related data frames, among
+other things. Check out <a href="https://dplyr.tidyverse.org/reference/index.html">this list of all the functions provided by
+dplyr</a>.</p>
+<p>If you’ve ever used SQL, you’re probably familiar with relational datasets and
+recognize functions like <code>select</code>, <code>left_join</code>, and <code>group_by</code>. In fact,
+<code>dplyr</code> was designed to bring SQL-style data manipulation to R. As a result,
+many concepts of dplyr and SQL are nearly identical, and even the language
+overlaps a lot. I’ll point out some examples of this as we go, because I think
+some people might find it helpful. If you haven’t used SQL, don’t worry—all
+of the functions will be explained in detail.</p>
+</div>
+<div id="gradebook-dataset" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Gradebook Dataset<a href="tidy-relational-data.html#gradebook-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another example of a relational dataset that we all interact with regularly is
+the university gradebook. One table might store information about students and
+another might store their grades. The grades are linked to the student records
+by student ID. Looking at a student’s grades requires combining the two tables
+with a join.</p>
+<p>Let’s use a made-up gradebook dataset to make the idea of joins concrete. We’ll
+create two tables: the first identifies students by name and ID, and the second
+lists their grades in a class.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="tidy-relational-data.html#cb189-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb189-2"><a href="tidy-relational-data.html#cb189-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb189-3"><a href="tidy-relational-data.html#cb189-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb189-4"><a href="tidy-relational-data.html#cb189-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>))</span>
+<span id="cb189-5"><a href="tidy-relational-data.html#cb189-5" tabindex="-1"></a></span>
+<span id="cb189-6"><a href="tidy-relational-data.html#cb189-6" tabindex="-1"></a>students</span></code></pre></div>
+<pre><code>##   student_id    name
+## 1          1   Angel
+## 2          2    Beto
+## 3          3    Cici
+## 4          4 Desmond</code></pre>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="tidy-relational-data.html#cb191-1" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb191-2"><a href="tidy-relational-data.html#cb191-2" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
+<span id="cb191-3"><a href="tidy-relational-data.html#cb191-3" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">60</span>))</span>
+<span id="cb191-4"><a href="tidy-relational-data.html#cb191-4" tabindex="-1"></a></span>
+<span id="cb191-5"><a href="tidy-relational-data.html#cb191-5" tabindex="-1"></a>grades</span></code></pre></div>
+<pre><code>##   student_id grade
+## 1          2    90
+## 2          3    85
+## 3          4    80
+## 4          5    75
+## 5          6    60</code></pre>
+<p>The rows and columns of these tables have different meanings, so we can’t stack
+them side-by-side or one on top of the other. The “key” piece of information
+for linking them is the <code>student_id</code> column present in both.</p>
+<p>In relational datasets, each table usually has a <strong>primary key</strong>, a column of
+values that uniquely identify the rows. Key columns are important because they
+link rows in one table to rows in other tables.</p>
+<p>In the gradebook dataset, <code>student_id</code> is the primary key for the <code>students</code>
+table. Although the values of <code>student_id</code> in the <code>grades</code> table are unique, it
+is not a primary key for the <code>grades</code> table, because a student could have
+grades for more than one class.</p>
+<p>When one table’s primary key is included in another table, it’s called a
+<strong>foreign key</strong>. So <code>student_id</code> is a foreign key in the <code>grades</code> table.</p>
+<p>If you’ve used SQL, you’ve probably heard the terms primary key and foreign key
+before. They have the same meaning in R.</p>
+<p>In most databases, the primary key must be unique—there can be no duplicates.
+That said, relational datasets are not always designed for use as databases,
+and they may have key columns that are not unique. How to handle non-unique
+keys is going to be a recurring feature of this section.</p>
+</div>
+<div id="left-joins" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Left Joins<a href="tidy-relational-data.html#left-joins" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suppose we want a table with each student’s name and grade. This is a
+combination of information from both the <code>students</code> table and the <code>grades</code>
+table, but how can we combine the two?</p>
+<p>The <code>students</code> table contains the student names and has one row for each
+student. So we can use the <code>students</code> table as a starting point. Then we need
+to use each student’s ID number to look up their grade in the <code>grades</code> table.</p>
+<p>When you want combine data from two tables like this, you should think of using
+a join. In joins terminology, the two tables are usually called the <strong>left
+table</strong> and <strong>right table</strong> so that it’s easy to refer to each without
+ambiguity.</p>
+<p>For this particular example, we’ll use a <strong>left join</strong>. A left join keeps all
+of the rows in the left table and combines them with rows from the right table
+that match the primary key.</p>
+<p>We want to keep every student in the <code>students</code> table, so we’ll use it as the
+left table. The <code>grades</code> table will be the right table. The key that links the
+two tables is <code>student_id</code>. This left join will only keep rows from the
+<code>grades</code> table that match student IDs present in the <code>students</code> table.</p>
+<p>In dplyr, you can use the <code>left_join</code> function to carry out a left join. The
+first argument is the left table and the second argument is the right table.
+You can also set an argument for the <code>by</code> parameter to specify which column(s)
+to use as the key. Thus:</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="tidy-relational-data.html#cb193-1" tabindex="-1"></a><span class="co"># load dplyr package</span></span>
+<span id="cb193-2"><a href="tidy-relational-data.html#cb193-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb193-3"><a href="tidy-relational-data.html#cb193-3" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb193-4"><a href="tidy-relational-data.html#cb193-4" tabindex="-1"></a></span>
+<span id="cb193-5"><a href="tidy-relational-data.html#cb193-5" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb193-6"><a href="tidy-relational-data.html#cb193-6" tabindex="-1"></a><span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="st">&quot;student_id&quot;</span>)</span></code></pre></div>
+<pre><code>##   student_id    name grade
+## 1          1   Angel    NA
+## 2          2    Beto    90
+## 3          3    Cici    85
+## 4          4 Desmond    80</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="tidy-relational-data.html#cb195-1" tabindex="-1"></a><span class="co"># |&gt; kable()</span></span></code></pre></div>
+<p>Note that the keys do not match up perfectly between the tables: the <code>grades</code>
+table has no rows with <code>student_id</code> 1 (Angel) and has rows with <code>student_id</code> 5
+(an unknown student). Because we used a left join, the result has a missing
+value (<code>NA</code>) in the grade column for Angel and no entry for <code>student_id</code> 5. A
+left join augments the left table (<code>students</code>) with columns from the right
+table (<code>grades</code>). So the result of a left join will often have the same number
+of rows as the left table. New rows are not added for rows in the right table
+with non-matching key values.</p>
+<p>There is one case where the result of a left join will have more rows than the
+left table: when a key value is repeated in either table. In that case, every
+possible match will be provided in the result. For an example, let’s add rows
+with repeat IDs to both the <code>students</code> and <code>grades</code> tables. Let’s also rename
+the <code>student_id</code> column of <code>grades</code> to be <code>sid</code> so we can see how to join
+tables where the key column names don’t match.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="tidy-relational-data.html#cb196-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb196-2"><a href="tidy-relational-data.html#cb196-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb196-3"><a href="tidy-relational-data.html#cb196-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb196-4"><a href="tidy-relational-data.html#cb196-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>, <span class="st">&quot;Erik&quot;</span>))</span>
+<span id="cb196-5"><a href="tidy-relational-data.html#cb196-5" tabindex="-1"></a></span>
+<span id="cb196-6"><a href="tidy-relational-data.html#cb196-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb196-7"><a href="tidy-relational-data.html#cb196-7" tabindex="-1"></a>  <span class="at">sid =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb196-8"><a href="tidy-relational-data.html#cb196-8" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">60</span>))</span>
+<span id="cb196-9"><a href="tidy-relational-data.html#cb196-9" tabindex="-1"></a></span>
+<span id="cb196-10"><a href="tidy-relational-data.html#cb196-10" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb196-11"><a href="tidy-relational-data.html#cb196-11" tabindex="-1"></a><span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="fu">join_by</span>(student_id <span class="sc">==</span> sid))</span></code></pre></div>
+<pre><code>## Warning in left_join(students, grades, by = join_by(student_id == sid)): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 2 of `x` matches multiple rows in `y`.
+## ℹ Row 3 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to silence this warning.</code></pre>
+<pre><code>##   student_id    name grade
+## 1          1   Angel    NA
+## 2          2    Beto    90
+## 3          2    Beto    60
+## 4          3    Cici    85
+## 5          4 Desmond    80
+## 6          4    Erik    80</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="tidy-relational-data.html#cb199-1" tabindex="-1"></a><span class="co">#|&gt; kable()</span></span></code></pre></div>
+<p>Both of the tables had five rows, but the result has six rows because
+<code>student_id</code> is 4 for two rows of <code>students</code> and <code>sid</code> is 2 for two rows of
+<code>grades</code>. R warns that there is a many-to-many relationship in the
+join, which means that duplicate keys were matched in the left table and the
+right table. When there are no duplicate keys in either table, the match is
+one-to-one. When there are duplicates in one table only, the match is
+one-to-many or many-to-one. These are often desired behavior and so R just
+complies silently. A many-to-many match may be desired, but it is often a sign
+that something has gone wrong, so R emits a warning. You can get funky results
+when your keys are not unique!</p>
+<div class="float">
+<img src="img/cat-legs-left-join-meme.jpg" alt="Cats join meme" />
+<div class="figcaption">Cats join meme</div>
+</div>
+</div>
+<div id="other-joins" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Other Joins<a href="tidy-relational-data.html#other-joins" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are several other kinds of joins:</p>
+<ul>
+<li>A <strong>right join</strong> is almost the same as a left join, but reverses the roles of
+the left and right table. All rows from the right table are augmented with
+columns from the left table where the key matches.</li>
+<li>An <strong>inner join</strong> returns rows from the left and right tables only if they
+match (their key appears in both tables).</li>
+<li>A <strong>full join</strong> returns all rows from the left table and from the right
+table, even if they do not match.</li>
+</ul>
+<p>Here’s visualization to help identify the differences:</p>
+<div class="float">
+<img src="img/disney-meme.jpg" alt="Disney characters illustrate differences between joins" />
+<div class="figcaption">Disney characters illustrate differences between joins</div>
+</div>
+<p>The following subsections provide examples of different types of joins.</p>
+<div id="inner-join" class="section level4 hasAnchor" number="2.2.4.1">
+<h4><span class="header-section-number">2.2.4.1</span> Inner Join<a href="tidy-relational-data.html#inner-join" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>An inner join returns the same columns as a left join, but potentially fewer
+rows. The result of a inner join only includes the rows that matched according
+to the join specification. This will leave out some rows from the left table if
+they aren’t matched in the right table, which is the difference between an
+inner join and a left join.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="tidy-relational-data.html#cb200-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb200-2"><a href="tidy-relational-data.html#cb200-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb200-3"><a href="tidy-relational-data.html#cb200-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb200-4"><a href="tidy-relational-data.html#cb200-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>, <span class="st">&quot;Erik&quot;</span>))</span>
+<span id="cb200-5"><a href="tidy-relational-data.html#cb200-5" tabindex="-1"></a></span>
+<span id="cb200-6"><a href="tidy-relational-data.html#cb200-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb200-7"><a href="tidy-relational-data.html#cb200-7" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb200-8"><a href="tidy-relational-data.html#cb200-8" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">60</span>))</span>
+<span id="cb200-9"><a href="tidy-relational-data.html#cb200-9" tabindex="-1"></a></span>
+<span id="cb200-10"><a href="tidy-relational-data.html#cb200-10" tabindex="-1"></a><span class="co"># Inner join</span></span>
+<span id="cb200-11"><a href="tidy-relational-data.html#cb200-11" tabindex="-1"></a><span class="fu">inner_join</span>(students, grades, <span class="at">by =</span> <span class="st">&quot;student_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb200-12"><a href="tidy-relational-data.html#cb200-12" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in inner_join(students, grades, by = &quot;student_id&quot;): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 2 of `x` matches multiple rows in `y`.
+## ℹ Row 3 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to silence this warning.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">student_id</th>
+<th align="left">name</th>
+<th align="right">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">Beto</td>
+<td align="right">90</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Beto</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Cici</td>
+<td align="right">85</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">80</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">Erik</td>
+<td align="right">80</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="getting-clever-with-join_by" class="section level3 hasAnchor" number="2.2.5">
+<h3><span class="header-section-number">2.2.5</span> Getting Clever with <code>join_by</code><a href="tidy-relational-data.html#getting-clever-with-join_by" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So far, we’ve focused on the join types and the tables. There’s been a third element in all of the examples that we’ve mostly ignored until now: the <code>by</code> argument in the joins. Specifying a single column name (like <code>student_id</code>) works great when the key columns have the same names in both tables. However, real examples are often more complicated. For those times, dplyr provides a function called <code>join_by</code>, which lets you create <strong>join specifications</strong> to solve even very complicated problems. We begin with an example where the key name in the <code>grades</code> table has been changed from <code>student_id</code> to <code>sid</code>.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="tidy-relational-data.html#cb202-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb202-2"><a href="tidy-relational-data.html#cb202-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb202-3"><a href="tidy-relational-data.html#cb202-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb202-4"><a href="tidy-relational-data.html#cb202-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>))</span>
+<span id="cb202-5"><a href="tidy-relational-data.html#cb202-5" tabindex="-1"></a></span>
+<span id="cb202-6"><a href="tidy-relational-data.html#cb202-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb202-7"><a href="tidy-relational-data.html#cb202-7" tabindex="-1"></a>  <span class="at">sid =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb202-8"><a href="tidy-relational-data.html#cb202-8" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>))</span>
+<span id="cb202-9"><a href="tidy-relational-data.html#cb202-9" tabindex="-1"></a></span>
+<span id="cb202-10"><a href="tidy-relational-data.html#cb202-10" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb202-11"><a href="tidy-relational-data.html#cb202-11" tabindex="-1"></a><span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="fu">join_by</span>(student_id<span class="sc">==</span>sid)) <span class="sc">|&gt;</span></span>
+<span id="cb202-12"><a href="tidy-relational-data.html#cb202-12" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">student_id</th>
+<th align="left">name</th>
+<th align="right">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Angel</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Beto</td>
+<td align="right">90</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Cici</td>
+<td align="right">85</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">80</td>
+</tr>
+</tbody>
+</table>
+<p>Since the key column names don’t match, I have provided a <code>join_by</code>
+specification. Specifying a match via <code>join_by</code> is very powerful and flexible,
+but the main thing to recognize here is that R searches for the column name on
+the left of the double-equals in the left table and searches for the column
+name on the right of the double-equals in the right table. In this example,
+that means the join will try to match <code>students$student_id</code> to <code>grades$sid</code>.</p>
+<div id="matching-multiple-columns" class="section level4 hasAnchor" number="2.2.5.1">
+<h4><span class="header-section-number">2.2.5.1</span> Matching multiple columns<a href="tidy-relational-data.html#matching-multiple-columns" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Sometimes it takes more than one key to uniquely identify a row of data. For example, suppose some of our students are retaking the class in 2023 because they got a failing grade in 2022. Then we would need to combine the student ID with the year to uniquely identify a student’s grade. You can include multiple comparisons in a <code>join_by</code> specification by separating them with commas. In the following example, student ID still has different names between the tables but the year column has the same name in both tables.</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="tidy-relational-data.html#cb203-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb203-2"><a href="tidy-relational-data.html#cb203-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb203-3"><a href="tidy-relational-data.html#cb203-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb203-4"><a href="tidy-relational-data.html#cb203-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>))</span>
+<span id="cb203-5"><a href="tidy-relational-data.html#cb203-5" tabindex="-1"></a></span>
+<span id="cb203-6"><a href="tidy-relational-data.html#cb203-6" tabindex="-1"></a><span class="co"># duplicate the students for two years</span></span>
+<span id="cb203-7"><a href="tidy-relational-data.html#cb203-7" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb203-8"><a href="tidy-relational-data.html#cb203-8" tabindex="-1"></a>  <span class="fu">mutate</span>(students, <span class="at">year =</span> <span class="dv">2022</span>),</span>
+<span id="cb203-9"><a href="tidy-relational-data.html#cb203-9" tabindex="-1"></a>  <span class="fu">mutate</span>(students, <span class="at">year =</span> <span class="dv">2023</span>)</span>
+<span id="cb203-10"><a href="tidy-relational-data.html#cb203-10" tabindex="-1"></a>)</span>
+<span id="cb203-11"><a href="tidy-relational-data.html#cb203-11" tabindex="-1"></a></span>
+<span id="cb203-12"><a href="tidy-relational-data.html#cb203-12" tabindex="-1"></a><span class="co"># create the grades data.frame</span></span>
+<span id="cb203-13"><a href="tidy-relational-data.html#cb203-13" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb203-14"><a href="tidy-relational-data.html#cb203-14" tabindex="-1"></a>  <span class="at">sid =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb203-15"><a href="tidy-relational-data.html#cb203-15" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>)</span>
+<span id="cb203-16"><a href="tidy-relational-data.html#cb203-16" tabindex="-1"></a>  )</span>
+<span id="cb203-17"><a href="tidy-relational-data.html#cb203-17" tabindex="-1"></a></span>
+<span id="cb203-18"><a href="tidy-relational-data.html#cb203-18" tabindex="-1"></a><span class="co"># duplicate the grades table for two years</span></span>
+<span id="cb203-19"><a href="tidy-relational-data.html#cb203-19" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb203-20"><a href="tidy-relational-data.html#cb203-20" tabindex="-1"></a>  <span class="fu">mutate</span>(grades, <span class="at">grade =</span> grade <span class="sc">-</span> <span class="dv">50</span>, <span class="at">year =</span> <span class="dv">2022</span>),</span>
+<span id="cb203-21"><a href="tidy-relational-data.html#cb203-21" tabindex="-1"></a>  <span class="fu">mutate</span>(grades, <span class="at">year =</span> <span class="dv">2023</span>)</span>
+<span id="cb203-22"><a href="tidy-relational-data.html#cb203-22" tabindex="-1"></a>)</span>
+<span id="cb203-23"><a href="tidy-relational-data.html#cb203-23" tabindex="-1"></a></span>
+<span id="cb203-24"><a href="tidy-relational-data.html#cb203-24" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb203-25"><a href="tidy-relational-data.html#cb203-25" tabindex="-1"></a><span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="fu">join_by</span>(student_id<span class="sc">==</span>sid, year)) <span class="sc">|&gt;</span></span>
+<span id="cb203-26"><a href="tidy-relational-data.html#cb203-26" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">student_id</th>
+<th align="left">name</th>
+<th align="right">year</th>
+<th align="right">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Angel</td>
+<td align="right">2022</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Beto</td>
+<td align="right">2022</td>
+<td align="right">40</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Cici</td>
+<td align="right">2022</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">2022</td>
+<td align="right">30</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Angel</td>
+<td align="right">2023</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Beto</td>
+<td align="right">2023</td>
+<td align="right">90</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Cici</td>
+<td align="right">2023</td>
+<td align="right">85</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">2023</td>
+<td align="right">80</td>
+</tr>
+</tbody>
+</table>
+<p>To learn clever tricks for complicated joins, see the documentation at <code>?join_by</code>.</p>
+<!--
+# 12. Conclusion and Resources (10 mins)
+- Summary of key concepts learned.
+- Recommended resources for further learning.
+
+
+# Special topics
+
+## Semi Joins
+The semi_join() function in the dplyr package is used to return all rows from the first (left) data frame that have matching rows in the second (right) data frame based on specified columns. Unlike other join functions in dplyr, semi_join() only retains the rows from the left data frame where there is a match in the right data frame, but it does not include any columns from the right data frame in the result. It is a way to filter rows from the left data frame based on their presence in the right data frame.
+
+### Syntax:
+`semi_join(x, y, by = "common_column")`
+`x`: The left data frame.
+`y`: The right data frame.
+`by`: A character vector specifying the column(s) by which the data frames should be joined.
+
+### Example:
+
+
+```r
+# Example datasets
+employees = data.frame(emp_id = c(1, 2, 3, 4),
+                        name = c("Angel", "Beto", "Cici", "Desmond"))
+
+salaries = data.frame(emp_id = c(2, 3, 4, 5),
+                        salary = c(60000, 75000, 80000, 70000))
+
+# Semi-join
+semi_result = semi_join(employees, salaries, by = "emp_id")
+
+# View the result
+print(semi_result)
+```
+
+```
+##   emp_id    name
+## 1      2    Beto
+## 2      3    Cici
+## 3      4 Desmond
+```
+
+In this example, the `semi_join` function is used to retain only those rows from the `employees` data frame where the `emp_id` values have a match in the `salaries` data frame. The resulting `semi_result` will only contain the rows with `emp_id` values 2, 3, and 4.
+
+### Use Cases:
+Filtering rows in the left data frame based on the presence of matching values in the right data frame.
+Useful when you are interested in a subset of records from the left data frame that has corresponding records in the right data frame.
+
+## Anti Joins
+The `semi_join` function is the opposite of `anti_join`, which returns rows from the left data frame that do not have matching rows in the right data frame.
+
+
+```r
+# Example of anti-join (rows in employees without a match in salaries)
+anti_result = anti_join(employees, salaries, by = "emp_id")
+```
+-->
+</div>
+</div>
+<div id="examples" class="section level3 hasAnchor" number="2.2.6">
+<h3><span class="header-section-number">2.2.6</span> Examples<a href="tidy-relational-data.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We’ve seen enough of the made-up grades example! Let’s look at some real data and practice our skills!</p>
+<p>Let’s begin by looking at the data on books, borrowers, and checkouts.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="tidy-relational-data.html#cb204-1" tabindex="-1"></a>borrowers <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/library/borrowers.csv&quot;</span>)</span>
+<span id="cb204-2"><a href="tidy-relational-data.html#cb204-2" tabindex="-1"></a>books <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/library/books.csv&quot;</span>)</span>
+<span id="cb204-3"><a href="tidy-relational-data.html#cb204-3" tabindex="-1"></a>checkouts <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/library/checkouts.csv&quot;</span>)</span>
+<span id="cb204-4"><a href="tidy-relational-data.html#cb204-4" tabindex="-1"></a></span>
+<span id="cb204-5"><a href="tidy-relational-data.html#cb204-5" tabindex="-1"></a><span class="co"># show the top rows</span></span>
+<span id="cb204-6"><a href="tidy-relational-data.html#cb204-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(books))</span></code></pre></div>
+<pre><code>##   book_id                                   title          author subject
+## 1       1                               my alaska        guy noir      NA
+## 2       2                                 jubilee          charro      NA
+## 3       3     the window ruiner ruined my windows       zipperman      NA
+## 4       4                    clowns in the clouds       dark doug      NA
+## 5       5 dogs walked, tigers tamed, bars emptied    lucky pierre      NA
+## 6       6                             ace ventura sandy mackinnon      NA
+##   Keywords minority_author Description. Contents. Series. Pages. Publisher.
+## 1       NA              NA           NA        NA      NA    100         NA
+## 2       NA              NA           NA        NA      NA    100         NA
+## 3       NA              NA           NA        NA      NA    100         NA
+## 4       NA              NA           NA        NA      NA    100         NA
+## 5       NA              NA           NA        NA      NA    100         NA
+## 6       NA              NA           NA        NA      NA    100         NA
+##   creation_date publication_date Edition. format venue Language. Source.
+## 1            NA               NA       NA     NA    NA        NA      NA
+## 2            NA               NA       NA     NA    NA        NA      NA
+## 3            NA               NA       NA     NA    NA        NA      NA
+## 4            NA               NA       NA     NA    NA        NA      NA
+## 5            NA               NA       NA     NA    NA        NA      NA
+## 6            NA               NA       NA     NA    NA        NA      NA
+##   Identifier. ISBN. location copies type Barcode.
+## 1          NA    NA       NA     NA   NA       NA
+## 2          NA    NA       NA     NA   NA       NA
+## 3          NA    NA       NA     NA   NA       NA
+## 4          NA    NA       NA     NA   NA       NA
+## 5          NA    NA       NA     NA   NA       NA
+## 6          NA    NA       NA     NA   NA       NA</code></pre>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="tidy-relational-data.html#cb206-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(borrowers))</span></code></pre></div>
+<pre><code>##   borrower_id account_type major date_created
+## 1           1      student    NA           NA
+## 2           2        staff    NA           NA
+## 3           3      student    NA           NA
+## 4           4      student    NA           NA
+## 5           5      faculty    NA           NA
+## 6           6        staff    NA           NA</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="tidy-relational-data.html#cb208-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(checkouts))</span></code></pre></div>
+<pre><code>##   borrower_id book_id checkout_date due_date
+## 1           1       1      12/21/23  6/18/24
+## 2           1       2        1/3/22   7/2/22
+## 3           2       2      10/12/20  4/10/21
+## 4           2       3        5/5/23  11/1/23
+## 5           2       4      12/12/21  6/10/22
+## 6           4       2        6/7/18  12/4/18</code></pre>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="tidy-relational-data.html#cb210-1" tabindex="-1"></a><span class="co"># get the table sizes</span></span>
+<span id="cb210-2"><a href="tidy-relational-data.html#cb210-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(books))</span></code></pre></div>
+<pre><code>## [1]  9 24</code></pre>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="tidy-relational-data.html#cb212-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(borrowers))</span></code></pre></div>
+<pre><code>## [1] 10  4</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="tidy-relational-data.html#cb214-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(checkouts))</span></code></pre></div>
+<pre><code>## [1] 7 4</code></pre>
+<p>One thing we can see is that the <code>books</code> table refers to physical copies of a book, so if the library owns two copies of the same book then the same title, publisher, etc. will appear on the same row.</p>
+<p>In the previous section, we set a goal of augmenting the <code>checkouts</code> table with the information in the <code>books</code> table. To augment means to add to. We are going to be adding to the <code>checkouts</code> table, but do we add rows or columns? Each row of <code>checkouts</code> is an event that matches one book and one borrower. Adding new rows would be like adding new events that didn’t occur: not good! Each row has a book and each book has many columns of information in the <code>books</code> table. So we can maintain the relationships in the data while adding new columns of information to <code>checkouts</code>.</p>
+<p>How are we to know which books were checked out most often, or were generaly checked out by the same people? The tables have different numbers of rows and columns, so we won’t be able to stack them side-by-side or one on top of the other. The “key” pieces of information are the columns <code>books$book_id</code> and <code>borrowers$borrower_id</code>. If you’ve ever used SQL, you may recall that each table should have a <strong>primary key</strong>, which is a column of values that identify the rows. In a database, the primary key must be unique - there can be no duplicates. Most spreadsheets are not designed as databases, and they may have key or ID columns that are not unique. How to handle non-unique keys is going to be a recurring feature of this workshop.</p>
+<p>Now look at the <code>checkouts</code> table again. It has two ID columns: <code>book_id</code> and <code>borrower_id</code>. These match the borrower and book IDs in the <code>borrowers</code> and <code>books</code> tables. Obviously, these aren’t unique: one person may check out multiple books, and an exceptionaly popular book might be checked out as many as three times from the same library! These are columns that identify unique keys other tables, which SQL calls <strong>foreign keys</strong>.</p>
+<p>Now we can begin to reason about how to approach the goal of identifying the books that are most often checked out. We want to augment the <code>checkouts</code> table with the information in the <code>books</code> table, matching rows where <code>book_id</code> matches. Every row in the checkouts table should match exactly one row in the results and every row in the results should match exactly one row in the checkouts table. In the next section we will translate this plain-english description into the language used by dplyr.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="tidy-relational-data.html#cb216-1" tabindex="-1"></a><span class="co"># Top ten books with most checkouts</span></span>
+<span id="cb216-2"><a href="tidy-relational-data.html#cb216-2" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb216-3"><a href="tidy-relational-data.html#cb216-3" tabindex="-1"></a>  <span class="fu">group_by</span>(book_id) <span class="sc">|&gt;</span></span>
+<span id="cb216-4"><a href="tidy-relational-data.html#cb216-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">title=</span><span class="fu">first</span>(title), <span class="at">author=</span><span class="fu">first</span>(author), <span class="at">n_checkouts=</span><span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb216-5"><a href="tidy-relational-data.html#cb216-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_checkouts)) <span class="sc">|&gt;</span></span>
+<span id="cb216-6"><a href="tidy-relational-data.html#cb216-6" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb216-7"><a href="tidy-relational-data.html#cb216-7" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="54%" />
+<col width="17%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">book_id</th>
+<th align="left">title</th>
+<th align="left">author</th>
+<th align="right">n_checkouts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">jubilee</td>
+<td align="left">charro</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">my alaska</td>
+<td align="left">guy noir</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">the window ruiner ruined my windows</td>
+<td align="left">zipperman</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">clowns in the clouds</td>
+<td align="left">dark doug</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">dogs walked, tigers tamed, bars emptied</td>
+<td align="left">lucky pierre</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>Just for fun, here is an instructive example of why relational tables are a better way to store data than putting everything into one spreadsheet. If we want to identify the authors whose books were most checked out from the UCD library, we might think to adapt our previous example to group by author rather than by book_id.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="tidy-relational-data.html#cb217-1" tabindex="-1"></a><span class="co"># Top ten authors with most checkouts</span></span>
+<span id="cb217-2"><a href="tidy-relational-data.html#cb217-2" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb217-3"><a href="tidy-relational-data.html#cb217-3" tabindex="-1"></a>  <span class="fu">group_by</span>(author) <span class="sc">|&gt;</span></span>
+<span id="cb217-4"><a href="tidy-relational-data.html#cb217-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">author=</span><span class="fu">first</span>(author), <span class="at">n_checkouts =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb217-5"><a href="tidy-relational-data.html#cb217-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_checkouts)) <span class="sc">|&gt;</span></span>
+<span id="cb217-6"><a href="tidy-relational-data.html#cb217-6" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb217-7"><a href="tidy-relational-data.html#cb217-7" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">author</th>
+<th align="right">n_checkouts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">charro</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">dark doug</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">guy noir</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">lucky pierre</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">zipperman</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>The problem is that the <code>author</code> column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name (<a href="https://orcid.org">this is what ORCID does for scientific publishing</a>).</p>
+<div id="three-or-more-tables" class="section level4 hasAnchor" number="2.2.6.1">
+<h4><span class="header-section-number">2.2.6.1</span> Three or More Tables<a href="tidy-relational-data.html#three-or-more-tables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A join operates on two tables, but you can combine multiple tables by doing
+several joins in a row. Let’s look at an example that combines <code>checkouts</code>,
+<code>books</code>, and <code>borrowers</code> in order to see how many books were checked out by
+students, faculty, and staff.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="tidy-relational-data.html#cb218-1" tabindex="-1"></a><span class="co"># list the account types who checked out the most books</span></span>
+<span id="cb218-2"><a href="tidy-relational-data.html#cb218-2" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb218-3"><a href="tidy-relational-data.html#cb218-3" tabindex="-1"></a>  <span class="fu">left_join</span>(borrowers, <span class="at">by=</span><span class="st">&quot;borrower_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb218-4"><a href="tidy-relational-data.html#cb218-4" tabindex="-1"></a>  <span class="fu">group_by</span>(borrower_id) <span class="sc">|&gt;</span></span>
+<span id="cb218-5"><a href="tidy-relational-data.html#cb218-5" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">account_type=</span><span class="fu">first</span>(account_type), <span class="at">n_checkouts =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb218-6"><a href="tidy-relational-data.html#cb218-6" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_checkouts)) <span class="sc">|&gt;</span></span>
+<span id="cb218-7"><a href="tidy-relational-data.html#cb218-7" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">borrower_id</th>
+<th align="left">account_type</th>
+<th align="right">n_checkouts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">staff</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">student</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">student</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="right">5</td>
+<td align="left">faculty</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="be-explicit" class="section level3 hasAnchor" number="2.2.7">
+<h3><span class="header-section-number">2.2.7</span> Be Explicit<a href="tidy-relational-data.html#be-explicit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Do you find it odd that we have to tell R exactly what kind of data join to do by calling one of <code>left_join</code>, <code>right_join</code>, <code>inner_join</code>, or <code>full_join</code>? Why isn’t there just one function called <code>join</code> that assumes you’re doing a left join unless you specifically provide an argument <code>type</code> like <code>join(..., type="inner")</code>? If you think it would be confusing for R to make assumptions about what kind of data join we want, then you’re on the right track but you’ll want to watch out for these other cases where R has strong assumptions about what the default behavior should be.</p>
+<p>A general principle of programming is that explicit is better than implicit because writing information into your code explicitly makes it easier to understand what the code does. Here are some examples of implicit assumptions R will make unless you provide explicit instructions.</p>
+<div id="handling-duplicate-keys" class="section level4 hasAnchor" number="2.2.7.1">
+<h4><span class="header-section-number">2.2.7.1</span> Handling Duplicate Keys<a href="tidy-relational-data.html#handling-duplicate-keys" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Values in the key columns may not be unique. What do you think happens when you join using keys that aren’t unique?</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="tidy-relational-data.html#cb219-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb219-2"><a href="tidy-relational-data.html#cb219-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb219-3"><a href="tidy-relational-data.html#cb219-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb219-4"><a href="tidy-relational-data.html#cb219-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>, <span class="st">&quot;Erik&quot;</span>))</span>
+<span id="cb219-5"><a href="tidy-relational-data.html#cb219-5" tabindex="-1"></a></span>
+<span id="cb219-6"><a href="tidy-relational-data.html#cb219-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb219-7"><a href="tidy-relational-data.html#cb219-7" tabindex="-1"></a>                        <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">50</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">30</span>))</span>
+<span id="cb219-8"><a href="tidy-relational-data.html#cb219-8" tabindex="-1"></a></span>
+<span id="cb219-9"><a href="tidy-relational-data.html#cb219-9" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb219-10"><a href="tidy-relational-data.html#cb219-10" tabindex="-1"></a><span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="st">&quot;student_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb219-11"><a href="tidy-relational-data.html#cb219-11" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<pre><code>## Warning in left_join(students, grades, by = &quot;student_id&quot;): Detected an unexpected many-to-many relationship between `x` and `y`.
+## ℹ Row 2 of `x` matches multiple rows in `y`.
+## ℹ Row 4 of `y` matches multiple rows in `x`.
+## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to silence this warning.</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">student_id</th>
+<th align="left">name</th>
+<th align="right">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Angel</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Beto</td>
+<td align="right">90</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="left">Beto</td>
+<td align="right">50</td>
+</tr>
+<tr class="even">
+<td align="right">3</td>
+<td align="left">Cici</td>
+<td align="right">85</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">80</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">75</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="left">Erik</td>
+<td align="right">80</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Erik</td>
+<td align="right">75</td>
+</tr>
+</tbody>
+</table>
+<p>We get one row in the result for every possible combination of the matching keys. Sometimes that is what you want, and other times not. In this case, it might be reasonable that Beto, Desmond, and Erik have multiple grades in the book, but it is probably not reasonable that both Desmond and Erik have student ID 4 and have the same grades as each other. This is a many-to-many match, with all the risks we’ve mentioned before.</p>
+<div id="specifying-the-expected-relationship" class="section level5 hasAnchor" number="2.2.7.1.1">
+<h5><span class="header-section-number">2.2.7.1.1</span> Specifying the Expected Relationship<a href="tidy-relational-data.html#specifying-the-expected-relationship" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>You can be explicit about what kind of relationship you expect in the join by specifying the <code>relationship</code> parameter. Your options are <code>one-to-one</code>, <code>one-to-many</code>, or <code>many-to-one</code>. Any of those will stop the code with an error if the data doesn’t match the relationship you told it to expect.</p>
+<p>If you leave the <code>relationship</code> parameter blank, R will allow a many-to-many join but will raise a warning. Pay attention to your warning messages! If you know in advance that you want a many-to-many join, then you can provide the argument <code>relatonship='many-to-many'</code>, which will do the same as leaving <code>relationship</code> blank, except it will not raise the warning.</p>
+</div>
+<div id="using-only-distinct-rows" class="section level5 hasAnchor" number="2.2.7.1.2">
+<h5><span class="header-section-number">2.2.7.1.2</span> Using Only Distinct Rows<a href="tidy-relational-data.html#using-only-distinct-rows" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>An alternative to handling duplicate keys is to subset the data to avoid duplicates in the first place. The dplyr package provides a function, <code>distinct</code>, which can help. When <code>distinct</code> finds duplicated rows, it keeps the first one.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="tidy-relational-data.html#cb221-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb221-2"><a href="tidy-relational-data.html#cb221-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb221-3"><a href="tidy-relational-data.html#cb221-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb221-4"><a href="tidy-relational-data.html#cb221-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>, <span class="st">&quot;Erik&quot;</span>))</span>
+<span id="cb221-5"><a href="tidy-relational-data.html#cb221-5" tabindex="-1"></a></span>
+<span id="cb221-6"><a href="tidy-relational-data.html#cb221-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb221-7"><a href="tidy-relational-data.html#cb221-7" tabindex="-1"></a>                        <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">50</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>, <span class="dv">30</span>))</span>
+<span id="cb221-8"><a href="tidy-relational-data.html#cb221-8" tabindex="-1"></a></span>
+<span id="cb221-9"><a href="tidy-relational-data.html#cb221-9" tabindex="-1"></a><span class="co"># Left join</span></span>
+<span id="cb221-10"><a href="tidy-relational-data.html#cb221-10" tabindex="-1"></a>distinct_keys_result <span class="ot">=</span> students <span class="sc">|&gt;</span> <span class="fu">distinct</span>(student_id, <span class="at">.keep_all=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb221-11"><a href="tidy-relational-data.html#cb221-11" tabindex="-1"></a>  <span class="fu">left_join</span>(grades, <span class="at">by =</span> <span class="st">&quot;student_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb221-12"><a href="tidy-relational-data.html#cb221-12" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="ambiguous-columns" class="section level4 hasAnchor" number="2.2.7.2">
+<h4><span class="header-section-number">2.2.7.2</span> Ambiguous Columns<a href="tidy-relational-data.html#ambiguous-columns" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>When the two tables have columns with the same names, it is ambiguous which one to use in the result. R handles that situation by keeping both but changing the names to include the table names. So the column from the left table gets a <code>.x</code> appended by default and the column from the right table gets a <code>.y</code> appended by default. Let’s see an example. Suppose that the <code>date_created</code> column of the borrowers table had the name <code>date</code> instead. Then in the joined data it would be ambiguous with the <code>date</code> column of the checkouts table.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="tidy-relational-data.html#cb222-1" tabindex="-1"></a><span class="co"># Rename the date_created column of borrowers</span></span>
+<span id="cb222-2"><a href="tidy-relational-data.html#cb222-2" tabindex="-1"></a>borrowers <span class="ot">=</span> <span class="fu">rename</span>(borrowers, <span class="at">date=</span>date_created)</span>
+<span id="cb222-3"><a href="tidy-relational-data.html#cb222-3" tabindex="-1"></a></span>
+<span id="cb222-4"><a href="tidy-relational-data.html#cb222-4" tabindex="-1"></a><span class="co"># Now create the list of checkouts</span></span>
+<span id="cb222-5"><a href="tidy-relational-data.html#cb222-5" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb222-6"><a href="tidy-relational-data.html#cb222-6" tabindex="-1"></a>  <span class="fu">left_join</span>(borrowers, <span class="at">by=</span><span class="st">&quot;borrower_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb222-7"><a href="tidy-relational-data.html#cb222-7" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb222-8"><a href="tidy-relational-data.html#cb222-8" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="2%" />
+<col width="4%" />
+<col width="2%" />
+<col width="12%" />
+<col width="4%" />
+<col width="2%" />
+<col width="2%" />
+<col width="4%" />
+<col width="4%" />
+<col width="3%" />
+<col width="2%" />
+<col width="2%" />
+<col width="3%" />
+<col width="4%" />
+<col width="5%" />
+<col width="2%" />
+<col width="2%" />
+<col width="1%" />
+<col width="3%" />
+<col width="2%" />
+<col width="3%" />
+<col width="1%" />
+<col width="2%" />
+<col width="2%" />
+<col width="1%" />
+<col width="2%" />
+<col width="4%" />
+<col width="1%" />
+<col width="1%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">borrower_id</th>
+<th align="right">book_id</th>
+<th align="left">checkout_date</th>
+<th align="left">due_date</th>
+<th align="left">title</th>
+<th align="left">author</th>
+<th align="left">subject</th>
+<th align="left">Keywords</th>
+<th align="left">minority_author</th>
+<th align="left">Description.</th>
+<th align="left">Contents.</th>
+<th align="left">Series.</th>
+<th align="right">Pages.</th>
+<th align="left">Publisher.</th>
+<th align="left">creation_date</th>
+<th align="left">publication_date</th>
+<th align="left">Edition.</th>
+<th align="left">format</th>
+<th align="left">venue</th>
+<th align="left">Language.</th>
+<th align="left">Source.</th>
+<th align="left">Identifier.</th>
+<th align="left">ISBN.</th>
+<th align="left">location</th>
+<th align="left">copies</th>
+<th align="left">type</th>
+<th align="left">Barcode.</th>
+<th align="left">account_type</th>
+<th align="left">major</th>
+<th align="left">date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">12/21/23</td>
+<td align="left">6/18/24</td>
+<td align="left">my alaska</td>
+<td align="left">guy noir</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">student</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="left">1/3/22</td>
+<td align="left">7/2/22</td>
+<td align="left">jubilee</td>
+<td align="left">charro</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">student</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">10/12/20</td>
+<td align="left">4/10/21</td>
+<td align="left">jubilee</td>
+<td align="left">charro</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">staff</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="left">5/5/23</td>
+<td align="left">11/1/23</td>
+<td align="left">the window ruiner ruined my windows</td>
+<td align="left">zipperman</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">staff</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="left">12/12/21</td>
+<td align="left">6/10/22</td>
+<td align="left">clowns in the clouds</td>
+<td align="left">dark doug</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">staff</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="left">6/7/18</td>
+<td align="left">12/4/18</td>
+<td align="left">jubilee</td>
+<td align="left">charro</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">student</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="left">10/1/23</td>
+<td align="left">3/29/24</td>
+<td align="left">dogs walked, tigers tamed, bars emptied</td>
+<td align="left">lucky pierre</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">faculty</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<p>If you aren’t satisfied with appending <code>.x</code> and <code>.y</code> to the ambiguous columns, then you can specify the <code>suffix</code> argument with a pair of strings like this:</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="tidy-relational-data.html#cb223-1" tabindex="-1"></a><span class="co"># Now create the list of checkouts</span></span>
+<span id="cb223-2"><a href="tidy-relational-data.html#cb223-2" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>, <span class="at">suffix=</span><span class="fu">c</span>(<span class="st">&quot;_checkout&quot;</span>, <span class="st">&quot;_book&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb223-3"><a href="tidy-relational-data.html#cb223-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb223-4"><a href="tidy-relational-data.html#cb223-4" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table style="width:100%;">
+<colgroup>
+<col width="4%" />
+<col width="2%" />
+<col width="4%" />
+<col width="3%" />
+<col width="13%" />
+<col width="4%" />
+<col width="2%" />
+<col width="3%" />
+<col width="5%" />
+<col width="4%" />
+<col width="3%" />
+<col width="2%" />
+<col width="2%" />
+<col width="3%" />
+<col width="4%" />
+<col width="5%" />
+<col width="3%" />
+<col width="2%" />
+<col width="2%" />
+<col width="3%" />
+<col width="2%" />
+<col width="4%" />
+<col width="2%" />
+<col width="3%" />
+<col width="2%" />
+<col width="1%" />
+<col width="3%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="right">borrower_id</th>
+<th align="right">book_id</th>
+<th align="left">checkout_date</th>
+<th align="left">due_date</th>
+<th align="left">title</th>
+<th align="left">author</th>
+<th align="left">subject</th>
+<th align="left">Keywords</th>
+<th align="left">minority_author</th>
+<th align="left">Description.</th>
+<th align="left">Contents.</th>
+<th align="left">Series.</th>
+<th align="right">Pages.</th>
+<th align="left">Publisher.</th>
+<th align="left">creation_date</th>
+<th align="left">publication_date</th>
+<th align="left">Edition.</th>
+<th align="left">format</th>
+<th align="left">venue</th>
+<th align="left">Language.</th>
+<th align="left">Source.</th>
+<th align="left">Identifier.</th>
+<th align="left">ISBN.</th>
+<th align="left">location</th>
+<th align="left">copies</th>
+<th align="left">type</th>
+<th align="left">Barcode.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">12/21/23</td>
+<td align="left">6/18/24</td>
+<td align="left">my alaska</td>
+<td align="left">guy noir</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="left">1/3/22</td>
+<td align="left">7/2/22</td>
+<td align="left">jubilee</td>
+<td align="left">charro</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="left">10/12/20</td>
+<td align="left">4/10/21</td>
+<td align="left">jubilee</td>
+<td align="left">charro</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="left">5/5/23</td>
+<td align="left">11/1/23</td>
+<td align="left">the window ruiner ruined my windows</td>
+<td align="left">zipperman</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="left">12/12/21</td>
+<td align="left">6/10/22</td>
+<td align="left">clowns in the clouds</td>
+<td align="left">dark doug</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="left">6/7/18</td>
+<td align="left">12/4/18</td>
+<td align="left">jubilee</td>
+<td align="left">charro</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="left">10/1/23</td>
+<td align="left">3/29/24</td>
+<td align="left">dogs walked, tigers tamed, bars emptied</td>
+<td align="left">lucky pierre</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="right">100</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<p>By specifying the <code>suffix</code> argument, we get column names in the result with more meaningful names.</p>
+</div>
+<div id="missing-values" class="section level4 hasAnchor" number="2.2.7.3">
+<h4><span class="header-section-number">2.2.7.3</span> Missing Values<a href="tidy-relational-data.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The dplyr package has a default behavior that I think is dangerous. In the conditions of a join, <code>NA==NA</code> evaluates to <code>TRUE</code>, which is unlike the behavior anywhere else in R. This means that keys identified as <code>NA</code> will match other <code>NA</code>s in the join. This is a very strong assumption that seems to contradict the idea of a missing value since if we actually don’t know two keys, how can we say that they match? And if we know two keys have the same value then they should be labeled in the data. In my opinion, it’s a mistake to have the computer make strong assumptions by default, and especially if it does so without warning the user. Fortunately, there is a way to make the more sensible decision that <code>NA</code>s don’t match anything: include the argument <code>na_matches='never'</code> in the join.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="tidy-relational-data.html#cb224-1" tabindex="-1"></a><span class="co"># Example datasets</span></span>
+<span id="cb224-2"><a href="tidy-relational-data.html#cb224-2" tabindex="-1"></a>students <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb224-3"><a href="tidy-relational-data.html#cb224-3" tabindex="-1"></a>  <span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb224-4"><a href="tidy-relational-data.html#cb224-4" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;Angel&quot;</span>, <span class="st">&quot;Beto&quot;</span>, <span class="st">&quot;Cici&quot;</span>, <span class="st">&quot;Desmond&quot;</span>))</span>
+<span id="cb224-5"><a href="tidy-relational-data.html#cb224-5" tabindex="-1"></a></span>
+<span id="cb224-6"><a href="tidy-relational-data.html#cb224-6" tabindex="-1"></a>grades <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">student_id =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb224-7"><a href="tidy-relational-data.html#cb224-7" tabindex="-1"></a>                        <span class="at">grade =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">85</span>, <span class="dv">80</span>, <span class="dv">75</span>))</span>
+<span id="cb224-8"><a href="tidy-relational-data.html#cb224-8" tabindex="-1"></a></span>
+<span id="cb224-9"><a href="tidy-relational-data.html#cb224-9" tabindex="-1"></a><span class="co"># Left joins</span></span>
+<span id="cb224-10"><a href="tidy-relational-data.html#cb224-10" tabindex="-1"></a><span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="st">&quot;student_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb224-11"><a href="tidy-relational-data.html#cb224-11" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">student_id</th>
+<th align="left">name</th>
+<th align="right">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Angel</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">NA</td>
+<td align="left">Beto</td>
+<td align="right">85</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Cici</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">80</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="tidy-relational-data.html#cb225-1" tabindex="-1"></a><span class="fu">left_join</span>(students, grades, <span class="at">by =</span> <span class="st">&quot;student_id&quot;</span>, <span class="at">na_matches =</span> <span class="st">&quot;never&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb225-2"><a href="tidy-relational-data.html#cb225-2" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">student_id</th>
+<th align="left">name</th>
+<th align="right">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Angel</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">NA</td>
+<td align="left">Beto</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Cici</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Desmond</td>
+<td align="right">80</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that since Beto’s student ID is <code>NA</code>, none of the rows in the <code>grades</code> table can match him. As a result, his grade is left <code>NA</code> in the result.</p>
+</div>
+</div>
+<div id="conclusion" class="section level3 hasAnchor" number="2.2.8">
+<h3><span class="header-section-number">2.2.8</span> Conclusion<a href="tidy-relational-data.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You’ve now seen how to join data tables that can be linked by key columns. I encourage you to expand on the examples by posing questions and trying to write the code to answer them. Reading the documentation for <a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">join functions</a> and <a href="https://dplyr.tidyverse.org/reference/join_by.html"><code>join_by</code> specifications</a> is a great way to continue your learning journey by studying the (many!) special cases that we skipped over here.</p>
+
+</div>
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="string-date-processing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="best-practices-for-writing-r-scripts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": false,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/edit/master/02_reshaping_data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/master/02_reshaping_data.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
