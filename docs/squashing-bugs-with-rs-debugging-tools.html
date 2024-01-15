@@ -329,6 +329,7 @@ system for warnings and errors works, how to use the R debugger, and how to
 estimate the performance of R code.</p>
 <div id="learning-objectives-3" class="section level4 unnumbered hasAnchor">
 <h4>Learning Objectives<a href="squashing-bugs-with-rs-debugging-tools.html#learning-objectives-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>After completing this session, learners should be able to:</p>
 <ul>
 <li>Use R’s conditions system to raise and catch messages, warnings, and errors</li>
 <li>Use R’s debugging functions to diagnose bugs in code</li>
@@ -558,7 +559,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x5555844dbe50&gt;
+## &lt;bytecode: 0x55d11ebdee50&gt;
 ## &lt;environment: namespace:cli&gt;
 ## 
 ## $CBoundsCheck
@@ -772,9 +773,9 @@ of expressions to benchmark as arguments. For example, to compare the speed of
 <div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb398-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</span>
 <span id="cb398-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb398-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##  expr      min       lq     mean   median       uq       max neval
-##     A 2.866326 3.258161 3.479572 3.323092 3.472401  7.942078   100
-##     B 5.904507 6.281376 6.721875 6.485273 6.915268 13.351294   100</code></pre>
+##  expr      min       lq    mean   median       uq      max neval
+##     A 2.856121 3.266538 3.61117 3.364224 3.598873  9.07358   100
+##     B 5.974012 6.329529 6.68825 6.454140 6.847779 11.95678   100</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>
