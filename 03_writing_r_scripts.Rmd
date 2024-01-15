@@ -11,6 +11,10 @@ Best Practices for Writing R Scripts
 * Explain strategies to organize iterative code
 
 
+Scripting Your Code
+-------------------
+
+
 Printing Output
 ---------------
 
@@ -309,6 +313,14 @@ actively maintained as of January 2023:
 [loggit]: https://github.com/ryapric/loggit
 [logger]: https://github.com/daroczig/logger
 [log4r]: https://github.com/johnmyleswhite/log4r
+
+
+Reading Input
+-------------
+
+
+Managing Packages
+-----------------
 
 
 Iteration Strategies
