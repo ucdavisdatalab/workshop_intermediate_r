@@ -38,8 +38,6 @@ The `print` function also prints quotes around strings:
 
 ```{r}
 print("Hi")
-options(error=recover)
-read.csv("nope")
 ```
 
 These features make the `print` function ideal for printing information when
