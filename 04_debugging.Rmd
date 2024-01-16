@@ -26,6 +26,7 @@ code is make it print out lots of information about what's happening as it
 runs. You can use the `print` function to print values in a way that exposes
 details important to programmers.
 
+
 For example, when printing a vector, the function prints the position of the
 first element on each line in square brackets `[ ]`:
 
@@ -37,6 +38,8 @@ The `print` function also prints quotes around strings:
 
 ```{r}
 print("Hi")
+options(error=recover)
+read.csv("nope")
 ```
 
 These features make the `print` function ideal for printing information when
@@ -324,43 +327,43 @@ You can learn more about the `.Rprofile` file and R's startup process at
 Debugging
 ---------
 
-**Debugging** code is the process of confirming, step-by-step, that what you
-believe the code does is what the code actually does. The key idea is to check
-each step (or expression) in the code. There are two different strategies for
-doing this:
+It can be very frustrating when your computer doesn't do what you expect! **Debugging** code is the process of addressing why your computer is doing something unexpected. Almost anything you do in R will be a process made up of many steps, done in the order that they are written. In general, you should proceed by breaking your workflow into small parts and confirming, step-by-step, that the result is what you expected.
 
-* Work forward through the code from the beginning.
-* Work backward from the source of an error.
+### Read Your Errors and Warnings
+Your computer is dumb and it will do exactly what you tell it to do. There are two ways this can cause problems: if you ask the impossible or if your instructions take you to the wrong place. If you tell R to do something impossible, it will generate an error or a warning, which will include a message that tries to tell you what went wrong. Read the messages! Often, it will describe the problem and suggest a solution. 
 
-R has built-in functions to help with debugging. The `browser()` function
-pauses the running code and starts R's debugging system.
-
-For example:
-```{r, eval = FALSE}
-# Run this in an R console.
-f = function(n) {
-  total = 0
-  for (i in 1:n) {
-    browser()
-    total = total + i
-  }
-  total
-}
-
-f(10)
+```{r add-characters}
+#| error: true
+"seven" + 5
 ```
 
-The most important debugger commands are:
+```{r file-not-exist}
+#| error: true
+read.csv("nope")
+```
 
-* `n` to run the next line
-* `s` to "step into" a call
-* `c` to continue running the code
-* `Q` to quit the debugger
-* `where` to print call stack
-* `help` to print debugger help
+### Workflow Debugging
+Notice that I talked about the **workflow**, which is a broader concept than the code because it includes code, data, and how the code is used. Often you'll hit an error simply because you've changed your data since you first loaded it into R. In that case, restarting R and running your code in a clean environment might resolve the error without making any changes. Today we will focus on methods and tools for debugging, which will help you identify the reason that something unexpected happens. These lessons are relevant even if the error is not due to your code.
+
+### Isolate the Problem
+The most important step when debugging an error is to locate it. There are two main strategies for doing this:
+
+* Work forward through the code from the beginning.
+* Work backward from the source of an error.                                            
+
+Both strategies are valid and powerful. Working backward is probably faster for experienced R users because errors and messages have patterns that you learn to recognize over time. If you recognize the meaning of an error, you may be able to immediately identify its cause. The `traceback()` function is quite helpful for the "work backward: strategy, because it identifies the function where the error actually happened (which may be )
+ 
+To work forward from the beginning 
+
+R has several built-in functions to help with debugging. Here are a few of the most important.
+
+- `traceback()` shows the **call stack**, which is the series of nested function calls that walk from the interactive prompt to the location of the error.
+- `stopifnot()` raises an error condition if your assumption about some object is wrong.
+- `browser()` pauses the running code and starts R's debugging system.
+- `debug()` inserts a call to `browser()` at the beginning of a function, so you can go step-by-step through its operation.
 
 
-Another example:
+For example:
 ```{r, eval = FALSE}
 # Run this in an R console.
 g = function(x, y) (1 + x) * y
@@ -377,6 +380,19 @@ f = function(n) {
 
 f(11)
 ```
+
+
+
+
+The most important debugger commands are:
+
+* `n` to run the next line
+* `s` to "step into" a call
+* `c` to continue running the code
+* `Q` to quit the debugger
+* `where` to print call stack
+* `help` to print debugger help
+
 
 
 ### Other Functions
