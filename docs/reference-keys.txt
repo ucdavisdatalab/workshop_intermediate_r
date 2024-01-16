@@ -77,6 +77,9 @@ raising-conditions
 handling-conditions
 global-options
 debugging
+read-your-errors-and-warnings
+workflow-debugging
+isolate-the-problem
 other-functions
 measuring-performance
 estimating-memory-usage
