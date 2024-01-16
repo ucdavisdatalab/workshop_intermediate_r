@@ -1,5 +1,10 @@
 Joining Data
 ====================
+
+```{r set-up-chapter}
+print.data.frame = knitr::kable
+```
+
 You will often have two or more data sets that are part of the same project. For example, our library keeps track of its books using three tables: one identifying books, one identifying borrowers, and one that records each book checkout. 
 
 ## Objective:
