@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2024-01-16" />
+<meta name="date" content="2024-01-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -187,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.3" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#columns-into-rows"><i class="fa fa-check"></i><b>2.1.3</b> Columns into Rows</a></li>
 <li class="chapter" data-level="2.1.4" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#separating-values"><i class="fa fa-check"></i><b>2.1.4</b> Separating Values</a></li>
 <li class="chapter" data-level="2.1.5" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#case-study-smart-ridership"><i class="fa fa-check"></i><b>2.1.5</b> Case Study: SMART Ridership</a></li>
-<li class="chapter" data-level="2.1.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#without-tidyr"><i class="fa fa-check"></i><b>2.1.6</b> Without tidyr</a></li>
+<li class="chapter" data-level="2.1.6" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#without-tidyr"><i class="fa fa-check"></i><b>2.1.6</b> Without <code>tidyr</code></a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="tidy-relational-data.html"><a href="tidy-relational-data.html#relational-datasets"><i class="fa fa-check"></i><b>2.2</b> Relational Datasets</a>
 <ul>
@@ -241,6 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#workflow-debugging"><i class="fa fa-check"></i><b>4.4.2</b> Workflow Debugging</a></li>
 <li class="chapter" data-level="4.4.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#isolate-the-problem"><i class="fa fa-check"></i><b>4.4.3</b> Isolate the Problem</a></li>
 <li class="chapter" data-level="4.4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.4</b> Other Functions</a></li>
+<li class="chapter" data-level="4.4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-boottrapping-average-penguin-mass"><i class="fa fa-check"></i><b>4.4.5</b> Debugging Case Study: Boottrapping Average Penguin Mass</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#measuring-performance"><i class="fa fa-check"></i><b>4.5</b> Measuring Performance</a>
 <ul>
@@ -356,7 +357,7 @@ console. The string representation is usually formatted in a way that exposes
 details important to programmers rather than users.</p>
 <p>For example, when printing a vector, the function prints the position of the
 first element on each line in square brackets <code>[ ]</code>:</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="best-practices-for-writing-r-scripts.html#cb226-1" tabindex="-1"></a><span class="fu">print</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="best-practices-for-writing-r-scripts.html#cb247-1" tabindex="-1"></a><span class="fu">print</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span></code></pre></div>
 <pre><code>##   [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18
 ##  [19]  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36
 ##  [37]  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54
@@ -364,7 +365,7 @@ first element on each line in square brackets <code>[ ]</code>:</p>
 ##  [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90
 ##  [91]  91  92  93  94  95  96  97  98  99 100</code></pre>
 <p>The <code>print</code> function also prints quotes around strings:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="best-practices-for-writing-r-scripts.html#cb228-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Hi&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="best-practices-for-writing-r-scripts.html#cb249-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Hi&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Hi&quot;</code></pre>
 <p>These features make the <code>print</code> function ideal for printing information when
 you’re trying to understand some code or diagnose a bug. On the other hand,
@@ -387,24 +388,24 @@ it easier for other code to detect, record, respond to, or suppress the output
 (see Section <a href="squashing-bugs-with-rs-debugging-tools.html#the-conditions-system">4.2</a> to learn more about R’s conditions
 system).</p>
 <p>The <code>message</code> function prints its argument(s) and a newline to the console:</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="best-practices-for-writing-r-scripts.html#cb230-1" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&quot;Hello world!&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="best-practices-for-writing-r-scripts.html#cb251-1" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&quot;Hello world!&quot;</span>)</span></code></pre></div>
 <pre><code>## Hello world!</code></pre>
 <p>If an argument isn’t a string, the function automatically and silently attempts
 to coerce it to one:</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="best-practices-for-writing-r-scripts.html#cb232-1" tabindex="-1"></a><span class="fu">message</span>(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="best-practices-for-writing-r-scripts.html#cb253-1" tabindex="-1"></a><span class="fu">message</span>(<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## 4</code></pre>
 <p>Some types of objects can’t be coerced to a string:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="best-practices-for-writing-r-scripts.html#cb234-1" tabindex="-1"></a><span class="fu">message</span>(sqrt)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="best-practices-for-writing-r-scripts.html#cb255-1" tabindex="-1"></a><span class="fu">message</span>(sqrt)</span></code></pre></div>
 <pre><code>## Error in FUN(X[[i]], ...): cannot coerce type &#39;builtin&#39; to vector of type &#39;character&#39;</code></pre>
 <p>For objects with multiple elements, the function pastes together the string
 representations of the elements with no separators in between:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="best-practices-for-writing-r-scripts.html#cb236-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb236-2"><a href="best-practices-for-writing-r-scripts.html#cb236-2" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="best-practices-for-writing-r-scripts.html#cb257-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb257-2"><a href="best-practices-for-writing-r-scripts.html#cb257-2" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
 <pre><code>## 123</code></pre>
 <p>Similarly, if you pass the <code>message</code> function multiple arguments, it pastes
 them together with no separators:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="best-practices-for-writing-r-scripts.html#cb238-1" tabindex="-1"></a>name <span class="ot">=</span> <span class="st">&quot;R&quot;</span></span>
-<span id="cb238-2"><a href="best-practices-for-writing-r-scripts.html#cb238-2" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&quot;Hi, my name is &quot;</span>, name, <span class="st">&quot; and x is &quot;</span>, x)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="best-practices-for-writing-r-scripts.html#cb259-1" tabindex="-1"></a>name <span class="ot">=</span> <span class="st">&quot;R&quot;</span></span>
+<span id="cb259-2"><a href="best-practices-for-writing-r-scripts.html#cb259-2" tabindex="-1"></a><span class="fu">message</span>(<span class="st">&quot;Hi, my name is &quot;</span>, name, <span class="st">&quot; and x is &quot;</span>, x)</span></code></pre></div>
 <pre><code>## Hi, my name is R and x is 123</code></pre>
 <p>This is a convenient way to print names or descriptions alongside values from
 your code without having to call a formatting function like <code>paste</code>.</p>
@@ -412,15 +413,15 @@ your code without having to call a formatting function like <code>paste</code>.<
 the end by setting the argument <code>appendLF = FALSE</code>. The difference can be easy
 to miss unless you make several calls to <code>message</code>, so the <code>say_hello</code> function
 in this example calls <code>message</code> twice:</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="best-practices-for-writing-r-scripts.html#cb240-1" tabindex="-1"></a>say_hello <span class="ot">=</span> <span class="cf">function</span>(appendLF) {</span>
-<span id="cb240-2"><a href="best-practices-for-writing-r-scripts.html#cb240-2" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hello&quot;</span>, <span class="at">appendLF =</span> appendLF)</span>
-<span id="cb240-3"><a href="best-practices-for-writing-r-scripts.html#cb240-3" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot; world!&quot;</span>)</span>
-<span id="cb240-4"><a href="best-practices-for-writing-r-scripts.html#cb240-4" tabindex="-1"></a>}</span>
-<span id="cb240-5"><a href="best-practices-for-writing-r-scripts.html#cb240-5" tabindex="-1"></a></span>
-<span id="cb240-6"><a href="best-practices-for-writing-r-scripts.html#cb240-6" tabindex="-1"></a><span class="fu">say_hello</span>(<span class="at">appendLF =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="best-practices-for-writing-r-scripts.html#cb261-1" tabindex="-1"></a>say_hello <span class="ot">=</span> <span class="cf">function</span>(appendLF) {</span>
+<span id="cb261-2"><a href="best-practices-for-writing-r-scripts.html#cb261-2" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hello&quot;</span>, <span class="at">appendLF =</span> appendLF)</span>
+<span id="cb261-3"><a href="best-practices-for-writing-r-scripts.html#cb261-3" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot; world!&quot;</span>)</span>
+<span id="cb261-4"><a href="best-practices-for-writing-r-scripts.html#cb261-4" tabindex="-1"></a>}</span>
+<span id="cb261-5"><a href="best-practices-for-writing-r-scripts.html#cb261-5" tabindex="-1"></a></span>
+<span id="cb261-6"><a href="best-practices-for-writing-r-scripts.html#cb261-6" tabindex="-1"></a><span class="fu">say_hello</span>(<span class="at">appendLF =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Hello</code></pre>
 <pre><code>##  world!</code></pre>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="best-practices-for-writing-r-scripts.html#cb243-1" tabindex="-1"></a><span class="fu">say_hello</span>(<span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="best-practices-for-writing-r-scripts.html#cb264-1" tabindex="-1"></a><span class="fu">say_hello</span>(<span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## Hello world!</code></pre>
 <p>Note that RStudio always adds a newline in front of the prompt, so making an
 isolated call to <code>message</code> with <code>appendLF = FALSE</code> appears to produce the same
@@ -435,20 +436,20 @@ low-level way to print output to the console or a file. The <code>message</code>
 prints output by calling <code>cat</code>, but <code>cat</code> is not part of R’s conditions system.</p>
 <p>The <code>cat</code> function prints its argument(s) to the console. It does not add a
 newline at the end:</p>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="best-practices-for-writing-r-scripts.html#cb245-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Hello&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="best-practices-for-writing-r-scripts.html#cb266-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Hello&quot;</span>)</span></code></pre></div>
 <pre><code>## Hello</code></pre>
 <p>As with <code>message</code>, RStudio hides the fact that there’s no newline if you make
 an isolated call to <code>cat</code>.</p>
 <p>The <code>cat</code> function coerces its arguments to strings and concatenates them. By
 default, a space <code></code> is inserted between arguments and their elements:</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="best-practices-for-writing-r-scripts.html#cb247-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="best-practices-for-writing-r-scripts.html#cb268-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## 4</code></pre>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="best-practices-for-writing-r-scripts.html#cb249-1" tabindex="-1"></a><span class="fu">cat</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="best-practices-for-writing-r-scripts.html#cb270-1" tabindex="-1"></a><span class="fu">cat</span>(x)</span></code></pre></div>
 <pre><code>## 1 2 3</code></pre>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="best-practices-for-writing-r-scripts.html#cb251-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;Nick&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="best-practices-for-writing-r-scripts.html#cb272-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;Nick&quot;</span>)</span></code></pre></div>
 <pre><code>## Hello Nick</code></pre>
 <p>You can set the <code>sep</code> parameter to control the separator <code>cat</code> inserts:</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="best-practices-for-writing-r-scripts.html#cb253-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;world&quot;</span>, x, <span class="at">sep =</span> <span class="st">&quot;|&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="best-practices-for-writing-r-scripts.html#cb274-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;world&quot;</span>, x, <span class="at">sep =</span> <span class="st">&quot;|&quot;</span>)</span></code></pre></div>
 <pre><code>## Hello|world|1|2|3</code></pre>
 <p>If you want to write output to a file rather than to the console, you can call
 <code>cat</code> with the <code>file</code> parameter set. However, it’s preferable to use functions
@@ -475,23 +476,23 @@ on a standard keyboard.</p>
 <p>In R, escape sequences always begin with a backslash. For example, <code>\n</code> is a
 newline. The <code>message</code> and <code>cat</code> functions automatically convert escape
 sequences to the characters they represent:</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="best-practices-for-writing-r-scripts.html#cb255-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;Hello</span><span class="sc">\n</span><span class="st">world!&quot;</span></span>
-<span id="cb255-2"><a href="best-practices-for-writing-r-scripts.html#cb255-2" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="best-practices-for-writing-r-scripts.html#cb276-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="st">&quot;Hello</span><span class="sc">\n</span><span class="st">world!&quot;</span></span>
+<span id="cb276-2"><a href="best-practices-for-writing-r-scripts.html#cb276-2" tabindex="-1"></a><span class="fu">message</span>(x)</span></code></pre></div>
 <pre><code>## Hello
 ## world!</code></pre>
 <p>The <code>print</code> function doesn’t convert escape sequences:</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="best-practices-for-writing-r-scripts.html#cb257-1" tabindex="-1"></a><span class="fu">print</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="best-practices-for-writing-r-scripts.html#cb278-1" tabindex="-1"></a><span class="fu">print</span>(x)</span></code></pre></div>
 <pre><code>## [1] &quot;Hello\nworld!&quot;</code></pre>
 <p>Some escape sequences trigger special behavior in the console. For example,
 ending a line with a carriage return <code>\r</code> makes the console print the next line
 over the line. Try running this code in a console (it’s not possible to see the
 result in a static book):</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="best-practices-for-writing-r-scripts.html#cb259-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
-<span id="cb259-2"><a href="best-practices-for-writing-r-scripts.html#cb259-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
-<span id="cb259-3"><a href="best-practices-for-writing-r-scripts.html#cb259-3" tabindex="-1"></a>  <span class="fu">message</span>(i, <span class="st">&quot;</span><span class="sc">\r</span><span class="st">&quot;</span>, <span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb259-4"><a href="best-practices-for-writing-r-scripts.html#cb259-4" tabindex="-1"></a>  <span class="co"># Wait 0.5 seconds.</span></span>
-<span id="cb259-5"><a href="best-practices-for-writing-r-scripts.html#cb259-5" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="fl">0.5</span>)</span>
-<span id="cb259-6"><a href="best-practices-for-writing-r-scripts.html#cb259-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="best-practices-for-writing-r-scripts.html#cb280-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
+<span id="cb280-2"><a href="best-practices-for-writing-r-scripts.html#cb280-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb280-3"><a href="best-practices-for-writing-r-scripts.html#cb280-3" tabindex="-1"></a>  <span class="fu">message</span>(i, <span class="st">&quot;</span><span class="sc">\r</span><span class="st">&quot;</span>, <span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb280-4"><a href="best-practices-for-writing-r-scripts.html#cb280-4" tabindex="-1"></a>  <span class="co"># Wait 0.5 seconds.</span></span>
+<span id="cb280-5"><a href="best-practices-for-writing-r-scripts.html#cb280-5" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="fl">0.5</span>)</span>
+<span id="cb280-6"><a href="best-practices-for-writing-r-scripts.html#cb280-6" tabindex="-1"></a>}</span></code></pre></div>
 <p>You can find a complete list of escape sequences in <code>?Quotes</code>.</p>
 </div>
 <div id="formatting-functions" class="section level4 hasAnchor" number="3.2.4.2">
@@ -506,22 +507,22 @@ character. The character indicates the kind of data to be substituted: <code>s</
 strings, <code>i</code> for integers, <code>f</code> for floating point numbers, and so on.</p>
 <p>The first argument to <code>sprintf</code> must be a string, and subsequent arguments are
 values to substitute into the string (from left to right). For example:</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="best-practices-for-writing-r-scripts.html#cb260-1" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;My age is %i, and my name is %s&quot;</span>, <span class="dv">32</span>, <span class="st">&quot;Nick&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="best-practices-for-writing-r-scripts.html#cb281-1" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;My age is %i, and my name is %s&quot;</span>, <span class="dv">32</span>, <span class="st">&quot;Nick&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;My age is 32, and my name is Nick&quot;</code></pre>
 <p>You can use the mini-language to do things like specify how many digits to
 print after a decimal point. Format settings for a substituted value go between
 the percent sign <code>%</code> and the character. For instance, here’s how to print <code>pi</code>
 with 2 digits after the decimal:</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="best-practices-for-writing-r-scripts.html#cb262-1" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, pi)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="best-practices-for-writing-r-scripts.html#cb283-1" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, pi)</span></code></pre></div>
 <pre><code>## [1] &quot;3.14&quot;</code></pre>
 <p>You can learn more by reading <code>?sprintf</code>.</p>
 <p>Much simpler are the <code>paste</code> and <code>paste0</code> functions, which coerce their
 arguments to strings and concatenate (or “paste together”) them. The <code>paste</code>
 function inserts a space <code></code> between each argument, while the <code>paste0</code>
 function doesn’t:</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="best-practices-for-writing-r-scripts.html#cb264-1" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;world&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="best-practices-for-writing-r-scripts.html#cb285-1" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;world&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Hello world&quot;</code></pre>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="best-practices-for-writing-r-scripts.html#cb266-1" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;Hello&quot;</span>,  <span class="st">&quot;world&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="best-practices-for-writing-r-scripts.html#cb287-1" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">&quot;Hello&quot;</span>,  <span class="st">&quot;world&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;Helloworld&quot;</code></pre>
 <p>You can control the character inserted between arguments with the <code>sep</code>
 parameter.</p>
@@ -530,7 +531,7 @@ parameter.</p>
 argument to <code>collapse</code> is inserted between the elements. For example, suppose
 you want to paste together elements of a vector inserting a comma and space
 <code>,</code> in between:</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="best-practices-for-writing-r-scripts.html#cb268-1" tabindex="-1"></a><span class="fu">paste</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="best-practices-for-writing-r-scripts.html#cb289-1" tabindex="-1"></a><span class="fu">paste</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;1, 2, 3&quot;</code></pre>
 <p>Members of the R community have developed many packages to make formatting
 strings easier:</p>
@@ -615,17 +616,17 @@ vectorization and have at least some familiarity with apply functions.</p>
 <h3><span class="header-section-number">3.5.1</span> For-loops<a href="best-practices-for-writing-r-scripts.html#for-loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A <strong>for-loop</strong> evaluates an expression once for each element of a vector or
 list. The <code>for</code> keyword creates a for-loop. The syntax is:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="best-practices-for-writing-r-scripts.html#cb270-1" tabindex="-1"></a><span class="cf">for</span> (I <span class="cf">in</span> DATA) {</span>
-<span id="cb270-2"><a href="best-practices-for-writing-r-scripts.html#cb270-2" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
-<span id="cb270-3"><a href="best-practices-for-writing-r-scripts.html#cb270-3" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="best-practices-for-writing-r-scripts.html#cb291-1" tabindex="-1"></a><span class="cf">for</span> (I <span class="cf">in</span> DATA) {</span>
+<span id="cb291-2"><a href="best-practices-for-writing-r-scripts.html#cb291-2" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
+<span id="cb291-3"><a href="best-practices-for-writing-r-scripts.html#cb291-3" tabindex="-1"></a>}</span></code></pre></div>
 <p>The variable <code>I</code> is called an <strong>induction variable</strong>. At the beginning of each
 iteration, <code>I</code> is assigned the next element of <code>DATA</code>. The loop iterates once
 for each element, unless a keyword instructs R to exit the loop early (more
 about this in Section <a href="best-practices-for-writing-r-scripts.html#break-next">3.5.4</a>). As with if-statements and functions,
 the curly braces <code>{ }</code> are only required if the body contains multiple lines of
 code. Here’s a simple for-loop:</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="best-practices-for-writing-r-scripts.html#cb271-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb271-2"><a href="best-practices-for-writing-r-scripts.html#cb271-2" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hi from iteration  &quot;</span>, i)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="best-practices-for-writing-r-scripts.html#cb292-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb292-2"><a href="best-practices-for-writing-r-scripts.html#cb292-2" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hi from iteration  &quot;</span>, i)</span></code></pre></div>
 <pre><code>## Hi from iteration  1</code></pre>
 <pre><code>## Hi from iteration  2</code></pre>
 <pre><code>## Hi from iteration  3</code></pre>
@@ -642,25 +643,25 @@ instance, loops are a good way to implement time-based simulations or compute
 values in recursively defined sequences.</p>
 <p>As a concrete example, suppose you want to compute the result of starting from
 the value 1 and composing the sine function 100 times:</p>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="best-practices-for-writing-r-scripts.html#cb282-1" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb282-2"><a href="best-practices-for-writing-r-scripts.html#cb282-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
-<span id="cb282-3"><a href="best-practices-for-writing-r-scripts.html#cb282-3" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">sin</span>(result)</span>
-<span id="cb282-4"><a href="best-practices-for-writing-r-scripts.html#cb282-4" tabindex="-1"></a>}</span>
-<span id="cb282-5"><a href="best-practices-for-writing-r-scripts.html#cb282-5" tabindex="-1"></a></span>
-<span id="cb282-6"><a href="best-practices-for-writing-r-scripts.html#cb282-6" tabindex="-1"></a>result</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="best-practices-for-writing-r-scripts.html#cb303-1" tabindex="-1"></a>result <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb303-2"><a href="best-practices-for-writing-r-scripts.html#cb303-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb303-3"><a href="best-practices-for-writing-r-scripts.html#cb303-3" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">sin</span>(result)</span>
+<span id="cb303-4"><a href="best-practices-for-writing-r-scripts.html#cb303-4" tabindex="-1"></a>}</span>
+<span id="cb303-5"><a href="best-practices-for-writing-r-scripts.html#cb303-5" tabindex="-1"></a></span>
+<span id="cb303-6"><a href="best-practices-for-writing-r-scripts.html#cb303-6" tabindex="-1"></a>result</span></code></pre></div>
 <pre><code>## [1] 0.1688525</code></pre>
 <p>Unlike other iteration strategies, loops don’t return a result automatically.
 It’s up to you to use variables to store any results you want to use later. If
 you want to save a result from every iteration, you can use a vector or a list
 indexed on the iteration number:</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="best-practices-for-writing-r-scripts.html#cb284-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">100</span></span>
-<span id="cb284-2"><a href="best-practices-for-writing-r-scripts.html#cb284-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span>
-<span id="cb284-3"><a href="best-practices-for-writing-r-scripts.html#cb284-3" tabindex="-1"></a>result[<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb284-4"><a href="best-practices-for-writing-r-scripts.html#cb284-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
-<span id="cb284-5"><a href="best-practices-for-writing-r-scripts.html#cb284-5" tabindex="-1"></a>  result[i] <span class="ot">=</span> <span class="fu">sin</span>(result[i <span class="sc">-</span> <span class="dv">1</span>])</span>
-<span id="cb284-6"><a href="best-practices-for-writing-r-scripts.html#cb284-6" tabindex="-1"></a>}</span>
-<span id="cb284-7"><a href="best-practices-for-writing-r-scripts.html#cb284-7" tabindex="-1"></a></span>
-<span id="cb284-8"><a href="best-practices-for-writing-r-scripts.html#cb284-8" tabindex="-1"></a><span class="fu">plot</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="best-practices-for-writing-r-scripts.html#cb305-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb305-2"><a href="best-practices-for-writing-r-scripts.html#cb305-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb305-3"><a href="best-practices-for-writing-r-scripts.html#cb305-3" tabindex="-1"></a>result[<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb305-4"><a href="best-practices-for-writing-r-scripts.html#cb305-4" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb305-5"><a href="best-practices-for-writing-r-scripts.html#cb305-5" tabindex="-1"></a>  result[i] <span class="ot">=</span> <span class="fu">sin</span>(result[i <span class="sc">-</span> <span class="dv">1</span>])</span>
+<span id="cb305-6"><a href="best-practices-for-writing-r-scripts.html#cb305-6" tabindex="-1"></a>}</span>
+<span id="cb305-7"><a href="best-practices-for-writing-r-scripts.html#cb305-7" tabindex="-1"></a></span>
+<span id="cb305-8"><a href="best-practices-for-writing-r-scripts.html#cb305-8" tabindex="-1"></a><span class="fu">plot</span>(result)</span></code></pre></div>
 <p><img src="03_writing_r_scripts_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>Section <a href="best-practices-for-writing-r-scripts.html#saving-multiple-results">3.5.3</a> explains this in more detail.</p>
 <p>If the iterations in a task are not dependent, it’s preferable to use
@@ -669,26 +670,26 @@ efficient, and apply functions are usually more concise.</p>
 <p>In some cases, you can use vectorization to handle a task even if the
 iterations are dependent. For example, you can use vectorized exponentiation
 and the <code>sum</code> function to compute the sum of the cubes of many numbers:</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="best-practices-for-writing-r-scripts.html#cb285-1" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">100</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
-<span id="cb285-2"><a href="best-practices-for-writing-r-scripts.html#cb285-2" tabindex="-1"></a><span class="fu">sum</span>(numbers<span class="sc">^</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="best-practices-for-writing-r-scripts.html#cb306-1" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">3</span>, <span class="dv">100</span>, <span class="sc">-</span><span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb306-2"><a href="best-practices-for-writing-r-scripts.html#cb306-2" tabindex="-1"></a><span class="fu">sum</span>(numbers<span class="sc">^</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 1001910</code></pre>
 </div>
 <div id="while-loops" class="section level3 hasAnchor" number="3.5.2">
 <h3><span class="header-section-number">3.5.2</span> While-loops<a href="best-practices-for-writing-r-scripts.html#while-loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A <strong>while-loop</strong> runs a block of code repeatedly as long as some condition is
 <code>TRUE</code>. The <code>while</code> keyword creates a while-loop. The syntax is:</p>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="best-practices-for-writing-r-scripts.html#cb287-1" tabindex="-1"></a><span class="cf">while</span> (CONDITION) {</span>
-<span id="cb287-2"><a href="best-practices-for-writing-r-scripts.html#cb287-2" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
-<span id="cb287-3"><a href="best-practices-for-writing-r-scripts.html#cb287-3" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="best-practices-for-writing-r-scripts.html#cb308-1" tabindex="-1"></a><span class="cf">while</span> (CONDITION) {</span>
+<span id="cb308-2"><a href="best-practices-for-writing-r-scripts.html#cb308-2" tabindex="-1"></a>  <span class="co"># Your code goes here</span></span>
+<span id="cb308-3"><a href="best-practices-for-writing-r-scripts.html#cb308-3" tabindex="-1"></a>}</span></code></pre></div>
 <p>The <code>CONDITION</code> should be a scalar logical value or an expression that returns
 one. At the beginning of each iteration, R checks the <code>CONDITION</code> and exits the
 loop if it’s <code>FALSE</code>. As always, the curly braces <code>{ }</code> are only required if
 the body contains multiple lines of code. Here’s a simple while-loop:</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="best-practices-for-writing-r-scripts.html#cb288-1" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb288-2"><a href="best-practices-for-writing-r-scripts.html#cb288-2" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> <span class="dv">10</span>) {</span>
-<span id="cb288-3"><a href="best-practices-for-writing-r-scripts.html#cb288-3" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb288-4"><a href="best-practices-for-writing-r-scripts.html#cb288-4" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hello from iteration &quot;</span>, i)</span>
-<span id="cb288-5"><a href="best-practices-for-writing-r-scripts.html#cb288-5" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="best-practices-for-writing-r-scripts.html#cb309-1" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb309-2"><a href="best-practices-for-writing-r-scripts.html#cb309-2" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> <span class="dv">10</span>) {</span>
+<span id="cb309-3"><a href="best-practices-for-writing-r-scripts.html#cb309-3" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb309-4"><a href="best-practices-for-writing-r-scripts.html#cb309-4" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Hello from iteration &quot;</span>, i)</span>
+<span id="cb309-5"><a href="best-practices-for-writing-r-scripts.html#cb309-5" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## Hello from iteration 1</code></pre>
 <pre><code>## Hello from iteration 2</code></pre>
 <pre><code>## Hello from iteration 3</code></pre>
@@ -706,13 +707,13 @@ They tend to be most useful when you don’t know how many iterations will be
 necessary to complete a task.</p>
 <p>As an example, suppose you want to add up the integers in order until the total
 is greater than 50:</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="best-practices-for-writing-r-scripts.html#cb299-1" tabindex="-1"></a>total <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb299-2"><a href="best-practices-for-writing-r-scripts.html#cb299-2" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb299-3"><a href="best-practices-for-writing-r-scripts.html#cb299-3" tabindex="-1"></a><span class="cf">while</span> (total <span class="sc">&lt;</span> <span class="dv">50</span>) {</span>
-<span id="cb299-4"><a href="best-practices-for-writing-r-scripts.html#cb299-4" tabindex="-1"></a>  total <span class="ot">=</span> total <span class="sc">+</span> i</span>
-<span id="cb299-5"><a href="best-practices-for-writing-r-scripts.html#cb299-5" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;i is &quot;</span>, i, <span class="st">&quot; total is &quot;</span>, total)</span>
-<span id="cb299-6"><a href="best-practices-for-writing-r-scripts.html#cb299-6" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb299-7"><a href="best-practices-for-writing-r-scripts.html#cb299-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="best-practices-for-writing-r-scripts.html#cb320-1" tabindex="-1"></a>total <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb320-2"><a href="best-practices-for-writing-r-scripts.html#cb320-2" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb320-3"><a href="best-practices-for-writing-r-scripts.html#cb320-3" tabindex="-1"></a><span class="cf">while</span> (total <span class="sc">&lt;</span> <span class="dv">50</span>) {</span>
+<span id="cb320-4"><a href="best-practices-for-writing-r-scripts.html#cb320-4" tabindex="-1"></a>  total <span class="ot">=</span> total <span class="sc">+</span> i</span>
+<span id="cb320-5"><a href="best-practices-for-writing-r-scripts.html#cb320-5" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;i is &quot;</span>, i, <span class="st">&quot; total is &quot;</span>, total)</span>
+<span id="cb320-6"><a href="best-practices-for-writing-r-scripts.html#cb320-6" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb320-7"><a href="best-practices-for-writing-r-scripts.html#cb320-7" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## i is 1 total is 1</code></pre>
 <pre><code>## i is 2 total is 3</code></pre>
 <pre><code>## i is 3 total is 6</code></pre>
@@ -723,9 +724,9 @@ is greater than 50:</p>
 <pre><code>## i is 8 total is 36</code></pre>
 <pre><code>## i is 9 total is 45</code></pre>
 <pre><code>## i is 10 total is 55</code></pre>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="best-practices-for-writing-r-scripts.html#cb310-1" tabindex="-1"></a>total</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="best-practices-for-writing-r-scripts.html#cb331-1" tabindex="-1"></a>total</span></code></pre></div>
 <pre><code>## [1] 55</code></pre>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="best-practices-for-writing-r-scripts.html#cb312-1" tabindex="-1"></a>i</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="best-practices-for-writing-r-scripts.html#cb333-1" tabindex="-1"></a>i</span></code></pre></div>
 <pre><code>## [1] 11</code></pre>
 </div>
 <div id="saving-multiple-results" class="section level3 hasAnchor" number="3.5.3">
@@ -735,8 +736,8 @@ more than one result, there are a few things you must do.</p>
 <p>First, set up an index vector. The index vector should usually correspond to
 the positions of the elements in the data you want to process. The <code>seq_along</code>
 function returns an index vector when passed a vector or list. For instance:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="best-practices-for-writing-r-scripts.html#cb314-1" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">21</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="dv">5</span>)</span>
-<span id="cb314-2"><a href="best-practices-for-writing-r-scripts.html#cb314-2" tabindex="-1"></a>index <span class="ot">=</span> <span class="fu">seq_along</span>(numbers)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="best-practices-for-writing-r-scripts.html#cb335-1" tabindex="-1"></a>numbers <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">21</span>, <span class="dv">3</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="dv">5</span>)</span>
+<span id="cb335-2"><a href="best-practices-for-writing-r-scripts.html#cb335-2" tabindex="-1"></a>index <span class="ot">=</span> <span class="fu">seq_along</span>(numbers)</span></code></pre></div>
 <p>The loop will iterate over the index rather than the input, so the induction
 variable will track the current iteration number. On the first iteration, the
 induction variable will be 1, on the second it will be 2, and so on. Then you
@@ -753,15 +754,15 @@ vector with a specific type and length</p></li>
 </ul>
 <p>Empty vectors are filled with <code>FALSE</code>, <code>0</code>, or <code>""</code>, depending on the type of
 the vector. Here are some examples:</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="best-practices-for-writing-r-scripts.html#cb315-1" tabindex="-1"></a><span class="fu">logical</span>(<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="best-practices-for-writing-r-scripts.html#cb336-1" tabindex="-1"></a><span class="fu">logical</span>(<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE</code></pre>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="best-practices-for-writing-r-scripts.html#cb317-1" tabindex="-1"></a><span class="fu">numeric</span>(<span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="best-practices-for-writing-r-scripts.html#cb338-1" tabindex="-1"></a><span class="fu">numeric</span>(<span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 0 0 0 0</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="best-practices-for-writing-r-scripts.html#cb319-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="best-practices-for-writing-r-scripts.html#cb340-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1 2 1 2</code></pre>
 <p>Let’s create an empty numeric vector congruent to the <code>numbers</code> vector:</p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="best-practices-for-writing-r-scripts.html#cb321-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(numbers)</span>
-<span id="cb321-2"><a href="best-practices-for-writing-r-scripts.html#cb321-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="best-practices-for-writing-r-scripts.html#cb342-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(numbers)</span>
+<span id="cb342-2"><a href="best-practices-for-writing-r-scripts.html#cb342-2" tabindex="-1"></a>result <span class="ot">=</span> <span class="fu">numeric</span>(n)</span></code></pre></div>
 <p>As with the input, you can use the induction variable and indexing to set the
 output for each iteration.</p>
 <p>Creating a vector or list in advance to store something, as we’ve just done, is
@@ -771,11 +772,11 @@ bit by bit in each iteration.</p>
 <p>Finally, write the loop, making sure to get the input and set the output. As an
 example, this loop adds each element of <code>numbers</code> to a running total and
 squares the new running total:</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="best-practices-for-writing-r-scripts.html#cb322-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> index) {</span>
-<span id="cb322-2"><a href="best-practices-for-writing-r-scripts.html#cb322-2" tabindex="-1"></a>  prev <span class="ot">=</span> <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">1</span>) result[i <span class="sc">-</span> <span class="dv">1</span>] <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb322-3"><a href="best-practices-for-writing-r-scripts.html#cb322-3" tabindex="-1"></a>  result[i] <span class="ot">=</span> (numbers[i] <span class="sc">+</span> prev)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb322-4"><a href="best-practices-for-writing-r-scripts.html#cb322-4" tabindex="-1"></a>}</span>
-<span id="cb322-5"><a href="best-practices-for-writing-r-scripts.html#cb322-5" tabindex="-1"></a>result</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="best-practices-for-writing-r-scripts.html#cb343-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> index) {</span>
+<span id="cb343-2"><a href="best-practices-for-writing-r-scripts.html#cb343-2" tabindex="-1"></a>  prev <span class="ot">=</span> <span class="cf">if</span> (i <span class="sc">&gt;</span> <span class="dv">1</span>) result[i <span class="sc">-</span> <span class="dv">1</span>] <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb343-3"><a href="best-practices-for-writing-r-scripts.html#cb343-3" tabindex="-1"></a>  result[i] <span class="ot">=</span> (numbers[i] <span class="sc">+</span> prev)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb343-4"><a href="best-practices-for-writing-r-scripts.html#cb343-4" tabindex="-1"></a>}</span>
+<span id="cb343-5"><a href="best-practices-for-writing-r-scripts.html#cb343-5" tabindex="-1"></a>result</span></code></pre></div>
 <pre><code>## [1] 1.000000e+00 4.840000e+02 2.371690e+05 5.624534e+10 3.163538e+21</code></pre>
 </div>
 <div id="break-next" class="section level3 hasAnchor" number="3.5.4">
@@ -784,26 +785,26 @@ squares the new running total:</p>
 use <code>break</code> inside of an if-statement.</p>
 <p>For example, suppose you want to print each string in a vector, but stop at the
 first missing value. You can do this with a for-loop and the <code>break</code> keyword:</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="best-practices-for-writing-r-scripts.html#cb324-1" tabindex="-1"></a>my_messages <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Hi&quot;</span>, <span class="st">&quot;Hello&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Goodbye&quot;</span>)</span>
-<span id="cb324-2"><a href="best-practices-for-writing-r-scripts.html#cb324-2" tabindex="-1"></a></span>
-<span id="cb324-3"><a href="best-practices-for-writing-r-scripts.html#cb324-3" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
-<span id="cb324-4"><a href="best-practices-for-writing-r-scripts.html#cb324-4" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
-<span id="cb324-5"><a href="best-practices-for-writing-r-scripts.html#cb324-5" tabindex="-1"></a>    <span class="cf">break</span></span>
-<span id="cb324-6"><a href="best-practices-for-writing-r-scripts.html#cb324-6" tabindex="-1"></a></span>
-<span id="cb324-7"><a href="best-practices-for-writing-r-scripts.html#cb324-7" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
-<span id="cb324-8"><a href="best-practices-for-writing-r-scripts.html#cb324-8" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="best-practices-for-writing-r-scripts.html#cb345-1" tabindex="-1"></a>my_messages <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Hi&quot;</span>, <span class="st">&quot;Hello&quot;</span>, <span class="cn">NA</span>, <span class="st">&quot;Goodbye&quot;</span>)</span>
+<span id="cb345-2"><a href="best-practices-for-writing-r-scripts.html#cb345-2" tabindex="-1"></a></span>
+<span id="cb345-3"><a href="best-practices-for-writing-r-scripts.html#cb345-3" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
+<span id="cb345-4"><a href="best-practices-for-writing-r-scripts.html#cb345-4" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
+<span id="cb345-5"><a href="best-practices-for-writing-r-scripts.html#cb345-5" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb345-6"><a href="best-practices-for-writing-r-scripts.html#cb345-6" tabindex="-1"></a></span>
+<span id="cb345-7"><a href="best-practices-for-writing-r-scripts.html#cb345-7" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
+<span id="cb345-8"><a href="best-practices-for-writing-r-scripts.html#cb345-8" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## Hi</code></pre>
 <pre><code>## Hello</code></pre>
 <p>The <code>next</code> keyword causes a loop to immediately go to the next iteration. As
 with <code>break</code>, it only makes sense to use <code>next</code> inside of an if-statement.</p>
 <p>Let’s modify the previous example so that missing values are skipped, but don’t
 cause printing to stop. Here’s the code:</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="best-practices-for-writing-r-scripts.html#cb327-1" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
-<span id="cb327-2"><a href="best-practices-for-writing-r-scripts.html#cb327-2" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
-<span id="cb327-3"><a href="best-practices-for-writing-r-scripts.html#cb327-3" tabindex="-1"></a>    <span class="cf">next</span></span>
-<span id="cb327-4"><a href="best-practices-for-writing-r-scripts.html#cb327-4" tabindex="-1"></a></span>
-<span id="cb327-5"><a href="best-practices-for-writing-r-scripts.html#cb327-5" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
-<span id="cb327-6"><a href="best-practices-for-writing-r-scripts.html#cb327-6" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="best-practices-for-writing-r-scripts.html#cb348-1" tabindex="-1"></a><span class="cf">for</span> (msg <span class="cf">in</span> my_messages) {</span>
+<span id="cb348-2"><a href="best-practices-for-writing-r-scripts.html#cb348-2" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.na</span>(msg))</span>
+<span id="cb348-3"><a href="best-practices-for-writing-r-scripts.html#cb348-3" tabindex="-1"></a>    <span class="cf">next</span></span>
+<span id="cb348-4"><a href="best-practices-for-writing-r-scripts.html#cb348-4" tabindex="-1"></a></span>
+<span id="cb348-5"><a href="best-practices-for-writing-r-scripts.html#cb348-5" tabindex="-1"></a>  <span class="fu">message</span>(msg)</span>
+<span id="cb348-6"><a href="best-practices-for-writing-r-scripts.html#cb348-6" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## Hi</code></pre>
 <pre><code>## Hello</code></pre>
 <pre><code>## Goodbye</code></pre>
@@ -858,17 +859,17 @@ Collatz sequence starting from 12 is <code>12, 6, 3, 10, 5, 16, 8, 4, 2, 1</code
 value. Since each number in the sequence depends on the previous one, and since
 the length of the sequence varies, a while-loop is the most appropriate
 iteration strategy:</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="best-practices-for-writing-r-scripts.html#cb331-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb331-2"><a href="best-practices-for-writing-r-scripts.html#cb331-2" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb331-3"><a href="best-practices-for-writing-r-scripts.html#cb331-3" tabindex="-1"></a><span class="cf">while</span> (n <span class="sc">!=</span> <span class="dv">1</span>) {</span>
-<span id="cb331-4"><a href="best-practices-for-writing-r-scripts.html#cb331-4" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb331-5"><a href="best-practices-for-writing-r-scripts.html#cb331-5" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
-<span id="cb331-6"><a href="best-practices-for-writing-r-scripts.html#cb331-6" tabindex="-1"></a>    n <span class="ot">=</span> n <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb331-7"><a href="best-practices-for-writing-r-scripts.html#cb331-7" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb331-8"><a href="best-practices-for-writing-r-scripts.html#cb331-8" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">3</span> <span class="sc">*</span> n <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb331-9"><a href="best-practices-for-writing-r-scripts.html#cb331-9" tabindex="-1"></a>  }</span>
-<span id="cb331-10"><a href="best-practices-for-writing-r-scripts.html#cb331-10" tabindex="-1"></a>  <span class="fu">message</span>(n, <span class="st">&quot; &quot;</span>, <span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb331-11"><a href="best-practices-for-writing-r-scripts.html#cb331-11" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="best-practices-for-writing-r-scripts.html#cb352-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb352-2"><a href="best-practices-for-writing-r-scripts.html#cb352-2" tabindex="-1"></a>i <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb352-3"><a href="best-practices-for-writing-r-scripts.html#cb352-3" tabindex="-1"></a><span class="cf">while</span> (n <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb352-4"><a href="best-practices-for-writing-r-scripts.html#cb352-4" tabindex="-1"></a>  i <span class="ot">=</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb352-5"><a href="best-practices-for-writing-r-scripts.html#cb352-5" tabindex="-1"></a>  <span class="cf">if</span> (n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb352-6"><a href="best-practices-for-writing-r-scripts.html#cb352-6" tabindex="-1"></a>    n <span class="ot">=</span> n <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb352-7"><a href="best-practices-for-writing-r-scripts.html#cb352-7" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb352-8"><a href="best-practices-for-writing-r-scripts.html#cb352-8" tabindex="-1"></a>    n <span class="ot">=</span> <span class="dv">3</span> <span class="sc">*</span> n <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb352-9"><a href="best-practices-for-writing-r-scripts.html#cb352-9" tabindex="-1"></a>  }</span>
+<span id="cb352-10"><a href="best-practices-for-writing-r-scripts.html#cb352-10" tabindex="-1"></a>  <span class="fu">message</span>(n, <span class="st">&quot; &quot;</span>, <span class="at">appendLF =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb352-11"><a href="best-practices-for-writing-r-scripts.html#cb352-11" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## 16 8 4 2 1</code></pre>
 <p>As of 2020, scientists have used computers to check the Collatz sequences for
 every number up to approximately <span class="math inline">\(2^{64}\)</span>. For more details about the Collatz
@@ -893,8 +894,8 @@ you use a spreadsheet program to inspect some of the files.</p>
 use the <code>list.files</code> function to list all of the files in a directory. If you
 set <code>full.names = TRUE</code>, the function will return the absolute path to each
 file:</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="best-practices-for-writing-r-scripts.html#cb333-1" tabindex="-1"></a>paths <span class="ot">=</span> <span class="fu">list.files</span>(<span class="st">&quot;data/fruit&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb333-2"><a href="best-practices-for-writing-r-scripts.html#cb333-2" tabindex="-1"></a>paths</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="best-practices-for-writing-r-scripts.html#cb354-1" tabindex="-1"></a>paths <span class="ot">=</span> <span class="fu">list.files</span>(<span class="st">&quot;data/fruit&quot;</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb354-2"><a href="best-practices-for-writing-r-scripts.html#cb354-2" tabindex="-1"></a>paths</span></code></pre></div>
 <pre><code>##  [1] &quot;data/fruit/apples_2013.xlsx&quot;         &quot;data/fruit/apricots_2013.xlsx&quot;      
 ##  [3] &quot;data/fruit/bananas_2013.xlsx&quot;        &quot;data/fruit/berries_mixed_2013.xlsx&quot; 
 ##  [5] &quot;data/fruit/blackberries_2013.xlsx&quot;   &quot;data/fruit/blueberries_2013.xlsx&quot;   
@@ -913,9 +914,9 @@ file:</p>
 <p>The files are in Excel format, which you can read with the <code>read_excel</code>
 function from the <a href="https://readxl.tidyverse.org/">readxl</a> package. First try reading one file and extracting
 the fresh price:</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="best-practices-for-writing-r-scripts.html#cb335-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span>
-<span id="cb335-2"><a href="best-practices-for-writing-r-scripts.html#cb335-2" tabindex="-1"></a></span>
-<span id="cb335-3"><a href="best-practices-for-writing-r-scripts.html#cb335-3" tabindex="-1"></a>prices <span class="ot">=</span> <span class="fu">read_excel</span>(paths[<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="best-practices-for-writing-r-scripts.html#cb356-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;readxl&quot;</span>)</span>
+<span id="cb356-2"><a href="best-practices-for-writing-r-scripts.html#cb356-2" tabindex="-1"></a></span>
+<span id="cb356-3"><a href="best-practices-for-writing-r-scripts.html#cb356-3" tabindex="-1"></a>prices <span class="ot">=</span> <span class="fu">read_excel</span>(paths[<span class="dv">1</span>])</span></code></pre></div>
 <pre><code>## New names:
 ## • `` -&gt; `...2`
 ## • `` -&gt; `...3`
@@ -927,10 +928,10 @@ the fresh price:</p>
 price appears in the row where the word in column 1 starts with <code>"Fresh"</code>. You
 can use <code>str_which</code> from the stringr package (Section
 <a href="string-date-processing.html#the-stringr-package">1.4.1</a>) to find and extract this row:</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="best-practices-for-writing-r-scripts.html#cb337-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stringr&quot;</span>)</span>
-<span id="cb337-2"><a href="best-practices-for-writing-r-scripts.html#cb337-2" tabindex="-1"></a></span>
-<span id="cb337-3"><a href="best-practices-for-writing-r-scripts.html#cb337-3" tabindex="-1"></a>idx_fresh <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
-<span id="cb337-4"><a href="best-practices-for-writing-r-scripts.html#cb337-4" tabindex="-1"></a>prices[idx_fresh, ]</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="best-practices-for-writing-r-scripts.html#cb358-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;stringr&quot;</span>)</span>
+<span id="cb358-2"><a href="best-practices-for-writing-r-scripts.html#cb358-2" tabindex="-1"></a></span>
+<span id="cb358-3"><a href="best-practices-for-writing-r-scripts.html#cb358-3" tabindex="-1"></a>idx_fresh <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
+<span id="cb358-4"><a href="best-practices-for-writing-r-scripts.html#cb358-4" tabindex="-1"></a>prices[idx_fresh, ]</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   Apples—Average retail price per pound or…¹ ...2  ...3  ...4  ...5  ...6  ...7 
 ##   &lt;chr&gt;                                      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
@@ -945,23 +946,23 @@ at this point—you can do that with a vectorized operation after combining the
 data from all of the files. A few fruits don’t have a fresh price, and the
 function should return <code>NA</code> for the price and unit for those. Here’s one way to
 implement the <code>read_fresh_price</code> function:</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="best-practices-for-writing-r-scripts.html#cb339-1" tabindex="-1"></a>read_fresh_price <span class="ot">=</span> <span class="cf">function</span>(path) {</span>
-<span id="cb339-2"><a href="best-practices-for-writing-r-scripts.html#cb339-2" tabindex="-1"></a>  prices <span class="ot">=</span> <span class="fu">read_excel</span>(path)</span>
-<span id="cb339-3"><a href="best-practices-for-writing-r-scripts.html#cb339-3" tabindex="-1"></a></span>
-<span id="cb339-4"><a href="best-practices-for-writing-r-scripts.html#cb339-4" tabindex="-1"></a>  <span class="co"># Get fruit name.</span></span>
-<span id="cb339-5"><a href="best-practices-for-writing-r-scripts.html#cb339-5" tabindex="-1"></a>  fruit <span class="ot">=</span> <span class="fu">names</span>(prices)[[<span class="dv">1</span>]]</span>
-<span id="cb339-6"><a href="best-practices-for-writing-r-scripts.html#cb339-6" tabindex="-1"></a></span>
-<span id="cb339-7"><a href="best-practices-for-writing-r-scripts.html#cb339-7" tabindex="-1"></a>  <span class="co"># Find fresh price.</span></span>
-<span id="cb339-8"><a href="best-practices-for-writing-r-scripts.html#cb339-8" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
-<span id="cb339-9"><a href="best-practices-for-writing-r-scripts.html#cb339-9" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(idx) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb339-10"><a href="best-practices-for-writing-r-scripts.html#cb339-10" tabindex="-1"></a>    prices <span class="ot">=</span> prices[idx, ]</span>
-<span id="cb339-11"><a href="best-practices-for-writing-r-scripts.html#cb339-11" tabindex="-1"></a>    <span class="fu">c</span>(fruit, prices[[<span class="dv">2</span>]], prices[[<span class="dv">3</span>]])</span>
-<span id="cb339-12"><a href="best-practices-for-writing-r-scripts.html#cb339-12" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb339-13"><a href="best-practices-for-writing-r-scripts.html#cb339-13" tabindex="-1"></a>    <span class="fu">c</span>(fruit, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
-<span id="cb339-14"><a href="best-practices-for-writing-r-scripts.html#cb339-14" tabindex="-1"></a>  }</span>
-<span id="cb339-15"><a href="best-practices-for-writing-r-scripts.html#cb339-15" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="best-practices-for-writing-r-scripts.html#cb360-1" tabindex="-1"></a>read_fresh_price <span class="ot">=</span> <span class="cf">function</span>(path) {</span>
+<span id="cb360-2"><a href="best-practices-for-writing-r-scripts.html#cb360-2" tabindex="-1"></a>  prices <span class="ot">=</span> <span class="fu">read_excel</span>(path)</span>
+<span id="cb360-3"><a href="best-practices-for-writing-r-scripts.html#cb360-3" tabindex="-1"></a></span>
+<span id="cb360-4"><a href="best-practices-for-writing-r-scripts.html#cb360-4" tabindex="-1"></a>  <span class="co"># Get fruit name.</span></span>
+<span id="cb360-5"><a href="best-practices-for-writing-r-scripts.html#cb360-5" tabindex="-1"></a>  fruit <span class="ot">=</span> <span class="fu">names</span>(prices)[[<span class="dv">1</span>]]</span>
+<span id="cb360-6"><a href="best-practices-for-writing-r-scripts.html#cb360-6" tabindex="-1"></a></span>
+<span id="cb360-7"><a href="best-practices-for-writing-r-scripts.html#cb360-7" tabindex="-1"></a>  <span class="co"># Find fresh price.</span></span>
+<span id="cb360-8"><a href="best-practices-for-writing-r-scripts.html#cb360-8" tabindex="-1"></a>  idx <span class="ot">=</span> <span class="fu">str_which</span>(prices[[<span class="dv">1</span>]], <span class="st">&quot;^Fresh&quot;</span>)</span>
+<span id="cb360-9"><a href="best-practices-for-writing-r-scripts.html#cb360-9" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(idx) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb360-10"><a href="best-practices-for-writing-r-scripts.html#cb360-10" tabindex="-1"></a>    prices <span class="ot">=</span> prices[idx, ]</span>
+<span id="cb360-11"><a href="best-practices-for-writing-r-scripts.html#cb360-11" tabindex="-1"></a>    <span class="fu">c</span>(fruit, prices[[<span class="dv">2</span>]], prices[[<span class="dv">3</span>]])</span>
+<span id="cb360-12"><a href="best-practices-for-writing-r-scripts.html#cb360-12" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb360-13"><a href="best-practices-for-writing-r-scripts.html#cb360-13" tabindex="-1"></a>    <span class="fu">c</span>(fruit, <span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb360-14"><a href="best-practices-for-writing-r-scripts.html#cb360-14" tabindex="-1"></a>  }</span>
+<span id="cb360-15"><a href="best-practices-for-writing-r-scripts.html#cb360-15" tabindex="-1"></a>}</span></code></pre></div>
 <p>Test that the function returns the correct result for a few of the files:</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="best-practices-for-writing-r-scripts.html#cb340-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">1</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="best-practices-for-writing-r-scripts.html#cb361-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">1</span>]])</span></code></pre></div>
 <pre><code>## New names:
 ## • `` -&gt; `...2`
 ## • `` -&gt; `...3`
@@ -972,7 +973,7 @@ implement the <code>read_fresh_price</code> function:</p>
 <pre><code>## [1] &quot;Apples—Average retail price per pound or pint and per cup equivalent, 2013&quot;
 ## [2] &quot;1.5675153914496354&quot;                                                        
 ## [3] &quot;per pound&quot;</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="best-practices-for-writing-r-scripts.html#cb343-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">4</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="best-practices-for-writing-r-scripts.html#cb364-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">4</span>]])</span></code></pre></div>
 <pre><code>## New names:
 ## • `` -&gt; `...2`
 ## • `` -&gt; `...3`
@@ -983,7 +984,7 @@ implement the <code>read_fresh_price</code> function:</p>
 <pre><code>## [1] &quot;Mixed berries—Average retail price per pound and per cup equivalent, 2013&quot;
 ## [2] NA                                                                         
 ## [3] NA</code></pre>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="best-practices-for-writing-r-scripts.html#cb346-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">8</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="best-practices-for-writing-r-scripts.html#cb367-1" tabindex="-1"></a><span class="fu">read_fresh_price</span>(paths[[<span class="dv">8</span>]])</span></code></pre></div>
 <pre><code>## New names:
 ## • `` -&gt; `...2`
 ## • `` -&gt; `...3`
@@ -1000,7 +1001,7 @@ possible. Reading one file doesn’t depend on reading any of the others, so
 apply functions are the best strategy here. The <code>read_fresh_price</code> function
 always returns a character vector with 3 elements, so you can use <code>sapply</code> to
 process all of the files and get a matrix of results:</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="best-practices-for-writing-r-scripts.html#cb349-1" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">sapply</span>(paths, read_fresh_price)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="best-practices-for-writing-r-scripts.html#cb370-1" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">sapply</span>(paths, read_fresh_price)</span></code></pre></div>
 <pre><code>## New names:
 ## New names:
 ## New names:
@@ -1036,12 +1037,12 @@ process all of the files and get a matrix of results:</p>
 ## • `` -&gt; `...5`
 ## • `` -&gt; `...6`
 ## • `` -&gt; `...7`</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="best-practices-for-writing-r-scripts.html#cb351-1" tabindex="-1"></a><span class="co"># Transpose, convert to a data frame, and set names for easy reading.</span></span>
-<span id="cb351-2"><a href="best-practices-for-writing-r-scripts.html#cb351-2" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">t</span>(all_prices)</span>
-<span id="cb351-3"><a href="best-practices-for-writing-r-scripts.html#cb351-3" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">data.frame</span>(all_prices)</span>
-<span id="cb351-4"><a href="best-practices-for-writing-r-scripts.html#cb351-4" tabindex="-1"></a><span class="fu">rownames</span>(all_prices) <span class="ot">=</span> <span class="cn">NULL</span></span>
-<span id="cb351-5"><a href="best-practices-for-writing-r-scripts.html#cb351-5" tabindex="-1"></a><span class="fu">colnames</span>(all_prices) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;fruit&quot;</span>, <span class="st">&quot;price&quot;</span>, <span class="st">&quot;unit&quot;</span>)</span>
-<span id="cb351-6"><a href="best-practices-for-writing-r-scripts.html#cb351-6" tabindex="-1"></a>all_prices</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="best-practices-for-writing-r-scripts.html#cb372-1" tabindex="-1"></a><span class="co"># Transpose, convert to a data frame, and set names for easy reading.</span></span>
+<span id="cb372-2"><a href="best-practices-for-writing-r-scripts.html#cb372-2" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">t</span>(all_prices)</span>
+<span id="cb372-3"><a href="best-practices-for-writing-r-scripts.html#cb372-3" tabindex="-1"></a>all_prices <span class="ot">=</span> <span class="fu">data.frame</span>(all_prices)</span>
+<span id="cb372-4"><a href="best-practices-for-writing-r-scripts.html#cb372-4" tabindex="-1"></a><span class="fu">rownames</span>(all_prices) <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb372-5"><a href="best-practices-for-writing-r-scripts.html#cb372-5" tabindex="-1"></a><span class="fu">colnames</span>(all_prices) <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;fruit&quot;</span>, <span class="st">&quot;price&quot;</span>, <span class="st">&quot;unit&quot;</span>)</span>
+<span id="cb372-6"><a href="best-practices-for-writing-r-scripts.html#cb372-6" tabindex="-1"></a>all_prices</span></code></pre></div>
 <pre><code>##                                                                              fruit
 ## 1       Apples—Average retail price per pound or pint and per cup equivalent, 2013
 ## 2             Apricots—Average retail price per pound and per cup equivalent, 2013
@@ -1105,9 +1106,9 @@ process all of the files and get a matrix of results:</p>
 <p>Finally, the last step is to remove the extra text from the fruit name. One way
 to do this is with the <code>str_split_fixed</code> function from the stringr package.
 There’s an en dash <code>—</code> after each fruit name, which you can use for the split:</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="best-practices-for-writing-r-scripts.html#cb353-1" tabindex="-1"></a>fruit <span class="ot">=</span> <span class="fu">str_split_fixed</span>(all_prices<span class="sc">$</span>fruit, <span class="st">&quot;—&quot;</span>, <span class="dv">2</span>)[, <span class="dv">1</span>]</span>
-<span id="cb353-2"><a href="best-practices-for-writing-r-scripts.html#cb353-2" tabindex="-1"></a>all_prices<span class="sc">$</span>fruit <span class="ot">=</span> fruit</span>
-<span id="cb353-3"><a href="best-practices-for-writing-r-scripts.html#cb353-3" tabindex="-1"></a>all_prices</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="best-practices-for-writing-r-scripts.html#cb374-1" tabindex="-1"></a>fruit <span class="ot">=</span> <span class="fu">str_split_fixed</span>(all_prices<span class="sc">$</span>fruit, <span class="st">&quot;—&quot;</span>, <span class="dv">2</span>)[, <span class="dv">1</span>]</span>
+<span id="cb374-2"><a href="best-practices-for-writing-r-scripts.html#cb374-2" tabindex="-1"></a>all_prices<span class="sc">$</span>fruit <span class="ot">=</span> fruit</span>
+<span id="cb374-3"><a href="best-practices-for-writing-r-scripts.html#cb374-3" tabindex="-1"></a>all_prices</span></code></pre></div>
 <pre><code>##             fruit               price      unit
 ## 1          Apples  1.5675153914496354 per pound
 ## 2        Apricots  3.0400719670964378 per pound
