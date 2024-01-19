@@ -409,7 +409,7 @@ Notice the huge drop (more than 90%) in April of 2020 due to the COVID-19
 pandemic!
 
 
-### Without tidyr
+### Without `tidyr`
 
 This section shows how to pivot datasets without the help of the tidyr package.
 In practice, we recommend that you use the package, but the examples here may
@@ -564,9 +564,8 @@ If you've used SQL, you've probably heard the terms primary key and foreign key
 before. They have the same meaning in R.
 
 In most databases, the primary key must be unique---there can be no duplicates.
-That said, relational datasets are not always designed for use as databases,
-and they may have key columns that are not unique. How to handle non-unique
-keys is going to be a recurring feature of this section.
+That said, the datasets you'll use in R are not always coming from a database,
+so they may have key columns that are not unique. We'll talk later about how to handle non-unique keys.
 
 
 
@@ -699,6 +698,7 @@ inner_join(students, grades, by = "student_id") #|>
   # kable()
 ```
 
+Notice that the result has one row for every time the keys match, but does not include rows from either table where the keys don't match. This is different from the left join, which retained the row for Angel from the left (`students`) table in the result even though it had no match in the right (`grades`) table.
 
 ### Getting Clever with `join_by`
 
@@ -847,13 +847,12 @@ print(dim(checkouts))
 
 One thing we can see is that the `books` table refers to physical copies of a book, so if the library owns two copies of the same book then the same title, publisher, etc. will appear on the same row.
 
-In the previous section, we set a goal of augmenting the `checkouts` table with the information in the `books` table. To augment means to add to. We are going to be adding to the `checkouts` table, but do we add rows or columns? Each row of `checkouts` is an event that matches one book and one borrower. Adding new rows would be like adding new events that didn't occur: not good! Each row has a book and each book has many columns of information in the `books` table. So we can maintain the relationships in the data while adding new columns of information to `checkouts`.
 
-How are we to know which books were checked out most often, or were generaly checked out by the same people? The tables have different numbers of rows and columns, so we won't be able to stack them side-by-side or one on top of the other. The "key" pieces of information are the columns `books$book_id` and `borrowers$borrower_id`. If you've ever used SQL, you may recall that each table should have a **primary key**, which is a column of values that identify the rows. In a database, the primary key must be unique - there can be no duplicates. Most spreadsheets are not designed as databases, and they may have key or ID columns that are not unique. How to handle non-unique keys is going to be a recurring feature of this workshop.
+Suppose we want to know which books were checked out most often, or were generally checked out by the same people. The `books` table has a key column called `book_id` and the `borrowers` table has a primary key called `borrower_id`. The `checkouts` has two ID columns: `book_id` and `borrower_id`. These match the borrower and book IDs in the `borrowers` and `books` tables. Obviously, these aren't unique: one person may check out multiple books, and a book can be checked out on more than one occasion.
 
-Now look at the `checkouts` table again. It has two ID columns: `book_id` and `borrower_id`. These match the borrower and book IDs in the `borrowers` and `books` tables. Obviously, these aren't unique: one person may check out multiple books, and an exceptionaly popular book might be checked out as many as three times from the same library! These are columns that identify unique keys other tables, which SQL calls **foreign keys**.
+Now we can begin to reason about how to approach the goal of identifying the books that are most often checked out. We want to augment the `checkouts` table with the information in the `books` table, matching rows where `book_id` matches. Every row in the checkouts table should match exactly one row in the results and every row in the results should match exactly one row in the checkouts table.
 
-Now we can begin to reason about how to approach the goal of identifying the books that are most often checked out. We want to augment the `checkouts` table with the information in the `books` table, matching rows where `book_id` matches. Every row in the checkouts table should match exactly one row in the results and every row in the results should match exactly one row in the checkouts table. In the next section we will translate this plain-english description into the language used by dplyr.
+Since we want to preserve the rows of `checkouts`, we will do a left join, with `checkouts` as the left table. What to use as the right table depends on what information we want to join to the checkouts. Let's begin by joining `checkouts` to `books` and identifying which books were checked out most often.
 
 ```{r most-checked-out-books}
 # Top ten books with most checkouts
@@ -888,7 +887,7 @@ students, faculty, and staff.
 
 ```{r three-tables}
 # list the account types who checked out the most books
-left_join(checkouts, books, by="item_id") |>
+left_join(checkouts, books, by="book_id") |>
   left_join(borrowers, by="borrower_id") |>
   group_by(borrower_id) |>
   summarize(account_type=first(account_type), n_checkouts = n()) |>
@@ -896,7 +895,7 @@ left_join(checkouts, books, by="item_id") |>
   #kable()
 ```
 
-
+This works because the result of the first join is still a table where each row is one checkout. Keeping this as the left table, we then join the table `borrowers` so the result is a table where each row is one checkout, with information about both the book and the borrower. Then we can summarize the data by how many books were checked out by each type of library user.
 
 ### Be Explicit
 
