@@ -606,7 +606,7 @@ library(dplyr)
 library(knitr)
 
 # Left join
-left_join(students, grades, by = "student_id")
+left_join(students, grades, by = "student_id")#
 # |> kable()
 ```
 
@@ -668,11 +668,12 @@ There are several other kinds of joins:
 * A **full join** returns all rows from the left table and from the right
   table, even if they do not match.
 
-Here's visualization to help identify the differences:
+<!--Here's visualization to help identify the differences:
 
 ![Disney characters illustrate differences between joins](img/disney-meme.jpg)
 
 The following subsections provide examples of different types of joins.
+-->
 
 #### Inner Join
 
@@ -694,8 +695,8 @@ grades = data.frame(
   grade = c(90, 85, 80, 75, 60))
 
 # Inner join
-inner_join(students, grades, by = "student_id") |>
-  kable()
+inner_join(students, grades, by = "student_id") #|>
+  # kable()
 ```
 
 
@@ -715,8 +716,8 @@ grades = data.frame(
   grade = c(90, 85, 80, 75))
 
 # Left join
-left_join(students, grades, by = join_by(student_id==sid)) |>
-  kable()
+left_join(students, grades, by = join_by(student_id==sid)) #|>
+  # kable()
 ```
 
 Since the key column names don't match, I have provided a `join_by`
@@ -755,8 +756,8 @@ grades = bind_rows(
 )
 
 # Left join
-left_join(students, grades, by = join_by(student_id==sid, year)) |>
-  kable()
+left_join(students, grades, by = join_by(student_id==sid, year)) #|>
+  # kable()
 ```
 
 
@@ -829,9 +830,9 @@ Let's begin by looking at the data on books, borrowers, and checkouts.
 #| warning: false
 #| error: false
 #| message: false
-borrowers = read.csv("data/library/borrowers.csv")
-books = read.csv("data/library/books.csv")
-checkouts = read.csv("data/library/checkouts.csv")
+borrowers = read.csv("data/library/fake/borrowers.csv")
+books = read.csv("data/library/fake/books.csv")
+checkouts = read.csv("data/library/fake/checkouts.csv")
 
 # show the top rows
 print(head(books))
@@ -860,8 +861,8 @@ left_join(checkouts, books, by="book_id") |>
   group_by(book_id) |>
   summarize(title=first(title), author=first(author), n_checkouts=n()) |>
   arrange(desc(n_checkouts)) |>
-  head(n=10) |>
-  kable()
+  head(n=10) #|>
+  # kable()
 ```
 
 Just for fun, here is an instructive example of why relational tables are a better way to store data than putting everything into one spreadsheet. If we want to identify the authors whose books were most checked out from the UCD library, we might think to adapt our previous example to group by author rather than by book_id.
@@ -871,8 +872,8 @@ left_join(checkouts, books, by="book_id") |>
   group_by(author) |>
   summarize(author=first(author), n_checkouts = n()) |>
   arrange(desc(n_checkouts)) |>
-  head(n=10) |>
-  kable()
+  head(n=10) #|>
+  # kable()
 ```
 
 The problem is that the `author` column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name ([this is what ORCID does for scientific publishing](https://orcid.org)).
@@ -887,12 +888,12 @@ students, faculty, and staff.
 
 ```{r three-tables}
 # list the account types who checked out the most books
-left_join(checkouts, books, by="book_id") |>
+left_join(checkouts, books, by="item_id") |>
   left_join(borrowers, by="borrower_id") |>
   group_by(borrower_id) |>
   summarize(account_type=first(account_type), n_checkouts = n()) |>
-  arrange(desc(n_checkouts)) |>
-  kable()
+  arrange(desc(n_checkouts)) #|>
+  #kable()
 ```
 
 
@@ -919,8 +920,8 @@ grades = data.frame(student_id = c(2, 2, 3, 4, 4, 5),
                         grade = c(90, 50, 85, 80, 75, 30))
 
 # Left join
-left_join(students, grades, by = "student_id") |>
-  kable()
+left_join(students, grades, by = "student_id") #|>
+  # kable()
 ```
 
 We get one row in the result for every possible combination of the matching keys. Sometimes that is what you want, and other times not. In this case, it might be reasonable that Beto, Desmond, and Erik have multiple grades in the book, but it is probably not reasonable that both Desmond and Erik have student ID 4 and have the same grades as each other. This is a many-to-many match, with all the risks we've mentioned before.
@@ -946,8 +947,8 @@ grades = data.frame(student_id = c(2, 2, 3, 4, 4, 5),
 
 # Left join
 distinct_keys_result = students |> distinct(student_id, .keep_all=TRUE) |>
-  left_join(grades, by = "student_id") |>
-  kable()
+  left_join(grades, by = "student_id") #|>
+  # kable()
 ```
 
 
@@ -963,8 +964,8 @@ borrowers = rename(borrowers, date=date_created)
 # Now create the list of checkouts
 left_join(checkouts, books, by="book_id") |>
   left_join(borrowers, by="borrower_id") |>
-  head(n=10) |>
-  kable()
+  head(n=10) #|>
+  # kable()
 ```
 
 If you aren't satisfied with appending `.x` and `.y` to the ambiguous columns, then you can specify the `suffix` argument with a pair of strings like this:
@@ -972,8 +973,8 @@ If you aren't satisfied with appending `.x` and `.y` to the ambiguous columns, t
 ```{r ambiguous-date-custom-suffix}
 # Now create the list of checkouts
 left_join(checkouts, books, by="book_id", suffix=c("_checkout", "_book")) |>
-  head(n=10) |>
-  kable()
+  head(n=10) #|>
+  # kable()
 ```
 
 By specifying the `suffix` argument, we get column names in the result with more meaningful names.
@@ -992,11 +993,11 @@ grades = data.frame(student_id = c(2, NA, 4, 5),
                         grade = c(90, 85, 80, 75))
 
 # Left joins
-left_join(students, grades, by = "student_id") |>
-  kable()
+left_join(students, grades, by = "student_id") #|>
+  # kable()
 
-left_join(students, grades, by = "student_id", na_matches = "never") |>
-  kable()
+left_join(students, grades, by = "student_id", na_matches = "never") #|>
+  # kable()
 ```
 
 Notice that since Beto's student ID is `NA`, none of the rows in the `grades` table can match him. As a result, his grade is left `NA` in the result.
