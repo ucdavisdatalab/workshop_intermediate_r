@@ -1,0 +1,723 @@
+borrower_id,user_group,creation_date
+1,Faculty and Staff,2020-04-10T00:00:00Z
+2,Faculty and Staff,2020-05-17T00:00:00Z
+3,Faculty and Staff,2020-05-30T00:00:00Z
+4,Law Faculty,2020-06-05T00:00:00Z
+5,Faculty and Staff,2020-06-19T00:00:00Z
+6,Faculty and Staff,2020-07-08T00:00:00Z
+7,Faculty and Staff,2020-08-08T00:00:00Z
+8,Faculty and Staff,2020-08-13T00:00:00Z
+9,Faculty and Staff,2020-08-12T00:00:00Z
+10,Graduate Students,2020-08-14T00:00:00Z
+11,Faculty and Staff,2020-08-14T00:00:00Z
+12,Graduate Students,2020-08-14T00:00:00Z
+13,Faculty and Staff,2020-08-14T00:00:00Z
+14,Faculty and Staff,2020-08-14T00:00:00Z
+15,Faculty and Staff,2020-08-18T00:00:00Z
+16,Faculty and Staff,2020-08-22T00:00:00Z
+17,Faculty and Staff,2020-09-25T00:00:00Z
+18,Faculty and Staff,2020-10-08T00:00:00Z
+19,Faculty and Staff,2020-10-16T00:00:00Z
+20,Faculty and Staff,2020-11-23T00:00:00Z
+21,Law Faculty,2020-12-10T00:00:00Z
+22,Faculty and Staff,2021-01-15T00:00:00Z
+23,Faculty and Staff,2021-01-23T00:00:00Z
+24,Faculty and Staff,2021-03-29T00:00:00Z
+25,Faculty and Staff,2021-04-27T00:00:00Z
+26,Faculty and Staff,2021-06-14T00:00:00Z
+27,Faculty and Staff,2021-07-08T00:00:00Z
+28,Faculty and Staff,2021-07-09T00:00:00Z
+29,Law Students and Staff,2014-06-18T00:00:00Z
+30,Law Students and Staff,2009-02-05T00:00:00Z
+31,Law Students and Staff,2007-10-12T00:00:00Z
+32,Law Students and Staff,2017-08-24T00:00:00Z
+33,Law Students and Staff,2006-02-15T00:00:00Z
+34,Law Students and Staff,2003-03-05T00:00:00Z
+35,Law Public,2019-09-25T00:00:00Z
+36,Law Students and Staff,NA
+37,Law Students and Staff,NA
+38,Law Students and Staff,NA
+39,Law Public,NA
+40,Law Students and Staff,2018-03-22T00:00:00Z
+41,Law Students and Staff,2017-08-24T00:00:00Z
+42,Law Public,2016-12-10T00:00:00Z
+43,Law Students and Staff,2016-08-22T00:00:00Z
+44,Law Students and Staff,2016-06-27T00:00:00Z
+45,Law Public,2019-05-12T00:00:00Z
+46,Law Public,2019-01-31T00:00:00Z
+47,Law Students and Staff,2019-01-08T00:00:00Z
+48,Law Students and Staff,2019-09-03T00:00:00Z
+49,Faculty and Staff,2021-08-08T00:00:00Z
+50,Faculty and Staff,2021-08-17T00:00:00Z
+51,Law Students and Staff,2021-08-19T00:00:00Z
+52,Faculty and Staff,2021-08-26T00:00:00Z
+53,Graduate Students,2021-08-26T00:00:00Z
+54,Network,2021-08-31T00:00:00Z
+55,Faculty and Staff,2021-09-03T00:00:00Z
+56,Faculty and Staff,2021-09-10T00:00:00Z
+57,Graduate Students,2021-09-10T00:00:00Z
+58,Faculty and Staff,2021-09-10T00:00:00Z
+59,Faculty and Staff,2021-09-10T00:00:00Z
+60,Faculty and Staff,2021-09-15T00:00:00Z
+61,Faculty and Staff,2021-09-17T00:00:00Z
+62,Faculty and Staff,2021-09-22T00:00:00Z
+63,Network,2021-10-02T00:00:00Z
+64,Faculty and Staff,2021-10-12T00:00:00Z
+65,Network,2021-11-03T00:00:00Z
+66,Network,2021-11-03T00:00:00Z
+67,Alumni and CA Community,2021-11-04T00:00:00Z
+68,Faculty and Staff,2021-12-07T00:00:00Z
+69,Library Internal,2021-12-15T00:00:00Z
+70,Faculty and Staff,2022-01-05T00:00:00Z
+71,Network,2022-01-18T00:00:00Z
+72,Faculty and Staff,2022-01-21T00:00:00Z
+73,Faculty and Staff,2022-02-16T00:00:00Z
+74,Network,2022-02-16T00:00:00Z
+75,Faculty and Staff,2022-03-03T00:00:00Z
+76,Faculty and Staff,2022-03-05T00:00:00Z
+77,Faculty and Staff,2022-05-07T00:00:00Z
+78,Network,2022-05-18T00:00:00Z
+79,Network,2022-05-23T00:00:00Z
+80,Health Sciences Graduate Students,2022-06-11T00:00:00Z
+81,Network,2022-07-20T00:00:00Z
+82,Faculty and Staff,2022-07-22T00:00:00Z
+83,Faculty and Staff,2022-08-02T00:00:00Z
+84,Faculty and Staff,2022-08-10T00:00:00Z
+85,Faculty and Staff,2022-08-11T00:00:00Z
+86,Undergraduate students,2022-08-15T00:00:00Z
+87,Graduate Students,2022-08-18T00:00:00Z
+88,Faculty and Staff,2022-08-19T00:00:00Z
+89,Faculty and Staff,2022-08-27T00:00:00Z
+90,Faculty and Staff,2022-08-30T00:00:00Z
+91,Network,2022-09-01T00:00:00Z
+92,Faculty and Staff,2022-09-07T00:00:00Z
+93,Faculty and Staff,2022-09-09T00:00:00Z
+94,Network,2022-09-14T00:00:00Z
+95,Faculty and Staff,2022-09-18T00:00:00Z
+96,Faculty and Staff,2022-09-19T00:00:00Z
+97,Network,2022-09-24T00:00:00Z
+98,Network,2022-09-26T00:00:00Z
+99,Faculty and Staff,2022-09-29T00:00:00Z
+100,Graduate Students,2022-09-30T00:00:00Z
+101,Network,2022-10-08T00:00:00Z
+102,Network,2022-10-12T00:00:00Z
+103,Network,2022-10-21T00:00:00Z
+104,Faculty and Staff,2022-12-13T00:00:00Z
+105,Faculty and Staff,1997-07-24T00:00:00Z
+106,Faculty and Staff,1997-07-16T00:00:00Z
+107,Faculty and Staff,2010-08-23T00:00:00Z
+108,Faculty and Staff,2012-07-02T00:00:00Z
+109,Faculty and Staff,1991-07-16T00:00:00Z
+110,Faculty and Staff,1991-07-31T00:00:00Z
+111,Faculty and Staff,2010-08-23T00:00:00Z
+112,Faculty and Staff,1991-06-14T00:00:00Z
+113,Faculty and Staff,2002-10-01T00:00:00Z
+114,Faculty and Staff,2002-10-29T00:00:00Z
+115,Faculty and Staff,1989-11-27T00:00:00Z
+116,Faculty and Staff,2002-10-11T00:00:00Z
+117,Faculty and Staff,2003-07-25T00:00:00Z
+118,Faculty and Staff,1995-05-31T00:00:00Z
+119,Faculty and Staff,1995-07-26T00:00:00Z
+120,Faculty and Staff,2003-06-17T00:00:00Z
+121,Faculty and Staff,2003-01-09T00:00:00Z
+122,Faculty and Staff,1991-07-18T00:00:00Z
+123,Faculty and Staff,2002-12-08T00:00:00Z
+124,Faculty and Staff,1995-01-17T00:00:00Z
+125,Faculty and Staff,2003-09-12T00:00:00Z
+126,Law Faculty,2003-09-09T00:00:00Z
+127,Faculty and Staff,2003-01-29T00:00:00Z
+128,Faculty and Staff,1991-05-15T00:00:00Z
+129,Faculty and Staff,2003-08-18T00:00:00Z
+130,Faculty and Staff,2003-04-08T00:00:00Z
+131,Faculty and Staff,2002-12-19T00:00:00Z
+132,Faculty and Staff,1991-07-16T00:00:00Z
+133,Faculty and Staff,2003-02-07T00:00:00Z
+134,Faculty and Staff,1994-11-28T00:00:00Z
+135,Alumni and CA Community,2009-04-11T00:00:00Z
+136,Faculty and Staff,2000-09-05T00:00:00Z
+137,Faculty and Staff,2000-02-14T00:00:00Z
+138,Law Faculty,2000-05-19T00:00:00Z
+139,Faculty and Staff,2000-08-30T00:00:00Z
+140,Faculty and Staff,1993-09-02T00:00:00Z
+141,Faculty and Staff,1993-09-02T00:00:00Z
+142,Faculty and Staff,2000-06-19T00:00:00Z
+143,Faculty and Staff,1999-12-10T00:00:00Z
+144,Faculty and Staff,2000-09-13T00:00:00Z
+145,Faculty and Staff,1999-10-08T00:00:00Z
+146,Faculty and Staff,1990-12-21T00:00:00Z
+147,Faculty and Staff,1991-01-23T00:00:00Z
+148,Faculty and Staff,1991-05-10T00:00:00Z
+149,Faculty and Staff,1999-10-01T00:00:00Z
+150,Faculty and Staff,1991-07-23T00:00:00Z
+151,Faculty and Staff,2007-10-16T00:00:00Z
+152,Faculty and Staff,2007-10-25T00:00:00Z
+153,Faculty and Staff,2007-08-30T00:00:00Z
+154,Faculty and Staff,2007-10-04T00:00:00Z
+155,Faculty and Staff,1991-04-16T00:00:00Z
+156,Faculty and Staff,2007-09-19T00:00:00Z
+157,Faculty and Staff,2007-09-20T00:00:00Z
+158,Faculty and Staff,2007-09-10T00:00:00Z
+159,Faculty and Staff,2007-09-24T00:00:00Z
+160,Faculty and Staff,2009-09-01T00:00:00Z
+161,Faculty and Staff,2009-09-01T00:00:00Z
+162,Faculty and Staff,2015-09-01T00:00:00Z
+163,Faculty and Staff,1997-10-16T00:00:00Z
+164,Faculty and Staff,2015-09-01T00:00:00Z
+165,Faculty and Staff,2004-12-16T00:00:00Z
+166,Alumni and CA Community,2005-08-01T00:00:00Z
+167,Faculty and Staff,2005-08-16T00:00:00Z
+168,Faculty and Staff,1991-07-18T00:00:00Z
+169,Faculty and Staff,2005-07-28T00:00:00Z
+170,Faculty and Staff,2004-12-10T00:00:00Z
+171,Faculty and Staff,2005-01-20T00:00:00Z
+172,Faculty and Staff,1991-06-19T00:00:00Z
+173,Faculty and Staff,1991-03-17T00:00:00Z
+174,Faculty and Staff,2013-01-13T00:00:00Z
+175,Faculty and Staff,2013-03-14T00:00:00Z
+176,Faculty and Staff,2013-05-06T00:00:00Z
+177,Faculty and Staff,2012-12-13T00:00:00Z
+178,Faculty and Staff,2012-12-12T00:00:00Z
+179,Faculty and Staff,2012-12-11T00:00:00Z
+180,Faculty and Staff,1991-06-27T00:00:00Z
+181,Faculty and Staff,2006-04-21T00:00:00Z
+182,Faculty and Staff,2006-01-03T00:00:00Z
+183,Faculty and Staff,2006-02-06T00:00:00Z
+184,Faculty and Staff,2006-01-12T00:00:00Z
+185,Faculty and Staff,2006-01-05T00:00:00Z
+186,Faculty and Staff,1991-07-17T00:00:00Z
+187,Faculty and Staff,2011-08-22T00:00:00Z
+188,Law Faculty,1997-06-26T00:00:00Z
+189,Faculty and Staff,2006-08-01T00:00:00Z
+190,Faculty and Staff,1996-07-18T00:00:00Z
+191,Faculty and Staff,2006-08-14T00:00:00Z
+192,Faculty and Staff,1997-09-09T00:00:00Z
+193,Faculty and Staff,2013-08-12T00:00:00Z
+194,Faculty and Staff,1991-03-28T00:00:00Z
+195,Faculty and Staff,2004-09-21T00:00:00Z
+196,Faculty and Staff,1991-07-17T00:00:00Z
+197,Faculty and Staff,2015-09-01T00:00:00Z
+198,Law Faculty,2013-08-21T00:00:00Z
+199,Faculty and Staff,2013-08-21T00:00:00Z
+200,Faculty and Staff,2013-08-27T00:00:00Z
+201,Faculty and Staff,2013-08-27T00:00:00Z
+202,Law Faculty,2013-08-21T00:00:00Z
+203,Faculty and Staff,2008-12-19T00:00:00Z
+204,Faculty and Staff,2008-11-09T00:00:00Z
+205,Faculty and Staff,2009-02-10T00:00:00Z
+206,Faculty and Staff,2008-08-06T00:00:00Z
+207,Faculty and Staff,2008-08-11T00:00:00Z
+208,Faculty and Staff,2008-07-29T00:00:00Z
+209,Faculty and Staff,2008-08-11T00:00:00Z
+210,Faculty and Staff,2008-08-25T00:00:00Z
+211,Faculty and Staff,2013-09-04T00:00:00Z
+212,Faculty and Staff,2013-09-10T00:00:00Z
+213,Faculty and Staff,2013-09-19T00:00:00Z
+214,Faculty and Staff,1991-06-26T00:00:00Z
+215,Faculty and Staff,2003-09-20T00:00:00Z
+216,Faculty and Staff,2009-10-12T00:00:00Z
+217,Faculty and Staff,2009-09-10T00:00:00Z
+218,Faculty and Staff,2009-09-11T00:00:00Z
+219,Faculty and Staff,2009-10-22T00:00:00Z
+220,Faculty and Staff,2009-10-15T00:00:00Z
+221,Faculty and Staff,2009-10-06T00:00:00Z
+222,Faculty and Staff,2009-09-09T00:00:00Z
+223,Faculty and Staff,2014-06-12T00:00:00Z
+224,Faculty and Staff,2005-10-06T00:00:00Z
+225,Faculty and Staff,2005-10-18T00:00:00Z
+226,Faculty and Staff,2005-10-06T00:00:00Z
+227,Faculty and Staff,1991-06-07T00:00:00Z
+228,Faculty and Staff,1997-09-12T00:00:00Z
+229,Faculty and Staff,2005-09-06T00:00:00Z
+230,Faculty and Staff,1995-09-29T00:00:00Z
+231,Faculty and Staff,2005-09-06T00:00:00Z
+232,Faculty and Staff,2005-09-07T00:00:00Z
+233,Faculty and Staff,2005-08-24T00:00:00Z
+234,Undergraduate students,2015-09-01T00:00:00Z
+235,Faculty and Staff,1997-04-05T00:00:00Z
+236,Faculty and Staff,2011-03-29T00:00:00Z
+237,Faculty and Staff,2010-10-23T00:00:00Z
+238,Faculty and Staff,1991-07-30T00:00:00Z
+239,Faculty and Staff,1991-08-02T00:00:00Z
+240,Faculty and Staff,2014-10-08T00:00:00Z
+241,Faculty and Staff,1991-07-02T00:00:00Z
+242,Faculty and Staff,2015-01-01T00:00:00Z
+243,Faculty and Staff,2015-03-11T00:00:00Z
+244,Faculty and Staff,2015-02-20T00:00:00Z
+245,Faculty and Staff,1997-09-18T00:00:00Z
+246,Faculty and Staff,2014-11-19T00:00:00Z
+247,Faculty and Staff,2015-01-08T00:00:00Z
+248,Faculty and Staff,2015-02-25T00:00:00Z
+249,Faculty and Staff,1997-09-17T00:00:00Z
+250,Law Students and Staff,2015-03-12T00:00:00Z
+251,Faculty and Staff,1991-05-30T00:00:00Z
+252,Faculty and Staff,1992-03-27T00:00:00Z
+253,Faculty and Staff,1992-08-31T00:00:00Z
+254,Faculty and Staff,1991-05-24T00:00:00Z
+255,Faculty and Staff,1991-07-30T00:00:00Z
+256,Faculty and Staff,1992-05-08T00:00:00Z
+257,Law Faculty,1992-08-06T00:00:00Z
+258,Faculty and Staff,1999-03-12T00:00:00Z
+259,Faculty and Staff,1991-07-31T00:00:00Z
+260,Faculty and Staff,1998-09-25T00:00:00Z
+261,Faculty and Staff,1993-01-07T00:00:00Z
+262,Faculty and Staff,1998-10-27T00:00:00Z
+263,Faculty and Staff,1999-08-25T00:00:00Z
+264,Faculty and Staff,1998-09-29T00:00:00Z
+265,Law Faculty,1990-11-01T00:00:00Z
+266,Library Internal,1993-02-25T00:00:00Z
+267,Faculty and Staff,1999-07-21T00:00:00Z
+268,Faculty and Staff,1993-03-03T00:00:00Z
+269,Faculty and Staff,1999-03-01T00:00:00Z
+270,Faculty and Staff,1999-08-11T00:00:00Z
+271,Faculty and Staff,1992-09-25T00:00:00Z
+272,Faculty and Staff,1999-08-31T00:00:00Z
+273,Law Faculty,1999-09-01T00:00:00Z
+274,Faculty and Staff,1992-09-03T00:00:00Z
+275,Faculty and Staff,1998-10-01T00:00:00Z
+276,Faculty and Staff,1999-02-17T00:00:00Z
+277,Faculty and Staff,1992-07-06T00:00:00Z
+278,Faculty and Staff,1998-09-27T00:00:00Z
+279,Faculty and Staff,1992-09-16T00:00:00Z
+280,Faculty and Staff,1992-08-10T00:00:00Z
+281,Faculty and Staff,1992-10-08T00:00:00Z
+282,Faculty and Staff,1998-09-29T00:00:00Z
+283,Faculty and Staff,1992-08-13T00:00:00Z
+284,Faculty and Staff,2006-09-11T00:00:00Z
+285,Law Faculty,1996-08-13T00:00:00Z
+286,Faculty and Staff,1991-07-11T00:00:00Z
+287,Faculty and Staff,2012-08-21T00:00:00Z
+288,Faculty and Staff,2011-07-18T00:00:00Z
+289,Law Faculty,2008-05-02T00:00:00Z
+290,Law Faculty,2008-05-20T00:00:00Z
+291,Law Faculty,2008-04-11T00:00:00Z
+292,Faculty and Staff,2008-02-16T00:00:00Z
+293,Faculty and Staff,2008-05-18T00:00:00Z
+294,Faculty and Staff,2008-07-03T00:00:00Z
+295,Faculty and Staff,2008-06-06T00:00:00Z
+296,Law Faculty,2012-02-02T00:00:00Z
+297,Law Faculty,2012-03-20T00:00:00Z
+298,Faculty and Staff,2012-03-07T00:00:00Z
+299,Faculty and Staff,1991-07-18T00:00:00Z
+300,Faculty and Staff,2015-08-13T00:00:00Z
+301,Faculty and Staff,2012-03-05T00:00:00Z
+302,Faculty and Staff,1991-07-17T00:00:00Z
+303,Faculty and Staff,2015-07-28T00:00:00Z
+304,Faculty and Staff,2015-06-23T00:00:00Z
+305,Faculty and Staff,2015-08-11T00:00:00Z
+306,Law Students and Staff,2015-07-14T00:00:00Z
+307,Faculty and Staff,2015-06-23T00:00:00Z
+308,Faculty and Staff,2015-07-06T00:00:00Z
+309,Faculty and Staff,2015-07-16T00:00:00Z
+310,Faculty and Staff,2015-07-13T00:00:00Z
+311,Faculty and Staff,1996-08-27T00:00:00Z
+312,Faculty and Staff,1996-08-21T00:00:00Z
+313,Faculty and Staff,1996-08-19T00:00:00Z
+314,Faculty and Staff,2006-09-19T00:00:00Z
+315,Faculty and Staff,2012-08-27T00:00:00Z
+316,Faculty and Staff,2012-08-22T00:00:00Z
+317,Faculty and Staff,2012-08-24T00:00:00Z
+318,Law Faculty,2012-08-30T00:00:00Z
+319,Faculty and Staff,2012-08-30T00:00:00Z
+320,Faculty and Staff,1991-02-22T00:00:00Z
+321,Faculty and Staff,2004-08-05T00:00:00Z
+322,Faculty and Staff,2004-07-12T00:00:00Z
+323,Faculty and Staff,2004-08-09T00:00:00Z
+324,Faculty and Staff,1991-07-25T00:00:00Z
+325,Faculty and Staff,2004-08-16T00:00:00Z
+326,Faculty and Staff,2004-07-30T00:00:00Z
+327,Faculty and Staff,2004-07-14T00:00:00Z
+328,Law Faculty,2004-08-18T00:00:00Z
+329,Faculty and Staff,2004-08-16T00:00:00Z
+330,Faculty and Staff,1991-07-23T00:00:00Z
+331,Faculty and Staff,2010-09-08T00:00:00Z
+332,Faculty and Staff,2010-09-09T00:00:00Z
+333,Faculty and Staff,1991-07-27T00:00:00Z
+334,Faculty and Staff,2010-08-23T00:00:00Z
+335,Faculty and Staff,2014-08-25T00:00:00Z
+336,Faculty and Staff,1991-06-04T00:00:00Z
+337,Faculty and Staff,2002-02-15T00:00:00Z
+338,Faculty and Staff,1991-08-02T00:00:00Z
+339,Faculty and Staff,2001-09-29T00:00:00Z
+340,Faculty and Staff,2001-09-18T00:00:00Z
+341,Faculty and Staff,1994-09-29T00:00:00Z
+342,Faculty and Staff,1994-09-29T00:00:00Z
+343,Law Faculty,2001-11-16T00:00:00Z
+344,Faculty and Staff,2002-02-11T00:00:00Z
+345,Faculty and Staff,2001-10-17T00:00:00Z
+346,Faculty and Staff,2001-09-12T00:00:00Z
+347,Faculty and Staff,2001-11-05T00:00:00Z
+348,Faculty and Staff,1991-07-10T00:00:00Z
+349,Faculty and Staff,2013-06-24T00:00:00Z
+350,Faculty and Staff,2013-06-10T00:00:00Z
+351,Faculty and Staff,1997-09-10T00:00:00Z
+352,Faculty and Staff,2009-07-14T00:00:00Z
+353,Faculty and Staff,2009-07-29T00:00:00Z
+354,Faculty and Staff,2012-08-21T00:00:00Z
+355,Faculty and Staff,2012-08-21T00:00:00Z
+356,Faculty and Staff,2012-09-17T00:00:00Z
+357,Faculty and Staff,2012-10-15T00:00:00Z
+358,Faculty and Staff,2012-09-17T00:00:00Z
+359,Faculty and Staff,2012-09-07T00:00:00Z
+360,Faculty and Staff,1991-07-01T00:00:00Z
+361,Law Faculty,2004-09-16T00:00:00Z
+362,Faculty and Staff,2004-09-16T00:00:00Z
+363,Faculty and Staff,1996-09-03T00:00:00Z
+364,Faculty and Staff,2006-09-30T00:00:00Z
+365,Faculty and Staff,2006-09-28T00:00:00Z
+366,Faculty and Staff,2012-08-21T00:00:00Z
+367,Faculty and Staff,2007-05-08T00:00:00Z
+368,Faculty and Staff,2007-04-12T00:00:00Z
+369,Faculty and Staff,2007-03-26T00:00:00Z
+370,Faculty and Staff,1991-05-03T00:00:00Z
+371,Faculty and Staff,2014-09-15T00:00:00Z
+372,Faculty and Staff,2014-09-16T00:00:00Z
+373,Faculty and Staff,2014-09-11T00:00:00Z
+374,Faculty and Staff,1991-07-25T00:00:00Z
+375,Faculty and Staff,1991-07-31T00:00:00Z
+376,Faculty and Staff,2005-09-23T00:00:00Z
+377,Faculty and Staff,2007-07-20T00:00:00Z
+378,Faculty and Staff,2007-07-03T00:00:00Z
+379,Faculty and Staff,2007-06-12T00:00:00Z
+380,Faculty and Staff,2007-07-13T00:00:00Z
+381,Faculty and Staff,2013-07-19T00:00:00Z
+382,Faculty and Staff,2013-08-12T00:00:00Z
+383,Faculty and Staff,2013-07-16T00:00:00Z
+384,Faculty and Staff,2013-08-06T00:00:00Z
+385,Faculty and Staff,1991-07-26T00:00:00Z
+386,Faculty and Staff,2013-08-12T00:00:00Z
+387,Faculty and Staff,1991-08-28T00:00:00Z
+388,Law Faculty,2016-08-10T00:00:00Z
+389,Faculty and Staff,1991-07-26T00:00:00Z
+390,Faculty and Staff,1991-07-05T00:00:00Z
+391,Faculty and Staff,2016-07-06T00:00:00Z
+392,Library Internal,1991-08-21T00:00:00Z
+393,Faculty and Staff,1990-07-31T00:00:00Z
+394,Faculty and Staff,2016-07-15T00:00:00Z
+395,Faculty and Staff,2016-07-01T00:00:00Z
+396,Faculty and Staff,2016-07-19T00:00:00Z
+397,Faculty and Staff,1990-11-02T00:00:00Z
+398,Faculty and Staff,2016-07-01T00:00:00Z
+399,Faculty and Staff,2016-07-06T00:00:00Z
+400,Faculty and Staff,1992-01-07T00:00:00Z
+401,Faculty and Staff,1991-08-30T00:00:00Z
+402,Faculty and Staff,1998-08-21T00:00:00Z
+403,Faculty and Staff,2014-02-13T00:00:00Z
+404,Faculty and Staff,2014-04-08T00:00:00Z
+405,Faculty and Staff,2014-04-15T00:00:00Z
+406,Faculty and Staff,2010-08-24T00:00:00Z
+407,Faculty and Staff,1997-01-23T00:00:00Z
+408,Faculty and Staff,2010-08-23T00:00:00Z
+409,Faculty and Staff,1990-11-28T00:00:00Z
+410,Faculty and Staff,2016-06-15T00:00:00Z
+411,Faculty and Staff,2016-06-15T00:00:00Z
+412,Law Public,2016-05-23T00:00:00Z
+413,Faculty and Staff,2016-06-17T00:00:00Z
+414,Law Faculty,2006-10-16T00:00:00Z
+415,Faculty and Staff,2006-12-04T00:00:00Z
+416,Faculty and Staff,1991-07-29T00:00:00Z
+417,Faculty and Staff,1991-07-29T00:00:00Z
+418,Faculty and Staff,2006-10-04T00:00:00Z
+419,Faculty and Staff,2006-11-01T00:00:00Z
+420,Faculty and Staff,2007-01-03T00:00:00Z
+421,Faculty and Staff,1991-06-26T00:00:00Z
+422,Faculty and Staff,2007-08-28T00:00:00Z
+423,Faculty and Staff,1991-07-31T00:00:00Z
+424,Faculty and Staff,2012-08-07T00:00:00Z
+425,Faculty and Staff,2012-08-08T00:00:00Z
+426,Faculty and Staff,1998-01-20T00:00:00Z
+427,Faculty and Staff,1998-04-10T00:00:00Z
+428,Faculty and Staff,2015-09-03T00:00:00Z
+429,Faculty and Staff,2015-09-21T00:00:00Z
+430,Faculty and Staff,1998-02-17T00:00:00Z
+431,Undergraduate students,2015-09-01T00:00:00Z
+432,Graduate Students,2015-09-07T00:00:00Z
+433,Faculty and Staff,1996-09-05T00:00:00Z
+434,Faculty and Staff,2011-08-22T00:00:00Z
+435,Faculty and Staff,1991-08-02T00:00:00Z
+436,Faculty and Staff,2011-08-29T00:00:00Z
+437,Faculty and Staff,1991-07-29T00:00:00Z
+438,Faculty and Staff,2004-09-22T00:00:00Z
+439,Faculty and Staff,2004-09-23T00:00:00Z
+440,Faculty and Staff,2006-09-19T00:00:00Z
+441,Graduate Students,2015-09-01T00:00:00Z
+442,Faculty and Staff,2015-06-04T00:00:00Z
+443,Law Students and Staff,2015-06-02T00:00:00Z
+444,Faculty and Staff,1991-07-27T00:00:00Z
+445,Faculty and Staff,2003-09-20T00:00:00Z
+446,Faculty and Staff,2014-08-11T00:00:00Z
+447,Faculty and Staff,2014-07-28T00:00:00Z
+448,Faculty and Staff,2014-08-04T00:00:00Z
+449,Faculty and Staff,2014-08-18T00:00:00Z
+450,Faculty and Staff,1995-10-24T00:00:00Z
+451,Faculty and Staff,2014-08-25T00:00:00Z
+452,Faculty and Staff,2005-09-23T00:00:00Z
+453,Faculty and Staff,2014-08-25T00:00:00Z
+454,Faculty and Staff,2014-08-25T00:00:00Z
+455,Undergraduate students,2014-08-25T00:00:00Z
+456,Faculty and Staff,1997-09-17T00:00:00Z
+457,Faculty and Staff,1994-08-30T00:00:00Z
+458,Faculty and Staff,2001-09-05T00:00:00Z
+459,Faculty and Staff,2001-02-06T00:00:00Z
+460,Faculty and Staff,2001-07-06T00:00:00Z
+461,Faculty and Staff,2001-03-13T00:00:00Z
+462,Faculty and Staff,1994-08-25T00:00:00Z
+463,Faculty and Staff,2001-07-05T00:00:00Z
+464,Faculty and Staff,2001-09-04T00:00:00Z
+465,Faculty and Staff,1994-08-31T00:00:00Z
+466,Faculty and Staff,1994-09-26T00:00:00Z
+467,Faculty and Staff,1994-05-24T00:00:00Z
+468,Faculty and Staff,1991-07-18T00:00:00Z
+469,Faculty and Staff,2000-09-13T00:00:00Z
+470,Faculty and Staff,2001-09-04T00:00:00Z
+471,Faculty and Staff,2001-07-09T00:00:00Z
+472,Faculty and Staff,2001-08-07T00:00:00Z
+473,Faculty and Staff,1994-07-12T00:00:00Z
+474,Faculty and Staff,2000-11-01T00:00:00Z
+475,Faculty and Staff,2001-08-05T00:00:00Z
+476,Faculty and Staff,1991-07-24T00:00:00Z
+477,Faculty and Staff,2001-09-10T00:00:00Z
+478,Faculty and Staff,1991-06-24T00:00:00Z
+479,Faculty and Staff,2002-07-19T00:00:00Z
+480,Faculty and Staff,2002-09-06T00:00:00Z
+481,Faculty and Staff,2002-07-19T00:00:00Z
+482,Faculty and Staff,2002-09-06T00:00:00Z
+483,Faculty and Staff,1991-08-01T00:00:00Z
+484,Faculty and Staff,2002-07-16T00:00:00Z
+485,Faculty and Staff,1991-07-17T00:00:00Z
+486,Faculty and Staff,2011-10-11T00:00:00Z
+487,Law Faculty,2011-11-02T00:00:00Z
+488,Faculty and Staff,2011-11-16T00:00:00Z
+489,Faculty and Staff,2011-09-12T00:00:00Z
+490,Faculty and Staff,2011-10-18T00:00:00Z
+491,Faculty and Staff,2009-08-16T00:00:00Z
+492,Faculty and Staff,2009-09-01T00:00:00Z
+493,Faculty and Staff,2002-09-20T00:00:00Z
+494,Faculty and Staff,2002-09-18T00:00:00Z
+495,Library Internal,1994-10-27T00:00:00Z
+496,Faculty and Staff,2002-09-27T00:00:00Z
+497,Faculty and Staff,2002-09-17T00:00:00Z
+498,Faculty and Staff,1991-02-05T00:00:00Z
+499,Faculty and Staff,2002-09-09T00:00:00Z
+500,Faculty and Staff,2002-09-20T00:00:00Z
+501,Faculty and Staff,2002-09-20T00:00:00Z
+502,Faculty and Staff,1994-10-07T00:00:00Z
+503,Library Internal,1994-11-17T00:00:00Z
+504,Faculty and Staff,2004-11-28T00:00:00Z
+505,Faculty and Staff,1991-07-09T00:00:00Z
+506,Faculty and Staff,2004-10-28T00:00:00Z
+507,Law Faculty,2004-09-24T00:00:00Z
+508,Faculty and Staff,1990-12-07T00:00:00Z
+509,Faculty and Staff,2012-08-21T00:00:00Z
+510,Faculty and Staff,1998-01-05T00:00:00Z
+511,Faculty and Staff,1991-03-10T00:00:00Z
+512,Faculty and Staff,1991-07-03T00:00:00Z
+513,Faculty and Staff,2007-08-03T00:00:00Z
+514,Faculty and Staff,2007-08-20T00:00:00Z
+515,Faculty and Staff,1991-07-29T00:00:00Z
+516,Faculty and Staff,2008-09-02T00:00:00Z
+517,Faculty and Staff,2008-09-02T00:00:00Z
+518,Faculty and Staff,2015-09-01T00:00:00Z
+519,Faculty and Staff,2011-06-03T00:00:00Z
+520,Faculty and Staff,2008-09-18T00:00:00Z
+521,Faculty and Staff,2008-09-12T00:00:00Z
+522,Faculty and Staff,2008-09-03T00:00:00Z
+523,Faculty and Staff,2008-09-08T00:00:00Z
+524,Faculty and Staff,2008-09-19T00:00:00Z
+525,Faculty and Staff,2004-06-03T00:00:00Z
+526,Faculty and Staff,2004-04-09T00:00:00Z
+527,Faculty and Staff,1991-04-23T00:00:00Z
+528,Faculty and Staff,2004-06-18T00:00:00Z
+529,Faculty and Staff,2004-01-05T00:00:00Z
+530,Faculty and Staff,2016-07-06T00:00:00Z
+531,Faculty and Staff,2004-01-08T00:00:00Z
+532,Law Faculty,2003-10-30T00:00:00Z
+533,Faculty and Staff,2010-05-05T00:00:00Z
+534,Law Faculty,2009-12-04T00:00:00Z
+535,Faculty and Staff,2010-02-03T00:00:00Z
+536,Faculty and Staff,2003-09-22T00:00:00Z
+537,Faculty and Staff,2016-03-22T00:00:00Z
+538,Faculty and Staff,2016-03-28T00:00:00Z
+539,Faculty and Staff,2016-05-13T00:00:00Z
+540,Faculty and Staff,2016-02-05T00:00:00Z
+541,Faculty and Staff,2015-12-30T00:00:00Z
+542,Faculty and Staff,2016-01-12T00:00:00Z
+543,Faculty and Staff,1991-07-02T00:00:00Z
+544,Faculty and Staff,2016-03-31T00:00:00Z
+545,Faculty and Staff,2008-01-10T00:00:00Z
+546,Faculty and Staff,2008-01-08T00:00:00Z
+547,Faculty and Staff,2016-08-18T00:00:00Z
+548,Graduate Students,2016-08-18T00:00:00Z
+549,Faculty and Staff,2016-08-18T00:00:00Z
+550,Faculty and Staff,2016-08-25T00:00:00Z
+551,Faculty and Staff,2016-08-31T00:00:00Z
+552,Faculty and Staff,2016-09-09T00:00:00Z
+553,Faculty and Staff,2016-09-12T00:00:00Z
+554,Faculty and Staff,2016-09-12T00:00:00Z
+555,Undergraduate students,2016-09-13T00:00:00Z
+556,Faculty and Staff,2016-09-13T00:00:00Z
+557,Faculty and Staff,2016-09-15T00:00:00Z
+558,Faculty and Staff,2016-09-21T00:00:00Z
+559,Faculty and Staff,2016-10-11T00:00:00Z
+560,Faculty and Staff,2016-10-14T00:00:00Z
+561,Library Internal - Long Loan,2016-10-24T00:00:00Z
+562,Faculty and Staff,2016-12-21T00:00:00Z
+563,Faculty and Staff,2017-01-13T00:00:00Z
+564,Faculty and Staff,2017-04-19T00:00:00Z
+565,Faculty and Staff,2017-04-29T00:00:00Z
+566,Law Faculty,2017-05-31T00:00:00Z
+567,Faculty and Staff,2017-07-17T00:00:00Z
+568,Faculty and Staff,2017-07-21T00:00:00Z
+569,Faculty and Staff,2017-08-06T00:00:00Z
+570,Faculty and Staff,2017-08-07T00:00:00Z
+571,Faculty and Staff,2017-08-09T00:00:00Z
+572,Faculty and Staff,2017-08-15T00:00:00Z
+573,Faculty and Staff,2017-08-18T00:00:00Z
+574,Faculty and Staff,2017-08-18T00:00:00Z
+575,Faculty and Staff,2017-08-18T00:00:00Z
+576,Graduate Students,2017-08-18T00:00:00Z
+577,Graduate Students,2017-08-18T00:00:00Z
+578,Faculty and Staff,2017-08-18T00:00:00Z
+579,Faculty and Staff,2017-08-18T00:00:00Z
+580,Faculty and Staff,2017-08-18T00:00:00Z
+581,Faculty and Staff,2017-08-18T00:00:00Z
+582,Faculty and Staff,2017-09-08T00:00:00Z
+583,Faculty and Staff,2017-09-11T00:00:00Z
+584,Faculty and Staff,2017-09-11T00:00:00Z
+585,Faculty and Staff,2017-09-11T00:00:00Z
+586,Faculty and Staff,2017-09-11T00:00:00Z
+587,Faculty and Staff,2017-09-25T00:00:00Z
+588,Faculty and Staff,2017-09-29T00:00:00Z
+589,Faculty and Staff,2017-10-04T00:00:00Z
+590,Faculty and Staff,2017-10-04T00:00:00Z
+591,Faculty and Staff,2017-10-05T00:00:00Z
+592,Faculty and Staff,2017-10-09T00:00:00Z
+593,Faculty and Staff,2017-10-16T00:00:00Z
+594,Faculty and Staff,2017-10-23T00:00:00Z
+595,Faculty and Staff,2017-10-31T00:00:00Z
+596,Faculty and Staff,2017-11-09T00:00:00Z
+597,Faculty and Staff,2017-11-13T00:00:00Z
+598,Faculty and Staff,2017-12-07T00:00:00Z
+599,Faculty and Staff,2017-12-07T00:00:00Z
+600,Faculty and Staff,2017-12-18T00:00:00Z
+601,Law Faculty,2017-12-19T00:00:00Z
+602,Faculty and Staff,2017-12-21T00:00:00Z
+603,Faculty and Staff,2018-01-14T00:00:00Z
+604,Faculty and Staff,2018-01-17T00:00:00Z
+605,Faculty and Staff,2018-01-22T00:00:00Z
+606,Faculty and Staff,2018-01-22T00:00:00Z
+607,Faculty and Staff,2018-01-22T00:00:00Z
+608,Faculty and Staff,2018-01-22T00:00:00Z
+609,Law Faculty,2018-01-22T00:00:00Z
+610,Faculty and Staff,2018-01-23T00:00:00Z
+611,Faculty and Staff,2018-01-22T00:00:00Z
+612,Faculty and Staff,2018-01-23T00:00:00Z
+613,Faculty and Staff,2018-01-23T00:00:00Z
+614,Faculty and Staff,2018-01-23T00:00:00Z
+615,Faculty and Staff,2018-01-23T00:00:00Z
+616,Faculty and Staff,2018-01-23T00:00:00Z
+617,Faculty and Staff,2018-01-22T00:00:00Z
+618,Faculty and Staff,2018-01-23T00:00:00Z
+619,Faculty and Staff,2018-01-23T00:00:00Z
+620,Faculty and Staff,2018-01-23T00:00:00Z
+621,Law Faculty,2018-01-22T00:00:00Z
+622,Faculty and Staff,2018-01-22T00:00:00Z
+623,Faculty and Staff,2018-01-23T00:00:00Z
+624,Faculty and Staff,2018-01-22T00:00:00Z
+625,Faculty and Staff,2018-01-22T00:00:00Z
+626,Faculty and Staff,2018-01-23T00:00:00Z
+627,Faculty and Staff,2018-01-23T00:00:00Z
+628,Faculty and Staff,2018-01-23T00:00:00Z
+629,Law Faculty,2018-01-23T00:00:00Z
+630,Faculty and Staff,2018-01-23T00:00:00Z
+631,Faculty and Staff,2018-01-25T00:00:00Z
+632,Faculty and Staff,2018-04-19T00:00:00Z
+633,Faculty and Staff,2018-05-09T00:00:00Z
+634,Faculty and Staff,2018-07-02T00:00:00Z
+635,Faculty and Staff,2018-07-02T00:00:00Z
+636,Faculty and Staff,2018-07-02T00:00:00Z
+637,Undergraduate students,2018-07-05T00:00:00Z
+638,Law Faculty,2018-07-07T00:00:00Z
+639,Faculty and Staff,2018-07-11T00:00:00Z
+640,Faculty and Staff,2018-07-24T00:00:00Z
+641,Faculty and Staff,2018-08-08T00:00:00Z
+642,Faculty and Staff,2018-08-09T00:00:00Z
+643,Faculty and Staff,2018-08-13T00:00:00Z
+644,Faculty and Staff,2018-08-13T00:00:00Z
+645,Law Public,2018-08-19T00:00:00Z
+646,Faculty and Staff,2018-08-19T00:00:00Z
+647,Undergraduate students,2018-08-19T00:00:00Z
+648,Undergraduate students,2018-08-19T00:00:00Z
+649,Undergraduate students,2018-08-19T00:00:00Z
+650,Faculty and Staff,2018-08-19T00:00:00Z
+651,Faculty and Staff,2018-08-19T00:00:00Z
+652,Faculty and Staff,2018-08-19T00:00:00Z
+653,Graduate Students,2018-08-19T00:00:00Z
+654,Faculty and Staff,2018-09-05T00:00:00Z
+655,Faculty and Staff,2018-10-03T00:00:00Z
+656,Library Internal - Long Loan,2018-10-02T00:00:00Z
+657,Faculty and Staff,2018-10-04T00:00:00Z
+658,Faculty and Staff,2018-10-05T00:00:00Z
+659,Law Students and Staff,2018-10-13T00:00:00Z
+660,Faculty and Staff,2018-10-15T00:00:00Z
+661,Faculty and Staff,2018-10-24T00:00:00Z
+662,Faculty and Staff,2018-11-05T00:00:00Z
+663,Faculty and Staff,2018-11-29T00:00:00Z
+664,Faculty and Staff,2018-11-28T00:00:00Z
+665,Faculty and Staff,2018-12-19T00:00:00Z
+666,Faculty and Staff,2001-09-28T00:00:00Z
+667,Faculty and Staff,1991-07-26T00:00:00Z
+668,Faculty and Staff,2007-10-25T00:00:00Z
+669,Faculty and Staff,2019-01-07T00:00:00Z
+670,Faculty and Staff,2008-03-09T00:00:00Z
+671,Faculty and Staff,1991-07-26T00:00:00Z
+672,Faculty and Staff,2019-02-06T00:00:00Z
+673,Faculty and Staff,2007-04-03T00:00:00Z
+674,Faculty and Staff,1999-12-01T00:00:00Z
+675,Faculty and Staff,2006-10-05T00:00:00Z
+676,Faculty and Staff,2015-09-24T00:00:00Z
+677,Faculty and Staff,2010-08-23T00:00:00Z
+678,Faculty and Staff,2019-02-27T00:00:00Z
+679,Faculty and Staff,2019-02-27T00:00:00Z
+680,Faculty and Staff,2019-03-03T00:00:00Z
+681,Faculty and Staff,2007-08-28T00:00:00Z
+682,Faculty and Staff,1991-01-11T00:00:00Z
+683,Faculty and Staff,2004-11-02T00:00:00Z
+684,Faculty and Staff,2004-10-06T00:00:00Z
+685,Faculty and Staff,2016-03-02T00:00:00Z
+686,Faculty and Staff,1998-08-12T00:00:00Z
+687,Faculty and Staff,2019-03-23T00:00:00Z
+688,Faculty and Staff,2019-04-10T00:00:00Z
+689,Faculty and Staff,2019-06-05T00:00:00Z
+690,Faculty and Staff,2019-06-06T00:00:00Z
+691,Faculty and Staff,2019-06-18T00:00:00Z
+692,Law Faculty,2019-07-05T00:00:00Z
+693,Faculty and Staff,2019-07-10T00:00:00Z
+694,Faculty and Staff,2019-07-10T00:00:00Z
+695,Faculty and Staff,2019-07-17T00:00:00Z
+696,Faculty and Staff,2019-07-18T00:00:00Z
+697,Law Faculty,2019-07-31T00:00:00Z
+698,Faculty and Staff,2019-08-02T00:00:00Z
+699,Faculty and Staff,2019-08-16T00:00:00Z
+700,Faculty and Staff,2019-08-20T00:00:00Z
+701,Undergraduate students,2019-08-21T00:00:00Z
+702,Faculty and Staff,2019-08-21T00:00:00Z
+703,Faculty and Staff,2019-08-21T00:00:00Z
+704,Faculty and Staff,2019-08-21T00:00:00Z
+705,Faculty and Staff,2019-08-21T00:00:00Z
+706,Undergraduate students,2019-08-21T00:00:00Z
+707,Undergraduate students,2019-08-21T00:00:00Z
+708,Law Students and Staff,2019-08-21T00:00:00Z
+709,Graduate Students,2019-08-21T00:00:00Z
+710,Faculty and Staff,2019-08-21T00:00:00Z
+711,Faculty and Staff,2019-08-21T00:00:00Z
+712,Undergraduate students,2019-08-21T00:00:00Z
+713,Faculty and Staff,2019-08-23T00:00:00Z
+714,Graduate Students,2019-09-06T00:00:00Z
+715,Faculty and Staff,2019-09-19T00:00:00Z
+716,Faculty and Staff,2019-11-08T00:00:00Z
+717,Faculty and Staff,2019-12-20T00:00:00Z
+718,Faculty and Staff,2019-12-18T00:00:00Z
+719,Faculty and Staff,2020-01-23T00:00:00Z
+720,Faculty and Staff,2020-02-22T00:00:00Z
+721,Faculty and Staff,2020-03-04T00:00:00Z
+NA,NA,NA
