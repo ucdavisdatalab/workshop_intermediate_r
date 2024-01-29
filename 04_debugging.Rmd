@@ -1,6 +1,13 @@
 Squashing Bugs with R's Debugging Tools
 =======================================
 
+```{r hidden-load}
+#| echo: false
+
+library(knitr)
+library(ggplot2)
+```
+
 The major topics of this chapter are how to print output, how R's conditions
 system for warnings and errors works, how to use the R debugger, and how to
 estimate the performance of R code.
@@ -349,7 +356,7 @@ The most important step when debugging an error is to locate it. There are two m
 * Work forward through the code from the beginning.
 * Work backward from the source of an error.                                            
 
-Both strategies are valid and powerful. Working backward is probably faster for experienced R users because errors and messages have patterns that you learn to recognize over time. If you recognize the meaning of an error, you may be able to immediately identify its cause. The `traceback()` function is quite helpful for the "work backward: strategy, because it identifies the function where the error actually happened (which may be )
+Both strategies are valid and powerful. Working backward is probably faster for experienced R users because errors and messages have patterns that you learn to recognize over time. If you recognize the meaning of an error, you may be able to immediately identify its cause. The `traceback()` function is quite helpful for the "work backward" strategy, because it identifies the function where the error actually happened (which may be )
  
 To work forward from the beginning 
 
@@ -448,6 +455,82 @@ bad_fn(3, 4)
 ```
 
 
+
+### Debugging Case Study: Boottrapping Average Penguin Mass
+Here is a more realistic example to demonstrate how debugging works in a practical code project. In this example, you take the role of a biologist studying penguins in Antarctica. You've captured and measured 344 penguins on three islands near the Palmer Station Long Term Ecological Research site and are doing some analysis with the data. The measurements include flipper length, bill width, sex, and body mass of the penguins. The data are available as the data object `penguins` in [Alison Horst's `palmerpenguins` package](https://allisonhorst.github.io/palmerpenguins/) so let's download and load that package now.
+
+```{r install-palmer-penguins}
+#| eval: false
+
+install.packages("palmerpenguins")
+library(palmerpenguins)
+data(penguins)
+
+head(penguins)
+```
+
+
+```{r load-palmer-penguins}
+#| echo: false
+
+library(palmerpenguins)
+data(penguins)
+
+head(penguins) |>
+  kable()
+```
+
+Now imagine that you are trying to use a script that was written by a previous member of your lab. Let's copy it from its home on the web, [here](github.com/ucdavisdatalab/workshop_intermediate_r/) to a new blank script on our computer(s). The script provides a function that splits the penguins into groups according to some grouping factors like species and sex, then plots the uncertainty in the average penguin mass per group. The plot is show below for mass by species.
+
+```{r load-case-study}
+#| echo: false
+source("code/debug_case_study.R")
+```
+
+
+```{r first-case-study-plot}
+#| message: false
+#| warning: false
+make_bootstrap_plots(penguins, "species")
+```
+
+In the plot, the red dots are measured penguins within each group and the black boxplots show the variability in 1000 estimates of the group means. The estimates come from a process called the **bootstrap**. It works by taking samples from the data we already have (this is called **resampling**), in order to measure how different the samples are from each other. Statisticians do this because we often want to know how different our conclusions would be with completely new data, but we can't go back and collect the new data.
+
+The functions work for multiple grouping factors. See how we can estimate the means of penguins grouped by species and sex, which helps us identify species where one sex is larger than the other:
+
+```{r sex-and-species}
+#| message: false
+#| warning: false
+make_bootstrap_plots(penguins, "species", "sex")
+```
+
+But when you group the penguins by species and island, the code generates an error. This is our bug:
+
+```{r species-island-error}
+#| message: false
+#| warning: false
+#| error: true
+make_bootstrap_plots(penguins, "species", "island")
+```
+
+
+#### Isolating The Bug
+
+```{r}
+#| eval: false
+traceback()
+```
+
+```{r simulate-traceback}
+#| echo: false
+
+tb = '4: resample(group$body_mass_g, B = B) at debug_case_study.R#50 
+3: bootstrap(data, B = B, ...) at debug_case_study.R#60
+2: stack(bootstrap(data, B = B, ...)) at debug_case_study.R#60
+1: make_bootstrap_plots(penguins, "species", "island")'
+
+cat(tb)
+```
 
 Measuring Performance
 ---------------------

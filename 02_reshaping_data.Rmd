@@ -830,9 +830,11 @@ Let's begin by looking at the data on books, borrowers, and checkouts.
 #| warning: false
 #| error: false
 #| message: false
-borrowers = read.csv("data/library/fake/borrowers.csv")
-books = read.csv("data/library/fake/books.csv")
-checkouts = read.csv("data/library/fake/checkouts.csv")
+
+library(readr)
+borrowers = read_csv("data/library/borrowers.csv")
+books = read_csv("data/library/books.csv")
+checkouts = read_csv("data/library/checkouts.csv")
 
 # show the top rows
 print(head(books))
@@ -867,7 +869,7 @@ left_join(checkouts, books, by="book_id") |>
 Just for fun, here is an instructive example of why relational tables are a better way to store data than putting everything into one spreadsheet. If we want to identify the authors whose books were most checked out from the UCD library, we might think to adapt our previous example to group by author rather than by book_id.
 ```{r most-checked-out-authors}
 # Top ten authors with most checkouts
-left_join(checkouts, books, by="book_id") |>
+inner_join(checkouts, books, by="book_id") |>
   group_by(author) |>
   summarize(author=first(author), n_checkouts = n()) |>
   arrange(desc(n_checkouts)) |>
@@ -886,11 +888,11 @@ several joins in a row. Let's look at an example that combines `checkouts`,
 students, faculty, and staff.
 
 ```{r three-tables}
-# list the account types who checked out the most books
+# list the borrowers who checked out the most books
 left_join(checkouts, books, by="book_id") |>
   left_join(borrowers, by="borrower_id") |>
   group_by(borrower_id) |>
-  summarize(account_type=first(account_type), n_checkouts = n()) |>
+  summarize(account_type=first(user_group), n_checkouts = n()) |>
   arrange(desc(n_checkouts)) #|>
   #kable()
 ```
@@ -958,7 +960,8 @@ When the two tables have columns with the same names, it is ambiguous which one 
 
 ```{r ambiguous-date}
 # Rename the date_created column of borrowers
-borrowers = rename(borrowers, date=date_created)
+borrowers$date = borrowers$creation_date)
+checkouts$date = checkouts$loan_date
 
 # Now create the list of checkouts
 left_join(checkouts, books, by="book_id") |>
