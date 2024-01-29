@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2024-01-19" />
+<meta name="date" content="2024-01-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,26 +204,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>II Writing &amp; Debugging R Code</b></span></li>
 <li class="chapter" data-level="3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html"><i class="fa fa-check"></i><b>3</b> Best Practices for Writing R Scripts</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#scripting-your-code"><i class="fa fa-check"></i><b>3.1</b> Scripting Your Code</a></li>
-<li class="chapter" data-level="3.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#printing-output"><i class="fa fa-check"></i><b>3.2</b> Printing Output</a>
+<li class="chapter" data-level="3.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-us-fruit-prices"><i class="fa fa-check"></i><b>3.2</b> Case Study: U.S. Fruit Prices</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-print-function"><i class="fa fa-check"></i><b>3.2.1</b> The <code>print</code> Function</a></li>
-<li class="chapter" data-level="3.2.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-message-function"><i class="fa fa-check"></i><b>3.2.2</b> The <code>message</code> Function</a></li>
-<li class="chapter" data-level="3.2.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-cat-function"><i class="fa fa-check"></i><b>3.2.3</b> The <code>cat</code> Function</a></li>
-<li class="chapter" data-level="3.2.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#formatting-output"><i class="fa fa-check"></i><b>3.2.4</b> Formatting Output</a></li>
-<li class="chapter" data-level="3.2.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#logging-output"><i class="fa fa-check"></i><b>3.2.5</b> Logging Output</a></li>
+<li class="chapter" data-level="3.2.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#setting-up-the-project"><i class="fa fa-check"></i><b>3.2.1</b> Setting Up the Project</a></li>
+<li class="chapter" data-level="3.2.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#setting-up-the-script"><i class="fa fa-check"></i><b>3.2.2</b> Setting Up the Script</a></li>
+<li class="chapter" data-level="3.2.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#reading-the-pear-data"><i class="fa fa-check"></i><b>3.2.3</b> Reading the Pear Data</a></li>
+<li class="chapter" data-level="3.2.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#getting-the-fruit-name"><i class="fa fa-check"></i><b>3.2.4</b> Getting the Fruit Name</a></li>
+<li class="chapter" data-level="3.2.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#getting-the-column-names"><i class="fa fa-check"></i><b>3.2.5</b> Getting the Column Names</a></li>
+<li class="chapter" data-level="3.2.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#getting-the-price-data"><i class="fa fa-check"></i><b>3.2.6</b> Getting the Price Data</a></li>
+<li class="chapter" data-level="3.2.7" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#testing-the-script"><i class="fa fa-check"></i><b>3.2.7</b> Testing the Script</a></li>
+<li class="chapter" data-level="3.2.8" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#iterating-over-all-fruit"><i class="fa fa-check"></i><b>3.2.8</b> Iterating Over All Fruit</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#reading-input"><i class="fa fa-check"></i><b>3.3</b> Reading Input</a></li>
-<li class="chapter" data-level="3.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#managing-packages"><i class="fa fa-check"></i><b>3.4</b> Managing Packages</a></li>
-<li class="chapter" data-level="3.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#iteration-strategies"><i class="fa fa-check"></i><b>3.5</b> Iteration Strategies</a>
+<li class="chapter" data-level="3.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#managing-environments"><i class="fa fa-check"></i><b>3.3</b> Managing Environments</a></li>
+<li class="chapter" data-level="3.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#iteration-strategies"><i class="fa fa-check"></i><b>3.4</b> Iteration Strategies</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#for-loops"><i class="fa fa-check"></i><b>3.5.1</b> For-loops</a></li>
-<li class="chapter" data-level="3.5.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#while-loops"><i class="fa fa-check"></i><b>3.5.2</b> While-loops</a></li>
-<li class="chapter" data-level="3.5.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#saving-multiple-results"><i class="fa fa-check"></i><b>3.5.3</b> Saving Multiple Results</a></li>
-<li class="chapter" data-level="3.5.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#break-next"><i class="fa fa-check"></i><b>3.5.4</b> Break &amp; Next</a></li>
-<li class="chapter" data-level="3.5.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#planning-for-iteration"><i class="fa fa-check"></i><b>3.5.5</b> Planning for Iteration</a></li>
-<li class="chapter" data-level="3.5.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>3.5.6</b> Case Study: The Collatz Conjecture</a></li>
-<li class="chapter" data-level="3.5.7" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>3.5.7</b> Case Study: U.S. Fruit Prices</a></li>
+<li class="chapter" data-level="3.4.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#for-loops"><i class="fa fa-check"></i><b>3.4.1</b> For-loops</a></li>
+<li class="chapter" data-level="3.4.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#while-loops"><i class="fa fa-check"></i><b>3.4.2</b> While-loops</a></li>
+<li class="chapter" data-level="3.4.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#saving-multiple-results"><i class="fa fa-check"></i><b>3.4.3</b> Saving Multiple Results</a></li>
+<li class="chapter" data-level="3.4.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#break-next"><i class="fa fa-check"></i><b>3.4.4</b> Break &amp; Next</a></li>
+<li class="chapter" data-level="3.4.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#planning-for-iteration"><i class="fa fa-check"></i><b>3.4.5</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="3.4.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>3.4.6</b> Case Study: The Collatz Conjecture</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#printing-output"><i class="fa fa-check"></i><b>3.5</b> Printing Output</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-print-function"><i class="fa fa-check"></i><b>3.5.1</b> The <code>print</code> Function</a></li>
+<li class="chapter" data-level="3.5.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-message-function"><i class="fa fa-check"></i><b>3.5.2</b> The <code>message</code> Function</a></li>
+<li class="chapter" data-level="3.5.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-cat-function"><i class="fa fa-check"></i><b>3.5.3</b> The <code>cat</code> Function</a></li>
+<li class="chapter" data-level="3.5.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#formatting-output"><i class="fa fa-check"></i><b>3.5.4</b> Formatting Output</a></li>
+<li class="chapter" data-level="3.5.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#logging-output"><i class="fa fa-check"></i><b>3.5.5</b> Logging Output</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#reading-input"><i class="fa fa-check"></i><b>3.6</b> Reading Input</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#command-line-arguments"><i class="fa fa-check"></i><b>3.6.1</b> Command Line Arguments</a></li>
+<li class="chapter" data-level="3.6.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#configuration-files"><i class="fa fa-check"></i><b>3.6.2</b> Configuration Files</a></li>
+<li class="chapter" data-level="3.6.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#prompts"><i class="fa fa-check"></i><b>3.6.3</b> Prompts</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html"><i class="fa fa-check"></i><b>4</b> Squashing Bugs with R’s Debugging Tools</a>
@@ -1026,7 +1041,8 @@ tables where the key column names don’t match.</p>
 <pre><code>## Warning in left_join(students, grades, by = join_by(student_id == sid)): Detected an unexpected many-to-many relationship between `x` and `y`.
 ## ℹ Row 2 of `x` matches multiple rows in `y`.
 ## ℹ Row 3 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to silence this warning.</code></pre>
+## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
 <pre><code>##   student_id    name grade
 ## 1          1   Angel    NA
 ## 2          2    Beto    90
@@ -1089,7 +1105,8 @@ inner join and a left join.</p>
 <pre><code>## Warning in inner_join(students, grades, by = &quot;student_id&quot;): Detected an unexpected many-to-many relationship between `x` and `y`.
 ## ℹ Row 2 of `x` matches multiple rows in `y`.
 ## ℹ Row 3 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to silence this warning.</code></pre>
+## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
 <pre><code>##   student_id    name grade
 ## 1          2    Beto    90
 ## 2          2    Beto    60
@@ -1228,49 +1245,51 @@ anti_result = anti_join(employees, salaries, by = "emp_id")
 <h3><span class="header-section-number">2.2.6</span> Examples<a href="tidy-relational-data.html#examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We’ve seen enough of the made-up grades example! Let’s look at some real data and practice our skills!</p>
 <p>Let’s begin by looking at the data on books, borrowers, and checkouts.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="tidy-relational-data.html#cb210-1" tabindex="-1"></a>borrowers <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/library/fake/borrowers.csv&quot;</span>)</span>
-<span id="cb210-2"><a href="tidy-relational-data.html#cb210-2" tabindex="-1"></a>books <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/library/fake/books.csv&quot;</span>)</span>
-<span id="cb210-3"><a href="tidy-relational-data.html#cb210-3" tabindex="-1"></a>checkouts <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/library/fake/checkouts.csv&quot;</span>)</span>
-<span id="cb210-4"><a href="tidy-relational-data.html#cb210-4" tabindex="-1"></a></span>
-<span id="cb210-5"><a href="tidy-relational-data.html#cb210-5" tabindex="-1"></a><span class="co"># show the top rows</span></span>
-<span id="cb210-6"><a href="tidy-relational-data.html#cb210-6" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(books))</span></code></pre></div>
-<pre><code>##   book_id                                   title          author subject
-## 1       1                               my alaska        guy noir      NA
-## 2       2                                 jubilee          charro      NA
-## 3       3     the window ruiner ruined my windows       zipperman      NA
-## 4       4                    clowns in the clouds       dark doug      NA
-## 5       5 dogs walked, tigers tamed, bars emptied    lucky pierre      NA
-## 6       6                             ace ventura sandy mackinnon      NA
-##   Publisher. creation_date publication_date location type Barcode.
-## 1         NA            NA               NA       NA   NA       NA
-## 2         NA            NA               NA       NA   NA       NA
-## 3         NA            NA               NA       NA   NA       NA
-## 4         NA            NA               NA       NA   NA       NA
-## 5         NA            NA               NA       NA   NA       NA
-## 6         NA            NA               NA       NA   NA       NA</code></pre>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="tidy-relational-data.html#cb210-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb210-2"><a href="tidy-relational-data.html#cb210-2" tabindex="-1"></a>borrowers <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/library/borrowers.csv&quot;</span>)</span>
+<span id="cb210-3"><a href="tidy-relational-data.html#cb210-3" tabindex="-1"></a>books <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/library/books.csv&quot;</span>)</span>
+<span id="cb210-4"><a href="tidy-relational-data.html#cb210-4" tabindex="-1"></a>checkouts <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/library/checkouts.csv&quot;</span>)</span>
+<span id="cb210-5"><a href="tidy-relational-data.html#cb210-5" tabindex="-1"></a></span>
+<span id="cb210-6"><a href="tidy-relational-data.html#cb210-6" tabindex="-1"></a><span class="co"># show the top rows</span></span>
+<span id="cb210-7"><a href="tidy-relational-data.html#cb210-7" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(books))</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 14
+##   book_id title          author publisher creation_date       pub_date item_type
+##     &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;  &lt;chr&gt;     &lt;dttm&gt;              &lt;chr&gt;    &lt;chr&gt;    
+## 1       1 The textual t… Boter… Brill     2016-08-03 01:02:20 1988     Book - P…
+## 2       2 Intellectual … &lt;NA&gt;   Universi… 2016-08-03 01:02:26 ©2003.   Book - P…
+## 3       3 The last redw… Leyde… Sierra C… 2016-08-03 01:02:29 [1969]   Book - P…
+## 4       4 Large lakes :… &lt;NA&gt;   Springer… 2016-08-03 01:02:30 ©1990.   Book - P…
+## 5       5 Ruling suburb… McLar… Associat… 2016-08-03 01:02:37 ©2003.   Book - P…
+## 6       6 Laser diode m… Peter… Sold and… 2016-08-03 01:02:42 ©1988.   Book - P…
+## # ℹ 7 more variables: location_code &lt;chr&gt;, material_type &lt;chr&gt;, barcode &lt;dbl&gt;,
+## #   publication_place &lt;chr&gt;, language &lt;chr&gt;, descripton &lt;chr&gt;, loans &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="tidy-relational-data.html#cb212-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(borrowers))</span></code></pre></div>
-<pre><code>##   borrower_id account_type major date_created
-## 1           1      student    NA           NA
-## 2           2        staff    NA           NA
-## 3           3      student    NA           NA
-## 4           4      student    NA           NA
-## 5           5      faculty    NA           NA
-## 6           6        staff    NA           NA</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   borrower_id user_group        creation_date      
+##         &lt;dbl&gt; &lt;chr&gt;             &lt;dttm&gt;             
+## 1           1 Faculty and Staff 2020-04-10 00:00:00
+## 2           2 Faculty and Staff 2020-05-17 00:00:00
+## 3           3 Faculty and Staff 2020-05-30 00:00:00
+## 4           4 Law Faculty       2020-06-05 00:00:00
+## 5           5 Faculty and Staff 2020-06-19 00:00:00
+## 6           6 Faculty and Staff 2020-07-08 00:00:00</code></pre>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="tidy-relational-data.html#cb214-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(checkouts))</span></code></pre></div>
-<pre><code>##   borrower_id book_id checkout_date due_date
-## 1           1       1      12/21/23  6/18/24
-## 2           1       2        1/3/22   7/2/22
-## 3           2       2      10/12/20  4/10/21
-## 4           2       3        5/5/23  11/1/23
-## 5           2       4      12/12/21  6/10/22
-## 6           4       2        6/7/18  12/4/18</code></pre>
+<pre><code>## # A tibble: 6 × 5
+##   book_id borrower_id barcode loan_date           due_date           
+##     &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             
+## 1    1705         129 3.12e13 2019-05-15 00:00:00 2024-06-30 00:00:00
+## 2    4542         353 8.70e 6 2019-01-17 00:00:00 2022-06-30 00:00:00
+## 3    2958         585 3.12e13 2022-04-06 00:00:00 2024-06-30 00:00:00
+## 4     575         465 3.12e13 2020-02-16 00:00:00 2024-06-30 00:00:00
+## 5    1493         425 3.12e13 2022-11-07 00:00:00 2024-06-30 00:00:00
+## 6     539         522 3.12e13 2019-02-20 00:00:00 2024-06-30 00:00:00</code></pre>
 <div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="tidy-relational-data.html#cb216-1" tabindex="-1"></a><span class="co"># get the table sizes</span></span>
 <span id="cb216-2"><a href="tidy-relational-data.html#cb216-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(books))</span></code></pre></div>
-<pre><code>## [1]  9 10</code></pre>
+<pre><code>## [1] 5665   14</code></pre>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="tidy-relational-data.html#cb218-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(borrowers))</span></code></pre></div>
-<pre><code>## [1] 10  4</code></pre>
+<pre><code>## [1] 722   3</code></pre>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="tidy-relational-data.html#cb220-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dim</span>(checkouts))</span></code></pre></div>
-<pre><code>## [1] 7 4</code></pre>
+<pre><code>## [1] 1000    5</code></pre>
 <p>One thing we can see is that the <code>books</code> table refers to physical copies of a book, so if the library owns two copies of the same book then the same title, publisher, etc. will appear on the same row.</p>
 <p>Suppose we want to know which books were checked out most often, or were generally checked out by the same people. The <code>books</code> table has a key column called <code>book_id</code> and the <code>borrowers</code> table has a primary key called <code>borrower_id</code>. The <code>checkouts</code> has two ID columns: <code>book_id</code> and <code>borrower_id</code>. These match the borrower and book IDs in the <code>borrowers</code> and <code>books</code> tables. Obviously, these aren’t unique: one person may check out multiple books, and a book can be checked out on more than one occasion.</p>
 <p>Now we can begin to reason about how to approach the goal of identifying the books that are most often checked out. We want to augment the <code>checkouts</code> table with the information in the <code>books</code> table, matching rows where <code>book_id</code> matches. Every row in the checkouts table should match exactly one row in the results and every row in the results should match exactly one row in the checkouts table.</p>
@@ -1281,30 +1300,40 @@ anti_result = anti_join(employees, salaries, by = "emp_id")
 <span id="cb222-4"><a href="tidy-relational-data.html#cb222-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">title=</span><span class="fu">first</span>(title), <span class="at">author=</span><span class="fu">first</span>(author), <span class="at">n_checkouts=</span><span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
 <span id="cb222-5"><a href="tidy-relational-data.html#cb222-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_checkouts)) <span class="sc">|&gt;</span></span>
 <span id="cb222-6"><a href="tidy-relational-data.html#cb222-6" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="co">#|&gt;</span></span></code></pre></div>
-<pre><code>## # A tibble: 5 × 4
-##   book_id title                                   author       n_checkouts
-##     &lt;int&gt; &lt;chr&gt;                                   &lt;chr&gt;              &lt;int&gt;
-## 1       2 jubilee                                 charro                 3
-## 2       1 my alaska                               guy noir               1
-## 3       3 the window ruiner ruined my windows     zipperman              1
-## 4       4 clowns in the clouds                    dark doug              1
-## 5       5 dogs walked, tigers tamed, bars emptied lucky pierre           1</code></pre>
+<pre><code>## # A tibble: 10 × 4
+##    book_id title                                              author n_checkouts
+##      &lt;dbl&gt; &lt;chr&gt;                                              &lt;chr&gt;        &lt;int&gt;
+##  1       1 &quot;The textual tradition of Plato&#39;s Republic /&quot;      Boter…           1
+##  2      13 &quot;Sechs italienische Sonaten : für Querflöte und B… Quant…           1
+##  3      16 &quot;Plato&#39;s moral realism : the discovery of the pre… Rist,…           1
+##  4      23 &quot;Second World War /&quot;                               Gilbe…           1
+##  5      28 &quot;Die Fliegen der palaearktischen Region.&quot;          Lindn…           1
+##  6      36 &quot;Early English Text Society.&quot;                      &lt;NA&gt;             1
+##  7      48 &quot;City, chant, and the topography of early music /&quot; &lt;NA&gt;             1
+##  8      59 &quot;Fiscal federalism&quot;                                Oates…           1
+##  9      67 &quot;Armenia: cradle of civilization.&quot;                 Lang,…           1
+## 10      72 &quot;Aristotle on science, the \&quot;Posterior analytics\… Sympo…           1</code></pre>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="tidy-relational-data.html#cb224-1" tabindex="-1"></a>  <span class="co"># kable()</span></span></code></pre></div>
 <p>Just for fun, here is an instructive example of why relational tables are a better way to store data than putting everything into one spreadsheet. If we want to identify the authors whose books were most checked out from the UCD library, we might think to adapt our previous example to group by author rather than by book_id.</p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="tidy-relational-data.html#cb225-1" tabindex="-1"></a><span class="co"># Top ten authors with most checkouts</span></span>
-<span id="cb225-2"><a href="tidy-relational-data.html#cb225-2" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb225-2"><a href="tidy-relational-data.html#cb225-2" tabindex="-1"></a><span class="fu">inner_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
 <span id="cb225-3"><a href="tidy-relational-data.html#cb225-3" tabindex="-1"></a>  <span class="fu">group_by</span>(author) <span class="sc">|&gt;</span></span>
 <span id="cb225-4"><a href="tidy-relational-data.html#cb225-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">author=</span><span class="fu">first</span>(author), <span class="at">n_checkouts =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
 <span id="cb225-5"><a href="tidy-relational-data.html#cb225-5" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_checkouts)) <span class="sc">|&gt;</span></span>
 <span id="cb225-6"><a href="tidy-relational-data.html#cb225-6" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="co">#|&gt;</span></span></code></pre></div>
-<pre><code>## # A tibble: 5 × 2
-##   author       n_checkouts
-##   &lt;chr&gt;              &lt;int&gt;
-## 1 charro                 3
-## 2 dark doug              1
-## 3 guy noir               1
-## 4 lucky pierre           1
-## 5 zipperman              1</code></pre>
+<pre><code>## # A tibble: 10 × 2
+##    author                                  n_checkouts
+##    &lt;chr&gt;                                         &lt;int&gt;
+##  1 &lt;NA&gt;                                            224
+##  2 California.                                       6
+##  3 Averroës, 1126-1198.                              3
+##  4 Origen.                                           3
+##  5 United States Strategic Bombing Survey.           3
+##  6 Agresti, Alan.                                    2
+##  7 Areeda, Phillip, author.                          2
+##  8 Balibar, Étienne, 1942-                           2
+##  9 Burns, Catherine E.                               2
+## 10 Giles, Herbert Allen, 1845-1935.                  2</code></pre>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="tidy-relational-data.html#cb227-1" tabindex="-1"></a>  <span class="co"># kable()</span></span></code></pre></div>
 <p>The problem is that the <code>author</code> column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name (<a href="https://orcid.org">this is what ORCID does for scientific publishing</a>).</p>
 <div id="three-or-more-tables" class="section level4 hasAnchor" number="2.2.6.1">
@@ -1313,19 +1342,26 @@ anti_result = anti_join(employees, salaries, by = "emp_id")
 several joins in a row. Let’s look at an example that combines <code>checkouts</code>,
 <code>books</code>, and <code>borrowers</code> in order to see how many books were checked out by
 students, faculty, and staff.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="tidy-relational-data.html#cb228-1" tabindex="-1"></a><span class="co"># list the account types who checked out the most books</span></span>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="tidy-relational-data.html#cb228-1" tabindex="-1"></a><span class="co"># list the borrowers who checked out the most books</span></span>
 <span id="cb228-2"><a href="tidy-relational-data.html#cb228-2" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
 <span id="cb228-3"><a href="tidy-relational-data.html#cb228-3" tabindex="-1"></a>  <span class="fu">left_join</span>(borrowers, <span class="at">by=</span><span class="st">&quot;borrower_id&quot;</span>) <span class="sc">|&gt;</span></span>
 <span id="cb228-4"><a href="tidy-relational-data.html#cb228-4" tabindex="-1"></a>  <span class="fu">group_by</span>(borrower_id) <span class="sc">|&gt;</span></span>
-<span id="cb228-5"><a href="tidy-relational-data.html#cb228-5" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">account_type=</span><span class="fu">first</span>(account_type), <span class="at">n_checkouts =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb228-5"><a href="tidy-relational-data.html#cb228-5" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">account_type=</span><span class="fu">first</span>(user_group), <span class="at">n_checkouts =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
 <span id="cb228-6"><a href="tidy-relational-data.html#cb228-6" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_checkouts)) <span class="co">#|&gt;</span></span></code></pre></div>
-<pre><code>## # A tibble: 4 × 3
-##   borrower_id account_type n_checkouts
-##         &lt;int&gt; &lt;chr&gt;              &lt;int&gt;
-## 1           2 staff                  3
-## 2           1 student                2
-## 3           4 student                1
-## 4           5 faculty                1</code></pre>
+<pre><code>## # A tibble: 319 × 3
+##    borrower_id account_type      n_checkouts
+##          &lt;dbl&gt; &lt;chr&gt;                   &lt;int&gt;
+##  1         217 Faculty and Staff          30
+##  2         449 Faculty and Staff          29
+##  3         524 Faculty and Staff          22
+##  4         569 Faculty and Staff          21
+##  5          19 Faculty and Staff          19
+##  6         381 Faculty and Staff          17
+##  7          20 Faculty and Staff          16
+##  8         500 Faculty and Staff          15
+##  9         666 Faculty and Staff          15
+## 10         129 Faculty and Staff          14
+## # ℹ 309 more rows</code></pre>
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="tidy-relational-data.html#cb230-1" tabindex="-1"></a>  <span class="co">#kable()</span></span></code></pre></div>
 <p>This works because the result of the first join is still a table where each row is one checkout. Keeping this as the left table, we then join the table <code>borrowers</code> so the result is a table where each row is one checkout, with information about both the book and the borrower. Then we can summarize the data by how many books were checked out by each type of library user.</p>
 </div>
@@ -1350,7 +1386,8 @@ students, faculty, and staff.</p>
 <pre><code>## Warning in left_join(students, grades, by = &quot;student_id&quot;): Detected an unexpected many-to-many relationship between `x` and `y`.
 ## ℹ Row 2 of `x` matches multiple rows in `y`.
 ## ℹ Row 4 of `y` matches multiple rows in `x`.
-## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to silence this warning.</code></pre>
+## ℹ If a many-to-many relationship is expected, set `relationship = &quot;many-to-many&quot;` to
+##   silence this warning.</code></pre>
 <pre><code>##   student_id    name grade
 ## 1          1   Angel    NA
 ## 2          2    Beto    90
@@ -1388,65 +1425,53 @@ students, faculty, and staff.</p>
 <h4><span class="header-section-number">2.2.7.2</span> Ambiguous Columns<a href="tidy-relational-data.html#ambiguous-columns" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>When the two tables have columns with the same names, it is ambiguous which one to use in the result. R handles that situation by keeping both but changing the names to include the table names. So the column from the left table gets a <code>.x</code> appended by default and the column from the right table gets a <code>.y</code> appended by default. Let’s see an example. Suppose that the <code>date_created</code> column of the borrowers table had the name <code>date</code> instead. Then in the joined data it would be ambiguous with the <code>date</code> column of the checkouts table.</p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="tidy-relational-data.html#cb236-1" tabindex="-1"></a><span class="co"># Rename the date_created column of borrowers</span></span>
-<span id="cb236-2"><a href="tidy-relational-data.html#cb236-2" tabindex="-1"></a>borrowers <span class="ot">=</span> <span class="fu">rename</span>(borrowers, <span class="at">date=</span>date_created)</span>
-<span id="cb236-3"><a href="tidy-relational-data.html#cb236-3" tabindex="-1"></a></span>
-<span id="cb236-4"><a href="tidy-relational-data.html#cb236-4" tabindex="-1"></a><span class="co"># Now create the list of checkouts</span></span>
-<span id="cb236-5"><a href="tidy-relational-data.html#cb236-5" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb236-6"><a href="tidy-relational-data.html#cb236-6" tabindex="-1"></a>  <span class="fu">left_join</span>(borrowers, <span class="at">by=</span><span class="st">&quot;borrower_id&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb236-7"><a href="tidy-relational-data.html#cb236-7" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="co">#|&gt;</span></span></code></pre></div>
-<pre><code>##   borrower_id book_id checkout_date due_date
-## 1           1       1      12/21/23  6/18/24
-## 2           1       2        1/3/22   7/2/22
-## 3           2       2      10/12/20  4/10/21
-## 4           2       3        5/5/23  11/1/23
-## 5           2       4      12/12/21  6/10/22
-## 6           4       2        6/7/18  12/4/18
-## 7           5       5       10/1/23  3/29/24
-##                                     title       author subject Publisher.
-## 1                               my alaska     guy noir      NA         NA
-## 2                                 jubilee       charro      NA         NA
-## 3                                 jubilee       charro      NA         NA
-## 4     the window ruiner ruined my windows    zipperman      NA         NA
-## 5                    clowns in the clouds    dark doug      NA         NA
-## 6                                 jubilee       charro      NA         NA
-## 7 dogs walked, tigers tamed, bars emptied lucky pierre      NA         NA
-##   creation_date publication_date location type Barcode. account_type major date
-## 1            NA               NA       NA   NA       NA      student    NA   NA
-## 2            NA               NA       NA   NA       NA      student    NA   NA
-## 3            NA               NA       NA   NA       NA        staff    NA   NA
-## 4            NA               NA       NA   NA       NA        staff    NA   NA
-## 5            NA               NA       NA   NA       NA        staff    NA   NA
-## 6            NA               NA       NA   NA       NA      student    NA   NA
-## 7            NA               NA       NA   NA       NA      faculty    NA   NA</code></pre>
+<span id="cb236-2"><a href="tidy-relational-data.html#cb236-2" tabindex="-1"></a>borrowers<span class="sc">$</span>date <span class="ot">=</span> borrowers<span class="sc">$</span>creation_date</span>
+<span id="cb236-3"><a href="tidy-relational-data.html#cb236-3" tabindex="-1"></a>checkouts<span class="sc">$</span>date <span class="ot">=</span> checkouts<span class="sc">$</span>loan_date</span>
+<span id="cb236-4"><a href="tidy-relational-data.html#cb236-4" tabindex="-1"></a></span>
+<span id="cb236-5"><a href="tidy-relational-data.html#cb236-5" tabindex="-1"></a><span class="co"># Now create the list of checkouts</span></span>
+<span id="cb236-6"><a href="tidy-relational-data.html#cb236-6" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb236-7"><a href="tidy-relational-data.html#cb236-7" tabindex="-1"></a>  <span class="fu">left_join</span>(borrowers, <span class="at">by=</span><span class="st">&quot;borrower_id&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb236-8"><a href="tidy-relational-data.html#cb236-8" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="co">#|&gt;</span></span></code></pre></div>
+<pre><code>## # A tibble: 10 × 22
+##    book_id borrower_id barcode.x loan_date           due_date           
+##      &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             
+##  1    1705         129   3.12e13 2019-05-15 00:00:00 2024-06-30 00:00:00
+##  2    4542         353   8.70e 6 2019-01-17 00:00:00 2022-06-30 00:00:00
+##  3    2958         585   3.12e13 2022-04-06 00:00:00 2024-06-30 00:00:00
+##  4     575         465   3.12e13 2020-02-16 00:00:00 2024-06-30 00:00:00
+##  5    1493         425   3.12e13 2022-11-07 00:00:00 2024-06-30 00:00:00
+##  6     539         522   3.12e13 2019-02-20 00:00:00 2024-06-30 00:00:00
+##  7    4374         224   3.12e13 2019-05-03 00:00:00 2024-06-30 00:00:00
+##  8    4234         457   3.12e13 2018-09-18 00:00:00 2024-06-30 00:00:00
+##  9    3745         488   3.12e13 2021-06-08 00:00:00 2024-06-30 00:00:00
+## 10    5226           4   3.11e13 2020-10-02 00:00:00 2023-06-30 00:00:00
+## # ℹ 17 more variables: date.x &lt;dttm&gt;, title &lt;chr&gt;, author &lt;chr&gt;,
+## #   publisher &lt;chr&gt;, creation_date.x &lt;dttm&gt;, pub_date &lt;chr&gt;, item_type &lt;chr&gt;,
+## #   location_code &lt;chr&gt;, material_type &lt;chr&gt;, barcode.y &lt;dbl&gt;,
+## #   publication_place &lt;chr&gt;, language &lt;chr&gt;, descripton &lt;chr&gt;, loans &lt;dbl&gt;,
+## #   user_group &lt;chr&gt;, creation_date.y &lt;dttm&gt;, date.y &lt;dttm&gt;</code></pre>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="tidy-relational-data.html#cb238-1" tabindex="-1"></a>  <span class="co"># kable()</span></span></code></pre></div>
 <p>If you aren’t satisfied with appending <code>.x</code> and <code>.y</code> to the ambiguous columns, then you can specify the <code>suffix</code> argument with a pair of strings like this:</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="tidy-relational-data.html#cb239-1" tabindex="-1"></a><span class="co"># Now create the list of checkouts</span></span>
 <span id="cb239-2"><a href="tidy-relational-data.html#cb239-2" tabindex="-1"></a><span class="fu">left_join</span>(checkouts, books, <span class="at">by=</span><span class="st">&quot;book_id&quot;</span>, <span class="at">suffix=</span><span class="fu">c</span>(<span class="st">&quot;_checkout&quot;</span>, <span class="st">&quot;_book&quot;</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb239-3"><a href="tidy-relational-data.html#cb239-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>) <span class="co">#|&gt;</span></span></code></pre></div>
-<pre><code>##   borrower_id book_id checkout_date due_date
-## 1           1       1      12/21/23  6/18/24
-## 2           1       2        1/3/22   7/2/22
-## 3           2       2      10/12/20  4/10/21
-## 4           2       3        5/5/23  11/1/23
-## 5           2       4      12/12/21  6/10/22
-## 6           4       2        6/7/18  12/4/18
-## 7           5       5       10/1/23  3/29/24
-##                                     title       author subject Publisher.
-## 1                               my alaska     guy noir      NA         NA
-## 2                                 jubilee       charro      NA         NA
-## 3                                 jubilee       charro      NA         NA
-## 4     the window ruiner ruined my windows    zipperman      NA         NA
-## 5                    clowns in the clouds    dark doug      NA         NA
-## 6                                 jubilee       charro      NA         NA
-## 7 dogs walked, tigers tamed, bars emptied lucky pierre      NA         NA
-##   creation_date publication_date location type Barcode.
-## 1            NA               NA       NA   NA       NA
-## 2            NA               NA       NA   NA       NA
-## 3            NA               NA       NA   NA       NA
-## 4            NA               NA       NA   NA       NA
-## 5            NA               NA       NA   NA       NA
-## 6            NA               NA       NA   NA       NA
-## 7            NA               NA       NA   NA       NA</code></pre>
+<pre><code>## # A tibble: 10 × 19
+##    book_id borrower_id barcode_checkout loan_date           due_date           
+##      &lt;dbl&gt;       &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;             
+##  1    1705         129          3.12e13 2019-05-15 00:00:00 2024-06-30 00:00:00
+##  2    4542         353          8.70e 6 2019-01-17 00:00:00 2022-06-30 00:00:00
+##  3    2958         585          3.12e13 2022-04-06 00:00:00 2024-06-30 00:00:00
+##  4     575         465          3.12e13 2020-02-16 00:00:00 2024-06-30 00:00:00
+##  5    1493         425          3.12e13 2022-11-07 00:00:00 2024-06-30 00:00:00
+##  6     539         522          3.12e13 2019-02-20 00:00:00 2024-06-30 00:00:00
+##  7    4374         224          3.12e13 2019-05-03 00:00:00 2024-06-30 00:00:00
+##  8    4234         457          3.12e13 2018-09-18 00:00:00 2024-06-30 00:00:00
+##  9    3745         488          3.12e13 2021-06-08 00:00:00 2024-06-30 00:00:00
+## 10    5226           4          3.11e13 2020-10-02 00:00:00 2023-06-30 00:00:00
+## # ℹ 14 more variables: date &lt;dttm&gt;, title &lt;chr&gt;, author &lt;chr&gt;, publisher &lt;chr&gt;,
+## #   creation_date &lt;dttm&gt;, pub_date &lt;chr&gt;, item_type &lt;chr&gt;, location_code &lt;chr&gt;,
+## #   material_type &lt;chr&gt;, barcode_book &lt;dbl&gt;, publication_place &lt;chr&gt;,
+## #   language &lt;chr&gt;, descripton &lt;chr&gt;, loans &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="tidy-relational-data.html#cb241-1" tabindex="-1"></a>  <span class="co"># kable()</span></span></code></pre></div>
 <p>By specifying the <code>suffix</code> argument, we get column names in the result with more meaningful names.</p>
 </div>

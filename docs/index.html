@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2024-01-19" />
+<meta name="date" content="2024-01-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -204,26 +204,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="part"><span><b>II Writing &amp; Debugging R Code</b></span></li>
 <li class="chapter" data-level="3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html"><i class="fa fa-check"></i><b>3</b> Best Practices for Writing R Scripts</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#scripting-your-code"><i class="fa fa-check"></i><b>3.1</b> Scripting Your Code</a></li>
-<li class="chapter" data-level="3.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#printing-output"><i class="fa fa-check"></i><b>3.2</b> Printing Output</a>
+<li class="chapter" data-level="3.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-us-fruit-prices"><i class="fa fa-check"></i><b>3.2</b> Case Study: U.S. Fruit Prices</a>
 <ul>
-<li class="chapter" data-level="3.2.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-print-function"><i class="fa fa-check"></i><b>3.2.1</b> The <code>print</code> Function</a></li>
-<li class="chapter" data-level="3.2.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-message-function"><i class="fa fa-check"></i><b>3.2.2</b> The <code>message</code> Function</a></li>
-<li class="chapter" data-level="3.2.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-cat-function"><i class="fa fa-check"></i><b>3.2.3</b> The <code>cat</code> Function</a></li>
-<li class="chapter" data-level="3.2.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#formatting-output"><i class="fa fa-check"></i><b>3.2.4</b> Formatting Output</a></li>
-<li class="chapter" data-level="3.2.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#logging-output"><i class="fa fa-check"></i><b>3.2.5</b> Logging Output</a></li>
+<li class="chapter" data-level="3.2.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#setting-up-the-project"><i class="fa fa-check"></i><b>3.2.1</b> Setting Up the Project</a></li>
+<li class="chapter" data-level="3.2.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#setting-up-the-script"><i class="fa fa-check"></i><b>3.2.2</b> Setting Up the Script</a></li>
+<li class="chapter" data-level="3.2.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#reading-the-pear-data"><i class="fa fa-check"></i><b>3.2.3</b> Reading the Pear Data</a></li>
+<li class="chapter" data-level="3.2.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#getting-the-fruit-name"><i class="fa fa-check"></i><b>3.2.4</b> Getting the Fruit Name</a></li>
+<li class="chapter" data-level="3.2.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#getting-the-column-names"><i class="fa fa-check"></i><b>3.2.5</b> Getting the Column Names</a></li>
+<li class="chapter" data-level="3.2.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#getting-the-price-data"><i class="fa fa-check"></i><b>3.2.6</b> Getting the Price Data</a></li>
+<li class="chapter" data-level="3.2.7" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#testing-the-script"><i class="fa fa-check"></i><b>3.2.7</b> Testing the Script</a></li>
+<li class="chapter" data-level="3.2.8" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#iterating-over-all-fruit"><i class="fa fa-check"></i><b>3.2.8</b> Iterating Over All Fruit</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#reading-input"><i class="fa fa-check"></i><b>3.3</b> Reading Input</a></li>
-<li class="chapter" data-level="3.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#managing-packages"><i class="fa fa-check"></i><b>3.4</b> Managing Packages</a></li>
-<li class="chapter" data-level="3.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#iteration-strategies"><i class="fa fa-check"></i><b>3.5</b> Iteration Strategies</a>
+<li class="chapter" data-level="3.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#managing-environments"><i class="fa fa-check"></i><b>3.3</b> Managing Environments</a></li>
+<li class="chapter" data-level="3.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#iteration-strategies"><i class="fa fa-check"></i><b>3.4</b> Iteration Strategies</a>
 <ul>
-<li class="chapter" data-level="3.5.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#for-loops"><i class="fa fa-check"></i><b>3.5.1</b> For-loops</a></li>
-<li class="chapter" data-level="3.5.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#while-loops"><i class="fa fa-check"></i><b>3.5.2</b> While-loops</a></li>
-<li class="chapter" data-level="3.5.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#saving-multiple-results"><i class="fa fa-check"></i><b>3.5.3</b> Saving Multiple Results</a></li>
-<li class="chapter" data-level="3.5.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#break-next"><i class="fa fa-check"></i><b>3.5.4</b> Break &amp; Next</a></li>
-<li class="chapter" data-level="3.5.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#planning-for-iteration"><i class="fa fa-check"></i><b>3.5.5</b> Planning for Iteration</a></li>
-<li class="chapter" data-level="3.5.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>3.5.6</b> Case Study: The Collatz Conjecture</a></li>
-<li class="chapter" data-level="3.5.7" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-u.s.-fruit-prices"><i class="fa fa-check"></i><b>3.5.7</b> Case Study: U.S. Fruit Prices</a></li>
+<li class="chapter" data-level="3.4.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#for-loops"><i class="fa fa-check"></i><b>3.4.1</b> For-loops</a></li>
+<li class="chapter" data-level="3.4.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#while-loops"><i class="fa fa-check"></i><b>3.4.2</b> While-loops</a></li>
+<li class="chapter" data-level="3.4.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#saving-multiple-results"><i class="fa fa-check"></i><b>3.4.3</b> Saving Multiple Results</a></li>
+<li class="chapter" data-level="3.4.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#break-next"><i class="fa fa-check"></i><b>3.4.4</b> Break &amp; Next</a></li>
+<li class="chapter" data-level="3.4.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#planning-for-iteration"><i class="fa fa-check"></i><b>3.4.5</b> Planning for Iteration</a></li>
+<li class="chapter" data-level="3.4.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#case-study-the-collatz-conjecture"><i class="fa fa-check"></i><b>3.4.6</b> Case Study: The Collatz Conjecture</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#printing-output"><i class="fa fa-check"></i><b>3.5</b> Printing Output</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-print-function"><i class="fa fa-check"></i><b>3.5.1</b> The <code>print</code> Function</a></li>
+<li class="chapter" data-level="3.5.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-message-function"><i class="fa fa-check"></i><b>3.5.2</b> The <code>message</code> Function</a></li>
+<li class="chapter" data-level="3.5.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#the-cat-function"><i class="fa fa-check"></i><b>3.5.3</b> The <code>cat</code> Function</a></li>
+<li class="chapter" data-level="3.5.4" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#formatting-output"><i class="fa fa-check"></i><b>3.5.4</b> Formatting Output</a></li>
+<li class="chapter" data-level="3.5.5" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#logging-output"><i class="fa fa-check"></i><b>3.5.5</b> Logging Output</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#reading-input"><i class="fa fa-check"></i><b>3.6</b> Reading Input</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#command-line-arguments"><i class="fa fa-check"></i><b>3.6.1</b> Command Line Arguments</a></li>
+<li class="chapter" data-level="3.6.2" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#configuration-files"><i class="fa fa-check"></i><b>3.6.2</b> Configuration Files</a></li>
+<li class="chapter" data-level="3.6.3" data-path="best-practices-for-writing-r-scripts.html"><a href="best-practices-for-writing-r-scripts.html#prompts"><i class="fa fa-check"></i><b>3.6.3</b> Prompts</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html"><i class="fa fa-check"></i><b>4</b> Squashing Bugs with R’s Debugging Tools</a>
@@ -329,7 +344,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Intermediate R</h1>
 <p class="author"><em>Nick Ulle and Wesley Brooks</em></p>
-<p class="date"><em>2024-01-19</em></p>
+<p class="date"><em>2024-01-29</em></p>
 </div>
 <div id="overview" class="section level1 unnumbered hasAnchor">
 <h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
