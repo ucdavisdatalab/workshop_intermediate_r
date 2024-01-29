@@ -960,7 +960,7 @@ When the two tables have columns with the same names, it is ambiguous which one 
 
 ```{r ambiguous-date}
 # Rename the date_created column of borrowers
-borrowers$date = borrowers$creation_date)
+borrowers$date = borrowers$creation_date
 checkouts$date = checkouts$loan_date
 
 # Now create the list of checkouts
