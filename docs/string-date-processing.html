@@ -608,7 +608,7 @@ appear in the second row, so read those rows separately:</p>
 <span id="cb26-4"><a href="string-date-processing.html#cb26-4" tabindex="-1"></a>noaa_path <span class="ot">=</span> <span class="st">&quot;data/ocean_data/2021_noaa-ndbc_46013.txt&quot;</span></span>
 <span id="cb26-5"><a href="string-date-processing.html#cb26-5" tabindex="-1"></a>noaa_headers <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">n_max =</span> <span class="dv">2</span>, <span class="at">guess_max =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Rows: 2 Columns: 18
-## ── Column specification ─────────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────
 ## 
 ## chr (18): X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, ...
 ## 
@@ -616,7 +616,7 @@ appear in the second row, so read those rows separately:</p>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="string-date-processing.html#cb28-1" tabindex="-1"></a>noaa <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Rows: 3323 Columns: 18
-## ── Column specification ─────────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────
 ## 
 ## chr  (4): X2, X3, X4, X5
 ## dbl (14): X1, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18
@@ -647,7 +647,7 @@ the column units appear in the second row. The <code>read_csv</code> function ha
 names automatically, but you’ll have to remove the unit row as a separate step:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="string-date-processing.html#cb34-1" tabindex="-1"></a>bml <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ocean_data/2021_ucdavis_bml_wts.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 87283 Columns: 4
-## ── Column specification ─────────────────────────────────────────────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (3): time, sea_water_temperature, z
 ## dbl (1): sea_water_temperature_qc_agg

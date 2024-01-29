@@ -578,7 +578,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x5610c234ae50&gt;
+## &lt;bytecode: 0x55bc2a55de50&gt;
 ## &lt;environment: namespace:cli&gt;
 ## 
 ## $CBoundsCheck
@@ -872,7 +872,7 @@ functions to explore how R is using memory.</p>
 using:</p>
 <div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;lobstr&quot;</span>)</span>
 <span id="cb451-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-2" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code></pre></div>
-<pre><code>## 70.78 MB</code></pre>
+<pre><code>## 70.76 MB</code></pre>
 <p>Sometimes the culprit isn’t your code, but other applications on your computer.
 Modern web browsers are especially memory-intensive, and closing yours while
 you run code can make a big difference.</p>
@@ -914,9 +914,9 @@ of expressions to benchmark as arguments. For example, to compare the speed of
 <div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb459-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</span>
 <span id="cb459-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb459-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##  expr      min       lq     mean   median       uq     max neval
-##     A 2.834038 3.234906 3.426743 3.290230 3.484759  6.8642   100
-##     B 5.898035 6.319034 6.727720 6.431352 6.952649 13.0281   100</code></pre>
+##  expr      min       lq     mean   median       uq      max neval
+##     A 2.800613 3.201986 3.301619 3.228095 3.286995 6.485742   100
+##     B 5.837169 6.217370 6.565153 6.296620 6.462292 9.907469   100</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>
