@@ -615,6 +615,7 @@ resample = function(data, B) {
 Weirdly, it looks like the first pass through the outer loop (`b=1`) but not the first time we've done the first pass (there were a lot of prints before the error happened). And the error is in the zeroth iteration of the inner loop (`i=0`), which shouldn't be possible with `1:N`. To confirm your suspicion, create a reproducible example that generates the correct error:
 
 ```{r case-study-reprex}
+#| error: true
 LETTERS[[0L]]
 ```
 
