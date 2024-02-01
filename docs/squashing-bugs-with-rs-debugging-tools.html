@@ -579,7 +579,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x7ff473f65368&gt;
+## &lt;bytecode: 0x7fa666654368&gt;
 ## &lt;environment: namespace:cli&gt;
 ## 
 ## $CBoundsCheck
@@ -844,7 +844,7 @@ time an error occurs. Set the option to <code>error = recover</code>:</p>
 ## 2: stack(bootstrap(data, B = B, ...)) at debug_case_study.R#60
 ## 1: make_bootstrap_plots(penguins, &quot;species&quot;, &quot;island&quot;)</code></pre>
 <p>The error is generated in the <code>resample()</code> function, which is one of the functions in the script you downloaded. You can identify which line of that code matches the code reported in the error message, which tells us that the error is generated on line 13 of <code>debug_case_study.R</code>.</p>
-<p>Remember tha the location of an error and the cause of the error are not always the same thing. To try and understand the cause of the error, let’s start the debugger by putting a <code>browser()</code> call just before line 13, like this:</p>
+<p>Remember that the location of an error and the cause of the error are not always the same thing. To try and understand the cause of the error, let’s start the debugger by putting a <code>browser()</code> call just before line 13, like this:</p>
 <div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-1" tabindex="-1"></a>resample <span class="ot">=</span> <span class="cf">function</span>(data, B) {</span>
 <span id="cb451-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-2" tabindex="-1"></a>  N <span class="ot">=</span> <span class="fu">length</span>(data)</span>
 <span id="cb451-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-3" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">numeric</span>(B)</span>
@@ -1050,8 +1050,8 @@ of expressions to benchmark as arguments. For example, to compare the speed of
 <span id="cb468-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb468-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
 ##  expr      min       lq     mean   median       uq      max neval cld
-##     A 1.222137 1.551553 1.918578 1.897681 2.134616 5.410240   100  a 
-##     B 3.911026 4.473120 5.264633 5.162160 6.039717 9.846878   100   b</code></pre>
+##     A 1.289372 1.561523 1.844360 1.761270 2.012996 5.612642   100  a 
+##     B 4.102926 4.568713 5.246599 5.189999 5.751217 9.335760   100   b</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>
