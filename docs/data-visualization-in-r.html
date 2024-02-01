@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2024-01-29" />
+<meta name="date" content="2024-02-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,8 +255,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#read-your-errors-and-warnings"><i class="fa fa-check"></i><b>4.4.1</b> Read Your Errors and Warnings</a></li>
 <li class="chapter" data-level="4.4.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#workflow-debugging"><i class="fa fa-check"></i><b>4.4.2</b> Workflow Debugging</a></li>
 <li class="chapter" data-level="4.4.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#isolate-the-problem"><i class="fa fa-check"></i><b>4.4.3</b> Isolate the Problem</a></li>
-<li class="chapter" data-level="4.4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.4</b> Other Functions</a></li>
-<li class="chapter" data-level="4.4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-boottrapping-average-penguin-mass"><i class="fa fa-check"></i><b>4.4.5</b> Debugging Case Study: Boottrapping Average Penguin Mass</a></li>
+<li class="chapter" data-level="4.4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#functions-for-debugging"><i class="fa fa-check"></i><b>4.4.4</b> Functions for debugging</a></li>
+<li class="chapter" data-level="4.4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.5</b> Other Functions</a></li>
+<li class="chapter" data-level="4.4.6" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-bootstrapping-average-penguin-mass"><i class="fa fa-check"></i><b>4.4.6</b> Debugging Case Study: Bootstrapping Average Penguin Mass</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#measuring-performance"><i class="fa fa-check"></i><b>4.5</b> Measuring Performance</a>
 <ul>
@@ -347,10 +348,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="our-friend-ggplot2" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Our Friend <code>ggplot2</code><a href="data-visualization-in-r.html#our-friend-ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will be using the R package <code>ggplot2</code> to create data visualizations. Install it via the <code>install.packages()</code> function. While we are at it, let’s make sure we install all of the packages that we’ll need for today’s workshop. Beyone <code>ggplot2</code>, we’ll use <code>readr</code> for reading data files, <code>dplyr</code> for manupulating data, and <code>palmerpenguins</code> provides a nice dataset.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="data-visualization-in-r.html#cb461-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
-<span id="cb461-2"><a href="data-visualization-in-r.html#cb461-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
-<span id="cb461-3"><a href="data-visualization-in-r.html#cb461-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readr&quot;</span>)</span>
-<span id="cb461-4"><a href="data-visualization-in-r.html#cb461-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;palmerpenguins&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="data-visualization-in-r.html#cb470-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb470-2"><a href="data-visualization-in-r.html#cb470-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb470-3"><a href="data-visualization-in-r.html#cb470-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;readr&quot;</span>)</span>
+<span id="cb470-4"><a href="data-visualization-in-r.html#cb470-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;palmerpenguins&quot;</span>)</span></code></pre></div>
 <p><code>ggplot2</code> is an enormously popular R package that provides a way to create data visualizations through a so-called “grammar of graphics” (hence the “gg” in the name). That grammar interface may be a little bit unintuitive at first but once you grasp it, you hold enormous power to quickly craft plots. It doesn’t hurt that the <code>ggplot2</code> plots look great, too.</p>
 <div id="the-grammar-of-graphics" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> The Grammar of Graphics<a href="data-visualization-in-r.html#the-grammar-of-graphics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -360,7 +361,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="example-palmer-penguins" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Example: Palmer Penguins<a href="data-visualization-in-r.html#example-palmer-penguins" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s look at an example. This uses data from the <code>palmerpenguins</code> package that you just installed (make sure to load the package with <code>library(palmerpenguins)</code>). It is measurements of 344 penguins, collected and made available by <a href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr. Kristen Gorman</a> and the <a href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica LTER</a>, a member of the <a href="https://lternet.edu/">Long Term Ecological Research Network</a>. <a href="https://allisonhorst.github.io/palmerpenguins/">The data package</a> was created by <a href="https://allisonhorst.com">Allison Horst</a>. Before jumping in, let’s have a look at the data and the image we want to create.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="data-visualization-in-r.html#cb462-1" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="data-visualization-in-r.html#cb471-1" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 8
 ##   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ##   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
@@ -383,22 +384,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="duplicating-the-palmer-penguins-plot" class="section level3 hasAnchor" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Duplicating the Palmer Penguins Plot<a href="data-visualization-in-r.html#duplicating-the-palmer-penguins-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here is the code to make the plot:</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="data-visualization-in-r.html#cb464-1" tabindex="-1"></a><span class="co"># matching the Allison Horst peguins plot</span></span>
-<span id="cb464-2"><a href="data-visualization-in-r.html#cb464-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb464-3"><a href="data-visualization-in-r.html#cb464-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, </span>
-<span id="cb464-4"><a href="data-visualization-in-r.html#cb464-4" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
-<span id="cb464-5"><a href="data-visualization-in-r.html#cb464-5" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
-<span id="cb464-6"><a href="data-visualization-in-r.html#cb464-6" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
-<span id="cb464-7"><a href="data-visualization-in-r.html#cb464-7" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb464-8"><a href="data-visualization-in-r.html#cb464-8" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb464-9"><a href="data-visualization-in-r.html#cb464-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Flipper length (mm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb464-10"><a href="data-visualization-in-r.html#cb464-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Bill length (mm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb464-11"><a href="data-visualization-in-r.html#cb464-11" tabindex="-1"></a>  <span class="fu">ggtitle</span>(</span>
-<span id="cb464-12"><a href="data-visualization-in-r.html#cb464-12" tabindex="-1"></a>    <span class="st">&quot;Flipper and bill length&quot;</span>,</span>
-<span id="cb464-13"><a href="data-visualization-in-r.html#cb464-13" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Dimensions for Adelie, Chinstrap, and Gentoo penguins at Palmer Station LTER&quot;</span></span>
-<span id="cb464-14"><a href="data-visualization-in-r.html#cb464-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb464-15"><a href="data-visualization-in-r.html#cb464-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Penguin species&quot;</span>, <span class="at">shape =</span> <span class="st">&quot;Penguin species&quot;</span>) <span class="sc">+</span></span>
-<span id="cb464-16"><a href="data-visualization-in-r.html#cb464-16" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="data-visualization-in-r.html#cb473-1" tabindex="-1"></a><span class="co"># matching the Allison Horst peguins plot</span></span>
+<span id="cb473-2"><a href="data-visualization-in-r.html#cb473-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb473-3"><a href="data-visualization-in-r.html#cb473-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, </span>
+<span id="cb473-4"><a href="data-visualization-in-r.html#cb473-4" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
+<span id="cb473-5"><a href="data-visualization-in-r.html#cb473-5" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
+<span id="cb473-6"><a href="data-visualization-in-r.html#cb473-6" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
+<span id="cb473-7"><a href="data-visualization-in-r.html#cb473-7" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb473-8"><a href="data-visualization-in-r.html#cb473-8" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb473-9"><a href="data-visualization-in-r.html#cb473-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Flipper length (mm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb473-10"><a href="data-visualization-in-r.html#cb473-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Bill length (mm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb473-11"><a href="data-visualization-in-r.html#cb473-11" tabindex="-1"></a>  <span class="fu">ggtitle</span>(</span>
+<span id="cb473-12"><a href="data-visualization-in-r.html#cb473-12" tabindex="-1"></a>    <span class="st">&quot;Flipper and bill length&quot;</span>,</span>
+<span id="cb473-13"><a href="data-visualization-in-r.html#cb473-13" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Dimensions for Adelie, Chinstrap, and Gentoo penguins at Palmer Station LTER&quot;</span></span>
+<span id="cb473-14"><a href="data-visualization-in-r.html#cb473-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb473-15"><a href="data-visualization-in-r.html#cb473-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Penguin species&quot;</span>, <span class="at">shape =</span> <span class="st">&quot;Penguin species&quot;</span>) <span class="sc">+</span></span>
+<span id="cb473-16"><a href="data-visualization-in-r.html#cb473-16" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/penguin-plot-1.png" width="672" /></p>
 </div>
 <div id="analysis" class="section level3 hasAnchor" number="5.2.3">
@@ -406,39 +407,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This is a complicated data visualization that includes features we haven’t covered yet, so let’s go into how it works. You might have noticed how the code to make the plot is separated into a bunch of function calls, all separated by plus signs (<code>+</code>). Each function does something small and specific. The functions and the ability to add them together provide a powerful and flexible “grammar” to describe the desired plot.</p>
 <p>Our plot begins the way that most do - by calling <code>ggplot()</code> with the data as the argument. This creates a plot object (but doesn’t draw it) and sets the data. Then we add the a so-called “aesthetic mapping” with the <code>aes()</code> function. An aesthetic mapping describes how features of the data map to visual channels of the plot. In our case, that means mapping the flipper length to the <code>x</code> (horizontal) direction, the bill length to the <code>y</code> (vertical) direction, and mapping species to both color and shape. Next, we add a geometry to describe what kind of marks to use in drawing the plot. Here you can refer to the table at the top of the graphics checklist that suggests geometries to use for different kinds of features. We have numeric features for both <code>x</code> and <code>y</code>, so the table suggests line, scatter (points), and heatmap. We’ve selected points (<code>geom_point()</code>) because we want to show the individual penguins (lines would imply a chain of connections from one penguin to the next.)</p>
 <p>Those three parts (data, a geometry, and a map between the two) would be enough to get a basic plot that looks like this:</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="data-visualization-in-r.html#cb465-1" tabindex="-1"></a><span class="co"># Make a basic penguin plot with just data, </span></span>
-<span id="cb465-2"><a href="data-visualization-in-r.html#cb465-2" tabindex="-1"></a><span class="co"># a geometry, and a map between the two.</span></span>
-<span id="cb465-3"><a href="data-visualization-in-r.html#cb465-3" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb465-4"><a href="data-visualization-in-r.html#cb465-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm,</span>
-<span id="cb465-5"><a href="data-visualization-in-r.html#cb465-5" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
-<span id="cb465-6"><a href="data-visualization-in-r.html#cb465-6" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
-<span id="cb465-7"><a href="data-visualization-in-r.html#cb465-7" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
-<span id="cb465-8"><a href="data-visualization-in-r.html#cb465-8" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="data-visualization-in-r.html#cb474-1" tabindex="-1"></a><span class="co"># Make a basic penguin plot with just data, </span></span>
+<span id="cb474-2"><a href="data-visualization-in-r.html#cb474-2" tabindex="-1"></a><span class="co"># a geometry, and a map between the two.</span></span>
+<span id="cb474-3"><a href="data-visualization-in-r.html#cb474-3" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb474-4"><a href="data-visualization-in-r.html#cb474-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb474-5"><a href="data-visualization-in-r.html#cb474-5" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
+<span id="cb474-6"><a href="data-visualization-in-r.html#cb474-6" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
+<span id="cb474-7"><a href="data-visualization-in-r.html#cb474-7" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
+<span id="cb474-8"><a href="data-visualization-in-r.html#cb474-8" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/basic-points-1.png" width="672" /></p>
 <p>We know, though, that this plot is not complete. In particular, there is no title and the axes aren’t labeled meaningfully. Also, the clouds of points seem to hide the meaning that we are trying to convey and the colors aren’t colorblind-safe. The rest of the pieces of the plot call are meant to address those shortcomings.</p>
 <p>We add a second geometry layer with <code>geom_smooth(method=lm, se=FALSE)</code>, which specifies the <code>lm</code> method in order to draw a straight (instead of wiggly) smoother through the data. The <code>x</code>-axis label, <code>y</code>-axis label and title are set by <code>xlab()</code>, <code>ylab()</code>, and <code>ggtitle()</code>, respectively. We want a more informative label for the legend title than just the variable name (“Penguin Species” instead of “species”), which is handled by the <code>labs()</code> function. And you’ll recall from the principles of data visualization that you can use <a href="https://colorbrewer2.org/">Cynthia Brewer’s Color Brewer website</a> to select colorblind-friendly color schemes. Color Brewer is integrated directly into <code>ggplot2</code>, so the <code>scale_color_brewer()</code> function can pull a named color scheme from Color Brewer directly into your plot as the color scale.</p>
 <p>We can begin to better understand the grammar of graphics as we consider this example. Recognize that we our data visualization conveys information via several visual channels that express data as visual marks. The geometry determines how those marks are drawn on the page, which can be set separately from the mapping. Let’s see a couple examples of that:</p>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="data-visualization-in-r.html#cb466-1" tabindex="-1"></a><span class="co"># placing plots via gridExtra</span></span>
-<span id="cb466-2"><a href="data-visualization-in-r.html#cb466-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb466-3"><a href="data-visualization-in-r.html#cb466-3" tabindex="-1"></a></span>
-<span id="cb466-4"><a href="data-visualization-in-r.html#cb466-4" tabindex="-1"></a><span class="co"># plot the Palmer penguin data with a line geometry</span></span>
-<span id="cb466-5"><a href="data-visualization-in-r.html#cb466-5" tabindex="-1"></a>peng_line <span class="ot">=</span> <span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb466-6"><a href="data-visualization-in-r.html#cb466-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, </span>
-<span id="cb466-7"><a href="data-visualization-in-r.html#cb466-7" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
-<span id="cb466-8"><a href="data-visualization-in-r.html#cb466-8" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
-<span id="cb466-9"><a href="data-visualization-in-r.html#cb466-9" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
-<span id="cb466-10"><a href="data-visualization-in-r.html#cb466-10" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
-<span id="cb466-11"><a href="data-visualization-in-r.html#cb466-11" tabindex="-1"></a></span>
-<span id="cb466-12"><a href="data-visualization-in-r.html#cb466-12" tabindex="-1"></a><span class="co"># plot the Palmer penguin data with a hex heatmap geometry</span></span>
-<span id="cb466-13"><a href="data-visualization-in-r.html#cb466-13" tabindex="-1"></a>peng_hex <span class="ot">=</span> <span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb466-14"><a href="data-visualization-in-r.html#cb466-14" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, </span>
-<span id="cb466-15"><a href="data-visualization-in-r.html#cb466-15" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
-<span id="cb466-16"><a href="data-visualization-in-r.html#cb466-16" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
-<span id="cb466-17"><a href="data-visualization-in-r.html#cb466-17" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
-<span id="cb466-18"><a href="data-visualization-in-r.html#cb466-18" tabindex="-1"></a>  <span class="fu">geom_hex</span>()</span>
-<span id="cb466-19"><a href="data-visualization-in-r.html#cb466-19" tabindex="-1"></a></span>
-<span id="cb466-20"><a href="data-visualization-in-r.html#cb466-20" tabindex="-1"></a><span class="co"># place the plts side-by-side</span></span>
-<span id="cb466-21"><a href="data-visualization-in-r.html#cb466-21" tabindex="-1"></a><span class="fu">grid.arrange</span>(peng_line, peng_hex)</span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="data-visualization-in-r.html#cb475-1" tabindex="-1"></a><span class="co"># placing plots via gridExtra</span></span>
+<span id="cb475-2"><a href="data-visualization-in-r.html#cb475-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb475-3"><a href="data-visualization-in-r.html#cb475-3" tabindex="-1"></a></span>
+<span id="cb475-4"><a href="data-visualization-in-r.html#cb475-4" tabindex="-1"></a><span class="co"># plot the Palmer penguin data with a line geometry</span></span>
+<span id="cb475-5"><a href="data-visualization-in-r.html#cb475-5" tabindex="-1"></a>peng_line <span class="ot">=</span> <span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb475-6"><a href="data-visualization-in-r.html#cb475-6" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, </span>
+<span id="cb475-7"><a href="data-visualization-in-r.html#cb475-7" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
+<span id="cb475-8"><a href="data-visualization-in-r.html#cb475-8" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
+<span id="cb475-9"><a href="data-visualization-in-r.html#cb475-9" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
+<span id="cb475-10"><a href="data-visualization-in-r.html#cb475-10" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
+<span id="cb475-11"><a href="data-visualization-in-r.html#cb475-11" tabindex="-1"></a></span>
+<span id="cb475-12"><a href="data-visualization-in-r.html#cb475-12" tabindex="-1"></a><span class="co"># plot the Palmer penguin data with a hex heatmap geometry</span></span>
+<span id="cb475-13"><a href="data-visualization-in-r.html#cb475-13" tabindex="-1"></a>peng_hex <span class="ot">=</span> <span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb475-14"><a href="data-visualization-in-r.html#cb475-14" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, </span>
+<span id="cb475-15"><a href="data-visualization-in-r.html#cb475-15" tabindex="-1"></a>      <span class="at">y =</span> bill_length_mm, </span>
+<span id="cb475-16"><a href="data-visualization-in-r.html#cb475-16" tabindex="-1"></a>      <span class="at">color =</span> species, </span>
+<span id="cb475-17"><a href="data-visualization-in-r.html#cb475-17" tabindex="-1"></a>      <span class="at">shape =</span> species) <span class="sc">+</span></span>
+<span id="cb475-18"><a href="data-visualization-in-r.html#cb475-18" tabindex="-1"></a>  <span class="fu">geom_hex</span>()</span>
+<span id="cb475-19"><a href="data-visualization-in-r.html#cb475-19" tabindex="-1"></a></span>
+<span id="cb475-20"><a href="data-visualization-in-r.html#cb475-20" tabindex="-1"></a><span class="co"># place the plts side-by-side</span></span>
+<span id="cb475-21"><a href="data-visualization-in-r.html#cb475-21" tabindex="-1"></a><span class="fu">grid.arrange</span>(peng_line, peng_hex)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/alternate-penguin-geoms-1.png" width="672" /></p>
 <p>You can see how changing the geometry but not the mapping will plot the same data with a different method. Separating the mapping of features to channels from the drawing of marks is at the core of the grammar of graphics.</p>
 <p>This separation of functions gives <code>ggplot2</code> its power by allowing us to compose a small number of functions to express data in unlimited ways (kind of like poetry). Recognizing the grammar of graphics allows us to reason in a consistent way about different kinds of plots, and make intelligent assumptions about mappings and geometries.</p>
@@ -520,139 +521,139 @@ to read and bar plots don’t use space efficiently (Cleveland and McGill
 <div id="counting-penguins" class="section level3 hasAnchor" number="5.5.1">
 <h3><span class="header-section-number">5.5.1</span> Counting Penguins<a href="data-visualization-in-r.html#counting-penguins" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>First, let’s revisit the <code>penguins</code> data. There are tree categorical features in the data: <code>species</code>, <code>island</code>, and <code>sex</code>. Let’s use <code>geom_bar()</code> to count how many penguins of each species and/or sex were observed on each island. The x-axis of the plot should be the island, but note that there are multiple values of <code>species</code> and <code>sex</code> that have the same position on that x-axis. In this case, you can use the <code>position_dodge()</code> or <code>position_stack()</code> arguments to tell <code>ggplot2</code> how to handle the second grouping channel.</p>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="data-visualization-in-r.html#cb467-1" tabindex="-1"></a><span class="co"># count the penguins on each island</span></span>
-<span id="cb467-2"><a href="data-visualization-in-r.html#cb467-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb467-3"><a href="data-visualization-in-r.html#cb467-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>island) <span class="sc">+</span></span>
-<span id="cb467-4"><a href="data-visualization-in-r.html#cb467-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb467-5"><a href="data-visualization-in-r.html#cb467-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Island&quot;</span>) <span class="sc">+</span></span>
-<span id="cb467-6"><a href="data-visualization-in-r.html#cb467-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb467-7"><a href="data-visualization-in-r.html#cb467-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Count of penguins on each island&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="data-visualization-in-r.html#cb476-1" tabindex="-1"></a><span class="co"># count the penguins on each island</span></span>
+<span id="cb476-2"><a href="data-visualization-in-r.html#cb476-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb476-3"><a href="data-visualization-in-r.html#cb476-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>island) <span class="sc">+</span></span>
+<span id="cb476-4"><a href="data-visualization-in-r.html#cb476-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb476-5"><a href="data-visualization-in-r.html#cb476-5" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Island&quot;</span>) <span class="sc">+</span></span>
+<span id="cb476-6"><a href="data-visualization-in-r.html#cb476-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb476-7"><a href="data-visualization-in-r.html#cb476-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Count of penguins on each island&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/counting-penguins-1.png" width="672" /></p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="data-visualization-in-r.html#cb468-1" tabindex="-1"></a><span class="co">#count the penguins of each sex on each island</span></span>
-<span id="cb468-2"><a href="data-visualization-in-r.html#cb468-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb468-3"><a href="data-visualization-in-r.html#cb468-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>island, <span class="at">fill=</span>sex) <span class="sc">+</span></span>
-<span id="cb468-4"><a href="data-visualization-in-r.html#cb468-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb468-5"><a href="data-visualization-in-r.html#cb468-5" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span> </span>
-<span id="cb468-6"><a href="data-visualization-in-r.html#cb468-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb468-7"><a href="data-visualization-in-r.html#cb468-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Island&quot;</span>) <span class="sc">+</span></span>
-<span id="cb468-8"><a href="data-visualization-in-r.html#cb468-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb468-9"><a href="data-visualization-in-r.html#cb468-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Count of penguins on each island by sex&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="data-visualization-in-r.html#cb477-1" tabindex="-1"></a><span class="co">#count the penguins of each sex on each island</span></span>
+<span id="cb477-2"><a href="data-visualization-in-r.html#cb477-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb477-3"><a href="data-visualization-in-r.html#cb477-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>island, <span class="at">fill=</span>sex) <span class="sc">+</span></span>
+<span id="cb477-4"><a href="data-visualization-in-r.html#cb477-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb477-5"><a href="data-visualization-in-r.html#cb477-5" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span> </span>
+<span id="cb477-6"><a href="data-visualization-in-r.html#cb477-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb477-7"><a href="data-visualization-in-r.html#cb477-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Island&quot;</span>) <span class="sc">+</span></span>
+<span id="cb477-8"><a href="data-visualization-in-r.html#cb477-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb477-9"><a href="data-visualization-in-r.html#cb477-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Count of penguins on each island by sex&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/counting-penguins-2.png" width="672" /></p>
 <p>Alternatively, you can use facets to separate the data into multiple plots based on a data feature. Let’s see how that works to facet the plots by species.</p>
 <p>One way to show more information more clearly in a plot is to break the plot into pieces that each show part of the information. In <code>ggplot2</code>, this is called <em>faceting</em> the plot. There are two main facet functions, <code>facet_grid()</code> (which puts plots in a grid), and <code>facet_wrap()</code>, which puts plots side-by-side until it runs out of room, then wraps to a new line. We’ll use <code>facet_wrap()</code> here, with the first argument being <code>~species</code>. This tells <code>ggplot2</code> to break the plot into pieces by plotting the data for each <code>species</code> separately.</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="data-visualization-in-r.html#cb469-1" tabindex="-1"></a><span class="co">#count the penguins of each species on each island</span></span>
-<span id="cb469-2"><a href="data-visualization-in-r.html#cb469-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
-<span id="cb469-3"><a href="data-visualization-in-r.html#cb469-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>island) <span class="sc">+</span></span>
-<span id="cb469-4"><a href="data-visualization-in-r.html#cb469-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb469-5"><a href="data-visualization-in-r.html#cb469-5" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span> </span>
-<span id="cb469-6"><a href="data-visualization-in-r.html#cb469-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb469-7"><a href="data-visualization-in-r.html#cb469-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Island&quot;</span>) <span class="sc">+</span></span>
-<span id="cb469-8"><a href="data-visualization-in-r.html#cb469-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb469-9"><a href="data-visualization-in-r.html#cb469-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Count of penguins on each island by species&quot;</span>) <span class="sc">+</span></span>
-<span id="cb469-10"><a href="data-visualization-in-r.html#cb469-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">ncol=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="data-visualization-in-r.html#cb478-1" tabindex="-1"></a><span class="co">#count the penguins of each species on each island</span></span>
+<span id="cb478-2"><a href="data-visualization-in-r.html#cb478-2" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb478-3"><a href="data-visualization-in-r.html#cb478-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>island) <span class="sc">+</span></span>
+<span id="cb478-4"><a href="data-visualization-in-r.html#cb478-4" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb478-5"><a href="data-visualization-in-r.html#cb478-5" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span> </span>
+<span id="cb478-6"><a href="data-visualization-in-r.html#cb478-6" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb478-7"><a href="data-visualization-in-r.html#cb478-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Island&quot;</span>) <span class="sc">+</span></span>
+<span id="cb478-8"><a href="data-visualization-in-r.html#cb478-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb478-9"><a href="data-visualization-in-r.html#cb478-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Count of penguins on each island by species&quot;</span>) <span class="sc">+</span></span>
+<span id="cb478-10"><a href="data-visualization-in-r.html#cb478-10" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species, <span class="at">ncol=</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/penguin-facet-species-1.png" width="672" /></p>
 </div>
 <div id="experimental-data-with-error-bars" class="section level3 hasAnchor" number="5.5.2">
 <h3><span class="header-section-number">5.5.2</span> Experimental Data with Error Bars<a href="data-visualization-in-r.html#experimental-data-with-error-bars" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here’s an example that recently came up in my office hours. You’ve done an experiment to see how mice with two different genotypes respond to two different treatments. Now you want to plot the mean response of each group as a column, with error bars indicating the standard deviation of the mean. You also want to show the raw data. I’ve simulated some data for us to use - download it <a href="https://ucdavis.box.com/s/lxgplwqn23ncbeb5gc6ktpfknr56xws6">here</a>.</p>
 <p>This one is kind of complicated because you have to tell <code>ggplot2</code> how to calculate the height of the columns and of the error bars. This involves cr</p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="data-visualization-in-r.html#cb470-1" tabindex="-1"></a>mice_geno <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/genotype-response.csv&quot;</span>)</span>
-<span id="cb470-2"><a href="data-visualization-in-r.html#cb470-2" tabindex="-1"></a></span>
-<span id="cb470-3"><a href="data-visualization-in-r.html#cb470-3" tabindex="-1"></a><span class="co"># show the treatment response for different genotypes</span></span>
-<span id="cb470-4"><a href="data-visualization-in-r.html#cb470-4" tabindex="-1"></a><span class="fu">ggplot</span>(mice_geno) <span class="sc">+</span> </span>
-<span id="cb470-5"><a href="data-visualization-in-r.html#cb470-5" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>trt, </span>
-<span id="cb470-6"><a href="data-visualization-in-r.html#cb470-6" tabindex="-1"></a>      <span class="at">y=</span>resp, </span>
-<span id="cb470-7"><a href="data-visualization-in-r.html#cb470-7" tabindex="-1"></a>      <span class="at">fill=</span>genotype) <span class="sc">+</span></span>
-<span id="cb470-8"><a href="data-visualization-in-r.html#cb470-8" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
-<span id="cb470-9"><a href="data-visualization-in-r.html#cb470-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="fu">position_dodge</span>(),</span>
-<span id="cb470-10"><a href="data-visualization-in-r.html#cb470-10" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">&#39;summary&#39;</span>,</span>
-<span id="cb470-11"><a href="data-visualization-in-r.html#cb470-11" tabindex="-1"></a>           <span class="at">fun=</span><span class="st">&#39;mean&#39;</span>) <span class="sc">+</span></span>
-<span id="cb470-12"><a href="data-visualization-in-r.html#cb470-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">fun.min=</span><span class="cf">function</span>(x) {<span class="fu">mean</span>(x) <span class="sc">-</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))},</span>
-<span id="cb470-13"><a href="data-visualization-in-r.html#cb470-13" tabindex="-1"></a>               <span class="at">fun.max=</span><span class="cf">function</span>(x) {<span class="fu">mean</span>(x) <span class="sc">+</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))},</span>
-<span id="cb470-14"><a href="data-visualization-in-r.html#cb470-14" tabindex="-1"></a>               <span class="at">stat=</span><span class="st">&#39;summary&#39;</span>,</span>
-<span id="cb470-15"><a href="data-visualization-in-r.html#cb470-15" tabindex="-1"></a>               <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="fl">0.9</span>),</span>
-<span id="cb470-16"><a href="data-visualization-in-r.html#cb470-16" tabindex="-1"></a>               <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb470-17"><a href="data-visualization-in-r.html#cb470-17" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position=</span></span>
-<span id="cb470-18"><a href="data-visualization-in-r.html#cb470-18" tabindex="-1"></a>               <span class="fu">position_jitterdodge</span>(</span>
-<span id="cb470-19"><a href="data-visualization-in-r.html#cb470-19" tabindex="-1"></a>                 <span class="at">dodge.width=</span><span class="fl">0.9</span>,</span>
-<span id="cb470-20"><a href="data-visualization-in-r.html#cb470-20" tabindex="-1"></a>                 <span class="at">jitter.width=</span><span class="fl">0.1</span>)) <span class="sc">+</span></span>
-<span id="cb470-21"><a href="data-visualization-in-r.html#cb470-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
-<span id="cb470-22"><a href="data-visualization-in-r.html#cb470-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Response (mm/g)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb470-23"><a href="data-visualization-in-r.html#cb470-23" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Mean growth response of mice by genotype and treatment&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="data-visualization-in-r.html#cb479-1" tabindex="-1"></a>mice_geno <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/genotype-response.csv&quot;</span>)</span>
+<span id="cb479-2"><a href="data-visualization-in-r.html#cb479-2" tabindex="-1"></a></span>
+<span id="cb479-3"><a href="data-visualization-in-r.html#cb479-3" tabindex="-1"></a><span class="co"># show the treatment response for different genotypes</span></span>
+<span id="cb479-4"><a href="data-visualization-in-r.html#cb479-4" tabindex="-1"></a><span class="fu">ggplot</span>(mice_geno) <span class="sc">+</span> </span>
+<span id="cb479-5"><a href="data-visualization-in-r.html#cb479-5" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>trt, </span>
+<span id="cb479-6"><a href="data-visualization-in-r.html#cb479-6" tabindex="-1"></a>      <span class="at">y=</span>resp, </span>
+<span id="cb479-7"><a href="data-visualization-in-r.html#cb479-7" tabindex="-1"></a>      <span class="at">fill=</span>genotype) <span class="sc">+</span></span>
+<span id="cb479-8"><a href="data-visualization-in-r.html#cb479-8" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Dark2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb479-9"><a href="data-visualization-in-r.html#cb479-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="fu">position_dodge</span>(),</span>
+<span id="cb479-10"><a href="data-visualization-in-r.html#cb479-10" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">&#39;summary&#39;</span>,</span>
+<span id="cb479-11"><a href="data-visualization-in-r.html#cb479-11" tabindex="-1"></a>           <span class="at">fun=</span><span class="st">&#39;mean&#39;</span>) <span class="sc">+</span></span>
+<span id="cb479-12"><a href="data-visualization-in-r.html#cb479-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">fun.min=</span><span class="cf">function</span>(x) {<span class="fu">mean</span>(x) <span class="sc">-</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))},</span>
+<span id="cb479-13"><a href="data-visualization-in-r.html#cb479-13" tabindex="-1"></a>               <span class="at">fun.max=</span><span class="cf">function</span>(x) {<span class="fu">mean</span>(x) <span class="sc">+</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))},</span>
+<span id="cb479-14"><a href="data-visualization-in-r.html#cb479-14" tabindex="-1"></a>               <span class="at">stat=</span><span class="st">&#39;summary&#39;</span>,</span>
+<span id="cb479-15"><a href="data-visualization-in-r.html#cb479-15" tabindex="-1"></a>               <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="fl">0.9</span>),</span>
+<span id="cb479-16"><a href="data-visualization-in-r.html#cb479-16" tabindex="-1"></a>               <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb479-17"><a href="data-visualization-in-r.html#cb479-17" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position=</span></span>
+<span id="cb479-18"><a href="data-visualization-in-r.html#cb479-18" tabindex="-1"></a>               <span class="fu">position_jitterdodge</span>(</span>
+<span id="cb479-19"><a href="data-visualization-in-r.html#cb479-19" tabindex="-1"></a>                 <span class="at">dodge.width=</span><span class="fl">0.9</span>,</span>
+<span id="cb479-20"><a href="data-visualization-in-r.html#cb479-20" tabindex="-1"></a>                 <span class="at">jitter.width=</span><span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb479-21"><a href="data-visualization-in-r.html#cb479-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb479-22"><a href="data-visualization-in-r.html#cb479-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Response (mm/g)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb479-23"><a href="data-visualization-in-r.html#cb479-23" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Mean growth response of mice by genotype and treatment&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-genotype-1.png" width="672" /></p>
 </div>
 <div id="bird-flu-mortality" class="section level3 hasAnchor" number="5.5.3">
 <h3><span class="header-section-number">5.5.3</span> Bird Flu Mortality<a href="data-visualization-in-r.html#bird-flu-mortality" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>People mail dead birds to the USDA and USGS, where scientists analyze the birds to find out why they died. Right now there is a bird flu epidemic, and the USDA provides public data about the birds in whom the disease has been detected. You can access the data <a href="https://ucdavis.box.com/s/babz1b5ak0kh7q7cktg7k5gzrt2ve9gc">here</a> or see the official USDA webpage <a href="https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/">here</a>. After you download the data, we will load the data and do some visualization.</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="data-visualization-in-r.html#cb471-1" tabindex="-1"></a><span class="co"># load data directly from the USDA website</span></span>
-<span id="cb471-2"><a href="data-visualization-in-r.html#cb471-2" tabindex="-1"></a>flu <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/hpai-wild-birds-ver2.csv&quot;</span>)</span>
-<span id="cb471-3"><a href="data-visualization-in-r.html#cb471-3" tabindex="-1"></a>flu<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">mdy</span>(flu<span class="sc">$</span><span class="st">`</span><span class="at">Date Detected</span><span class="st">`</span>)</span>
-<span id="cb471-4"><a href="data-visualization-in-r.html#cb471-4" tabindex="-1"></a></span>
-<span id="cb471-5"><a href="data-visualization-in-r.html#cb471-5" tabindex="-1"></a><span class="co"># plot a histogram of when bird flu was detected</span></span>
-<span id="cb471-6"><a href="data-visualization-in-r.html#cb471-6" tabindex="-1"></a><span class="fu">ggplot</span>(flu) <span class="sc">+</span></span>
-<span id="cb471-7"><a href="data-visualization-in-r.html#cb471-7" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date) <span class="sc">+</span></span>
-<span id="cb471-8"><a href="data-visualization-in-r.html#cb471-8" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb471-9"><a href="data-visualization-in-r.html#cb471-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections in wild birds&quot;</span>) <span class="sc">+</span></span>
-<span id="cb471-10"><a href="data-visualization-in-r.html#cb471-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
-<span id="cb471-11"><a href="data-visualization-in-r.html#cb471-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="data-visualization-in-r.html#cb480-1" tabindex="-1"></a><span class="co"># load data directly from the USDA website</span></span>
+<span id="cb480-2"><a href="data-visualization-in-r.html#cb480-2" tabindex="-1"></a>flu <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/hpai-wild-birds-ver2.csv&quot;</span>)</span>
+<span id="cb480-3"><a href="data-visualization-in-r.html#cb480-3" tabindex="-1"></a>flu<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">mdy</span>(flu<span class="sc">$</span><span class="st">`</span><span class="at">Date Detected</span><span class="st">`</span>)</span>
+<span id="cb480-4"><a href="data-visualization-in-r.html#cb480-4" tabindex="-1"></a></span>
+<span id="cb480-5"><a href="data-visualization-in-r.html#cb480-5" tabindex="-1"></a><span class="co"># plot a histogram of when bird flu was detected</span></span>
+<span id="cb480-6"><a href="data-visualization-in-r.html#cb480-6" tabindex="-1"></a><span class="fu">ggplot</span>(flu) <span class="sc">+</span></span>
+<span id="cb480-7"><a href="data-visualization-in-r.html#cb480-7" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date) <span class="sc">+</span></span>
+<span id="cb480-8"><a href="data-visualization-in-r.html#cb480-8" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb480-9"><a href="data-visualization-in-r.html#cb480-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections in wild birds&quot;</span>) <span class="sc">+</span></span>
+<span id="cb480-10"><a href="data-visualization-in-r.html#cb480-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
+<span id="cb480-11"><a href="data-visualization-in-r.html#cb480-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-bird-flu-1.png" width="672" /></p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="data-visualization-in-r.html#cb472-1" tabindex="-1"></a><span class="co"># plot a histogram of when bird flu was detected</span></span>
-<span id="cb472-2"><a href="data-visualization-in-r.html#cb472-2" tabindex="-1"></a><span class="fu">ggplot</span>(flu) <span class="sc">+</span></span>
-<span id="cb472-3"><a href="data-visualization-in-r.html#cb472-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">fill =</span> <span class="st">`</span><span class="at">Sampling Method</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb472-4"><a href="data-visualization-in-r.html#cb472-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb472-5"><a href="data-visualization-in-r.html#cb472-5" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections in wild birds&quot;</span>) <span class="sc">+</span></span>
-<span id="cb472-6"><a href="data-visualization-in-r.html#cb472-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
-<span id="cb472-7"><a href="data-visualization-in-r.html#cb472-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="data-visualization-in-r.html#cb481-1" tabindex="-1"></a><span class="co"># plot a histogram of when bird flu was detected</span></span>
+<span id="cb481-2"><a href="data-visualization-in-r.html#cb481-2" tabindex="-1"></a><span class="fu">ggplot</span>(flu) <span class="sc">+</span></span>
+<span id="cb481-3"><a href="data-visualization-in-r.html#cb481-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">fill =</span> <span class="st">`</span><span class="at">Sampling Method</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb481-4"><a href="data-visualization-in-r.html#cb481-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb481-5"><a href="data-visualization-in-r.html#cb481-5" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections in wild birds&quot;</span>) <span class="sc">+</span></span>
+<span id="cb481-6"><a href="data-visualization-in-r.html#cb481-6" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
+<span id="cb481-7"><a href="data-visualization-in-r.html#cb481-7" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-bird-flu-2.png" width="672" /></p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="data-visualization-in-r.html#cb473-1" tabindex="-1"></a><span class="co"># bar chart shows how the bird flu reports compare between west coast states</span></span>
-<span id="cb473-2"><a href="data-visualization-in-r.html#cb473-2" tabindex="-1"></a><span class="fu">subset</span>(flu, State <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;Oregon&quot;</span>, <span class="st">&quot;Washington&quot;</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb473-3"><a href="data-visualization-in-r.html#cb473-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb473-4"><a href="data-visualization-in-r.html#cb473-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> State, <span class="at">fill =</span> <span class="st">`</span><span class="at">Sampling Method</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb473-5"><a href="data-visualization-in-r.html#cb473-5" tabindex="-1"></a>  <span class="fu">stat_count</span>() <span class="sc">+</span></span>
-<span id="cb473-6"><a href="data-visualization-in-r.html#cb473-6" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb473-7"><a href="data-visualization-in-r.html#cb473-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections in wild birds (West coast states)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb473-8"><a href="data-visualization-in-r.html#cb473-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="data-visualization-in-r.html#cb482-1" tabindex="-1"></a><span class="co"># bar chart shows how the bird flu reports compare between west coast states</span></span>
+<span id="cb482-2"><a href="data-visualization-in-r.html#cb482-2" tabindex="-1"></a><span class="fu">subset</span>(flu, State <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;California&quot;</span>, <span class="st">&quot;Oregon&quot;</span>, <span class="st">&quot;Washington&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb482-3"><a href="data-visualization-in-r.html#cb482-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb482-4"><a href="data-visualization-in-r.html#cb482-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> State, <span class="at">fill =</span> <span class="st">`</span><span class="at">Sampling Method</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb482-5"><a href="data-visualization-in-r.html#cb482-5" tabindex="-1"></a>  <span class="fu">stat_count</span>() <span class="sc">+</span></span>
+<span id="cb482-6"><a href="data-visualization-in-r.html#cb482-6" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb482-7"><a href="data-visualization-in-r.html#cb482-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections in wild birds (West coast states)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb482-8"><a href="data-visualization-in-r.html#cb482-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-bird-flu-3.png" width="672" /></p>
 <p>Let’s compare the bird flu season to the human flu season. Download hospitalization data for the 2021-2022 and 2022-2023 flu seasons from the CDC website <a href="https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html">here</a> or see the official Centers for Disease Control website <a href="https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html">here</a>. After you download the data, we will see how adding a second data series works a little differently from the first. That’s because composing data, aesthetic mapping, and geometry with addition only works when there is no ambiguity about which data series is being mapped or drawn.</p>
 <p>After downloading the data, there is some work required to adjust the dates and change the hospitalization rate from cases per 100,000 to cases per 10 million, which better matches the scale of the bird flu data.</p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="data-visualization-in-r.html#cb474-1" tabindex="-1"></a><span class="co"># processing CDC flu data:</span></span>
-<span id="cb474-2"><a href="data-visualization-in-r.html#cb474-2" tabindex="-1"></a>cdc <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/FluSurveillance_Custom_Download_Data.csv&quot;</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span>
-<span id="cb474-3"><a href="data-visualization-in-r.html#cb474-3" tabindex="-1"></a>cdc<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as_date</span>(<span class="st">&quot;1950-01-01&quot;</span>)</span>
-<span id="cb474-4"><a href="data-visualization-in-r.html#cb474-4" tabindex="-1"></a><span class="fu">year</span>(cdc<span class="sc">$</span>date) <span class="ot">&lt;-</span> cdc<span class="sc">$</span><span class="st">`</span><span class="at">MMWR-YEAR</span><span class="st">`</span></span>
-<span id="cb474-5"><a href="data-visualization-in-r.html#cb474-5" tabindex="-1"></a><span class="fu">week</span>(cdc<span class="sc">$</span>date) <span class="ot">&lt;-</span> cdc<span class="sc">$</span><span class="st">`</span><span class="at">MMWR-WEEK</span><span class="st">`</span></span>
-<span id="cb474-6"><a href="data-visualization-in-r.html#cb474-6" tabindex="-1"></a></span>
-<span id="cb474-7"><a href="data-visualization-in-r.html#cb474-7" tabindex="-1"></a></span>
-<span id="cb474-8"><a href="data-visualization-in-r.html#cb474-8" tabindex="-1"></a><span class="co"># get flu hospitalization counts that include all race, sex, and age categories</span></span>
-<span id="cb474-9"><a href="data-visualization-in-r.html#cb474-9" tabindex="-1"></a>cdc_overall <span class="ot">&lt;-</span> <span class="fu">subset</span>(</span>
-<span id="cb474-10"><a href="data-visualization-in-r.html#cb474-10" tabindex="-1"></a>  cdc,</span>
-<span id="cb474-11"><a href="data-visualization-in-r.html#cb474-11" tabindex="-1"></a>  <span class="st">`</span><span class="at">AGE CATEGORY</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Overall&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb474-12"><a href="data-visualization-in-r.html#cb474-12" tabindex="-1"></a>    <span class="st">`</span><span class="at">SEX CATEGORY</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Overall&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb474-13"><a href="data-visualization-in-r.html#cb474-13" tabindex="-1"></a>    <span class="st">`</span><span class="at">RACE CATEGORY</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Overall&quot;</span></span>
-<span id="cb474-14"><a href="data-visualization-in-r.html#cb474-14" tabindex="-1"></a>)</span>
-<span id="cb474-15"><a href="data-visualization-in-r.html#cb474-15" tabindex="-1"></a></span>
-<span id="cb474-16"><a href="data-visualization-in-r.html#cb474-16" tabindex="-1"></a><span class="co"># convert the counts to cases per 10 million</span></span>
-<span id="cb474-17"><a href="data-visualization-in-r.html#cb474-17" tabindex="-1"></a>cdc_overall<span class="sc">$</span><span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cdc_overall<span class="sc">$</span><span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="data-visualization-in-r.html#cb475-1" tabindex="-1"></a><span class="co"># remake the plot but add a new geom_line() with its own data</span></span>
-<span id="cb475-2"><a href="data-visualization-in-r.html#cb475-2" tabindex="-1"></a><span class="fu">ggplot</span>(flu) <span class="sc">+</span></span>
-<span id="cb475-3"><a href="data-visualization-in-r.html#cb475-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">fill =</span> <span class="st">`</span><span class="at">Sampling Method</span><span class="st">`</span>) <span class="sc">+</span></span>
-<span id="cb475-4"><a href="data-visualization-in-r.html#cb475-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb475-5"><a href="data-visualization-in-r.html#cb475-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cdc_overall, </span>
-<span id="cb475-6"><a href="data-visualization-in-r.html#cb475-6" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> <span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span>), </span>
-<span id="cb475-7"><a href="data-visualization-in-r.html#cb475-7" tabindex="-1"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb475-8"><a href="data-visualization-in-r.html#cb475-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections and human flu hospitalizations&quot;</span>) <span class="sc">+</span></span>
-<span id="cb475-9"><a href="data-visualization-in-r.html#cb475-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
-<span id="cb475-10"><a href="data-visualization-in-r.html#cb475-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
-<span id="cb475-11"><a href="data-visualization-in-r.html#cb475-11" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">as_date</span>(<span class="st">&quot;2022-01-01&quot;</span>), <span class="fu">as_date</span>(<span class="st">&quot;2023-05-01&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="data-visualization-in-r.html#cb483-1" tabindex="-1"></a><span class="co"># processing CDC flu data:</span></span>
+<span id="cb483-2"><a href="data-visualization-in-r.html#cb483-2" tabindex="-1"></a>cdc <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/FluSurveillance_Custom_Download_Data.csv&quot;</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span>
+<span id="cb483-3"><a href="data-visualization-in-r.html#cb483-3" tabindex="-1"></a>cdc<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as_date</span>(<span class="st">&quot;1950-01-01&quot;</span>)</span>
+<span id="cb483-4"><a href="data-visualization-in-r.html#cb483-4" tabindex="-1"></a><span class="fu">year</span>(cdc<span class="sc">$</span>date) <span class="ot">&lt;-</span> cdc<span class="sc">$</span><span class="st">`</span><span class="at">MMWR-YEAR</span><span class="st">`</span></span>
+<span id="cb483-5"><a href="data-visualization-in-r.html#cb483-5" tabindex="-1"></a><span class="fu">week</span>(cdc<span class="sc">$</span>date) <span class="ot">&lt;-</span> cdc<span class="sc">$</span><span class="st">`</span><span class="at">MMWR-WEEK</span><span class="st">`</span></span>
+<span id="cb483-6"><a href="data-visualization-in-r.html#cb483-6" tabindex="-1"></a></span>
+<span id="cb483-7"><a href="data-visualization-in-r.html#cb483-7" tabindex="-1"></a></span>
+<span id="cb483-8"><a href="data-visualization-in-r.html#cb483-8" tabindex="-1"></a><span class="co"># get flu hospitalization counts that include all race, sex, and age categories</span></span>
+<span id="cb483-9"><a href="data-visualization-in-r.html#cb483-9" tabindex="-1"></a>cdc_overall <span class="ot">&lt;-</span> <span class="fu">subset</span>(</span>
+<span id="cb483-10"><a href="data-visualization-in-r.html#cb483-10" tabindex="-1"></a>  cdc,</span>
+<span id="cb483-11"><a href="data-visualization-in-r.html#cb483-11" tabindex="-1"></a>  <span class="st">`</span><span class="at">AGE CATEGORY</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Overall&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb483-12"><a href="data-visualization-in-r.html#cb483-12" tabindex="-1"></a>    <span class="st">`</span><span class="at">SEX CATEGORY</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Overall&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb483-13"><a href="data-visualization-in-r.html#cb483-13" tabindex="-1"></a>    <span class="st">`</span><span class="at">RACE CATEGORY</span><span class="st">`</span> <span class="sc">==</span> <span class="st">&quot;Overall&quot;</span></span>
+<span id="cb483-14"><a href="data-visualization-in-r.html#cb483-14" tabindex="-1"></a>)</span>
+<span id="cb483-15"><a href="data-visualization-in-r.html#cb483-15" tabindex="-1"></a></span>
+<span id="cb483-16"><a href="data-visualization-in-r.html#cb483-16" tabindex="-1"></a><span class="co"># convert the counts to cases per 10 million</span></span>
+<span id="cb483-17"><a href="data-visualization-in-r.html#cb483-17" tabindex="-1"></a>cdc_overall<span class="sc">$</span><span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cdc_overall<span class="sc">$</span><span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">100</span></span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="data-visualization-in-r.html#cb484-1" tabindex="-1"></a><span class="co"># remake the plot but add a new geom_line() with its own data</span></span>
+<span id="cb484-2"><a href="data-visualization-in-r.html#cb484-2" tabindex="-1"></a><span class="fu">ggplot</span>(flu) <span class="sc">+</span></span>
+<span id="cb484-3"><a href="data-visualization-in-r.html#cb484-3" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">fill =</span> <span class="st">`</span><span class="at">Sampling Method</span><span class="st">`</span>) <span class="sc">+</span></span>
+<span id="cb484-4"><a href="data-visualization-in-r.html#cb484-4" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb484-5"><a href="data-visualization-in-r.html#cb484-5" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> cdc_overall, </span>
+<span id="cb484-6"><a href="data-visualization-in-r.html#cb484-6" tabindex="-1"></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> <span class="st">`</span><span class="at">WEEKLY RATE</span><span class="st">`</span>), </span>
+<span id="cb484-7"><a href="data-visualization-in-r.html#cb484-7" tabindex="-1"></a>            <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb484-8"><a href="data-visualization-in-r.html#cb484-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Bird flu detections and human flu hospitalizations&quot;</span>) <span class="sc">+</span></span>
+<span id="cb484-9"><a href="data-visualization-in-r.html#cb484-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="sc">+</span></span>
+<span id="cb484-10"><a href="data-visualization-in-r.html#cb484-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="sc">+</span></span>
+<span id="cb484-11"><a href="data-visualization-in-r.html#cb484-11" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">as_date</span>(<span class="st">&quot;2022-01-01&quot;</span>), <span class="fu">as_date</span>(<span class="st">&quot;2023-05-01&quot;</span>))</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-flu-plotting-1.png" width="672" /></p>
 </div>
 <div id="small-business-loans" class="section level3 hasAnchor" number="5.5.4">
 <h3><span class="header-section-number">5.5.4</span> Small Business Loans<a href="data-visualization-in-r.html#small-business-loans" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The US Small Business Administration (SBA) maintains data on the loans it offers to businesses. Data about loans made since 2020 can be found at the <a href="https://data.sba.gov/dataset/7-a-504-foia">Small Business Administration website</a>, or you can download it from <a href="https://ucdavis.box.com/s/ctx6grx10c83lh561ekl9tnmi20561ed">here</a>. We’ll load that data and then explore some ways to visualize it. Since the difference between a $100 loan and a $1000 loan is more like the difference between $100,000 and $1M than between $100,000 ad $100,900, we should put the loan values on a logarithmic scale. You can do this in <code>ggplot2</code> with the <code>scale_y_log10()</code> function (when the loan values are on the y axis).</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="data-visualization-in-r.html#cb476-1" tabindex="-1"></a><span class="co"># load the small business loan data</span></span>
-<span id="cb476-2"><a href="data-visualization-in-r.html#cb476-2" tabindex="-1"></a>sba <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/small-business-loans.csv&quot;</span>)</span>
-<span id="cb476-3"><a href="data-visualization-in-r.html#cb476-3" tabindex="-1"></a></span>
-<span id="cb476-4"><a href="data-visualization-in-r.html#cb476-4" tabindex="-1"></a><span class="co"># check the SBA data to see the data types, etc.</span></span>
-<span id="cb476-5"><a href="data-visualization-in-r.html#cb476-5" tabindex="-1"></a><span class="fu">head</span>(sba)</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="data-visualization-in-r.html#cb485-1" tabindex="-1"></a><span class="co"># load the small business loan data</span></span>
+<span id="cb485-2"><a href="data-visualization-in-r.html#cb485-2" tabindex="-1"></a>sba <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/small-business-loans.csv&quot;</span>)</span>
+<span id="cb485-3"><a href="data-visualization-in-r.html#cb485-3" tabindex="-1"></a></span>
+<span id="cb485-4"><a href="data-visualization-in-r.html#cb485-4" tabindex="-1"></a><span class="co"># check the SBA data to see the data types, etc.</span></span>
+<span id="cb485-5"><a href="data-visualization-in-r.html#cb485-5" tabindex="-1"></a><span class="fu">head</span>(sba)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 39
 ##   AsOfDate Program BorrName       BorrStreet BorrCity BorrState BorrZip BankName
 ##      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;   
@@ -669,41 +670,41 @@ to read and bar plots don’t use space efficiently (Cleveland and McGill
 ## #   DeliveryMethod &lt;chr&gt;, subpgmdesc &lt;chr&gt;, InitialInterestRate &lt;dbl&gt;,
 ## #   TermInMonths &lt;dbl&gt;, NaicsCode &lt;dbl&gt;, NaicsDescription &lt;chr&gt;,
 ## #   FranchiseCode &lt;chr&gt;, FranchiseName &lt;chr&gt;, ProjectCounty &lt;chr&gt;, …</code></pre>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="data-visualization-in-r.html#cb478-1" tabindex="-1"></a><span class="co"># boxplot of loan sizes by business type</span></span>
-<span id="cb478-2"><a href="data-visualization-in-r.html#cb478-2" tabindex="-1"></a><span class="fu">subset</span>(sba, ProjectState <span class="sc">==</span> <span class="st">&quot;CA&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb478-3"><a href="data-visualization-in-r.html#cb478-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb478-4"><a href="data-visualization-in-r.html#cb478-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> BusinessType, <span class="at">y =</span> SBAGuaranteedApproval) <span class="sc">+</span></span>
-<span id="cb478-5"><a href="data-visualization-in-r.html#cb478-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb478-6"><a href="data-visualization-in-r.html#cb478-6" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
-<span id="cb478-7"><a href="data-visualization-in-r.html#cb478-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Small Business Administraton guaranteed loans in California&quot;</span>) <span class="sc">+</span></span>
-<span id="cb478-8"><a href="data-visualization-in-r.html#cb478-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Loan guarantee (dollars)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="data-visualization-in-r.html#cb487-1" tabindex="-1"></a><span class="co"># boxplot of loan sizes by business type</span></span>
+<span id="cb487-2"><a href="data-visualization-in-r.html#cb487-2" tabindex="-1"></a><span class="fu">subset</span>(sba, ProjectState <span class="sc">==</span> <span class="st">&quot;CA&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb487-3"><a href="data-visualization-in-r.html#cb487-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb487-4"><a href="data-visualization-in-r.html#cb487-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> BusinessType, <span class="at">y =</span> SBAGuaranteedApproval) <span class="sc">+</span></span>
+<span id="cb487-5"><a href="data-visualization-in-r.html#cb487-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb487-6"><a href="data-visualization-in-r.html#cb487-6" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb487-7"><a href="data-visualization-in-r.html#cb487-7" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Small Business Administraton guaranteed loans in California&quot;</span>) <span class="sc">+</span></span>
+<span id="cb487-8"><a href="data-visualization-in-r.html#cb487-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Loan guarantee (dollars)&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-SBA-1.png" width="672" /></p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="data-visualization-in-r.html#cb479-1" tabindex="-1"></a><span class="co"># relationship between loan size and interest rate</span></span>
-<span id="cb479-2"><a href="data-visualization-in-r.html#cb479-2" tabindex="-1"></a><span class="fu">subset</span>(sba, ProjectState <span class="sc">==</span> <span class="st">&quot;CA&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb479-3"><a href="data-visualization-in-r.html#cb479-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb479-4"><a href="data-visualization-in-r.html#cb479-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> GrossApproval, <span class="at">y =</span> InitialInterestRate, ) <span class="sc">+</span></span>
-<span id="cb479-5"><a href="data-visualization-in-r.html#cb479-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb479-6"><a href="data-visualization-in-r.html#cb479-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>BusinessType, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb479-7"><a href="data-visualization-in-r.html#cb479-7" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb479-8"><a href="data-visualization-in-r.html#cb479-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Interest rate as a function of loan size&quot;</span>) <span class="sc">+</span></span>
-<span id="cb479-9"><a href="data-visualization-in-r.html#cb479-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Loan size (dollars)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb479-10"><a href="data-visualization-in-r.html#cb479-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Interest rate (%)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="data-visualization-in-r.html#cb488-1" tabindex="-1"></a><span class="co"># relationship between loan size and interest rate</span></span>
+<span id="cb488-2"><a href="data-visualization-in-r.html#cb488-2" tabindex="-1"></a><span class="fu">subset</span>(sba, ProjectState <span class="sc">==</span> <span class="st">&quot;CA&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb488-3"><a href="data-visualization-in-r.html#cb488-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb488-4"><a href="data-visualization-in-r.html#cb488-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> GrossApproval, <span class="at">y =</span> InitialInterestRate, ) <span class="sc">+</span></span>
+<span id="cb488-5"><a href="data-visualization-in-r.html#cb488-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb488-6"><a href="data-visualization-in-r.html#cb488-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>BusinessType, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb488-7"><a href="data-visualization-in-r.html#cb488-7" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb488-8"><a href="data-visualization-in-r.html#cb488-8" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Interest rate as a function of loan size&quot;</span>) <span class="sc">+</span></span>
+<span id="cb488-9"><a href="data-visualization-in-r.html#cb488-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Loan size (dollars)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb488-10"><a href="data-visualization-in-r.html#cb488-10" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Interest rate (%)&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-SBA-2.png" width="672" /></p>
 <p>Now let’s color the points by the loan status. Thankfully, <code>ggplot2</code> integrates directly with <a href="https://colorbrewer2.org">Color Brewer (colorbrewer2.org)</a> to get better color palettes. We will use the <code>Accent</code> color palette, which is just one of the many options that can be found on the Color Brewer site.</p>
 <p>There are a lot of data points, which tent to largely overlap and hide each other. We use a smoother (<code>geom_smooth()</code>) to help call out differences that would otherwise be lost in the noise of the points.</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="data-visualization-in-r.html#cb480-1" tabindex="-1"></a><span class="co"># color the dots by the loan status.</span></span>
-<span id="cb480-2"><a href="data-visualization-in-r.html#cb480-2" tabindex="-1"></a><span class="fu">subset</span>(sba, ProjectState <span class="sc">==</span> <span class="st">&quot;CA&quot;</span> <span class="sc">&amp;</span> LoanStatus <span class="sc">!=</span> <span class="st">&quot;EXEMPT&quot;</span> <span class="sc">&amp;</span> LoanStatus <span class="sc">!=</span> <span class="st">&quot;CHGOFF&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb480-3"><a href="data-visualization-in-r.html#cb480-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb480-4"><a href="data-visualization-in-r.html#cb480-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> GrossApproval, <span class="at">y =</span> InitialInterestRate, <span class="at">color =</span> LoanStatus) <span class="sc">+</span></span>
-<span id="cb480-5"><a href="data-visualization-in-r.html#cb480-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb480-6"><a href="data-visualization-in-r.html#cb480-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb480-7"><a href="data-visualization-in-r.html#cb480-7" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>BusinessType, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb480-8"><a href="data-visualization-in-r.html#cb480-8" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb480-9"><a href="data-visualization-in-r.html#cb480-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Interest rate as a function of loan size by loan status&quot;</span>) <span class="sc">+</span></span>
-<span id="cb480-10"><a href="data-visualization-in-r.html#cb480-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Loan size (dollars)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb480-11"><a href="data-visualization-in-r.html#cb480-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Interest rate (%)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb480-12"><a href="data-visualization-in-r.html#cb480-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Loan status&quot;</span>) <span class="sc">+</span></span>
-<span id="cb480-13"><a href="data-visualization-in-r.html#cb480-13" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">type =</span> <span class="st">&quot;qual&quot;</span>, <span class="at">palette =</span> <span class="st">&quot;Accent&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="data-visualization-in-r.html#cb489-1" tabindex="-1"></a><span class="co"># color the dots by the loan status.</span></span>
+<span id="cb489-2"><a href="data-visualization-in-r.html#cb489-2" tabindex="-1"></a><span class="fu">subset</span>(sba, ProjectState <span class="sc">==</span> <span class="st">&quot;CA&quot;</span> <span class="sc">&amp;</span> LoanStatus <span class="sc">!=</span> <span class="st">&quot;EXEMPT&quot;</span> <span class="sc">&amp;</span> LoanStatus <span class="sc">!=</span> <span class="st">&quot;CHGOFF&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb489-3"><a href="data-visualization-in-r.html#cb489-3" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb489-4"><a href="data-visualization-in-r.html#cb489-4" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> GrossApproval, <span class="at">y =</span> InitialInterestRate, <span class="at">color =</span> LoanStatus) <span class="sc">+</span></span>
+<span id="cb489-5"><a href="data-visualization-in-r.html#cb489-5" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb489-6"><a href="data-visualization-in-r.html#cb489-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb489-7"><a href="data-visualization-in-r.html#cb489-7" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>BusinessType, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb489-8"><a href="data-visualization-in-r.html#cb489-8" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb489-9"><a href="data-visualization-in-r.html#cb489-9" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Interest rate as a function of loan size by loan status&quot;</span>) <span class="sc">+</span></span>
+<span id="cb489-10"><a href="data-visualization-in-r.html#cb489-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Loan size (dollars)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb489-11"><a href="data-visualization-in-r.html#cb489-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Interest rate (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb489-12"><a href="data-visualization-in-r.html#cb489-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&quot;Loan status&quot;</span>) <span class="sc">+</span></span>
+<span id="cb489-13"><a href="data-visualization-in-r.html#cb489-13" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">type =</span> <span class="st">&quot;qual&quot;</span>, <span class="at">palette =</span> <span class="st">&quot;Accent&quot;</span>)</span></code></pre></div>
 <p><img src="05_visualization_files/figure-html/example-SBA-facet-1.png" width="672" /></p>
 
 </div>

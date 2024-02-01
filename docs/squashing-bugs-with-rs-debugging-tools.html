@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2024-01-29" />
+<meta name="date" content="2024-02-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,8 +255,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#read-your-errors-and-warnings"><i class="fa fa-check"></i><b>4.4.1</b> Read Your Errors and Warnings</a></li>
 <li class="chapter" data-level="4.4.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#workflow-debugging"><i class="fa fa-check"></i><b>4.4.2</b> Workflow Debugging</a></li>
 <li class="chapter" data-level="4.4.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#isolate-the-problem"><i class="fa fa-check"></i><b>4.4.3</b> Isolate the Problem</a></li>
-<li class="chapter" data-level="4.4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.4</b> Other Functions</a></li>
-<li class="chapter" data-level="4.4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-boottrapping-average-penguin-mass"><i class="fa fa-check"></i><b>4.4.5</b> Debugging Case Study: Boottrapping Average Penguin Mass</a></li>
+<li class="chapter" data-level="4.4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#functions-for-debugging"><i class="fa fa-check"></i><b>4.4.4</b> Functions for debugging</a></li>
+<li class="chapter" data-level="4.4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.5</b> Other Functions</a></li>
+<li class="chapter" data-level="4.4.6" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-bootstrapping-average-penguin-mass"><i class="fa fa-check"></i><b>4.4.6</b> Debugging Case Study: Bootstrapping Average Penguin Mass</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#measuring-performance"><i class="fa fa-check"></i><b>4.5</b> Measuring Performance</a>
 <ul>
@@ -559,10 +560,10 @@ the function with no arguments, it returns the current settings:</p>
 ## [1] TRUE
 ## 
 ## $bitmapType
-## [1] &quot;cairo&quot;
+## [1] &quot;quartz&quot;
 ## 
 ## $browser
-## [1] &quot;&quot;
+## [1] &quot;/usr/bin/open&quot;
 ## 
 ## $browserNLdisabled
 ## [1] FALSE
@@ -578,7 +579,7 @@ the function with no arguments, it returns the current settings:</p>
 ##         cli_server_default(msg)
 ##     }
 ## }
-## &lt;bytecode: 0x55bc2a55de50&gt;
+## &lt;bytecode: 0x7fe520dc5d68&gt;
 ## &lt;environment: namespace:cli&gt;
 ## 
 ## $CBoundsCheck
@@ -629,15 +630,17 @@ the marks of an experienced R user. If you define a <code>.First</code> function
 </div>
 <div id="debugging" class="section level2 hasAnchor" number="4.4">
 <h2><span class="header-section-number">4.4</span> Debugging<a href="squashing-bugs-with-rs-debugging-tools.html#debugging" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>It can be very frustrating when your computer doesn’t do what you expect! <strong>Debugging</strong> code is the process of addressing why your computer is doing something unexpected. Almost anything you do in R will be a process made up of many steps, done in the order that they are written. In general, you should proceed by breaking your workflow into small parts and confirming, step-by-step, that the result is what you expected.</p>
+<p>It can be very frustrating when your computer doesn’t do what you expect! <strong>Debugging</strong> code is the process of addressing why your computer is doing something unexpected. Almost anything you do in R will be a process made up of many steps, executed line-by-line in sequential order. In general, you should proceed by breaking your workflow into small parts and confirming, step-by-step, that the result is what you expected.</p>
 <div id="read-your-errors-and-warnings" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> Read Your Errors and Warnings<a href="squashing-bugs-with-rs-debugging-tools.html#read-your-errors-and-warnings" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Your computer is dumb and it will do exactly what you tell it to do. There are two ways this can cause problems: if you ask the impossible or if your instructions take you to the wrong place. If you tell R to do something impossible, it will generate an error or a warning, which will include a message that tries to tell you what went wrong. Read the messages! Often, it will describe the problem and suggest a solution.</p>
 <div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb431-1" tabindex="-1"></a><span class="st">&quot;seven&quot;</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## Error in &quot;seven&quot; + 5: non-numeric argument to binary operator</code></pre>
+<p>We can’t add the word seven to the number five. To make this code work, we have to change <code>"seven"</code> to <code>7</code>.</p>
 <div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb433-1" tabindex="-1"></a><span class="fu">read.csv</span>(<span class="st">&quot;nope&quot;</span>)</span></code></pre></div>
 <pre><code>## Warning in file(file, &quot;rt&quot;): cannot open file &#39;nope&#39;: No such file or directory</code></pre>
 <pre><code>## Error in file(file, &quot;rt&quot;): cannot open the connection</code></pre>
+<p>The <code>read.csv()</code> function is used to import a data file that was saved in comma-separated format. In this case, we have asked <code>read.csv()</code> to read a file that doesn’t exist. The error message doesn’t tell you this exactly, but it does say that R was unable to open a connection to the file. Since the functions built into R are all pretty well tested, it makes sense to doubt the user input before doubting R. In this case, the only input was the file name, so a good first step is to check that the file actually exists.</p>
 </div>
 <div id="workflow-debugging" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Workflow Debugging<a href="squashing-bugs-with-rs-debugging-tools.html#workflow-debugging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -650,8 +653,16 @@ the marks of an experienced R user. If you define a <code>.First</code> function
 <li>Work forward through the code from the beginning.</li>
 <li>Work backward from the source of an error.</li>
 </ul>
-<p>Both strategies are valid and powerful. Working backward is probably faster for experienced R users because errors and messages have patterns that you learn to recognize over time. If you recognize the meaning of an error, you may be able to immediately identify its cause. The <code>traceback()</code> function is quite helpful for the “work backward” strategy, because it identifies the function where the error actually happened (which may be )</p>
-<p>To work forward from the beginning</p>
+<p>Both strategies are valid and powerful. Working backward is probably faster for experienced R users because errors and messages have patterns that you learn to recognize over time. If you recognize the meaning of an error, you may be able to immediately identify its cause. The <code>traceback()</code> function is quite helpful for the “work backward” strategy, because it identifies the function where the error actually happened (which may be nested deeply within a function called by a line of code within another function.)</p>
+<p>To work forward from the beginning may take longer than working backward, but it does have advantages. Often the source of an error comes before the line of code where the error occurs. Here’s an example that builds upon an error we just saw a moment ago:</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-1" tabindex="-1"></a>num1 <span class="ot">=</span> <span class="st">&quot;seven&quot;</span></span>
+<span id="cb436-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-2" tabindex="-1"></a>num2 <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb436-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-3" tabindex="-1"></a><span class="fu">sum</span>(num1, num2)</span></code></pre></div>
+<pre><code>## Error in sum(num1, num2): invalid &#39;type&#39; (character) of argument</code></pre>
+<p>Even though the error occurs when we try to add <code>num1</code> and <code>num2</code>, the actual source of the error is that <code>num1 = "seven"</code> should be <code>num1 = 7</code>. When you debug by walking forward, you can stop after each line of code to confirm what has changed.</p>
+</div>
+<div id="functions-for-debugging" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Functions for debugging<a href="squashing-bugs-with-rs-debugging-tools.html#functions-for-debugging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>R has several built-in functions to help with debugging. Here are a few of the most important.</p>
 <ul>
 <li><code>traceback()</code> shows the <strong>call stack</strong>, which is the series of nested function calls that walk from the interactive prompt to the location of the error.</li>
@@ -659,21 +670,21 @@ the marks of an experienced R user. If you define a <code>.First</code> function
 <li><code>browser()</code> pauses the running code and starts R’s debugging system.</li>
 <li><code>debug()</code> inserts a call to <code>browser()</code> at the beginning of a function, so you can go step-by-step through its operation.</li>
 </ul>
-<p>For example:</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
-<span id="cb436-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="cf">function</span>(x, y) (<span class="dv">1</span> <span class="sc">+</span> x) <span class="sc">*</span> y</span>
-<span id="cb436-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-3" tabindex="-1"></a></span>
-<span id="cb436-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-4" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(n) {</span>
-<span id="cb436-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-5" tabindex="-1"></a>  total <span class="ot">=</span> <span class="dv">0</span></span>
-<span id="cb436-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-6" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
-<span id="cb436-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-7" tabindex="-1"></a>    <span class="fu">browser</span>()</span>
-<span id="cb436-8"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-8" tabindex="-1"></a>    total <span class="ot">=</span> total <span class="sc">+</span> <span class="fu">g</span>(i, i)</span>
-<span id="cb436-9"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-9" tabindex="-1"></a>  }</span>
-<span id="cb436-10"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-10" tabindex="-1"></a></span>
-<span id="cb436-11"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-11" tabindex="-1"></a>  total</span>
-<span id="cb436-12"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-12" tabindex="-1"></a>}</span>
-<span id="cb436-13"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-13" tabindex="-1"></a></span>
-<span id="cb436-14"><a href="squashing-bugs-with-rs-debugging-tools.html#cb436-14" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">11</span>)</span></code></pre></div>
+<p>Here’s an example where we create a pair of functions and use <code>browser()</code> to start the debugger inside a loop:</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
+<span id="cb438-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-2" tabindex="-1"></a>g <span class="ot">=</span> <span class="cf">function</span>(x, y) (<span class="dv">1</span> <span class="sc">+</span> x) <span class="sc">*</span> y</span>
+<span id="cb438-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-3" tabindex="-1"></a></span>
+<span id="cb438-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-4" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(n) {</span>
+<span id="cb438-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-5" tabindex="-1"></a>  total <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb438-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-6" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) {</span>
+<span id="cb438-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-7" tabindex="-1"></a>    <span class="fu">browser</span>()</span>
+<span id="cb438-8"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-8" tabindex="-1"></a>    total <span class="ot">=</span> total <span class="sc">+</span> <span class="fu">g</span>(i, i)</span>
+<span id="cb438-9"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-9" tabindex="-1"></a>  }</span>
+<span id="cb438-10"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-10" tabindex="-1"></a></span>
+<span id="cb438-11"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-11" tabindex="-1"></a>  total</span>
+<span id="cb438-12"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-12" tabindex="-1"></a>}</span>
+<span id="cb438-13"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-13" tabindex="-1"></a></span>
+<span id="cb438-14"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-14" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">11</span>)</span></code></pre></div>
 <p>The most important debugger commands are:</p>
 <ul>
 <li><code>n</code> to run the next line</li>
@@ -684,49 +695,49 @@ the marks of an experienced R user. If you define a <code>.First</code> function
 <li><code>help</code> to print debugger help</li>
 </ul>
 </div>
-<div id="other-functions" class="section level3 hasAnchor" number="4.4.4">
-<h3><span class="header-section-number">4.4.4</span> Other Functions<a href="squashing-bugs-with-rs-debugging-tools.html#other-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="other-functions" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> Other Functions<a href="squashing-bugs-with-rs-debugging-tools.html#other-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <code>debug()</code> function places a call to <code>browser()</code> at the beginning
 of a function. Use <code>debug()</code> to debug functions that you can’t or don’t want to
 edit. For example:</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb437-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
-<span id="cb437-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb437-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb437-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb437-3" tabindex="-1"></a>  x <span class="sc">+</span> y</span>
-<span id="cb437-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb437-4" tabindex="-1"></a>}</span>
-<span id="cb437-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb437-5" tabindex="-1"></a></span>
-<span id="cb437-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb437-6" tabindex="-1"></a><span class="fu">debug</span>(f)</span>
-<span id="cb437-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb437-7" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">5</span>, <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
+<span id="cb439-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-2" tabindex="-1"></a>f <span class="ot">=</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb439-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-3" tabindex="-1"></a>  x <span class="sc">+</span> y</span>
+<span id="cb439-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-4" tabindex="-1"></a>}</span>
+<span id="cb439-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-5" tabindex="-1"></a></span>
+<span id="cb439-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-6" tabindex="-1"></a><span class="fu">debug</span>(f)</span>
+<span id="cb439-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-7" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">5</span>, <span class="dv">5</span>)</span></code></pre></div>
 <p>You can use <code>undebug()</code> to reverse the effect of <code>debug()</code>:</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
-<span id="cb438-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-2" tabindex="-1"></a><span class="fu">undebug</span>(f)</span>
-<span id="cb438-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb438-3" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb440-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
+<span id="cb440-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb440-2" tabindex="-1"></a><span class="fu">undebug</span>(f)</span>
+<span id="cb440-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb440-3" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>, <span class="dv">20</span>)</span></code></pre></div>
 <p>The <code>debugonce()</code> function places a call to <code>browser()</code> at the beginning of a
 function for the next call only. The idea is that you then don’t have to call
 <code>undebug()</code>. For instance:</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
-<span id="cb439-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-2" tabindex="-1"></a><span class="fu">debugonce</span>(f)</span>
-<span id="cb439-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-3" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>, <span class="dv">20</span>)</span>
-<span id="cb439-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb439-4" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
+<span id="cb441-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-2" tabindex="-1"></a><span class="fu">debugonce</span>(f)</span>
+<span id="cb441-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-3" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb441-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-4" tabindex="-1"></a><span class="fu">f</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span></code></pre></div>
 <p>Finally, the global option <code>error</code> can be used to make R enter the debugger any
 time an error occurs. Set the option to <code>error = recover</code>:</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb440-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">error =</span> recover)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb442-1" tabindex="-1"></a><span class="fu">options</span>(<span class="at">error =</span> recover)</span></code></pre></div>
 <p>Then try this example:</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
-<span id="cb441-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-2" tabindex="-1"></a>bad_fn <span class="ot">=</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb441-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-3" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">&quot;Hi&quot;</span>)</span>
-<span id="cb441-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-4" tabindex="-1"></a>  x <span class="sc">+</span> y</span>
-<span id="cb441-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-5" tabindex="-1"></a>}</span>
-<span id="cb441-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-6" tabindex="-1"></a></span>
-<span id="cb441-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb441-7" tabindex="-1"></a><span class="fu">bad_fn</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-1" tabindex="-1"></a><span class="co"># Run this in an R console.</span></span>
+<span id="cb443-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-2" tabindex="-1"></a>bad_fn <span class="ot">=</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb443-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-3" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="st">&quot;Hi&quot;</span>)</span>
+<span id="cb443-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-4" tabindex="-1"></a>  x <span class="sc">+</span> y</span>
+<span id="cb443-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-5" tabindex="-1"></a>}</span>
+<span id="cb443-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-6" tabindex="-1"></a></span>
+<span id="cb443-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-7" tabindex="-1"></a><span class="fu">bad_fn</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span></code></pre></div>
 </div>
-<div id="debugging-case-study-boottrapping-average-penguin-mass" class="section level3 hasAnchor" number="4.4.5">
-<h3><span class="header-section-number">4.4.5</span> Debugging Case Study: Boottrapping Average Penguin Mass<a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-boottrapping-average-penguin-mass" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="debugging-case-study-bootstrapping-average-penguin-mass" class="section level3 hasAnchor" number="4.4.6">
+<h3><span class="header-section-number">4.4.6</span> Debugging Case Study: Bootstrapping Average Penguin Mass<a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-bootstrapping-average-penguin-mass" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here is a more realistic example to demonstrate how debugging works in a practical code project. In this example, you take the role of a biologist studying penguins in Antarctica. You’ve captured and measured 344 penguins on three islands near the Palmer Station Long Term Ecological Research site and are doing some analysis with the data. The measurements include flipper length, bill width, sex, and body mass of the penguins. The data are available as the data object <code>penguins</code> in <a href="https://allisonhorst.github.io/palmerpenguins/">Alison Horst’s <code>palmerpenguins</code> package</a> so let’s download and load that package now.</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb442-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;palmerpenguins&quot;</span>)</span>
-<span id="cb442-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb442-2" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
-<span id="cb442-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb442-3" tabindex="-1"></a><span class="fu">data</span>(penguins)</span>
-<span id="cb442-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb442-4" tabindex="-1"></a></span>
-<span id="cb442-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb442-5" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb444-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;palmerpenguins&quot;</span>)</span>
+<span id="cb444-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb444-2" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb444-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb444-3" tabindex="-1"></a><span class="fu">data</span>(penguins)</span>
+<span id="cb444-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb444-4" tabindex="-1"></a></span>
+<span id="cb444-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb444-5" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code></pre></div>
 <table>
 <colgroup>
 <col width="8%" />
@@ -813,23 +824,147 @@ time an error occurs. Set the option to <code>error = recover</code>:</p>
 </tr>
 </tbody>
 </table>
-<p>Now imagine that you are trying to use a script that was written by a previous member of your lab. Let’s copy it from its home on the web, <a href="github.com/ucdavisdatalab/workshop_intermediate_r/">here</a> to a new blank script on our computer(s). The script provides a function that splits the penguins into groups according to some grouping factors like species and sex, then plots the uncertainty in the average penguin mass per group. The plot is show below for mass by species.</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb443-1" tabindex="-1"></a><span class="fu">make_bootstrap_plots</span>(penguins, <span class="st">&quot;species&quot;</span>)</span></code></pre></div>
+<p>Now imagine that you are trying to use a script that was written by a previous member of your lab. Let’s copy it from its home on the web, <a href="https://raw.githubusercontent.com/ucdavisdatalab/workshop_intermediate_r/main/code/debug_case_study.R">here</a> to a new blank script on our computer(s). The script provides a function that splits the penguins into groups according to some grouping factors like species and sex, then plots the uncertainty in the average penguin mass per group. The plot is shown below for mass by species.</p>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb445-1" tabindex="-1"></a><span class="fu">make_bootstrap_plots</span>(penguins, <span class="st">&quot;species&quot;</span>)</span></code></pre></div>
 <p><img src="04_debugging_files/figure-html/first-case-study-plot-1.png" width="672" /></p>
 <p>In the plot, the red dots are measured penguins within each group and the black boxplots show the variability in 1000 estimates of the group means. The estimates come from a process called the <strong>bootstrap</strong>. It works by taking samples from the data we already have (this is called <strong>resampling</strong>), in order to measure how different the samples are from each other. Statisticians do this because we often want to know how different our conclusions would be with completely new data, but we can’t go back and collect the new data.</p>
 <p>The functions work for multiple grouping factors. See how we can estimate the means of penguins grouped by species and sex, which helps us identify species where one sex is larger than the other:</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb444-1" tabindex="-1"></a><span class="fu">make_bootstrap_plots</span>(penguins, <span class="st">&quot;species&quot;</span>, <span class="st">&quot;sex&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb446-1" tabindex="-1"></a><span class="fu">make_bootstrap_plots</span>(penguins, <span class="st">&quot;species&quot;</span>, <span class="st">&quot;sex&quot;</span>)</span></code></pre></div>
 <p><img src="04_debugging_files/figure-html/sex-and-species-1.png" width="672" /></p>
 <p>But when you group the penguins by species and island, the code generates an error. This is our bug:</p>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb445-1" tabindex="-1"></a><span class="fu">make_bootstrap_plots</span>(penguins, <span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb447-1" tabindex="-1"></a><span class="fu">make_bootstrap_plots</span>(penguins, <span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in indx[[i]] &lt;- sample(1:N, size = 1): attempt to select less than one element in integerOneIndex</code></pre>
-<div id="isolating-the-bug" class="section level4 hasAnchor" number="4.4.5.1">
-<h4><span class="header-section-number">4.4.5.1</span> Isolating The Bug<a href="squashing-bugs-with-rs-debugging-tools.html#isolating-the-bug" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb447-1" tabindex="-1"></a><span class="fu">traceback</span>()</span></code></pre></div>
+<div id="fixing-the-bug" class="section level4 hasAnchor" number="4.4.6.1">
+<h4><span class="header-section-number">4.4.6.1</span> Fixing The Bug<a href="squashing-bugs-with-rs-debugging-tools.html#fixing-the-bug" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As usual, our process is to isolate the bug, then identify its cause, and then to fix it. There are a lot of ways to do this, but they al begin with carefully reading the error message! In this case, we see that is <code>Error in indx[[i]] &lt;- sample(1:N, size = 1): attempt to select less than one element in integerOneIndex</code>. The message gives us an explanation of the error and tells us what code generated the error. In this case there was an attempt to select less than one element from something while taking a random sample from the numbers from 1 to N.</p>
+<p>There are many ways to isolate the location of the error. The <code>traceback()</code> function will work, or you could pepper the code with <code>print()</code> statements, or use the debugger to walk through the code until you hit the error. I’m going to include the <code>traceback()</code> function here, but you should try the other methods as an exercise.</p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb449-1" tabindex="-1"></a><span class="fu">traceback</span>()</span></code></pre></div>
 <pre><code>## 4: resample(group$body_mass_g, B = B) at debug_case_study.R#50 
 ## 3: bootstrap(data, B = B, ...) at debug_case_study.R#60
 ## 2: stack(bootstrap(data, B = B, ...)) at debug_case_study.R#60
 ## 1: make_bootstrap_plots(penguins, &quot;species&quot;, &quot;island&quot;)</code></pre>
+<p>The error is generated in the <code>resample()</code> function, which is one of the functions in the script you downloaded. You can identify which line of that code matches the code reported in the error message, which tells us that the error is generated on line 13 of <code>debug_case_study.R</code>.</p>
+<p>Remember tha the location of an error and the cause of the error are not always the same thing. To try and understand the cause of the error, let’s start the debugger by putting a <code>browser()</code> call just before line 13, like this:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-1" tabindex="-1"></a>resample <span class="ot">=</span> <span class="cf">function</span>(data, B) {</span>
+<span id="cb451-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-2" tabindex="-1"></a>  N <span class="ot">=</span> <span class="fu">length</span>(data)</span>
+<span id="cb451-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-3" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">numeric</span>(B)</span>
+<span id="cb451-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-4" tabindex="-1"></a>  </span>
+<span id="cb451-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-5" tabindex="-1"></a>  <span class="co"># repeat this whole process B times</span></span>
+<span id="cb451-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-6" tabindex="-1"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb451-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-7" tabindex="-1"></a>    </span>
+<span id="cb451-8"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-8" tabindex="-1"></a>    <span class="co"># make an object to hold the resampled indices</span></span>
+<span id="cb451-9"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-9" tabindex="-1"></a>    indx <span class="ot">=</span> <span class="fu">integer</span>(N)</span>
+<span id="cb451-10"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-10" tabindex="-1"></a>    </span>
+<span id="cb451-11"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-11" tabindex="-1"></a>    <span class="co"># resample one data point at a time</span></span>
+<span id="cb451-12"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-12" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb451-13"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-13" tabindex="-1"></a>      <span class="fu">browser</span>()</span>
+<span id="cb451-14"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-14" tabindex="-1"></a>      indx[[i]] <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="at">size=</span><span class="dv">1</span>)</span>
+<span id="cb451-15"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-15" tabindex="-1"></a>    }</span>
+<span id="cb451-16"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-16" tabindex="-1"></a>    </span>
+<span id="cb451-17"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-17" tabindex="-1"></a>    <span class="co"># calculate the mean of this resampled data</span></span>
+<span id="cb451-18"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-18" tabindex="-1"></a>    result[[b]] <span class="ot">=</span> <span class="fu">mean</span>(data[indx])</span>
+<span id="cb451-19"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-19" tabindex="-1"></a>  }</span>
+<span id="cb451-20"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-20" tabindex="-1"></a>  </span>
+<span id="cb451-21"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-21" tabindex="-1"></a>  <span class="co"># return all of the mean resamples</span></span>
+<span id="cb451-22"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-22" tabindex="-1"></a>  result</span>
+<span id="cb451-23"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-23" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now when you run <code>make_bootstrap_plots(penguins, "species", "island")</code>, the debugger will start at the location where the error happens. Use RStudio’s Environment pane to examine the values of variables, and then use the debugger controls to step forward and see how things update. Why aren’t we seeing an error right away? It is probably because there are loops that run the same lines of code over and over again. Apparently the error only happens on certain passes through the loops.</p>
+<p>Now we know that the bug has to be isolated not only on its line, but also in its time through the loop. Let’s replace the call to <code>browser()</code> with a <code>print()</code> statement to identify what pass through the loops causes the error:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-1" tabindex="-1"></a>resample <span class="ot">=</span> <span class="cf">function</span>(data, B) {</span>
+<span id="cb452-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-2" tabindex="-1"></a>  N <span class="ot">=</span> <span class="fu">length</span>(data)</span>
+<span id="cb452-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-3" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">numeric</span>(B)</span>
+<span id="cb452-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-4" tabindex="-1"></a>  </span>
+<span id="cb452-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-5" tabindex="-1"></a>  <span class="co"># repeat this whole process B times</span></span>
+<span id="cb452-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-6" tabindex="-1"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb452-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-7" tabindex="-1"></a>    </span>
+<span id="cb452-8"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-8" tabindex="-1"></a>    <span class="co"># make an object to hold the resampled indices</span></span>
+<span id="cb452-9"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-9" tabindex="-1"></a>    indx <span class="ot">=</span> <span class="fu">integer</span>(N)</span>
+<span id="cb452-10"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-10" tabindex="-1"></a>    </span>
+<span id="cb452-11"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-11" tabindex="-1"></a>    <span class="co"># resample one data point at a time</span></span>
+<span id="cb452-12"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-12" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb452-13"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-13" tabindex="-1"></a>      <span class="fu">print</span>( <span class="fu">paste</span>(<span class="st">&quot;i=&quot;</span>, i, <span class="st">&quot;b=&quot;</span>, b))</span>
+<span id="cb452-14"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-14" tabindex="-1"></a>      indx[[i]] <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="at">size=</span><span class="dv">1</span>)</span>
+<span id="cb452-15"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-15" tabindex="-1"></a>    }</span>
+<span id="cb452-16"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-16" tabindex="-1"></a>    </span>
+<span id="cb452-17"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-17" tabindex="-1"></a>    <span class="co"># calculate the mean of this resampled data</span></span>
+<span id="cb452-18"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-18" tabindex="-1"></a>    result[[b]] <span class="ot">=</span> <span class="fu">mean</span>(data[indx])</span>
+<span id="cb452-19"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-19" tabindex="-1"></a>  }</span>
+<span id="cb452-20"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-20" tabindex="-1"></a>  </span>
+<span id="cb452-21"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-21" tabindex="-1"></a>  <span class="co"># return all of the mean resamples</span></span>
+<span id="cb452-22"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-22" tabindex="-1"></a>  result</span>
+<span id="cb452-23"><a href="squashing-bugs-with-rs-debugging-tools.html#cb452-23" tabindex="-1"></a>}</span></code></pre></div>
+<p>Weirdly, it looks like the first pass through the outer loop (<code>b=1</code>) but not the first time we’ve done the first pass (there were a lot of prints before the error happened). And the error is in the zeroth iteration of the inner loop (<code>i=0</code>), which shouldn’t be possible with <code>1:N</code>. To confirm your suspicion, create a reproducible example that generates the correct error:</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb453-1" tabindex="-1"></a>LETTERS[[<span class="dv">0</span><span class="dt">L</span>]]</span></code></pre></div>
+<pre><code>## Error in LETTERS[[0L]]: attempt to select less than one element in integerOneIndex</code></pre>
+<p>Yep, that’s the error: we are trying to set the zeroth item in a vector. But why?</p>
+<p>Something is funny here, so let’s start by understanding how we can have <code>b=1</code> after the loop has printed many times. Remember what <code>traceback()</code> told us: <code>resample()</code> is called from the <code>bootstrap()</code> function. Looking where that happens (line 50), we can see that this line is also inside a loop. So we have a new call to <code>resample()</code> every time this loop runs, which is how we can be on the first iteration of <code>resample()</code> even after a lot of iterations have run. Let’s add a new <code>print()</code> statement to <code>boostrap()</code> just before line 50 to tell us what iteration we are on:</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-1" tabindex="-1"></a>bootstrap <span class="ot">=</span> <span class="cf">function</span>(data, ..., <span class="at">B=</span><span class="dv">1000</span>) {</span>
+<span id="cb455-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-2" tabindex="-1"></a>  <span class="co"># get the names of grouping factors</span></span>
+<span id="cb455-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-3" tabindex="-1"></a>  grouping_factors <span class="ot">=</span> <span class="fu">sapply</span>(<span class="fu">list</span>(...), unlist)</span>
+<span id="cb455-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-4" tabindex="-1"></a>  </span>
+<span id="cb455-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-5" tabindex="-1"></a>  <span class="co"># identify all possible combinations of grouping factors</span></span>
+<span id="cb455-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-6" tabindex="-1"></a>  grouping_levels <span class="ot">=</span></span>
+<span id="cb455-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-7" tabindex="-1"></a>    <span class="fu">sapply</span>(grouping_factors,</span>
+<span id="cb455-8"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-8" tabindex="-1"></a>           <span class="cf">function</span>(grp) <span class="fu">unique</span>(data[[grp]]) <span class="sc">|&gt;</span> <span class="fu">as.character</span>(),</span>
+<span id="cb455-9"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-9" tabindex="-1"></a>           <span class="at">simplify =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb455-10"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-10" tabindex="-1"></a>    <span class="fu">setNames</span>(grouping_factors)</span>
+<span id="cb455-11"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-11" tabindex="-1"></a>  </span>
+<span id="cb455-12"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-12" tabindex="-1"></a>  <span class="co"># cross the grouping levels to get all combinations</span></span>
+<span id="cb455-13"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-13" tabindex="-1"></a>  groups <span class="ot">=</span> <span class="fu">split</span>(data, data[,grouping_factors])</span>
+<span id="cb455-14"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-14" tabindex="-1"></a>  </span>
+<span id="cb455-15"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-15" tabindex="-1"></a>  <span class="co"># create an empty data.frame to hold the results</span></span>
+<span id="cb455-16"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-16" tabindex="-1"></a>  col_names <span class="ot">=</span> <span class="fu">names</span>(groups)</span>
+<span id="cb455-17"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-17" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">replicate</span>(<span class="fu">length</span>(groups), <span class="fu">numeric</span>(B), <span class="at">simplify=</span><span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb455-18"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-18" tabindex="-1"></a>    <span class="fu">as.data.frame</span>(<span class="at">col.names =</span> col_names)</span>
+<span id="cb455-19"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-19" tabindex="-1"></a>  </span>
+<span id="cb455-20"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-20" tabindex="-1"></a>  <span class="co"># bootstrap the mean of mass for each group</span></span>
+<span id="cb455-21"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-21" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(groups)) {</span>
+<span id="cb455-22"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-22" tabindex="-1"></a>    </span>
+<span id="cb455-23"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-23" tabindex="-1"></a>    <span class="fu">browser</span>()</span>
+<span id="cb455-24"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-24" tabindex="-1"></a>    </span>
+<span id="cb455-25"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-25" tabindex="-1"></a>    <span class="co"># get the subset of data that is relevant to this group</span></span>
+<span id="cb455-26"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-26" tabindex="-1"></a>    group <span class="ot">=</span> groups[[i]]</span>
+<span id="cb455-27"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-27" tabindex="-1"></a>    </span>
+<span id="cb455-28"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-28" tabindex="-1"></a>    <span class="co"># calculate the mean of a bunch of bootstrap resamples</span></span>
+<span id="cb455-29"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-29" tabindex="-1"></a>    result[[i]] <span class="ot">=</span> <span class="fu">resample</span>(group<span class="sc">$</span>body_mass_g, <span class="at">B=</span>B)</span>
+<span id="cb455-30"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-30" tabindex="-1"></a>  }</span>
+<span id="cb455-31"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-31" tabindex="-1"></a></span>
+<span id="cb455-32"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-32" tabindex="-1"></a>  <span class="co"># return the result</span></span>
+<span id="cb455-33"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-33" tabindex="-1"></a>  result</span>
+<span id="cb455-34"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-34" tabindex="-1"></a>}</span></code></pre></div>
+<p>It looks like the error happens with the second group. Let’s change that <code>print</code> statement into a call to <code>browser()</code> so we can look at the second group.</p>
+<pre><code>## Browse[1]&gt; groups[[2]]
+## # A tibble: 0 × 8
+## # ℹ 8 variables: species &lt;fct&gt;, island &lt;fct&gt;, bill_length_mm &lt;dbl&gt;, bill_depth_mm &lt;dbl&gt;,
+## #   flipper_length_mm &lt;int&gt;, body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+<p>Ahhh, the second group is empty: it has no rows! There were simply no penguns in the data for some combinations of species and island! That’s why <code>1:N</code> gives us zero and we end up trying to assign the zeroth entry of <code>indx</code>.</p>
+<p>Now we’ve isolated the problem and identified its cause. How would you solve it? (Hint: there are <em>many</em> solutions to this bug.) My solution would be to not try to resample the penguin masses of an empty group. Trying to loop over something like <code>1:N</code> happens a lot, and this is far from the first time that I’ve hit an error because <code>N=0</code>. A better way to define the limits of an interation counter is by <code>seq_len(N)</code>. Let’s swap that in for <code>1:N</code> on line 12 of <code>debug_case_study.R</code> and then re-run the problmatic line of code.</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-1" tabindex="-1"></a>resample <span class="ot">=</span> <span class="cf">function</span>(data, B) {</span>
+<span id="cb457-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-2" tabindex="-1"></a>  N <span class="ot">=</span> <span class="fu">length</span>(data)</span>
+<span id="cb457-3"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-3" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">numeric</span>(B)</span>
+<span id="cb457-4"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-4" tabindex="-1"></a>  </span>
+<span id="cb457-5"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-5" tabindex="-1"></a>  <span class="co"># repeat this whole process B times</span></span>
+<span id="cb457-6"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-6" tabindex="-1"></a>  <span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb457-7"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-7" tabindex="-1"></a>    </span>
+<span id="cb457-8"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-8" tabindex="-1"></a>    <span class="co"># make an object to hold the resampled indices</span></span>
+<span id="cb457-9"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-9" tabindex="-1"></a>    indx <span class="ot">=</span> <span class="fu">integer</span>(N)</span>
+<span id="cb457-10"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-10" tabindex="-1"></a>    </span>
+<span id="cb457-11"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-11" tabindex="-1"></a>    <span class="co"># resample one data point at a time</span></span>
+<span id="cb457-12"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-12" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(N)) {</span>
+<span id="cb457-13"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-13" tabindex="-1"></a>      indx[[i]] <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>N, <span class="at">size=</span><span class="dv">1</span>)</span>
+<span id="cb457-14"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-14" tabindex="-1"></a>    }</span>
+<span id="cb457-15"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-15" tabindex="-1"></a>    </span>
+<span id="cb457-16"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-16" tabindex="-1"></a>    <span class="co"># calculate the mean of this resampled data</span></span>
+<span id="cb457-17"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-17" tabindex="-1"></a>    result[[b]] <span class="ot">=</span> <span class="fu">mean</span>(data[indx])</span>
+<span id="cb457-18"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-18" tabindex="-1"></a>  }</span>
+<span id="cb457-19"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-19" tabindex="-1"></a>  </span>
+<span id="cb457-20"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-20" tabindex="-1"></a>  <span class="co"># return all of the mean resamples</span></span>
+<span id="cb457-21"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-21" tabindex="-1"></a>  result</span>
+<span id="cb457-22"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-22" tabindex="-1"></a>}</span>
+<span id="cb457-23"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-23" tabindex="-1"></a></span>
+<span id="cb457-24"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-24" tabindex="-1"></a><span class="fu">make_bootstrap_plots</span>(penguins, <span class="st">&quot;species&quot;</span>, <span class="st">&quot;island&quot;</span>)</span></code></pre></div>
+<p><img src="04_debugging_files/figure-html/fixed-resample-1.png" width="672" /></p>
+<p>Here you can see that the unobserved species/island combinations have been simply left empty and we no longer have an error. Yay!</p>
 </div>
 </div>
 </div>
@@ -858,8 +993,8 @@ multiply by 64 bits and divide by 8 to convert bits to bytes. You can then
 repeatedly divide by 1024 to convert to kilobytes, megabytes, gigabytes, or
 terabytes. For instance, an vector of 2 million numbers will require
 approximately this many megabytes:</p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb449-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">2000000</span></span>
-<span id="cb449-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb449-2" tabindex="-1"></a>n <span class="sc">*</span> (<span class="dv">64</span> <span class="sc">/</span> <span class="dv">8</span>) <span class="sc">/</span> <span class="dv">1024</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb458-1" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">2000000</span></span>
+<span id="cb458-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb458-2" tabindex="-1"></a>n <span class="sc">*</span> (<span class="dv">64</span> <span class="sc">/</span> <span class="dv">8</span>) <span class="sc">/</span> <span class="dv">1024</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 15.25879</code></pre>
 <p>You can even write an R function to do these calculations for you! If you’re
 not sure whether a particular programming strategy is realistic, do the memory
@@ -870,21 +1005,21 @@ to fixing the problem is identifying the cause. The <a href="https://lobstr.r-li
 functions to explore how R is using memory.</p>
 <p>You can use the <code>mem_used</code> function to get the amount of memory R is currently
 using:</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;lobstr&quot;</span>)</span>
-<span id="cb451-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb451-2" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code></pre></div>
-<pre><code>## 70.76 MB</code></pre>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb460-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;lobstr&quot;</span>)</span>
+<span id="cb460-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb460-2" tabindex="-1"></a><span class="fu">mem_used</span>()</span></code></pre></div>
+<pre><code>## 70.85 MB</code></pre>
 <p>Sometimes the culprit isn’t your code, but other applications on your computer.
 Modern web browsers are especially memory-intensive, and closing yours while
 you run code can make a big difference.</p>
 <p>If you’ve determined that your code is the reason R runs out of memory, you can
 use the <code>obj_size</code> function to get how much memory objects in your code
 actually use:</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb453-1" tabindex="-1"></a><span class="fu">obj_size</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb462-1" tabindex="-1"></a><span class="fu">obj_size</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## 56 B</code></pre>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">runif</span>(n)</span>
-<span id="cb455-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb455-2" tabindex="-1"></a><span class="fu">obj_size</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb464-1" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">runif</span>(n)</span>
+<span id="cb464-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb464-2" tabindex="-1"></a><span class="fu">obj_size</span>(x)</span></code></pre></div>
 <pre><code>## 16.00 MB</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb457-1" tabindex="-1"></a><span class="fu">obj_size</span>(mtcars)</span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb466-1" tabindex="-1"></a><span class="fu">obj_size</span>(mtcars)</span></code></pre></div>
 <pre><code>## 7.21 kB</code></pre>
 <p>If a specific object created by your code uses a lot of memory, think about
 ways you might change the code to avoid creating the object or avoid creating
@@ -911,12 +1046,12 @@ packages for benchmarking are:</p>
 <code>microbenchmark</code>, for carrying out benchmarks. The function accepts any number
 of expressions to benchmark as arguments. For example, to compare the speed of
 <code>runif</code> and <code>rnorm</code> (as <code>A</code> and <code>B</code> respectively):</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb459-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</span>
-<span id="cb459-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb459-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="squashing-bugs-with-rs-debugging-tools.html#cb468-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;microbenchmark&quot;</span>)</span>
+<span id="cb468-2"><a href="squashing-bugs-with-rs-debugging-tools.html#cb468-2" tabindex="-1"></a><span class="fu">microbenchmark</span>(<span class="at">A =</span> <span class="fu">runif</span>(<span class="fl">1e5</span>), <span class="at">B =</span> <span class="fu">rnorm</span>(<span class="fl">1e5</span>))</span></code></pre></div>
 <pre><code>## Unit: milliseconds
-##  expr      min       lq     mean   median       uq      max neval
-##     A 2.800613 3.201986 3.301619 3.228095 3.286995 6.485742   100
-##     B 5.837169 6.217370 6.565153 6.296620 6.462292 9.907469   100</code></pre>
+##  expr      min       lq     mean   median       uq      max neval cld
+##     A 1.302351 1.640281 1.886713 1.857848 2.080726 5.853492   100  a 
+##     B 4.095123 4.788134 5.407273 5.367933 5.749724 9.705864   100   b</code></pre>
 <p>The <code>microbenchmark</code> has parameters to control the number of times each
 expression runs, the units for the timings, and more. You can find the details
 in <code>?microbenchmark</code>.</p>

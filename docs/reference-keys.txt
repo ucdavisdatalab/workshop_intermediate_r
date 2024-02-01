@@ -91,9 +91,10 @@ debugging
 read-your-errors-and-warnings
 workflow-debugging
 isolate-the-problem
+functions-for-debugging
 other-functions
-debugging-case-study-boottrapping-average-penguin-mass
-isolating-the-bug
+debugging-case-study-bootstrapping-average-penguin-mass
+fixing-the-bug
 measuring-performance
 estimating-memory-usage
 benchmarking

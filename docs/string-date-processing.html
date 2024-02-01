@@ -23,7 +23,7 @@
 <meta name="author" content="Nick Ulle and Wesley Brooks" />
 
 
-<meta name="date" content="2024-01-29" />
+<meta name="date" content="2024-02-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -255,8 +255,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4.1" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#read-your-errors-and-warnings"><i class="fa fa-check"></i><b>4.4.1</b> Read Your Errors and Warnings</a></li>
 <li class="chapter" data-level="4.4.2" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#workflow-debugging"><i class="fa fa-check"></i><b>4.4.2</b> Workflow Debugging</a></li>
 <li class="chapter" data-level="4.4.3" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#isolate-the-problem"><i class="fa fa-check"></i><b>4.4.3</b> Isolate the Problem</a></li>
-<li class="chapter" data-level="4.4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.4</b> Other Functions</a></li>
-<li class="chapter" data-level="4.4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-boottrapping-average-penguin-mass"><i class="fa fa-check"></i><b>4.4.5</b> Debugging Case Study: Boottrapping Average Penguin Mass</a></li>
+<li class="chapter" data-level="4.4.4" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#functions-for-debugging"><i class="fa fa-check"></i><b>4.4.4</b> Functions for debugging</a></li>
+<li class="chapter" data-level="4.4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#other-functions"><i class="fa fa-check"></i><b>4.4.5</b> Other Functions</a></li>
+<li class="chapter" data-level="4.4.6" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#debugging-case-study-bootstrapping-average-penguin-mass"><i class="fa fa-check"></i><b>4.4.6</b> Debugging Case Study: Bootstrapping Average Penguin Mass</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="squashing-bugs-with-rs-debugging-tools.html"><a href="squashing-bugs-with-rs-debugging-tools.html#measuring-performance"><i class="fa fa-check"></i><b>4.5</b> Measuring Performance</a>
 <ul>
@@ -535,7 +536,7 @@ it matches the format of the dates you want to parse.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="string-date-processing.html#cb10-1" tabindex="-1"></a>time_string <span class="ot">=</span> <span class="st">&quot;6 minutes, 32 seconds after 10 o&#39;clock&quot;</span></span>
 <span id="cb10-2"><a href="string-date-processing.html#cb10-2" tabindex="-1"></a>time <span class="ot">=</span> <span class="fu">fast_strptime</span>(time_string, <span class="st">&quot;%M minutes, %S seconds after %H o&#39;clock&quot;</span>)</span>
 <span id="cb10-3"><a href="string-date-processing.html#cb10-3" tabindex="-1"></a>time</span></code></pre></div>
-<pre><code>## [1] &quot;0-01-01 10:06:32 UTC&quot;</code></pre>
+<pre><code>## [1] &quot;0000-01-01 10:06:32 UTC&quot;</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="string-date-processing.html#cb12-1" tabindex="-1"></a><span class="fu">class</span>(time)</span></code></pre></div>
 <pre><code>## [1] &quot;POSIXlt&quot; &quot;POSIXt&quot;</code></pre>
 <p>R represents date-times with the classes <code>POSIXlt</code> and <code>POSIXct</code>. There’s no
@@ -608,7 +609,7 @@ appear in the second row, so read those rows separately:</p>
 <span id="cb26-4"><a href="string-date-processing.html#cb26-4" tabindex="-1"></a>noaa_path <span class="ot">=</span> <span class="st">&quot;data/ocean_data/2021_noaa-ndbc_46013.txt&quot;</span></span>
 <span id="cb26-5"><a href="string-date-processing.html#cb26-5" tabindex="-1"></a>noaa_headers <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">n_max =</span> <span class="dv">2</span>, <span class="at">guess_max =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## Rows: 2 Columns: 18
-## ── Column specification ──────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────
 ## 
 ## chr (18): X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, ...
 ## 
@@ -616,7 +617,7 @@ appear in the second row, so read those rows separately:</p>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="string-date-processing.html#cb28-1" tabindex="-1"></a>noaa <span class="ot">=</span> <span class="fu">read_fwf</span>(noaa_path, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## Rows: 3323 Columns: 18
-## ── Column specification ──────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────
 ## 
 ## chr  (4): X2, X3, X4, X5
 ## dbl (14): X1, X6, X7, X8, X9, X10, X11, X12, X13, X14, X15, X16, X17, X18
@@ -647,7 +648,7 @@ the column units appear in the second row. The <code>read_csv</code> function ha
 names automatically, but you’ll have to remove the unit row as a separate step:</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="string-date-processing.html#cb34-1" tabindex="-1"></a>bml <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ocean_data/2021_ucdavis_bml_wts.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## Rows: 87283 Columns: 4
-## ── Column specification ──────────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (3): time, sea_water_temperature, z
 ## dbl (1): sea_water_temperature_qc_agg
