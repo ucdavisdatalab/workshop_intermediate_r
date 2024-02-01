@@ -332,7 +332,7 @@ You can learn more about the `.Rprofile` file and R's startup process at
 Debugging
 ---------
 
-It can be very frustrating when your computer doesn't do what you expect! **Debugging** code is the process of addressing why your computer is doing something unexpected. Almost anything you do in R will be a process made up of many steps, done in the order that they are written. In general, you should proceed by breaking your workflow into small parts and confirming, step-by-step, that the result is what you expected.
+It can be very frustrating when your computer doesn't do what you expect! **Debugging** code is the process of addressing why your computer is doing something unexpected. Almost anything you do in R will be a process made up of many steps, executed line-by-line in sequential order. In general, you should proceed by breaking your workflow into small parts and confirming, step-by-step, that the result is what you expected.
 
 ### Read Your Errors and Warnings
 Your computer is dumb and it will do exactly what you tell it to do. There are two ways this can cause problems: if you ask the impossible or if your instructions take you to the wrong place. If you tell R to do something impossible, it will generate an error or a warning, which will include a message that tries to tell you what went wrong. Read the messages! Often, it will describe the problem and suggest a solution. 
@@ -342,10 +342,14 @@ Your computer is dumb and it will do exactly what you tell it to do. There are t
 "seven" + 5
 ```
 
+We can't add the word seven to the number five. To make this code work, we have to change `"seven"` to `7`.
+
 ```{r file-not-exist}
 #| error: true
 read.csv("nope")
 ```
+
+The `read.csv()` function is used to import a data file that was saved in comma-separated format. In this case, we have asked `read.csv()` to read a file that doesn't exist. The error message doesn't tell you this exactly, but it does say that R was unable to open a connection to the file. Since the functions built into R are all pretty well tested, it makes sense to doubt the user input before doubting R. In this case, the only input was the file name, so a good first step is to check that the file actually exists.
 
 ### Workflow Debugging
 Notice that I talked about the **workflow**, which is a broader concept than the code because it includes code, data, and how the code is used. Often you'll hit an error simply because you've changed your data since you first loaded it into R. In that case, restarting R and running your code in a clean environment might resolve the error without making any changes. Today we will focus on methods and tools for debugging, which will help you identify the reason that something unexpected happens. These lessons are relevant even if the error is not due to your code.
@@ -356,9 +360,19 @@ The most important step when debugging an error is to locate it. There are two m
 * Work forward through the code from the beginning.
 * Work backward from the source of an error.                                            
 
-Both strategies are valid and powerful. Working backward is probably faster for experienced R users because errors and messages have patterns that you learn to recognize over time. If you recognize the meaning of an error, you may be able to immediately identify its cause. The `traceback()` function is quite helpful for the "work backward" strategy, because it identifies the function where the error actually happened (which may be )
+Both strategies are valid and powerful. Working backward is probably faster for experienced R users because errors and messages have patterns that you learn to recognize over time. If you recognize the meaning of an error, you may be able to immediately identify its cause. The `traceback()` function is quite helpful for the "work backward" strategy, because it identifies the function where the error actually happened (which may be nested deeply within a function called by a line of code within another function.)
  
-To work forward from the beginning 
+To work forward from the beginning may take longer than working backward, but it does have advantages. Often the source of an error comes before the line of code where the error occurs. Here's an example that builds upon an error we just saw a moment ago:
+
+```{r text-addition-error}
+#| error: true
+num1 = "seven"
+num2 = 5
+sum(num1, num2)
+```
+Even though the error occurs when we try to add `num1` and `num2`, the actual source of the error is that `num1 = "seven"` should be `num1 = 7`. When you debug by walking forward, you can stop after each line of code to confirm what has changed.
+
+### Functions for debugging
 
 R has several built-in functions to help with debugging. Here are a few of the most important.
 
@@ -367,8 +381,7 @@ R has several built-in functions to help with debugging. Here are a few of the m
 - `browser()` pauses the running code and starts R's debugging system.
 - `debug()` inserts a call to `browser()` at the beginning of a function, so you can go step-by-step through its operation.
 
-
-For example:
+Here's an example where we create a pair of functions and use `browser()` to start the debugger inside a loop:
 ```{r, eval = FALSE}
 # Run this in an R console.
 g = function(x, y) (1 + x) * y
@@ -456,7 +469,7 @@ bad_fn(3, 4)
 
 
 
-### Debugging Case Study: Boottrapping Average Penguin Mass
+### Debugging Case Study: Bootstrapping Average Penguin Mass
 Here is a more realistic example to demonstrate how debugging works in a practical code project. In this example, you take the role of a biologist studying penguins in Antarctica. You've captured and measured 344 penguins on three islands near the Palmer Station Long Term Ecological Research site and are doing some analysis with the data. The measurements include flipper length, bill width, sex, and body mass of the penguins. The data are available as the data object `penguins` in [Alison Horst's `palmerpenguins` package](https://allisonhorst.github.io/palmerpenguins/) so let's download and load that package now.
 
 ```{r install-palmer-penguins}
@@ -480,7 +493,7 @@ head(penguins) |>
   kable()
 ```
 
-Now imagine that you are trying to use a script that was written by a previous member of your lab. Let's copy it from its home on the web, [here](github.com/ucdavisdatalab/workshop_intermediate_r/) to a new blank script on our computer(s). The script provides a function that splits the penguins into groups according to some grouping factors like species and sex, then plots the uncertainty in the average penguin mass per group. The plot is show below for mass by species.
+Now imagine that you are trying to use a script that was written by a previous member of your lab. Let's copy it from its home on the web, [here](https://raw.githubusercontent.com/ucdavisdatalab/workshop_intermediate_r/main/code/debug_case_study.R) to a new blank script on our computer(s). The script provides a function that splits the penguins into groups according to some grouping factors like species and sex, then plots the uncertainty in the average penguin mass per group. The plot is shown below for mass by species.
 
 ```{r load-case-study}
 #| echo: false
@@ -513,8 +526,12 @@ But when you group the penguins by species and island, the code generates an err
 make_bootstrap_plots(penguins, "species", "island")
 ```
 
+#### Fixing The Bug
 
-#### Isolating The Bug
+As usual, our process is to isolate the bug, then identify its cause, and then to fix it. There are a lot of ways to do this, but they al begin with carefully reading the error message! In this case, we see that is `Error in indx[[i]] <- sample(1:N, size = 1): attempt to select less than one element in integerOneIndex`. The message gives us an explanation of the error and tells us what code generated the error. In this case there was an attempt to select less than one element from something while taking a random sample from the numbers from 1 to N.
+
+There are many ways to isolate the location of the error. The `traceback()` function will work, or you could pepper the code with `print()` statements, or use the debugger to walk through the code until you hit the error. I'm going to include the `traceback()` function here, but you should try the other methods as an exercise.
+
 
 ```{r}
 #| eval: false
@@ -531,6 +548,164 @@ tb = '4: resample(group$body_mass_g, B = B) at debug_case_study.R#50
 
 cat(tb)
 ```
+
+The error is generated in the `resample()` function, which is one of the functions in the script you downloaded. You can identify which line of that code matches the code reported in the error message, which tells us that the error is generated on line 13 of `debug_case_study.R`.
+
+Remember tha the location of an error and the cause of the error are not always the same thing. To try and understand the cause of the error, let's start the debugger by putting a `browser()` call just before line 13, like this:
+
+```{r resample-with-browser}
+#| eval: false
+resample = function(data, B) {
+  N = length(data)
+  result = numeric(B)
+  
+  # repeat this whole process B times
+  for (b in 1:B) {
+    
+    # make an object to hold the resampled indices
+    indx = integer(N)
+    
+    # resample one data point at a time
+    for (i in 1:N) {
+      browser()
+      indx[[i]] = sample(1:N, size=1)
+    }
+    
+    # calculate the mean of this resampled data
+    result[[b]] = mean(data[indx])
+  }
+  
+  # return all of the mean resamples
+  result
+}
+```
+
+Now when you run `make_bootstrap_plots(penguins, "species", "island")`, the debugger will start at the location where the error happens. Use RStudio's Environment pane to examine the values of variables, and then use the debugger controls to step forward and see how things update. Why aren't we seeing an error right away? It is probably because there are loops that run the same lines of code over and over again. Apparently the error only happens on certain passes through the loops.
+
+Now we know that the bug has to be isolated not only on its line, but also in its time through the loop. Let's replace the call to `browser()` with a `print()` statement to identify what pass through the loops causes the error:
+
+```{r resample-with-prints}
+#| eval: false
+resample = function(data, B) {
+  N = length(data)
+  result = numeric(B)
+  
+  # repeat this whole process B times
+  for (b in 1:B) {
+    
+    # make an object to hold the resampled indices
+    indx = integer(N)
+    
+    # resample one data point at a time
+    for (i in 1:N) {
+      print( paste("i=", i, "b=", b))
+      indx[[i]] = sample(1:N, size=1)
+    }
+    
+    # calculate the mean of this resampled data
+    result[[b]] = mean(data[indx])
+  }
+  
+  # return all of the mean resamples
+  result
+}
+```
+
+
+Weirdly, it looks like the first pass through the outer loop (`b=1`) but not the first time we've done the first pass (there were a lot of prints before the error happened). And the error is in the zeroth iteration of the inner loop (`i=0`), which shouldn't be possible with `1:N`. To confirm your suspicion, create a reproducible example that generates the correct error:
+
+```{r case-study-reprex}
+LETTERS[[0L]]
+```
+
+Yep, that's the error: we are trying to set the zeroth item in a vector. But why?
+
+Something is funny here, so let's start by understanding how we can have `b=1` after the loop has printed many times. Remember what `traceback()` told us: `resample()` is called from the `bootstrap()` function. Looking where that happens (line 50), we can see that this line is also inside a loop. So we have a new call to `resample()` every time this loop runs, which is how we can be on the first iteration of `resample()` even after a lot of iterations have run. Let's add a new `print()` statement to `boostrap()` just before line 50 to tell us what iteration we are on:
+
+```{r bootstrap-with-print}
+#| eval: false
+bootstrap = function(data, ..., B=1000) {
+  # get the names of grouping factors
+  grouping_factors = sapply(list(...), unlist)
+  
+  # identify all possible combinations of grouping factors
+  grouping_levels =
+    sapply(grouping_factors,
+           function(grp) unique(data[[grp]]) |> as.character(),
+           simplify = FALSE) |>
+    setNames(grouping_factors)
+  
+  # cross the grouping levels to get all combinations
+  groups = split(data, data[,grouping_factors])
+  
+  # create an empty data.frame to hold the results
+  col_names = names(groups)
+  result = replicate(length(groups), numeric(B), simplify=FALSE) |>
+    as.data.frame(col.names = col_names)
+  
+  # bootstrap the mean of mass for each group
+  for (i in 1:length(groups)) {
+    
+    browser()
+    
+    # get the subset of data that is relevant to this group
+    group = groups[[i]]
+    
+    # calculate the mean of a bunch of bootstrap resamples
+    result[[i]] = resample(group$body_mass_g, B=B)
+  }
+
+  # return the result
+  result
+}
+```
+
+It looks like the error happens with the second group. Let's change that `print` statement into a call to `browser()` so we can look at the second group.
+
+```{r group-2}
+#| echo: false
+grp2 = "Browse[1]> groups[[2]]
+# A tibble: 0 × 8
+# ℹ 8 variables: species <fct>, island <fct>, bill_length_mm <dbl>, bill_depth_mm <dbl>,
+#   flipper_length_mm <int>, body_mass_g <int>, sex <fct>, year <int>"
+
+cat(grp2)
+```
+
+Ahhh, the second group is empty: it has no rows! There were simply no penguns in the data for some combinations of species and island! That's why `1:N` gives us zero and we end up trying to assign the zeroth entry of `indx`.
+
+Now we've isolated the problem and identified its cause. How would you solve it? (Hint: there are *many* solutions to this bug.) My solution would be to not try to resample the penguin masses of an empty group. Trying to loop over something like `1:N` happens a lot, and this is far from the first time that I've hit an error because `N=0`. A better way to define the limits of an interation counter is by `seq_len(N)`. Let's swap that in for `1:N` on line 12 of `debug_case_study.R` and then re-run the problmatic line of code.
+
+```{r fixed-resample}
+#| message: false
+#| warning: false
+resample = function(data, B) {
+  N = length(data)
+  result = numeric(B)
+  
+  # repeat this whole process B times
+  for (b in 1:B) {
+    
+    # make an object to hold the resampled indices
+    indx = integer(N)
+    
+    # resample one data point at a time
+    for (i in seq_len(N)) {
+      indx[[i]] = sample(1:N, size=1)
+    }
+    
+    # calculate the mean of this resampled data
+    result[[b]] = mean(data[indx])
+  }
+  
+  # return all of the mean resamples
+  result
+}
+
+make_bootstrap_plots(penguins, "species", "island")
+```
+
+Here you can see that the unobserved species/island combinations have been simply left empty and we no longer have an error. Yay!
 
 Measuring Performance
 ---------------------
