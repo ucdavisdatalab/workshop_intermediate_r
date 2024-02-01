@@ -530,7 +530,7 @@ make_bootstrap_plots(penguins, "species", "island")
 
 As usual, our process is to isolate the bug, then identify its cause, and then to fix it. There are a lot of ways to do this, but they al begin with carefully reading the error message! In this case, we see that is `Error in indx[[i]] <- sample(1:N, size = 1): attempt to select less than one element in integerOneIndex`. The message gives us an explanation of the error and tells us what code generated the error. In this case there was an attempt to select less than one element from something while taking a random sample from the numbers from 1 to N.
 
-There are many ways to isolate the location of the error. The `traceback()` function will work, or you could pepper the code with `print()` statements, or use the debugger to walk through the code until you hit the error. I'm going to include the `traceback()` function here, but you should try the other methods as an exercise.
+There are many ways to isolate the location of the error. The `traceback()` function will work, or you could pepper the code with `print()` statements, or use the debugger to walk through the code until you hit the error. I'm going to include the `traceback()` function here, but we will also use the other methods in our exercise.
 
 
 ```{r}
@@ -582,9 +582,9 @@ resample = function(data, B) {
 
 Now when you run `make_bootstrap_plots(penguins, "species", "island")`, the debugger will start at the location where the error happens. Use RStudio's Environment pane to examine the values of variables, and then use the debugger controls to step forward and see how things update. Why aren't we seeing an error right away? It is probably because there are loops that run the same lines of code over and over again. Apparently the error only happens on certain passes through the loops.
 
-Now we know that the bug has to be isolated not only on its line, but also in its time through the loop. Let's replace the call to `browser()` with a `print()` statement to identify what pass through the loops causes the error:
+Now we know that the bug has to be isolated not only on its line, but also in its time through the loop. Let's replace the call to `browser()` with a `message()` to identify what pass through the loops causes the error:
 
-```{r resample-with-prints}
+```{r resample-with-messages}
 #| eval: false
 resample = function(data, B) {
   N = length(data)
@@ -598,7 +598,7 @@ resample = function(data, B) {
     
     # resample one data point at a time
     for (i in 1:N) {
-      print( paste("i=", i, "b=", b))
+      message("i=", i, " b=", b)
       indx[[i]] = sample(1:N, size=1)
     }
     
@@ -612,7 +612,7 @@ resample = function(data, B) {
 ```
 
 
-Weirdly, it looks like the first pass through the outer loop (`b=1`) but not the first time we've done the first pass (there were a lot of prints before the error happened). And the error is in the zeroth iteration of the inner loop (`i=0`), which shouldn't be possible with `1:N`. To confirm your suspicion, create a reproducible example that generates the correct error:
+Weirdly, it looks like the first pass through the outer loop (`b=1`) but not the first time we've done the first pass (there were a lot of messages before the error happened). And the error is in the zeroth iteration of the inner loop (`i=0`), which shouldn't be possible with `1:N`. To confirm your suspicion, create a reproducible example that generates the correct error:
 
 ```{r case-study-reprex}
 #| error: true
@@ -621,9 +621,9 @@ LETTERS[[0L]]
 
 Yep, that's the error: we are trying to set the zeroth item in a vector. But why?
 
-Something is funny here, so let's start by understanding how we can have `b=1` after the loop has printed many times. Remember what `traceback()` told us: `resample()` is called from the `bootstrap()` function. Looking where that happens (line 50), we can see that this line is also inside a loop. So we have a new call to `resample()` every time this loop runs, which is how we can be on the first iteration of `resample()` even after a lot of iterations have run. Let's add a new `print()` statement to `boostrap()` just before line 50 to tell us what iteration we are on:
+Something is funny here, so let's start by understanding how we can have `b=1` after the loop has printed many times. Remember what `traceback()` told us: `resample()` is called from the `bootstrap()` function. Looking where that happens (line 50), we can see that this line is also inside a loop. So we have a new call to `resample()` every time this loop runs, which is how we can be on the first iteration of `resample()` even after a lot of iterations have run. Let's add a new `message()` statement to `bootstrap()` just before line 50 to tell us what iteration we are on:
 
-```{r bootstrap-with-print}
+```{r bootstrap-with-message}
 #| eval: false
 bootstrap = function(data, ..., B=1000) {
   # get the names of grouping factors
@@ -647,7 +647,7 @@ bootstrap = function(data, ..., B=1000) {
   # bootstrap the mean of mass for each group
   for (i in 1:length(groups)) {
     
-    browser()
+    message("group=", i)
     
     # get the subset of data that is relevant to this group
     group = groups[[i]]
@@ -661,7 +661,7 @@ bootstrap = function(data, ..., B=1000) {
 }
 ```
 
-It looks like the error happens with the second group. Let's change that `print` statement into a call to `browser()` so we can look at the second group.
+It looks like the error happens with the second group. Let's change that `message()` into a call to `browser()` so we can look at the second group.
 
 ```{r group-2}
 #| echo: false
