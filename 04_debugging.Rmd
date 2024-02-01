@@ -551,7 +551,7 @@ cat(tb)
 
 The error is generated in the `resample()` function, which is one of the functions in the script you downloaded. You can identify which line of that code matches the code reported in the error message, which tells us that the error is generated on line 13 of `debug_case_study.R`.
 
-Remember tha the location of an error and the cause of the error are not always the same thing. To try and understand the cause of the error, let's start the debugger by putting a `browser()` call just before line 13, like this:
+Remember that the location of an error and the cause of the error are not always the same thing. To try and understand the cause of the error, let's start the debugger by putting a `browser()` call just before line 13, like this:
 
 ```{r resample-with-browser}
 #| eval: false
