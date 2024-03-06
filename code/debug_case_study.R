@@ -70,16 +70,17 @@ make_bootstrap_plots = function(data, ..., B=1000) {
   # make a boxplot of the group means
   ggplot(my_resamples) +
     aes(x=ind, y=values) +
-    geom_boxplot() +
+    
     xlab(my_label) +
     ylab("Average penguin mass (grams)") +
     ggtitle("Value and uncertainty of average penguin mass",
-            subtitle="Red dots are measured penguin masses") + 
+            subtitle="Red dots are measured penguin masses.\nBlack boxplots indicate estimates of the mean.") + 
     # theme(axis.text.x = element_text(angle = 70, vjust = 0.5, hjust = 0.4)) +
     geom_point(
       data=data,
       mapping=aes(x=interaction(my_grouping_factors), y=body_mass_g),
-      alpha=0.2,
+      alpha=0.15,
       color='red',
-      shape=16)
+      shape=16) +
+    geom_boxplot()
 }
