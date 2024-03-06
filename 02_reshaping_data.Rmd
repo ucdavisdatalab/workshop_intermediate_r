@@ -297,8 +297,8 @@ you'll reshape and clean the dataset to prepare it for analysis.
 [smart]: http://sonomamarintrain.org/
 [smart-riders]: https://www.sonomamarintrain.org/RidershipReports
 
-To get started, download the [December 2022 report it Excel
-format][smart-dec22]. Pay attention to where you save the file---or move it to
+To get started, download the [February 2024 report in Excel
+format][smart-jan24]. Pay attention to where you save the file---or move it to
 a directory just for files related to this case study---so that you can load it
 into R. If you want, you can use R's `download.file` function to download the
 file rather than your browser.
@@ -306,7 +306,7 @@ file rather than your browser.
 The [readxl][] package provides functions to read data from Excel files.
 Install the package if you don't already have it installed, and then load it:
 
-[smart-dec22]: https://www.sonomamarintrain.org/sites/default/files/Ridership%20Reports/SMART%20Ridership%20Web%20Posting_Dec.22.xlsx
+[smart-feb24]: https://sonomamarintrain.org/sites/default/files/Documents/SMART%20Ridership%20Web%20Posting_1.24.xlsx
 [readxl]: https://readxl.tidyverse.org/
 
 ```{r load-readxl}
@@ -325,14 +325,14 @@ H16. You can specify a range of cells when you call `read_excel` by setting the
 `range` parameter:
 
 ```{r read-smart-data}
-smart_path = "./data/SMART Ridership Web Posting_Mar.23.xlsx"
-smart = read_excel(smart_path, range = "B4:H16")
+smart_path = "./data/SMART Ridership Web Posting_1.24.xlsx"
+smart = read_excel(smart_path, range = "B4:I16")
 smart
 ```
 
 The loaded dataset needs to be cleaned. The `FY18` column uses a hyphen to
-indicate missing data and has the wrong data type. The dates---months and
-years---are identifiers for observations, so the dataset is also not tidy.
+indicate missing data and has the wrong data type. The identifiers---months and
+years---are split between the row and column names and each row contains data from seven different years, so the dataset is also not tidy. In addition, the years are indicated in fiscal years (FY), which begin in July rather than January, so some of the years need to be adjusted.
 
 You can correct the missing value in the `FY18` column with indexing, and the
 type with the `as.numeric` function:
@@ -350,49 +350,70 @@ the pivot will be easier to understand if you rename the columns as their years
 first. Here's one way to do that:
 
 ```{r}
-names(smart)[-1] = 2018:2023
+names(smart)[-1] = 2018:2024
 head(smart)
 ```
 
 Next, use `pivot_longer` to pivot the dataset:
 
 ```{r pivot-smart-data}
-smart = pivot_longer(smart, -Month, values_to = "riders",
+smart_long = pivot_longer(smart, cols = -Month, values_to = "riders",
   names_to = "fiscal_year")
-head(smart)
+head(smart_long)
 ```
 
-Now the dataset is tidy, but it's still not completely clean. To make it easy
-to study time trends, let's combine and convert the `month` and `fiscal_year`
-columns into a calendar date. You can use functions from the lubridate package
-(Section \@ref(the-lubridate-package)) to do this. First paste the year and
-month together and use the `my` function to parse them as dates:
+Now the dataset is tidy, but it's still not completely clean. Our next step is to convert the fiscal years to calendar years. Pivoting the column names into `fiscal_year` has resulted in the years being strings that look like numbers, so we also need to convert `fiscal_year` to numeric.
+
+Our work toward tidying the data is proceeding in several small steps that each improve the data in some small way. This next block of code introduces two tricks that make such a chain of operations easier to write and to read: the `with` function and R's pipe operator `|>`.
+
+The `with` function allows you to be less redundant when you need to refer to the same data.frame several times. The first argument is your data.frame, and the second is a block of R code. Any variable names you use in the code block will be sought in the columns of the data.frame.
+
+The other trick is the pipe operator. It connects two functions, with the output of the one written first becoming the input of the one written second. The built in pipe `|>` was introduced due to the popularity of the older `%>%` pipe provided by the `magrittr` package.
+
+The SMART fiscal year extends from July to the following June and equals the
+calendar year at the end of the period. So for observations from July to
+December, the calendar year is the fiscal year minus 1. There are many ways to calculate a new column from the existing columns — we will use the `ifelse` function to set a column's values conditional on some other columns.
+
+Our calculation is to subtract one from the fiscal year if the month is seven or less so we have to convert the months to numbers from text abbreviations. Let's use our old friend the `fast_strptime` function from the `lubridate` package (Section \@ref(the-lubridate-package)).
 
 ```{r}
 library(lubridate)
 
-dates = my(paste(smart$Month, smart$fiscal_year))
-dates
+#convert the fiscal_year column to numeric
+smart_long$fiscal_year = as.numeric(smart_long$fiscal_year)
+
+# create a month_number column from the abbreviated month names
+smart_long$month_number = 
+  fast_strptime(smart_long$Month, "%m") |>
+  month()
+
+# convert fiscal_year to calendar year
+smart_long$cal_year =
+  with(smart_long,
+    ifelse(month_number >= 7, fiscal_year - 1, fiscal_year)
+  )
+
+head(smart_long)
 ```
 
-The SMART fiscal year extends from July to the following June and equals the
-calendar year at the end of the period. So for observations from July to
-December, the calendar year is the fiscal year minus 1. You can use indexing to
-make this adjustment efficiently, and then append the dates to the data frame:
+We want to make a plot of ridership over time. To do so, time needs to be a single column that can be mapped to the horizontal axis of our plot, but right now time is split between `cal_year` and `month_number`. Let's combine and convert the `month` and `cal_year`
+columns into a calendar date with the `make_date` function from `lubridate`. Then we'll arrange the rows by date, which is more sensible than the current arrangement where all the rows for Julys are followed by all the rows for Augusts, and so on.
 
 ```{r}
-jul2dec = month(dates) >= 7
-dates[jul2dec] = dates[jul2dec] - period(1, "year")
-smart$date = dates
-head(smart)
+smart_long$date =
+  with(smart_long, make_date(year=cal_year, month=month_number))
+
+smart_long = smart_long[order(smart_long$date),]
+
+head(smart_long, n=14)
 ```
 
 As a final adjustment, you can use the `tolower` function to convert the column
 names to lowercase, so that they're easier to use during analysis:
 
 ```{r}
-names(smart) = tolower(names(smart))
-smart
+names(smart_long) = tolower(names(smart_long))
+head(smart_long)
 ```
 
 Now that the dataset is tidied and cleaned, it's straightforward to do things
@@ -401,7 +422,7 @@ like plot it as a time series:
 ```{r smart-plot}
 library("ggplot2")
 
-ggplot(smart) + aes(x = date, y = riders) + geom_line() +
+ggplot(smart_long) + aes(x = date, y = riders) + geom_line() +
   expand_limits(y = 0)
 ```
 
