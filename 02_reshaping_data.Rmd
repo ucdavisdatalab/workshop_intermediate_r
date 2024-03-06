@@ -623,11 +623,9 @@ to use as the key. Thus:
 #| message: false
 # load dplyr package
 library(dplyr)
-library(knitr)
 
 # Left join
-left_join(students, grades, by = "student_id")#
-# |> kable()
+left_join(students, grades, by = "student_id")
 ```
 
 Note that the keys do not match up perfectly between the tables: the `grades`
@@ -658,8 +656,6 @@ grades = data.frame(
 
 # Left join
 left_join(students, grades, by = join_by(student_id == sid))
-
-#|> kable()
 ```
 
 Both of the tables had five rows, but the result has six rows because
@@ -715,8 +711,7 @@ grades = data.frame(
   grade = c(90, 85, 80, 75, 60))
 
 # Inner join
-inner_join(students, grades, by = "student_id") #|>
-  # kable()
+inner_join(students, grades, by = "student_id")
 ```
 
 Notice that the result has one row for every time the keys match, but does not include rows from either table where the keys don't match. This is different from the left join, which retained the row for Angel from the left (`students`) table in the result even though it had no match in the right (`grades`) table.
@@ -737,8 +732,7 @@ grades = data.frame(
   grade = c(90, 85, 80, 75))
 
 # Left join
-left_join(students, grades, by = join_by(student_id==sid)) #|>
-  # kable()
+left_join(students, grades, by = join_by(student_id==sid)) 
 ```
 
 Since the key column names don't match, I have provided a `join_by`
@@ -750,7 +744,9 @@ that means the join will try to match `students$student_id` to `grades$sid`.
 
 #### Matching multiple columns
 
-Sometimes it takes more than one key to uniquely identify a row of data. For example, suppose some of our students are retaking the class in 2023 because they got a failing grade in 2022. Then we would need to combine the student ID with the year to uniquely identify a student's grade. You can include multiple comparisons in a `join_by` specification by separating them with commas. In the following example, student ID still has different names between the tables but the year column has the same name in both tables.
+Sometimes it takes more than one key to uniquely identify a row of data. For example, suppose some of our students are retaking the class in 2023 after already taking it in 2022. Then we would need to combine the student ID with the year to uniquely identify a student's grade. You can include multiple comparisons in a `join_by` specification by separating them with commas. In the following example, student ID still has different names between the tables but the year column has the same name in both tables.
+
+In order to construct the new `grades` data frame, we make use of a new function from the `dplyr` package. The `mutate` function allows you to calculate columns from the existing columns of a data frame without having to write `grades$` in front of each column. It is better for us here than the `with` function we saw earlier because we can use `mutate` to generate multiple columns at the same time. We also introduce `rbind`, which creates a new data frame by combining the rows of two (or more) data frames.
 
 ```{r two-key-cols}
 # Example datasets
@@ -771,14 +767,13 @@ grades = data.frame(
   )
 
 # duplicate the grades table for two years
-grades = bind_rows(
-  mutate(grades, grade = grade - 50, year = 2022),
+grades = rbind(
+  mutate(grades, year = 2022, grade = grade - 50),
   mutate(grades, year = 2023)
 )
 
 # Left join
-left_join(students, grades, by = join_by(student_id==sid, year)) #|>
-  # kable()
+left_join(students, grades, by = join_by(student_id==sid, year))
 ```
 
 
@@ -845,7 +840,11 @@ anti_result = anti_join(employees, salaries, by = "emp_id")
 
 We've seen enough of the made-up grades example! Let's look at some real data and practice our skills!
 
-Let's begin by looking at the data on books, borrowers, and checkouts.
+Let's begin by looking at the data on books, borrowers, and checkouts. Download the three tables (in CSV format) via these links. Make sure you keep track of their location so tat you can import them from the location where you downloaded them.
+
+1. [Books table](https://raw.githubusercontent.com/ucdavisdatalab/workshop_intermediate_r/main/data/library/books.csv)
+2. [Borrowers table](https://raw.githubusercontent.com/ucdavisdatalab/workshop_intermediate_r/main/data/library/borrowers.csv)
+3. [Checkouts table](https://raw.githubusercontent.com/ucdavisdatalab/workshop_intermediate_r/main/data/library/checkouts.csv)
 
 ```{r import-data}
 #| warning: false
@@ -858,18 +857,15 @@ books = read_csv("data/library/books.csv")
 checkouts = read_csv("data/library/checkouts.csv")
 
 # show the top rows
-print(head(books))
-print(head(borrowers))
-print(head(checkouts))
+head(books)
+head(borrowers)
+head(checkouts)
 
 # get the table sizes
-print(dim(books))
-print(dim(borrowers))
-print(dim(checkouts))
+dim(books)
+dim(borrowers)
+dim(checkouts)
 ```
-
-One thing we can see is that the `books` table refers to physical copies of a book, so if the library owns two copies of the same book then the same title, publisher, etc. will appear on the same row.
-
 
 Suppose we want to know which books were checked out most often, or were generally checked out by the same people. The `books` table has a key column called `book_id` and the `borrowers` table has a primary key called `borrower_id`. The `checkouts` has two ID columns: `book_id` and `borrower_id`. These match the borrower and book IDs in the `borrowers` and `books` tables. Obviously, these aren't unique: one person may check out multiple books, and a book can be checked out on more than one occasion.
 
@@ -877,14 +873,15 @@ Now we can begin to reason about how to approach the goal of identifying the boo
 
 Since we want to preserve the rows of `checkouts`, we will do a left join, with `checkouts` as the left table. What to use as the right table depends on what information we want to join to the checkouts. Let's begin by joining `checkouts` to `books` and identifying which books were checked out most often.
 
+We are once again going to chain multiple data-processing steps together with the pipe (`|>`). We also introduce a few new functions from `dplyr`: `group_by` forms row groups based on the values of some column(s); `summarize` calculates a single-row summary that replaces all the rows in a group; `n` counts the rows in a group; and finally `arrange` puts the rows in order according to the values in some column(s).
+
 ```{r most-checked-out-books}
 # Top ten books with most checkouts
 left_join(checkouts, books, by="book_id") |>
   group_by(book_id) |>
   summarize(title=first(title), author=first(author), n_checkouts=n()) |>
   arrange(desc(n_checkouts)) |>
-  head(n=10) #|>
-  # kable()
+  head(n=10) 
 ```
 
 Just for fun, here is an instructive example of why relational tables are a better way to store data than putting everything into one spreadsheet. If we want to identify the authors whose books were most checked out from the UCD library, we might think to adapt our previous example to group by author rather than by book_id.
@@ -894,8 +891,7 @@ inner_join(checkouts, books, by="book_id") |>
   group_by(author) |>
   summarize(author=first(author), n_checkouts = n()) |>
   arrange(desc(n_checkouts)) |>
-  head(n=10) #|>
-  # kable()
+  head(n=10)
 ```
 
 The problem is that the `author` column is a text field for author name(s), which is not a one-to-one match to a person. There are a lot of reasons: some books have multiple authors, some authors change their names, the order of personal name and family name may be reversed, and middle initials are sometimes included, sometimes not. A table of authors would allow you to refer to authors by a unique identifier and have it always point to the same name ([this is what ORCID does for scientific publishing](https://orcid.org)).
@@ -914,15 +910,14 @@ left_join(checkouts, books, by="book_id") |>
   left_join(borrowers, by="borrower_id") |>
   group_by(borrower_id) |>
   summarize(account_type=first(user_group), n_checkouts = n()) |>
-  arrange(desc(n_checkouts)) #|>
-  #kable()
+  arrange(desc(n_checkouts))
 ```
 
 This works because the result of the first join is still a table where each row is one checkout. Keeping this as the left table, we then join the table `borrowers` so the result is a table where each row is one checkout, with information about both the book and the borrower. Then we can summarize the data by how many books were checked out by each type of library user.
 
 ### Be Explicit
 
-Do you find it odd that we have to tell R exactly what kind of data join to do by calling one of `left_join`, `right_join`, `inner_join`, or `full_join`? Why isn't there just one function called `join` that assumes you're doing a left join unless you specifically provide an argument `type` like `join(..., type="inner")`? If you think it would be confusing for R to make assumptions about what kind of data join we want, then you're on the right track but you'll want to watch out for these other cases where R has strong assumptions about what the default behavior should be.
+Do you find it odd that we have to tell R exactly what kind of data join to do by calling one of `left_join`, `right_join`, `inner_join`, or `full_join`? Why isn't there just one function called `join` that assumes you're doing a left join unless you specifically tell it otherwise like `join(..., type="inner")`? If you think it would be confusing for R to make assumptions about what kind of data join we want, then you're on the right track! Watch out for these other cases where R **does** make strong assumptions about what the default behavior should be.
 
 A general principle of programming is that explicit is better than implicit because writing information into your code explicitly makes it easier to understand what the code does. Here are some examples of implicit assumptions R will make unless you provide explicit instructions.
 
@@ -942,11 +937,10 @@ grades = data.frame(student_id = c(2, 2, 3, 4, 4, 5),
                         grade = c(90, 50, 85, 80, 75, 30))
 
 # Left join
-left_join(students, grades, by = "student_id") #|>
-  # kable()
+left_join(students, grades, by = "student_id") 
 ```
 
-We get one row in the result for every possible combination of the matching keys. Sometimes that is what you want, and other times not. In this case, it might be reasonable that Beto, Desmond, and Erik have multiple grades in the book, but it is probably not reasonable that both Desmond and Erik have student ID 4 and have the same grades as each other. This is a many-to-many match, with all the risks we've mentioned before.
+We get one row in the result for every possible combination of the matching keys! Sometimes that is what you want, and other times not. In this case, it might be reasonable that Beto, Desmond, and Erik have multiple grades in the book, but it is probably not reasonable that both Desmond and Erik have student ID 4 and have the same grades as each other. This is a many-to-many match, with all the risks we've mentioned before.
 
 ##### Specifying the Expected Relationship
 
@@ -969,8 +963,7 @@ grades = data.frame(student_id = c(2, 2, 3, 4, 4, 5),
 
 # Left join
 distinct_keys_result = students |> distinct(student_id, .keep_all=TRUE) |>
-  left_join(grades, by = "student_id") #|>
-  # kable()
+  left_join(grades, by = "student_id") 
 ```
 
 
@@ -987,8 +980,7 @@ checkouts$date = checkouts$loan_date
 # Now create the list of checkouts
 left_join(checkouts, books, by="book_id") |>
   left_join(borrowers, by="borrower_id") |>
-  head(n=10) #|>
-  # kable()
+  head(n=10) 
 ```
 
 If you aren't satisfied with appending `.x` and `.y` to the ambiguous columns, then you can specify the `suffix` argument with a pair of strings like this:
@@ -996,8 +988,7 @@ If you aren't satisfied with appending `.x` and `.y` to the ambiguous columns, t
 ```{r ambiguous-date-custom-suffix}
 # Now create the list of checkouts
 left_join(checkouts, books, by="book_id", suffix=c("_checkout", "_book")) |>
-  head(n=10) #|>
-  # kable()
+  head(n=10) 
 ```
 
 By specifying the `suffix` argument, we get column names in the result with more meaningful names.
@@ -1016,11 +1007,9 @@ grades = data.frame(student_id = c(2, NA, 4, 5),
                         grade = c(90, 85, 80, 75))
 
 # Left joins
-left_join(students, grades, by = "student_id") #|>
-  # kable()
+left_join(students, grades, by = "student_id")
 
-left_join(students, grades, by = "student_id", na_matches = "never") #|>
-  # kable()
+left_join(students, grades, by = "student_id", na_matches = "never") 
 ```
 
 Notice that since Beto's student ID is `NA`, none of the rows in the `grades` table can match him. As a result, his grade is left `NA` in the result.
