@@ -768,7 +768,7 @@ Each time we teach this case study, the result is slightly different, so we
 don't provide a write-up in this chapter. Instead, here are some of the scripts
 from past workshops:
 
-* [2026-02-05](https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/R/2026-02-05_clean-bart.R)
+* [2026-02-05](https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/R/bart/2026-02-05.R)
 :::
 
 <!--
