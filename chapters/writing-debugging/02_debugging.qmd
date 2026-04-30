@@ -858,11 +858,11 @@ The call stack shows the history of calls leading up to the error, from
 innermost (4) to outermost (1). The error is raised in the `resample` function,
 which is one of the functions defined by the script. You can inspect the script
 to find the line in the body of the `resample` function that matches the
-expression mentioned in the error message. It's line 13 in the script.
+expression mentioned in the error message. It's line 16 in the script.
 
 Remember that the location of an error and the cause of an error are not always
 the same thing. To try and understand the cause, let's start the debugger by
-putting a `browser` call just before line 13, like this:
+putting a `browser` call just before line 16, like this:
 
 ```{r resample-with-browser}
 #| eval: false
@@ -963,7 +963,7 @@ printed before `i=0`. The value of `i` should never be `0`, since the inner
 loop iterates over `1:N`.
 
 Is `i` set to `0` causing the error? We can check by using `0` to index a
-vector with `[[`, as in the original line 13:
+vector with `[[`, as in the original line 16:
 
 ```{r case-study-reprex}
 #| error: true
@@ -974,14 +974,14 @@ That's the same error message, so `i` set to `0` probably is the source of the
 problem! But why is `i` getting set to `0`?
 
 Remember what `traceback` told us: `resample` is called from the `bootstrap`
-function. Looking where that happens (line 50), we can see that this line is
+function. Looking where that happens (line 53), we can see that this line is
 also inside of a loop. So we have a new call to `resample` in every iteration
 of the loop. That explains why there was so much output after we added the call
 to `message` to the `resample` function.
 
 We need to figure out which iteration of the loop in the `boostrap` function is
 causing a problem. So let's reuse the same strategy: we'll add a call to
-`message` to the loop in `bootstrap`, somewhere before line 50, to print out
+`message` to the loop in `bootstrap`, somewhere before line 53, to print out
 details about the current iteration:
 
 ```{r bootstrap-with-message}
@@ -1061,7 +1061,7 @@ One solution is to avoid resampling empty groups. To achieve this, we need to
 replace `1:N`, which returns the vector `c(1, 0)` when `N` is `0` (a common
 source of bugs!), with something else. Specifically, we'll use `seq_len(N)`,
 which returns an empty vector (with no elements) when `N` is `0`. Let's swap
-that in for `1:N` on line 12 of `debug_case_study.R`:
+that in for `1:N` on line 15 of `debug_case_study.R`:
 
 ```{r fixed-resample}
 resample = function(data, B) {
