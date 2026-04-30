@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Reader for the Intermediate R workshop series.">
+
+<title>5&nbsp; Next-level Data Visualization – Intermediate R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/writing-debugging/01_writing-r-scripts.html" rel="next">
+<link href="../../chapters/cleaning-reshaping/04_combining-data.html" rel="prev">
+<link href="../..//images/logos/datalab-logo_square_150x150.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-19b5e973626355a97465437b783fde54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+.callout.callout-style-default .callout-body {
+  padding: 0 1.5rem 0;
+}
+.cell-output-stdout {
+  overflow-y: scroll;
+  max-height: 30rem;
+  margin-bottom: 0.75rem;
+}
+#quarto-sidebar a.text-start {
+  font-variant: small-caps;
+}
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="5&nbsp; Next-level Data Visualization – Intermediate R">
+<meta property="og:description" content="Reader for the Intermediate R workshop series.">
+<meta property="og:image" content="https://ucdavisdatalab.github.io/workshop_intermediate_r/images/lter_penguins.png">
+<meta property="og:site_name" content="Intermediate R">
+<meta property="og:image:height" content="1074">
+<meta property="og:image:width" content="1800">
+<meta name="twitter:title" content="5&nbsp; Next-level Data Visualization – Intermediate R">
+<meta name="twitter:description" content="Reader for the Intermediate R workshop series.">
+<meta name="twitter:image" content="https://ucdavisdatalab.github.io/workshop_intermediate_r/images/lter_penguins.png">
+<meta name="twitter:image-height" content="1074">
+<meta name="twitter:image-width" content="1800">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/visualizing-analyzing/01_visualization.html">Visualizing &amp; Analyzing Data</a></li><li class="breadcrumb-item"><a href="../../chapters/visualizing-analyzing/01_visualization.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Next-level Data Visualization</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://datalab.ucdavis.edu/" class="sidebar-logo-link">
+      <img src="../../images/logos/datalab-logo-full-color-rgb.png" alt="The logo of the UC Davis DataLab." class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/logos/datalab-logo-full-color-rgb.png" alt="The logo of the UC Davis DataLab." class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Intermediate R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ucdavisdatalab/workshop_intermediate_r" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cleaning &amp; Reshaping Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/01_dates-times.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Dates &amp; Times</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/02_strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/03_reshaping-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reshaping Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/04_combining-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Combining Data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualizing &amp; Analyzing Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/visualizing-analyzing/01_visualization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Next-level Data Visualization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Writing &amp; Debugging Code</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/writing-debugging/01_writing-r-scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Best Practices for Writing R Scripts</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/writing-debugging/02_debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Squashing Bugs with R’s Debugging Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/appendices/thinking-in-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Thinking in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/appendices/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/appendices/assessment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Assessment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-visualization-in-r" id="toc-data-visualization-in-r" class="nav-link active" data-scroll-target="#data-visualization-in-r"><span class="header-section-number">5.1</span> Data Visualization in R</a>
+  <ul class="collapse">
+  <li><a href="#the-grammar-of-graphics" id="toc-the-grammar-of-graphics" class="nav-link" data-scroll-target="#the-grammar-of-graphics"><span class="header-section-number">5.1.1</span> The Grammar of Graphics</a></li>
+  </ul></li>
+  <li><a href="#sec-example-palmer-penguins-part-1" id="toc-sec-example-palmer-penguins-part-1" class="nav-link" data-scroll-target="#sec-example-palmer-penguins-part-1"><span class="header-section-number">5.2</span> Example: Palmer Penguins, Part 1</a>
+  <ul class="collapse">
+  <li><a href="#layer-1-data" id="toc-layer-1-data" class="nav-link" data-scroll-target="#layer-1-data"><span class="header-section-number">5.2.1</span> Layer 1: Data</a></li>
+  <li><a href="#sec-layer-2-geometry" id="toc-sec-layer-2-geometry" class="nav-link" data-scroll-target="#sec-layer-2-geometry"><span class="header-section-number">5.2.2</span> Layer 2: Geometry</a></li>
+  <li><a href="#layer-3-aesthetics" id="toc-layer-3-aesthetics" class="nav-link" data-scroll-target="#layer-3-aesthetics"><span class="header-section-number">5.2.3</span> Layer 3: Aesthetics</a></li>
+  </ul></li>
+  <li><a href="#sec-example-palmer-penguins-part-2" id="toc-sec-example-palmer-penguins-part-2" class="nav-link" data-scroll-target="#sec-example-palmer-penguins-part-2"><span class="header-section-number">5.3</span> Example: Palmer Penguins, Part 2</a>
+  <ul class="collapse">
+  <li><a href="#adding-regression-lines-geometry" id="toc-adding-regression-lines-geometry" class="nav-link" data-scroll-target="#adding-regression-lines-geometry"><span class="header-section-number">5.3.1</span> Adding Regression Lines (Geometry)</a></li>
+  <li><a href="#changing-the-foreground-colors-scale" id="toc-changing-the-foreground-colors-scale" class="nav-link" data-scroll-target="#changing-the-foreground-colors-scale"><span class="header-section-number">5.3.2</span> Changing the Foreground Colors (Scale)</a></li>
+  <li><a href="#changing-the-background-color-theme" id="toc-changing-the-background-color-theme" class="nav-link" data-scroll-target="#changing-the-background-color-theme"><span class="header-section-number">5.3.3</span> Changing the Background Color (Theme)</a></li>
+  <li><a href="#moving-the-legend-theme" id="toc-moving-the-legend-theme" class="nav-link" data-scroll-target="#moving-the-legend-theme"><span class="header-section-number">5.3.4</span> Moving the Legend (Theme)</a></li>
+  <li><a href="#adding-labels-scale" id="toc-adding-labels-scale" class="nav-link" data-scroll-target="#adding-labels-scale"><span class="header-section-number">5.3.5</span> Adding Labels (Scale)</a></li>
+  </ul></li>
+  <li><a href="#visualization-best-practices" id="toc-visualization-best-practices" class="nav-link" data-scroll-target="#visualization-best-practices"><span class="header-section-number">5.4</span> Visualization Best Practices</a></li>
+  <li><a href="#sec-plotting-categorical-distribution" id="toc-sec-plotting-categorical-distribution" class="nav-link" data-scroll-target="#sec-plotting-categorical-distribution"><span class="header-section-number">5.5</span> Case Study: Plotting a Categorical Distribution</a></li>
+  <li><a href="#sec-plotting-continuous-distribution" id="toc-sec-plotting-continuous-distribution" class="nav-link" data-scroll-target="#sec-plotting-continuous-distribution"><span class="header-section-number">5.6</span> Case Study: Plotting a Continuous Distribution</a></li>
+  <li><a href="#case-study-plotting-a-time-series" id="toc-case-study-plotting-a-time-series" class="nav-link" data-scroll-target="#case-study-plotting-a-time-series"><span class="header-section-number">5.7</span> Case Study: Plotting a Time Series</a></li>
+  <li><a href="#case-study-plotting-a-function" id="toc-case-study-plotting-a-function" class="nav-link" data-scroll-target="#case-study-plotting-a-function"><span class="header-section-number">5.8</span> Case Study: Plotting a Function</a></li>
+  <li><a href="#case-study-error-bars" id="toc-case-study-error-bars" class="nav-link" data-scroll-target="#case-study-error-bars"><span class="header-section-number">5.9</span> Case Study: Error Bars</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/chapters/visualizing-analyzing/01_visualization.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/visualizing-analyzing/01_visualization.html">Visualizing &amp; Analyzing Data</a></li><li class="breadcrumb-item"><a href="../../chapters/visualizing-analyzing/01_visualization.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Next-level Data Visualization</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Next-level Data Visualization</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled" title="Learning Goals">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Learning Goals
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>After this lesson, you should be able to:</p>
+<ul>
+<li>Explain what the grammar of graphics is</li>
+<li>Explain ggplot2’s computational model</li>
+<li>Choose appropriate visualizations based on data type(s)</li>
+<li>List the steps to making a well-designed visualization</li>
+<li>Assess what aspects of a visualization need improvement</li>
+<li>Create well-designed data visualizations</li>
+</ul>
+</div>
+</div>
+</div>
+<p>This chapter is about creating and customizing data visualizations in R with the <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package. The first section is an overview of data visalization systems for R. The second and third sections provide a detailed example of how to use ggplot2 to recreate a plot. These serve as a review of (or introduction to) ggplot2’s interfaces and computational model; they explain how to reason about and modify visualizations created with the package. The fourth section outlines the (non-programming) graphic design skills necessary to make high-quality plots. Finally, the remaining sections put all of these ideas into practice through case studies with real data.</p>
+<section id="data-visualization-in-r" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="data-visualization-in-r"><span class="header-section-number">5.1</span> Data Visualization in R</h2>
+<p>There are many ways to create visualizations in R, because visualization is a highly effective way to summarize and gain insights about data. Tools for creating static visualizations include:</p>
+<ul>
+<li>R’s built-in base and graphics packages provide many data visualization functions. For instance, the <code>plot</code> function creates scatter plots and line plots, while the <code>barplot</code>, <code>boxplot</code>, <code>histogram</code>, and <code>smoothScatter</code> functions are named after the plots they create. With these functions, adding more details to a plot is relatively straightforward (for example, use the <code>lines</code> function to add lines). There’s also no need to install any packages to use them. A disadvantage is that they all have slightly different parameters, which can make them difficult to learn and remember.</li>
+<li>The <a href="https://grantmcdermott.com/tinyplot/">tinyplot</a> package extends R’s built-in data visualization functions to provide better support for grouped data, custom color palettes, and more, without changing the feel. By design, the package has no other dependencies.</li>
+<li>The <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package uses the grammar of graphics, a convenient way to describe visualizations in terms of layers. The package provides a consistent interface, detailed <a href="https://ggplot2.tidyverse.org/">documentation</a>, and a <a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf">cheatsheet</a>, all of which are helpful for learning. As R’s most-downloaded package, ggplot2 is so popular that people have created equivalents for the Python and Julia programming languages. The package is also part of the <a href="https://www.tidyverse.org/">Tidyverse</a>, a popular collection of R packages designed to work well together.</li>
+<li>The <a href="https://cran.r-project.org/web/packages/lattice/">lattice</a> package is another package that aims to provide rich support for multivariate and grouped data. While lattice creates nice-looking plots by default, customizing them usually requires writing a lot of boilerplate code.</li>
+</ul>
+<p>Many packages extend these systems further. There are also many packages for creating dynamic visualizations, which react to user input or change over time, that we do not cover here.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R’s built-in data visualization functions, ggplot2, and lattice are not interoperable! Consequently, it’s best to choose one system to use exclusively.</p>
+<p>We recommend ggplot2 and will focus on it for the rest of this chapter.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To follow along with this chapter, you’ll need recent versions of the tidyverse (which includes ggplot2) and palmerpenguins packages. You can install or update these by running this code in an R prompt:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<section id="the-grammar-of-graphics" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="the-grammar-of-graphics"><span class="header-section-number">5.1.1</span> The Grammar of Graphics</h3>
+<p>The “gg” in ggplot2 stands for <strong>grammar of graphics</strong>. The idea of a grammar of graphics is that visualizations can be built up in layers. In ggplot2, you can add layers to a plot with plus (<code>+</code>). There are three layers that every plot must have are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 30%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>Functions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>data</td>
+<td><code>ggplot2</code></td>
+<td>Sets the data used to make the plot.</td>
+</tr>
+<tr class="even">
+<td>geometry</td>
+<td><code>geom_*</code></td>
+<td>Sets the geometry (points, lines, etc.) of the plot.</td>
+</tr>
+<tr class="odd">
+<td>aesthetics</td>
+<td><code>aes</code></td>
+<td>Sets the relationship between data and geometries.</td>
+</tr>
+</tbody>
+</table>
+<p>Each layer corresponds to one or more functions. The geometry layer consists of multiple functions; the asterisk (<code>*</code>) in the table is a wildcard.</p>
+<p>There are also several optional layers. Here are a few:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 38%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Layer</th>
+<th>Functions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>scale</td>
+<td><code>scale_*</code></td>
+<td>Sets palettes (color, shape, etc.) and labels</td>
+</tr>
+<tr class="even">
+<td>theme</td>
+<td><code>theme_*</code></td>
+<td>Sets appearance of non-data elements</td>
+</tr>
+<tr class="odd">
+<td>facets</td>
+<td><code>facet_*</code></td>
+<td>Makes side-by-side plots</td>
+</tr>
+<tr class="even">
+<td>annotation</td>
+<td><code>annotation_*</code></td>
+<td>Adds manually-positioned annotations</td>
+</tr>
+<tr class="odd">
+<td>guides</td>
+<td><code>guide_*</code></td>
+<td>Sets axes and legends</td>
+</tr>
+<tr class="even">
+<td>coordinate</td>
+<td><code>coord_*</code></td>
+<td>Sets coordinate systems (Cartesian, logarithmic, polar)</td>
+</tr>
+</tbody>
+</table>
+<p>The ggplot2 <a href="https://ggplot2.tidyverse.org/">documentation</a> provides a complete list of all layers and their corresponding functions.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The grammar of graphics breaks the elements of statistical graphics into parts in an analogy to human language grammars. Knowing how to put together subject nouns, object nouns, verbs, and adjectives allows you to construct sentences that express meaning. Similarly, the grammar of graphics is a collection of layers and the rules for putting them together to graphically express the meaning of your data.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-example-palmer-penguins-part-1" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-example-palmer-penguins-part-1"><span class="header-section-number">5.2</span> Example: Palmer Penguins, Part 1</h2>
+<div id="fig-penguins" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-penguins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../images/lter_penguins.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-penguins-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: Artwork by <a href="https://allisonhorst.com/">Allison Horst</a>.
+</figcaption>
+</figure>
+</div>
+<p>As a refresher about the fundamentals of ggplot2, let’s recreate the scatter plot in <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>, which shows flipper length versus bill length for hundreds of individual penguins from three different species: <a href="https://en.wikipedia.org/wiki/Ad%C3%A9lie_penguin">Adélie</a>, <a href="https://en.wikipedia.org/wiki/Chinstrap_penguin">Chinstrap</a>, and <a href="https://en.wikipedia.org/wiki/Gentoo_penguin">Gentoo</a>.</p>
+<div id="fig-flipper-bill" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flipper-bill-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../../images/flipper-bill.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flipper-bill-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: A scatter plot of data from the <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins dataset</a>, by Allison Horst.
+</figcaption>
+</figure>
+</div>
+<p>The scatter plot uses the <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins dataset</a>, which was collected by <a href="https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php">Dr.&nbsp;Kristen Gorman</a> at <a href="https://pallter.marine.rutgers.edu/">Palmer Station, Antarctica</a>. The plot was created by <a href="https://allisonhorst.com/">Alison Horst</a>, who also packaged the data for public use. The package is called palmerpenguins; install it now if you didn’t earlier.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recreating plots from scratch is a great way to practice and learn new data visualization skills.</p>
+</div>
+</div>
+<p>Before you start working on any plot, it’s a good idea to take a look at the data. Use the <code>library</code> function to load the palmerpenguins package, which automatically loads the dataset in a variable called <code>penguins</code>. Then use the <code>head</code> function to print just the first few rows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"palmerpenguins"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'palmerpenguins'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:datasets':
+
+    penguins, penguins_raw</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Adelie  Torgersen           39.1          18.7               181        3750
+2 Adelie  Torgersen           39.5          17.4               186        3800
+3 Adelie  Torgersen           40.3          18                 195        3250
+4 Adelie  Torgersen           NA            NA                  NA          NA
+5 Adelie  Torgersen           36.7          19.3               193        3450
+6 Adelie  Torgersen           39.3          20.6               190        3650
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Let’s also check the structural summary with the <code>str</code> function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [344 × 8] (S3: tbl_df/tbl/data.frame)
+ $ species          : Factor w/ 3 levels "Adelie","Chinstrap",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ island           : Factor w/ 3 levels "Biscoe","Dream",..: 3 3 3 3 3 3 3 3 3 3 ...
+ $ bill_length_mm   : num [1:344] 39.1 39.5 40.3 NA 36.7 39.3 38.9 39.2 34.1 42 ...
+ $ bill_depth_mm    : num [1:344] 18.7 17.4 18 NA 19.3 20.6 17.8 19.6 18.1 20.2 ...
+ $ flipper_length_mm: int [1:344] 181 186 195 NA 193 190 181 195 193 190 ...
+ $ body_mass_g      : int [1:344] 3750 3800 3250 NA 3450 3650 3625 4675 3475 4250 ...
+ $ sex              : Factor w/ 2 levels "female","male": 2 1 1 NA 1 2 1 2 NA NA ...
+ $ year             : int [1:344] 2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...</code></pre>
+</div>
+</div>
+<p>The structure of a dataset can affect how hard it is to visualize. The functions in ggplot2 are designed to work with tidy data, which is tabular data where:</p>
+<ol type="1">
+<li>Each observation has its own row.</li>
+<li>Each feature has its own column.</li>
+<li>Each value has its own cell.</li>
+</ol>
+<p>The <code>penguins</code> data appears to satisfy all three, which isn’t surprising since this dataset is packaged for others to use. If there was a structural problem, we would need to reshape the data (see <a href="../cleaning-reshaping/03_reshaping-data.html#sec-tidy-datasets" class="quarto-xref"><span>Section 3.1</span></a>).</p>
+<p>The types (or classes) of the columns in a dataset can also affect visualization. Generally, numerical data should be <code>integer</code> or <code>numeric</code>, categorical data should be <code>factor</code>, Boolean data should be <code>logical</code>, and text should be <code>character</code>. Take extra care to convert dates, times, and other temporal data to appropriate types, as explained in <a href="../cleaning-reshaping/01_dates-times.html#sec-parsing-dates" class="quarto-xref"><span>Section 1.3</span></a>. Inappropriate data types can cause visualization functions to fail with an error, or even worse, produce a plot that misrepresents the data.</p>
+<p>The data types in the <code>penguins</code> data look okay, so we’re ready to start plotting!</p>
+<section id="layer-1-data" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="layer-1-data"><span class="header-section-number">5.2.1</span> Layer 1: Data</h3>
+<p>The first layer every ggplot2 plot requires is a <strong>data layer</strong>, which specifies the data that will be used to make the plot.</p>
+<p>You can create a data layer (and the beginnings of a plot) with the <code>ggplot</code> function.</p>
+<p>Let’s load the package, then use the <code>ggplot</code> function to specify that we’re plotting the <code>penguins</code> data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/layer1-data-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The result is a blank plot. We’ve told ggplot2 what data to use, but still haven’t said how to represent it!</p>
+</section>
+<section id="sec-layer-2-geometry" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="sec-layer-2-geometry"><span class="header-section-number">5.2.2</span> Layer 2: Geometry</h3>
+<p>The second layer every ggplot2 plot requires is a <strong>geometry layer</strong>. The geometry layer specifies which geometries—points, lines, and other marks—will represent the data on the plot.</p>
+<p>You can create a geometry layer with any of the ggplot2 functions whose names begin with <code>geom_</code>. Each corresponds to a different kind of geometry and plot. Add the layer to the plot with a plus sign (<code>+</code>).</p>
+<p>We want to make a scatter plot, so we’ll use the <code>geom_point</code> function for the geometry layer. So the code becomes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `geom_point()`:
+! Problem while setting up geom.
+ℹ Error occurred in the 1st layer.
+Caused by error in `compute_geom_1()`:
+! `geom_point()` requires the following missing aesthetics: x and y.</code></pre>
+</div>
+</div>
+<p>When you run this code, you’ll see an error message. The plot is still missing one layer. Fortunately, ggplot2 tells us exactly what we need to do in the error message.</p>
+</section>
+<section id="layer-3-aesthetics" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="layer-3-aesthetics"><span class="header-section-number">5.2.3</span> Layer 3: Aesthetics</h3>
+<p>The third layer every ggplot2 plot requires is an <strong>aesthetics layer</strong>. The aesthetics layer specifies how to represent the data in the data layer with the geometries in the geometry layer. In other words, it describes the relationship between the two.</p>
+<p>The <code>aes</code> function creates an aesthetics layer. You can add it to the plot like any other layer.</p>
+<p>As we saw in the error message in <a href="#sec-layer-2-geometry" class="quarto-xref"><span>Section 5.2.2</span></a>, the <code>geom_point</code> function requires us to set two aesthetics, <code>x</code> and <code>y</code>. We’ll set them to <code>flipper_length_mm</code> and <code>bill_length_mm</code>, since these are on the x- and y-axis, respectively, of <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm, <span class="at">y =</span> bill_length_mm) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/layer3-geometry-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now we’ve got a plot!</p>
+<p>Notice that ggplot2 displays a warning about <code>missing values or values outside the scale range</code>. This warning is a reminder that some of the observations in the dataset are not displayed on the plot, either because they contain missing values (<code>NA</code>) or because they’re outside the limits of the plot’s axes. By default, ggplot2 will adjust the axes to include all observations. So in this case, the warning means that the <code>penguins</code> dataset contains 2 missing values.</p>
+<p>In <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>, the color and shape of each point is determined by the species. In the <code>penguins</code> dataset, the <code>species</code> column records the species of each bird. We can connect the color and shape of the points to the species by setting the optional <code>color</code> and <code>shape</code> aesthetics:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> species,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> species</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-plot-color-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This version of the copycat plot has roughly the same form as <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>, although there’s still a long way to go to make it exactly the same. We’ll address the remaining differences in <a href="#sec-example-palmer-penguins-part-2" class="quarto-xref"><span>Section 5.3</span></a>.</p>
+<!--
+We can begin to better understand the grammar of graphics as we consider this
+example. Recognize that we our data visualization conveys information via
+several visual channels that express data as visual marks. The geometry
+determines how those marks are drawn on the page, which can be set separately
+from the mapping. Let's see a couple examples of that:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# placing plots via gridExtra
+library(gridExtra)
+
+# plot the Palmer penguin data with a line geometry
+peng_line = ggplot(penguins) +
+  aes(x = flipper_length_mm,
+      y = bill_length_mm,
+      color = species,
+      shape = species) +
+  geom_line()
+
+# plot the Palmer penguin data with a hex heatmap geometry
+peng_hex = ggplot(penguins) +
+  aes(x = flipper_length_mm,
+      y = bill_length_mm,
+      color = species,
+      shape = species) +
+  geom_hex()
+
+# place the plts side-by-side
+grid.arrange(peng_line, peng_hex)
+```
+
+::: {.cell-output-display}
+![](01_visualization_files/figure-html/alternate-penguin-geoms-1.png){width=672}
+:::
+:::
+
+
+You can see how changing the geometry but not the mapping will plot the same
+data with a different method. Separating the mapping of features to channels
+from the drawing of marks is at the core of the grammar of graphics.
+
+This separation of functions gives `ggplot2` its power by allowing us to
+compose a small number of functions to express data in unlimited ways (kind of
+like poetry). Recognizing the grammar of graphics allows us to reason in a
+consistent way about different kinds of plots, and make intelligent assumptions
+about mappings and geometries.
+-->
+</section>
+</section>
+<section id="sec-example-palmer-penguins-part-2" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-example-palmer-penguins-part-2"><span class="header-section-number">5.3</span> Example: Palmer Penguins, Part 2</h2>
+<p>There are several details we still need to change in the copycat plot from <a href="#sec-example-palmer-penguins-part-1" class="quarto-xref"><span>Section 5.2</span></a> to make it match <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>. In particular:</p>
+<ul>
+<li>The clouds of points are missing the regression lines, which makes it harder to see the trends.</li>
+<li>The colors of the points are different. In this case, they’re red, green, and blue, which are not colorblind-safe.</li>
+<li>The background color and gridline color are different.</li>
+<li>The legend is off to the side.</li>
+<li>There are no titles, and the labels are column names rather than descriptions.</li>
+</ul>
+<p>We’ll fix these in the subsequent sections. Each section focuses on a single detail and associated ggplot2 layer.</p>
+<section id="adding-regression-lines-geometry" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="adding-regression-lines-geometry"><span class="header-section-number">5.3.1</span> Adding Regression Lines (Geometry)</h3>
+<p>The visualization in <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a> shows a linear regression line for each group of penguins. Let’s add those to our copycat plot. In ggplot2, regression lines are just another kind of geometry. Lines smooth out noisy data, so the geometry is called <code>geom_smooth</code>.</p>
+<p>By default, <code>geom_smooth</code> fits and displays a <a href="https://en.wikipedia.org/wiki/Local_regression">LOESS</a> or <a href="https://en.wikipedia.org/wiki/Generalized_additive_model">GAM</a> line, depending on the size of the dataset. It also displays the standard error for the fitted line.</p>
+<p>You can add more than one geometry to a plot, so we’ll add <code>geom_smooth</code> to the plot. In order to match <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>, we’ll set <code>method = lm</code> to make it fit a linear regression and <code>se = FALSE</code> to hide the standard error:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> species,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> species</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/pengin-plot-lm-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice ggplot2 prints a new warning, <code>non-finite outside the scale range</code>, about <code>geom_smooth</code>. Like the other warning, this is a reminder that there are missing values in the dataset.</p>
+</section>
+<section id="changing-the-foreground-colors-scale" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="changing-the-foreground-colors-scale"><span class="header-section-number">5.3.2</span> Changing the Foreground Colors (Scale)</h3>
+<p>The colors in our copycat plot are red, green, and blue. People with color blindness may have trouble distinguishing between these colors, so we can improve the accessibility of the plot by using a different color palette. <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a> uses orange, purple, and cyan, which are easier to distinguish. Let’s use those colors.</p>
+<p>In ggplot2, the <strong>scale layer</strong> controls palettes (for colors, shapes, line types, and more), as well as text labels. Most of the functions for the scales layer have names that begin with <code>scale_</code>, although there are a few exceptions. The second part of the name is usually a related aesthetic. For instance, we can use <code>scale_color_manual</code> to manually set the palette for the <code>color</code> aesthetic.</p>
+<p>Allison Horst created <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a> with R and ggplot2. The colors she used are built-in, named colors: <code>darkorange</code>, <code>purple</code>, and <code>cyan4</code>. We’ll use these to set the <code>values</code> parameter (which corresponds to the palette) in <code>scale_color_manual</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> species,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> species</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"purple"</span>, <span class="st">"cyan4"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-plot-palette-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use Cynthia Brewer’s <a href="https://colorbrewer2.org/">Color Brewer website</a> to select colorblind-friendly color schemes. Color Brewer is integrated directly into ggplot2. For instance, the <code>scale_color_brewer</code> function can pull a named color scheme from Color Brewer directly into your plot as the color scale.</p>
+</div>
+</div>
+</section>
+<section id="changing-the-background-color-theme" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="changing-the-background-color-theme"><span class="header-section-number">5.3.3</span> Changing the Background Color (Theme)</h3>
+<p>In <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>, the background is white and the grid lines are gray, but in our copycat plot, the background is gray and the grid lines are white. The color of the background and grid lines, as well as the other visual details of a plot that are not related to data, are controlled by ggplot2’s <strong>theme layer</strong>.</p>
+<p>We can use the <code>theme_minimal</code> function to switch to the minimal theme, which has a white background and gray grid lines:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> species,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> species</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"purple"</span>, <span class="st">"cyan4"</span>)) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-plot-theme-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Several themes are included with ggplot2, and the community has created even more as extension packages. See the ggplot2 <a href="https://ggplot2.tidyverse.org/">documentation</a> for more details.</p>
+</section>
+<section id="moving-the-legend-theme" class="level3" data-number="5.3.4">
+<h3 data-number="5.3.4" class="anchored" data-anchor-id="moving-the-legend-theme"><span class="header-section-number">5.3.4</span> Moving the Legend (Theme)</h3>
+<p>The theme of a ggplot2 plot also controls where the legend is positioned. So if we want to move the legend in the copycat plot to inside the plotting area, like in <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>, we have to adjust the theme layer.</p>
+<p>We can use the <code>theme</code> function to make small adjustments to the theme layer. In this case, we’ll set <code>legend.position</code> to move the legend inside the plotting area. We’ll also set <code>legend.position.inside</code> to specify where to put the plot (where <code>c(0, 0)</code> is the bottom left and <code>c(1, 1)</code> is the top right). The code for the copycat plot becomes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> species,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> species</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"purple"</span>, <span class="st">"cyan4"</span>)) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"inside"</span>, <span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.15</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-plot-legend-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>See the ggplot2 <a href="https://ggplot2.tidyverse.org/">documentation</a> for the complete list of parameters you can use to fine-tune the theme.</p>
+</section>
+<section id="adding-labels-scale" class="level3" data-number="5.3.5">
+<h3 data-number="5.3.5" class="anchored" data-anchor-id="adding-labels-scale"><span class="header-section-number">5.3.5</span> Adding Labels (Scale)</h3>
+<p>Adding labels and titles to a visualization is a critical step. Without labels, the viewer might not be able to understand what the visualization shows. In ggplot2, we can set these with the scale layer function <code>labs</code> (short for “labels”). We can set a title, subtitle, and also a label for each aesthetic.</p>
+<p>Here’s how to set the labels on the copycat plot to match <a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> species,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> species</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>, <span class="st">"purple"</span>, <span class="st">"cyan4"</span>)) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"inside"</span>, <span class="at">legend.position.inside =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.15</span>)) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Flipper and bill length"</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Dimensions for Adelie, Chinstrap and Gentoo Penguins at Palmer Station LTER"</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Bill length (mm)"</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">"Penguin species"</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-plot-labels-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualization-best-practices" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="visualization-best-practices"><span class="header-section-number">5.4</span> Visualization Best Practices</h2>
+<p>Besides programming skills, to create a visualization that conveys a clear message about a dataset, you need to know graphic design best practices and the principles of visual perception. DataLab’s <a href="https://ucdavisdatalab.github.io/workshop_data_viz_principles/">Principles of Data Visualization</a> covers these important skills.</p>
+<p>DataLab’s <a href="../../docs/graphics_checklist.pdf">Data Visualization Guidelines</a> is a concise reference and reminder of these skills. Bookmark or print out a copy and run through the checklist whenever you design a visualization. The case studies in the {numref}<code>case-studies</code> show how to fix some of the issues on the checklist.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Revisiting the Palmer Penguins Plot">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Revisiting the Palmer Penguins Plot
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s apply the Data Visualization Guidelines to the Palmer Penguins plot (<a href="#fig-flipper-bill" class="quarto-xref">Figure&nbsp;<span>5.2</span></a>):</p>
+<ul>
+<li>This plot has two numerical features (bill length and flipper length), expressed using a scatter plot. There’s also a categorical feature (species), which is indicated by the different colors and shapes of the plot.</li>
+<li>The plot expresses the fact that flipper length is positively associated with bill length for all three species of penguins, but the sizes and the relationships between them are unique to each species.</li>
+<li>There’s a title and a legend, the axes are labeled with units, and all of the text is in plain language.</li>
+<li>There’s a risk that the data may hide the message, so a smoothing line is added to each species for clarity.</li>
+<li>The colors are accessible to colorblind people.</li>
+</ul>
+<p>This is a good data visualization!</p>
+</div>
+</div>
+</section>
+<section id="sec-plotting-categorical-distribution" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="sec-plotting-categorical-distribution"><span class="header-section-number">5.5</span> Case Study: Plotting a Categorical Distribution</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This case study shows how to:</p>
+<ul>
+<li>Plot the distribution of one or more categorical features</li>
+<li>Create faceted plots</li>
+</ul>
+</div>
+</div>
+<p>When you start working with a new dataset, the first thing you should do is explore (and clean) the features. Exploring the features means inspecting the distribution of each feature, as well as checking for relationships between features. For this case study, let’s use ggplot2 to explore the categorical features in the Palmer Penguins data set introduced in <a href="#sec-example-palmer-penguins-part-1" class="quarto-xref"><span>Section 5.2</span></a>.</p>
+<p>Consider the species of the penguins the data set. Are the three species—Adélie, Chinstrap, and Gentoo—equally represented? This question is asking how the categorical <code>species</code> feature is distributed. Tables, bar plots, and dot plots are all good tools for examining the distribution of a single categorical feature. Let’s make a table and a bar plot.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Inspecting data through multiple methods is a good way to verify that your code and interpretations are correct.</p>
+</div>
+</div>
+<p>You can use the R’s <code>table</code> function to make a table:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(penguins<span class="sc">$</span>species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   Adelie Chinstrap    Gentoo 
+      152        68       124 </code></pre>
+</div>
+</div>
+<p>To make the bar plot, you can use ggplot2’s <code>geom_bar</code> function. Make a bar plot of the distribution of penguin species:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> species) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguins-bar-species-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Besides species, the Palmer Penguins dataset also includes information about the island where each bird was observed and the biological sex of each bird. When a dataset has multiple categorical features, it’s important to check how the observations are grouped within them, since unbalanced groups can bias analyses. You can use color to represent a second categorical feature in a bar plot. In ggplot2, the fill color is set by the <code>fill</code> aesthetic. So to make the bar plot show both species and sex:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">fill =</span> sex) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguins-bar-species-sex-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>By default, the <code>geom_bar</code> function draws the bars stacked. If we want to compare the groups across both species and sex, it’s better to draw the bars side-by-side. To do this, set <code>position = "dodge"</code> in the geometry:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> species, <span class="at">fill =</span> sex) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguins-bar-species-sex-dodged-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot suggests the sexes are relatively well-balanced across the observed penguins, regardless of species. Of course, there’s still the island feature to consider.</p>
+<p>A bar plot can really only summarize two features at once, and many other types of plots are also limited to just two or three features. One way to represent more categorical features is to use <strong>facets</strong>, side-by-side plots that each show data for a mutually exclusive category or combination of categories.</p>
+<p>Most plotting packages provide convenience functions for making faceted plots, and ggplot2 is no exception. There are two functions for facetting:</p>
+<ul>
+<li>The <code>facet_wrap</code> function displays a row of plots grouped by one categorical feature, wrapping to a new row whenever it runs out of horizontal space.</li>
+<li>The <code>facet_grid</code> function displays a grid of plots grouped by one or two categorical features arranged along the axes of the grid.</li>
+</ul>
+<p>For example, let’s use <code>facet_grid</code> to indicate sex by row, island by column, and use a separate bar for each species:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> species) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Species"</span>, <span class="at">y =</span> <span class="st">"Count"</span>) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(sex <span class="sc">~</span> island)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-facet-species-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want to change the names of the levels in a factor (a categorical feature), do that as a separate step before making visualizations. DataLab’s <a href="https://ucdavisdatalab.github.io/workshop_r_basics/">R Basics workshop reader</a> provides details about how to create factors and set level names.</p>
+</div>
+</div>
+<p>ggplot2’s functions for creating and customizing faceted plots are convenient, and you can read more about them in the <a href="https://ggplot2.tidyverse.org/">documentation</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This case study focuses on categorical features and the next focuses on continuous features. So what should you do if you have a discrete feature?</p>
+<p>Discrete features share properties of categorical features (both are enumerable) and properties of continuous features (both are quantitative). This usually means you can choose whether to treat discrete features as categorical or continuous. Categorical methods tend to be more appropriate for discrete features that take relatively few distinct values, and continuous methods tend to be more appropriate for ones that don’t.</p>
+</div>
+</div>
+</section>
+<section id="sec-plotting-continuous-distribution" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="sec-plotting-continuous-distribution"><span class="header-section-number">5.6</span> Case Study: Plotting a Continuous Distribution</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This case study shows how to:</p>
+<ul>
+<li>Plot the distribution of one or more continuous features</li>
+</ul>
+</div>
+</div>
+<p><a href="#sec-plotting-categorical-distribution" class="quarto-xref"><span>Section 5.5</span></a> shows how to visualize the distribution of a categorical feature. For this case study, let’s examine one of the continuous features in the Palmer Penguins dataset from <a href="#sec-example-palmer-penguins-part-1" class="quarto-xref"><span>Section 5.2</span></a>. There are many different ways to visualize continuous features, such as histograms, density plots, box plots, violin plots, and empirical cumulative distribution function plots.</p>
+<p>Let’s visualize the distribution of the birds’ body mass, which is recorded in the <code>body_mass_g</code> feature. Some of the geometries for plotting continuous distributions are:</p>
+<ul>
+<li><code>geom_histogram</code> to make a histogram</li>
+<li><code>geom_density</code> to make a density (or “kernel density estimator”) plot</li>
+<li><code>geom_boxplot</code> to make a box plot</li>
+<li><code>stat_ecdf</code> (or <code>geom_step</code> with <code>stat = "ecdf"</code>) to make an empirical cumulative distribution function plot</li>
+<li><code>geom_violin</code> to make a violin plot</li>
+</ul>
+<p>For example, to make a histogram:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-hist-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The setting <code>color = "black"</code> in <code>geom_histogram</code> makes the ggplot2 draw black borders around the histogram bars (the default is no borders).</p>
+<p>To make a density plot instead, we can simply change the geometry:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-density-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you want the bottom of the plot to be at y-axis 0, you can add a scale layer with the <code>expand</code> parameter set to 0:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-density-scale-0-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <code>expand</code> parameter controls how much padding ggplot2 adds at the bottom and top of the axis.</p>
+</div>
+</div>
+<p>Density plots are convenient when you want to break down the distribution of a continuous feature across the categories of a categorical feature, because the plot can show a separate line for each category. For instance, to group body mass by species:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">color =</span> species) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body Mass (g)"</span>, <span class="at">color =</span> <span class="st">"Species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-density-by-species-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This makes it easy to see that Gentoo penguins typically have more mass than the other two species.</p>
+<p>As in <a href="#sec-plotting-categorical-distribution" class="quarto-xref"><span>Section 5.5</span></a>, you can incorporate more categorical features by faceting. To incorporate another continuous feature, it’s necessary to change plot types.</p>
+<p>You can visualize the distributions of and relationship between two continuous features with a scatter plot (<code>geom_point</code>) or a smoothed scatter plot (again <code>geom_density_2d</code>). The latter smooths out the points in a scatter plot to show their relative density, using a 2-dimensional generalization of the method used to estimate a density plot. For instance, to plot body weight against flipper length:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(penguins) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm, <span class="at">color =</span> species) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_2d</span>() <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Body Mass (g)"</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Flipper Length (mm)"</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Species"</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_density2d()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/penguin-density-2d-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In this plot it’s possible to see how the distributions of body mass and flipper length differ across species, as well as how body mass and flipper mass are related.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Visualizing more than two continuous features at once can be challenging. One way to get around this problem is to create a separate plot for each pair of features.</p>
+<p>If it really is necessary to visualize more than two at once, consider converting at least one of them into a categorical feature by <strong>binning</strong> or <strong>discretizing</strong> the values. Then you can use strategies for categorical features such as varying colors and faceting.</p>
+</div>
+</div>
+</section>
+<section id="case-study-plotting-a-time-series" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="case-study-plotting-a-time-series"><span class="header-section-number">5.7</span> Case Study: Plotting a Time Series</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This case study shows how to:</p>
+<ul>
+<li>Convert temporal data to appropriate data types</li>
+<li>Plot a time series as a histogram or a line</li>
+<li>Use multiple data sets in a single plot</li>
+<li>Customize and rotate the text of tick labels</li>
+</ul>
+</div>
+</div>
+<p>Plotting a time series can be tricky because you first need to make sure that the temporal features have appropriate data types. For this case study, suppose you want to make a visualization that shows the relationship between flu rates in birds and humans.</p>
+<p>People mail dead birds to the USDA and USGS, where scientists analyze the birds to find out why they died. The USDA compiles the information into a public <a href="https://www.aphis.usda.gov/aphis/ourfocus/animalhealth/animal-disease-information/avian/avian-influenza/">Avian Influenza data set</a> each year.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download the Avian Influenza data <a href="https://ucdavis.box.com/s/babz1b5ak0kh7q7cktg7k5gzrt2ve9gc">HERE</a>.</p>
+</div>
+</div>
+<p>We’ll use the readr package’s <code>read_csv</code> function to read the data. Compared to R’s built-in <code>read.csv</code> function, this function is faster and more robust against incorrect formatting.</p>
+<p>The data’s headers contain spaces, which are inconvenient for working in R. With the <code>read_csv</code> function, we can set <code>name_repair = "universal"</code> to have it automatically fix all column names so that they are syntactically valid:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("readr")</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>birds_path <span class="ot">=</span> <span class="st">"data/hpai-wild-birds-ver2.csv"</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">=</span> <span class="fu">read_csv</span>(birds_path, <span class="at">name_repair =</span> <span class="st">"universal"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+Rows: 6542 Columns: 8
+── Column specification
+──────────────────────────────────────────────────────── Delimiter: "," chr
+(8): State, County, Date.Detected, HPAI.Strain, Bird.Species, WOAH.Class...
+ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
+Specify the column types or set `show_col_types = FALSE` to quiet this message.
+• `Date Detected` -&gt; `Date.Detected`
+• `HPAI Strain` -&gt; `HPAI.Strain`
+• `Bird Species` -&gt; `Bird.Species`
+• `WOAH Classification` -&gt; `WOAH.Classification`
+• `Sampling Method` -&gt; `Sampling.Method`
+• `Submitting Agency` -&gt; `Submitting.Agency`</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(birds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [6,542 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ State              : chr [1:6542] "South Carolina" "South Carolina" "North Carolina" "North Carolina" ...
+ $ County             : chr [1:6542] "Colleton" "Colleton" "Hyde" "Hyde" ...
+ $ Date.Detected      : chr [1:6542] "1/13/2022" "1/13/2022" "1/12/2022" "1/20/2022" ...
+ $ HPAI.Strain        : chr [1:6542] "EA H5N1" "EA H5N1" "EA H5N1" "EA H5N1" ...
+ $ Bird.Species       : chr [1:6542] "American wigeon" "Blue-winged teal" "Northern shoveler" "American wigeon" ...
+ $ WOAH.Classification: chr [1:6542] "Wild bird" "Wild bird" "Wild bird" "Wild bird" ...
+ $ Sampling.Method    : chr [1:6542] "Hunter harvest" "Hunter harvest" "Hunter harvest" "Hunter harvest" ...
+ $ Submitting.Agency  : chr [1:6542] "NWDP" "NWDP" "NWDP" "NWDP" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   State = col_character(),
+  ..   County = col_character(),
+  ..   Date.Detected = col_character(),
+  ..   HPAI.Strain = col_character(),
+  ..   Bird.Species = col_character(),
+  ..   WOAH.Classification = col_character(),
+  ..   Sampling.Method = col_character(),
+  ..   Submitting.Agency = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; </code></pre>
+</div>
+</div>
+<p>Each row corresponds to one bird death. There are 8 columns with information about the date, species of bird, collection method, and location. The <code>Date.Detected</code> column is a date, while the rest of the columns are categorical, which you can see in the structural summary.</p>
+<p>The dates are in month-day-year order, so we can parse them with the lubridate package’s <code>mdy</code> function. We can use the dplyr package and R’s built-in <code>factor</code> function to concisely convert the remaining columns to factors:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("lubridate")</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("dplyr")</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>birds<span class="sc">$</span>Date.Detected <span class="ot">=</span> <span class="fu">mdy</span>(birds<span class="sc">$</span>Date.Detected)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">=</span> <span class="fu">mutate</span>(birds, <span class="fu">across</span>(<span class="sc">-</span>Date.Detected, factor))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Specifying appropriate data types when you read data often provides performance benefits, but doing data type conversions later gives you more flexibility to clean the data first. So which approach you should use in any given situation depends on the data set and your analysis goals.</p>
+</div>
+</div>
+<p>What kind of plot is appropriate for this dataset? Note that there are several dates where more than one bird was collected:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">count</span>(birds, Date.Detected), <span class="fu">desc</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 248 × 2
+   Date.Detected     n
+   &lt;date&gt;        &lt;int&gt;
+ 1 2022-10-25      366
+ 2 2022-11-21      148
+ 3 2022-09-13      129
+ 4 2022-09-23      128
+ 5 2022-02-16      109
+ 6 2022-12-20       96
+ 7 2022-11-16       89
+ 8 2023-01-04       88
+ 9 2022-12-06       86
+10 2022-10-07       81
+# ℹ 238 more rows</code></pre>
+</div>
+</div>
+<p>While you could use a line plot to show the counts for each date, there are also many dates where the counts are zero. To see a smoothed out version of the line plot, you can use a histogram of the observations:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(birds) <span class="sc">+</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Date.Detected) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/birds-histogram-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The data set includes information about how the birds were collected in the <code>Sampling.Method</code> column. You can incorporate this information in the plot by setting the <code>fill</code> aesthetic. In this case, stacked bars are a good choice since the focus is on the total counts for each date range rather than the individual sampling methods. The code becomes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(birds) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Date.Detected, <span class="at">fill =</span> Sampling.Method) <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">color =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/birds-histogram-stacked-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot looks good, so now let’s add data about human flu rates. The CDC collects data about flu hospitalizations across 13 states. The data is publicly available as the <a href="https://gis.cdc.gov/GRASP/Fluview/FluHospRates.html">FluServ-NET data set</a>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download the FluServ-NET data <a href="https://ucdavis.box.com/s/a4m4ermwm0lqes2sh1jckdf16h0rpdkc">HERE</a>.</p>
+</div>
+</div>
+<p>In the FluServ-NET data set, each row corresponds to a single combination of week, year, age, sex, and race. There are 10 columns, which are a mix of data types. The CSV file the CDC provides contains extra text at the beginning and end, and the column names contain spaces and other problematic characters. You can read and clean up the data set with this code:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("stringr")</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"stringr"</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>flu_path <span class="ot">=</span> <span class="st">"data/FluSurveillance_Custom_Download_Data.csv"</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>flu <span class="ot">=</span> <span class="fu">read_csv</span>(flu_path, <span class="at">name_repair =</span> <span class="st">"universal"</span>, <span class="at">skip =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>New names:
+• `MMWR-YEAR` -&gt; `MMWR.YEAR`
+• `MMWR-WEEK` -&gt; `MMWR.WEEK`
+• `AGE CATEGORY` -&gt; `AGE.CATEGORY`
+• `SEX CATEGORY` -&gt; `SEX.CATEGORY`
+• `RACE CATEGORY` -&gt; `RACE.CATEGORY`
+• `CUMULATIVE RATE` -&gt; `CUMULATIVE.RATE`
+• `WEEKLY RATE` -&gt; `WEEKLY.RATE`</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: One or more parsing issues, call `problems()` on your data frame for details,
+e.g.:
+  dat &lt;- vroom(...)
+  problems(dat)</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 1538 Columns: 10
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): CATCHMENT, NETWORK, YEAR, AGE.CATEGORY, SEX.CATEGORY, RACE.CATEGORY
+dbl (4): MMWR.YEAR, MMWR.WEEK, CUMULATIVE.RATE, WEEKLY.RATE
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change column names to lowercase.</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>flu <span class="ot">=</span> <span class="fu">rename_with</span>(flu, str_to_lower)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove the text at the end.</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>flu <span class="ot">=</span> <span class="fu">filter</span>(flu, catchment <span class="sc">==</span> <span class="st">"Entire Network"</span>)</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the year and week columns to actual dates.</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">=</span> <span class="fu">make_date</span>(<span class="at">year =</span> flu<span class="sc">$</span>mmwr.year)</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="fu">week</span>(dates) <span class="ot">=</span> flu<span class="sc">$</span>mmwr.week</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>flu<span class="sc">$</span>date <span class="ot">=</span> dates</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>For the plot, we’ll only need the <code>"Overall"</code> age, sex, and race categories:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>flu <span class="ot">=</span> <span class="fu">filter</span>(flu,</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  age.category <span class="sc">==</span> <span class="st">"Overall"</span>,</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  sex.category <span class="sc">==</span> <span class="st">"Overall"</span>,</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  race.category <span class="sc">==</span> <span class="st">"Overall"</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we can add a line for the weekly flu rates in the <code>weekly_rate</code> column to the bird mortality histogram. The weekly flu rates are measured in hospitalizations per 100,000 people and typically range from 0 to 100. Multiplying by 100 to convert to hospitalizations per 10 million people makes the range 0 to 1000, which is a nice match for the y-axis already on the plot.</p>
+<p>Since we’re dealing with two datasets, we’ll move the data and aesthetics layers for each into the calls to the respective <code>geom_</code> functions. We’ll also add a title and a label to clarify what the y-axis means. The code becomes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> Date.Detected, <span class="at">fill =</span> Sampling.Method),</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>    birds,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> weekly.rate <span class="sc">*</span> <span class="dv">100</span>), flu) <span class="sc">+</span></span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Date Detected"</span>,</span>
+<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Reported bird deaths</span><span class="sc">\n</span><span class="st">Hospitalizations per 10 million people"</span></span>
+<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/example-flu-plotting-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="case-study-plotting-a-function" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="case-study-plotting-a-function"><span class="header-section-number">5.8</span> Case Study: Plotting a Function</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This case study shows how to:</p>
+<ul>
+<li>Plot a function</li>
+<li>Fill the area under a function</li>
+<li>Set custom colors for lines, fills, and annotations</li>
+<li>Hide the axes of a plot</li>
+<li>Add annotations to a plot</li>
+</ul>
+</div>
+</div>
+<p>Plotting a curve or function can make it much easier to understand and explain its behavior. For this case study, suppose you want to make a visualization that shows how the area of overlap between two different probability density functions is a measure of how similar they are. They should have some overlap, but not too much. The color palette should be UC blue (<code>#1a3f68</code>) and gold (<code>#e6c257</code>) to match the rest of your presentation.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>A <em>probability density function</em> is a function that shows how likely different outcomes are for a continuous probability distribution. The probability of outcomes in any given interval is the area under the curve. For example, if the area under the curve between 0 and 1 is 0.2, then there’s a 20% chance of an outcome between 0 and 1. The total area under the curve is always 1.</p>
+<p>Since the total area under a probability density function is always 1, the area of overlap between two density functions is always between 0 and 1. As a result, the area of overlap is a convenient measure of similarity.</p>
+</div>
+</div>
+</div>
+<p>R provides probability density functions for common distributions. Let’s use a normal distribution and a gamma distribution. Normal distributions are widely known, while gamma distributions are visually different but will still have some overlap. The gamma distribution requires a shape parameter; let’s use 10.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>f_norm <span class="ot">=</span> \(x) <span class="fu">dnorm</span>(x)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>f_gamma <span class="ot">=</span> \(x) <span class="fu">dgamma</span>(x, <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We can use ggplot2’s <code>geom_function</code> geometry to plot functions. This geometry will automatically evaluate the function at many points over an interval. We’ll use 1,000 points in the interval <span class="math inline">\((-20, 20)\)</span>. We’ll also set <code>linetype = "dashed"</code> on one of the lines so that they’re distinct. The code to make the plot is:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>blue <span class="ot">=</span> <span class="st">"#1a3f68"</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>gold <span class="ot">=</span> <span class="st">"#e6c257"</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>xlim <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_norm,</span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> n, <span class="at">xlim =</span> xlim, <span class="at">color =</span> blue</span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_gamma,</span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> n, <span class="at">xlim =</span> xlim, <span class="at">color =</span> blue,</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/plot-initial-funcs-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The two distributions don’t overlap much, but we can fix that by adjusting their parameters. To get some overlap, let’s increase the standard deviation (<code>sd</code>) of the normal distribution to 4 and shift the location of the gamma distribution left by 2. Then the code for the plot becomes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>f_norm <span class="ot">=</span> \(x) <span class="fu">dnorm</span>(x, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>f_gamma <span class="ot">=</span> \(x) <span class="fu">dgamma</span>(x <span class="sc">+</span> <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>blue <span class="ot">=</span> <span class="st">"#1a3f68"</span></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>gold <span class="ot">=</span> <span class="st">"#e6c257"</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>xlim <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb65-10"><a href="#cb65-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb65-11"><a href="#cb65-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_norm,</span>
+<span id="cb65-12"><a href="#cb65-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> n, <span class="at">xlim =</span> xlim, <span class="at">color =</span> blue</span>
+<span id="cb65-13"><a href="#cb65-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb65-14"><a href="#cb65-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb65-15"><a href="#cb65-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_gamma,</span>
+<span id="cb65-16"><a href="#cb65-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> n, <span class="at">xlim =</span> xlim, <span class="at">color =</span> blue,</span>
+<span id="cb65-17"><a href="#cb65-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb65-18"><a href="#cb65-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/plot-funcs-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s emphasize the overlap by filling it with a color. The area of overlap is the area underneath whichever function happens to be smaller at a given point—the minimum of the two functions. We can define a new function, <code>f_min</code>, that gives the minimum. We’ll use R’s <code>pmin</code> function to compute the element-wise minimum.</p>
+<p>To add the <code>f_min</code> function to the plot with a fill color, we’ll use the <code>stat_function</code> statistic with <code>geom = "polygon"</code> instead of the <code>geom_function</code> geometry. The layer for this function also needs to come first, so that it’s under the other layers. So the code becomes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>f_norm <span class="ot">=</span> \(x) <span class="fu">dnorm</span>(x, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>f_gamma <span class="ot">=</span> \(x) <span class="fu">dgamma</span>(x <span class="sc">+</span> <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>f_min <span class="ot">=</span> \(x) <span class="fu">pmin</span>(<span class="fu">f_norm</span>(x), <span class="fu">f_gamma</span>(x))</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>blue <span class="ot">=</span> <span class="st">"#1a3f68"</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>gold <span class="ot">=</span> <span class="st">"#e6c257"</span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>xlim <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_min,</span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">"polygon"</span>,</span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">fill =</span> gold</span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_norm,</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">color =</span> blue</span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb66-21"><a href="#cb66-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_gamma,</span>
+<span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">color =</span> blue</span>
+<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/plot-funcs-overlap-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This diagram is meant to make it easier to explain area of overlap, which is shown by the curves and fill. The axis ticks and labels don’t aid understanding, so let’s remove them. You can remove all decorations on a plot by adding the <code>theme_void</code> theme. Let’s also adjust the x interval to <span class="math inline">\((-15,
+25)\)</span> to center the curves:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>f_norm <span class="ot">=</span> \(x) <span class="fu">dnorm</span>(x, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>f_gamma <span class="ot">=</span> \(x) <span class="fu">dgamma</span>(x <span class="sc">+</span> <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>f_min <span class="ot">=</span> \(x) <span class="fu">pmin</span>(<span class="fu">f_norm</span>(x), <span class="fu">f_gamma</span>(x))</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>blue <span class="ot">=</span> <span class="st">"#1a3f68"</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>gold <span class="ot">=</span> <span class="st">"#e6c257"</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>xlim <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>, <span class="dv">25</span>)</span>
+<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_min,</span>
+<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">"polygon"</span>,</span>
+<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">fill =</span> gold</span>
+<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_norm,</span>
+<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">color =</span> blue</span>
+<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb67-21"><a href="#cb67-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_gamma,</span>
+<span id="cb67-22"><a href="#cb67-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb67-23"><a href="#cb67-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">color =</span> blue</span>
+<span id="cb67-24"><a href="#cb67-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb67-25"><a href="#cb67-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/plot-funcs-overlap-nice-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, let’s add a text label and arrow to emphasize the area of overlap. You can use the <code>annotate</code> function to add an annotation to a plot. Annotations are flexible: they can be points, lines, text, or almost any other geometry. With the annotations, the plot becomes:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>f_norm <span class="ot">=</span> \(x) <span class="fu">dnorm</span>(x, <span class="at">sd =</span> <span class="dv">4</span>)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>f_gamma <span class="ot">=</span> \(x) <span class="fu">dgamma</span>(x <span class="sc">+</span> <span class="dv">2</span>, <span class="dv">10</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>f_min <span class="ot">=</span> \(x) <span class="fu">pmin</span>(<span class="fu">f_norm</span>(x), <span class="fu">f_gamma</span>(x))</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>blue <span class="ot">=</span> <span class="st">"#1a3f68"</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>gold <span class="ot">=</span> <span class="st">"#e6c257"</span></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>xlim <span class="ot">=</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>, <span class="dv">25</span>)</span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_min,</span>
+<span id="cb68-13"><a href="#cb68-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">"polygon"</span>,</span>
+<span id="cb68-14"><a href="#cb68-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">fill =</span> gold</span>
+<span id="cb68-15"><a href="#cb68-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb68-16"><a href="#cb68-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_norm,</span>
+<span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">color =</span> blue</span>
+<span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_function</span>(</span>
+<span id="cb68-21"><a href="#cb68-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> f_gamma,</span>
+<span id="cb68-22"><a href="#cb68-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb68-23"><a href="#cb68-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> xlim, <span class="at">n =</span> n, <span class="at">color =</span> blue</span>
+<span id="cb68-24"><a href="#cb68-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb68-25"><a href="#cb68-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb68-26"><a href="#cb68-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb68-27"><a href="#cb68-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use the segment geometry to make a line.</span></span>
+<span id="cb68-28"><a href="#cb68-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Use the arrow parameter and arrow function to make an arrow.</span></span>
+<span id="cb68-29"><a href="#cb68-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">"segment"</span>, <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">ends =</span> <span class="st">"first"</span>),</span>
+<span id="cb68-30"><a href="#cb68-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="dv">5</span>, <span class="at">xend =</span> <span class="dv">15</span>, <span class="at">y =</span> <span class="fl">0.01</span>, <span class="at">yend =</span> <span class="fl">0.1</span>,</span>
+<span id="cb68-31"><a href="#cb68-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> blue</span>
+<span id="cb68-32"><a href="#cb68-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb68-33"><a href="#cb68-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb68-34"><a href="#cb68-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">"text"</span>,</span>
+<span id="cb68-35"><a href="#cb68-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Multiply by 1.01 to nudge the position slightly.</span></span>
+<span id="cb68-36"><a href="#cb68-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="dv">15</span> <span class="sc">*</span> <span class="fl">1.01</span>, <span class="at">y =</span> <span class="fl">0.1</span> <span class="sc">*</span> <span class="fl">1.01</span>,</span>
+<span id="cb68-37"><a href="#cb68-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"overlap"</span>, <span class="at">size =</span> <span class="dv">10</span>,</span>
+<span id="cb68-38"><a href="#cb68-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="st">"left"</span>, <span class="at">vjust =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb68-39"><a href="#cb68-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> blue</span>
+<span id="cb68-40"><a href="#cb68-40" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/plot-funcs-final-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="case-study-error-bars" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="case-study-error-bars"><span class="header-section-number">5.9</span> Case Study: Error Bars</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This case study shows how to:</p>
+<ul>
+<li>Add error bars to a plot</li>
+</ul>
+</div>
+</div>
+<p>This case study is based on a question that came up in DataLab’s office hours. Suppose you’ve done an experiment to see how mice with two different genotypes respond to two different treatments. Now you want to make a bar plot of the mean response for each group, with error bars indicating the standard deviation of the mean. You also want to show the raw data. I’ve simulated some data for us to use.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can download the simulated genotype data <a href="https://ucdavis.box.com/s/lxgplwqn23ncbeb5gc6ktpfknr56xws6">HERE</a>.</p>
+</div>
+</div>
+<p>To make this work, we have to tell <code>ggplot2</code> how to calculate the heights of the mean bars and the error bars.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>mice_geno <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"data/genotype-response.csv"</span>)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="co"># show the treatment response for different genotypes</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mice_geno) <span class="sc">+</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> trt,</span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> resp,</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> genotype</span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(</span>
+<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(),</span>
+<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> <span class="st">"summary"</span>,</span>
+<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> <span class="st">"mean"</span></span>
+<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(</span>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun.min =</span> <span class="cf">function</span>(x) {<span class="fu">mean</span>(x) <span class="sc">-</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))},</span>
+<span id="cb69-17"><a href="#cb69-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun.max =</span> <span class="cf">function</span>(x) {<span class="fu">mean</span>(x) <span class="sc">+</span> <span class="fu">sd</span>(x) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">length</span>(x))},</span>
+<span id="cb69-18"><a href="#cb69-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> <span class="st">"summary"</span>,</span>
+<span id="cb69-19"><a href="#cb69-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.9</span>),</span>
+<span id="cb69-20"><a href="#cb69-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="fl">0.2</span></span>
+<span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb69-22"><a href="#cb69-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb69-23"><a href="#cb69-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="fu">position_jitterdodge</span>(<span class="at">dodge.width =</span> <span class="fl">0.9</span>, <span class="at">jitter.width =</span> <span class="fl">0.1</span>)</span>
+<span id="cb69-24"><a href="#cb69-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb69-25"><a href="#cb69-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Dark2"</span>) <span class="sc">+</span></span>
+<span id="cb69-26"><a href="#cb69-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb69-27"><a href="#cb69-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Treatment"</span>,</span>
+<span id="cb69-28"><a href="#cb69-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Response (mm/g)"</span>,</span>
+<span id="cb69-29"><a href="#cb69-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Mean growth response of mice by genotype and treatment"</span></span>
+<span id="cb69-30"><a href="#cb69-30" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_visualization_files/figure-html/example-genotype-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<!--
+## Case Study: Small Business Loans
+
+:::{.callout-note}
+This case study shows how to:
+
+* Make a plot with a log-scale axis
+:::
+
+The US Small Business Administration (SBA) maintains data on the loans it
+offers to businesses. In this case study, we'll explore sevaral ways to
+visualize SBA loans made since 2020.
+
+:::{.callout-important}
+You can download the SBA Loans dataset [HERE][sba-data].
+
+The source of this dataset is [this SBA page][sba-source].
+
+[sba-data]: https://ucdavis.box.com/s/ctx6grx10c83lh561ekl9tnmi20561ed
+[sba-source]: https://data.sba.gov/dataset/7-a-504-foia
+:::
+
+Since the difference between a \$100 loan and a \$1000 loan is more like the
+difference between \$100,000 and \$1M than between \$100,000 and \$100,900, we
+should put the loan values on a  logarithmic scale. You can do this in ggplot2
+with the `scale_y_log10` function (when the loan values are on the y-axis).
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# Load the small business loan data
+sba = read_csv("data/small-business-loans.csv")
+
+# Check the SBA data to see the data types, etc.
+head(sba)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+# A tibble: 6 × 39
+  AsOfDate Program BorrName       BorrStreet BorrCity BorrState BorrZip BankName
+     <dbl> <chr>   <chr>          <chr>      <chr>    <chr>     <chr>   <chr>   
+1 20230331 7A      Mark Dusa      3623 Swal… Sylvania OH        43560   The Hun…
+2 20230331 7A      Shaddai Harris 614 Valle… Arlingt… TX        76018   PeopleF…
+3 20230331 7A      Aqualon Inc.   7180 Agen… Tipp Ci… OH        45371   The Hun…
+4 20230331 7A      Redline Resta… 2450 Cher… Saint C… FL        34772   SouthSt…
+5 20230331 7A      Meluota Corp   2702 ASTO… ASTORIA  NY        11102   Santand…
+6 20230331 7A      Sky Lake Vaca… 15 Nestle… Laconia  NH        03246   TD Bank…
+# ℹ 31 more variables: BankFDICNumber <dbl>, BankNCUANumber <dbl>,
+#   BankStreet <chr>, BankCity <chr>, BankState <chr>, BankZip <chr>,
+#   GrossApproval <dbl>, SBAGuaranteedApproval <dbl>, ApprovalDate <chr>,
+#   ApprovalFiscalYear <dbl>, FirstDisbursementDate <chr>,
+#   DeliveryMethod <chr>, subpgmdesc <chr>, InitialInterestRate <dbl>,
+#   TermInMonths <dbl>, NaicsCode <dbl>, NaicsDescription <chr>,
+#   FranchiseCode <chr>, FranchiseName <chr>, ProjectCounty <chr>, …
+```
+
+
+:::
+
+```{.r .cell-code}
+# Focus on California loans.
+ca_sba = subset(sba, ProjectState == "CA")
+
+# Make a boxplot of loan size by business type.
+ggplot(ca_sba) +
+  aes(
+    x = BusinessType,
+    y = SBAGuaranteedApproval
+  ) +
+  geom_boxplot() +
+  scale_y_log10() +
+  labs(
+    x = "Business Type",
+    y = "Loan Guarantee (dollars)",
+    title = "Small Business Administration Guaranteed Loans in California"
+  )
+```
+
+::: {.cell-output-display}
+![](01_visualization_files/figure-html/example-SBA-1.png){width=672}
+:::
+
+```{.r .cell-code}
+# Plot relationship between loan size and interest rate.
+ggplot(ca_sba) +
+  aes(
+    x = GrossApproval,
+    y = InitialInterestRate
+  ) +
+  geom_point() +
+  facet_wrap(~BusinessType, ncol = 3) +
+  scale_x_log10() +
+  labs(
+    x = "Loan size (dollars)",
+    y = "Interest rate (%)",
+    title = "Interest rate as a function of loan size"
+  )
+```
+
+::: {.cell-output-display}
+![](01_visualization_files/figure-html/example-SBA-2.png){width=672}
+:::
+:::
+
+
+
+Now let's color the points by the loan status. The ggplot2 package integrates
+directly with [Color Brewer][color-brewer] to get better color palettes. We
+will use the `Accent` color palette, which is just one of the many options that
+can be found on the Color Brewer site.
+
+There are so many data points that they overlap, making it hard to see some of
+them. This is a common problem visualizations called **overplotting**. One way
+we can address overplotting is by smoothing out or smudging the points
+(`geom_smooth`) so that it's easier to see where there are relatively few or
+many points.
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# Ignore exempt loans.
+ca_sba_no_exempt = subset(ca_sba, LoanStatus != "EXEMPT")
+
+ggplot(ca_sba_no_exempt) +
+  aes(
+    x = GrossApproval,
+    y = InitialInterestRate,
+    # Color the points by the loan status.
+    color = LoanStatus
+  ) +
+  geom_point() +
+  geom_smooth() +
+  facet_wrap(~BusinessType, ncol = 3) +
+  scale_x_log10() +
+  labs(
+    x = "Loan Size (dollars)",
+    y = "Interest Rate (%)",
+    title = "Interest Rate as a Function of Loan Size by Loan Status",
+    color = "Loan Status"
+  ) +
+  scale_color_brewer(type = "qual", palette = "Accent")
+```
+
+::: {.cell-output-display}
+![](01_visualization_files/figure-html/example-SBA-facet-1.png){width=672}
+:::
+:::
+
+-->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ucdavisdatalab\.github\.io\/workshop_intermediate_r");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/cleaning-reshaping/04_combining-data.html" class="pagination-link" aria-label="Combining Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Combining Data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/writing-debugging/01_writing-r-scripts.html" class="pagination-link" aria-label="Best Practices for Writing R Scripts">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Best Practices for Writing R Scripts</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/chapters/visualizing-analyzing/01_visualization.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>

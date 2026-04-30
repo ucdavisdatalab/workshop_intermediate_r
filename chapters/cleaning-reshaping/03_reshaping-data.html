@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Reader for the Intermediate R workshop series.">
+
+<title>3&nbsp; Reshaping Data – Intermediate R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/cleaning-reshaping/04_combining-data.html" rel="next">
+<link href="../../chapters/cleaning-reshaping/02_strings.html" rel="prev">
+<link href="../..//images/logos/datalab-logo_square_150x150.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-19b5e973626355a97465437b783fde54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+.callout.callout-style-default .callout-body {
+  padding: 0 1.5rem 0;
+}
+.cell-output-stdout {
+  overflow-y: scroll;
+  max-height: 30rem;
+  margin-bottom: 0.75rem;
+}
+#quarto-sidebar a.text-start {
+  font-variant: small-caps;
+}
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="3&nbsp; Reshaping Data – Intermediate R">
+<meta property="og:description" content="Reader for the Intermediate R workshop series.">
+<meta property="og:image" content="https://ucdavisdatalab.github.io/workshop_intermediate_r/chapters/cleaning-reshaping/03_reshaping-data_files/figure-html/unnamed-chunk-4-1.png">
+<meta property="og:site_name" content="Intermediate R">
+<meta property="og:image:height" content="960">
+<meta property="og:image:width" content="1344">
+<meta name="twitter:title" content="3&nbsp; Reshaping Data – Intermediate R">
+<meta name="twitter:description" content="Reader for the Intermediate R workshop series.">
+<meta name="twitter:image" content="https://ucdavisdatalab.github.io/workshop_intermediate_r/chapters/cleaning-reshaping/03_reshaping-data_files/figure-html/unnamed-chunk-4-1.png">
+<meta name="twitter:image-height" content="960">
+<meta name="twitter:image-width" content="1344">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/cleaning-reshaping/01_dates-times.html">Cleaning &amp; Reshaping Data</a></li><li class="breadcrumb-item"><a href="../../chapters/cleaning-reshaping/03_reshaping-data.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reshaping Data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="https://datalab.ucdavis.edu/" class="sidebar-logo-link">
+      <img src="../../images/logos/datalab-logo-full-color-rgb.png" alt="The logo of the UC Davis DataLab." class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/logos/datalab-logo-full-color-rgb.png" alt="The logo of the UC Davis DataLab." class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../../">Intermediate R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ucdavisdatalab/workshop_intermediate_r" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Cleaning &amp; Reshaping Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/01_dates-times.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Dates &amp; Times</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/02_strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/03_reshaping-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reshaping Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/cleaning-reshaping/04_combining-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Combining Data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualizing &amp; Analyzing Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/visualizing-analyzing/01_visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Next-level Data Visualization</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Writing &amp; Debugging Code</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/writing-debugging/01_writing-r-scripts.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Best Practices for Writing R Scripts</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/writing-debugging/02_debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Squashing Bugs with R’s Debugging Tools</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/appendices/thinking-in-r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Thinking in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/appendices/references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/appendices/assessment.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Assessment</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-tidy-datasets" id="toc-sec-tidy-datasets" class="nav-link active" data-scroll-target="#sec-tidy-datasets"><span class="header-section-number">3.1</span> Tidy Datasets</a></li>
+  <li><a href="#the-tidyr-package" id="toc-the-tidyr-package" class="nav-link" data-scroll-target="#the-tidyr-package"><span class="header-section-number">3.2</span> The tidyr Package</a></li>
+  <li><a href="#an-untidy-dataset" id="toc-an-untidy-dataset" class="nav-link" data-scroll-target="#an-untidy-dataset"><span class="header-section-number">3.3</span> An Untidy Dataset</a></li>
+  <li><a href="#sec-rows-into-columns" id="toc-sec-rows-into-columns" class="nav-link" data-scroll-target="#sec-rows-into-columns"><span class="header-section-number">3.4</span> Rows into Columns</a></li>
+  <li><a href="#sec-columns-into-rows" id="toc-sec-columns-into-rows" class="nav-link" data-scroll-target="#sec-columns-into-rows"><span class="header-section-number">3.5</span> Columns into Rows</a></li>
+  <li><a href="#case-study-smart-ridership" id="toc-case-study-smart-ridership" class="nav-link" data-scroll-target="#case-study-smart-ridership"><span class="header-section-number">3.6</span> Case Study: SMART Ridership</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/chapters/cleaning-reshaping/03_reshaping-data.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/cleaning-reshaping/01_dates-times.html">Cleaning &amp; Reshaping Data</a></li><li class="breadcrumb-item"><a href="../../chapters/cleaning-reshaping/03_reshaping-data.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reshaping Data</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Reshaping Data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled" title="Learning Goals">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Learning Goals
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p>After this lesson, you should be able to:</p>
+<ul>
+<li>Explain what it means for data to be tidy</li>
+<li>Use the tidyr package to reshape data</li>
+</ul>
+</div>
+</div>
+</div>
+<p>The major topic of this chapter is how to use pivots to reshape data.</p>
+<p>This chapter is part 3 (of 4) of <em>Cleaning &amp; Reshaping Data</em>, a workshop series about how to prepare data for analysis.</p>
+<section id="sec-tidy-datasets" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-tidy-datasets"><span class="header-section-number">3.1</span> Tidy Datasets</h2>
+<p>The structure of a dataset—its shape and organization—has enormous influence on how difficult it will be to analyze, so making structural changes is an important part of the cleaning process. Researchers conventionally arrange tabular datasets so that each row contains a single <strong>observation</strong> or case, and each column contains a single kind of measurement or identifier, called a <strong>feature</strong>.</p>
+<p>In 2014, <a href="https://hadley.nz/">Hadley Wickham</a> refined and formalized the conventions for tabular datasets by <a href="https://vita.had.co.nz/papers/tidy-data.html">introducing the concept of <strong>tidy datasets</strong></a>, which have a specific structure. Paraphrasing Wickham, the rules for a tidy dataset are:</p>
+<blockquote class="blockquote">
+<ol type="1">
+<li>Every column is a single feature.</li>
+<li>Every row is a single observation.</li>
+<li>Every cell is a single value.</li>
+</ol>
+</blockquote>
+<p>These rules ensure that all of the values in a dataset are visually organized and are easy to access with indexing operations. They’re also specific enough to make tidiness a convenient standard for functions that operate on tabular datasets. In fact, the <a href="https://www.tidyverse.org/">Tidyverse</a> packages (see <a href="01_dates-times.html#sec-the-tidyverse" class="quarto-xref"><span>Section 1.1</span></a>) are designed from the ground up for working with tidy datasets. Tidy datesets have also been adopted as a standard in other software, including various packages for Python and Julia.</p>
+<p>This section explains how to <strong>reshape</strong> tabular datasets into tidy datasets. While reshaping can seem tricky at first, making sure your dataset has the right structure before you begin analysis saves time and frustration in the long run.</p>
+<!--
+The Tidyverse is so named because many functions in Tidyverse packages require
+data frames that are in **tidy** form. Before we see the requirements for a
+data set to be tidy, we need to define or review some terminology from
+statistics.
+
+A **feature** (also called a **covariate** or a **variable**) is a measurement
+of something, usually across multiple subjects. For example, we might decide to
+measure the heights of everyone in the class. Each person in the class is a
+subject, and the height measurement is a feature. Features don't have to be
+quantitative. If we also asked each person their favorite color, then favorite
+color would be another feature in our data set. Features are usually, but not
+always, the columns in a tabular data set.
+
+An **observation** is a set of features measured for a single subject or at a
+single time. So in the preceding example, the combined height and favorite
+color measurement for one student is one observation. Observations are usually,
+but not always, the rows in a tabular data set.
+-->
+</section>
+<section id="the-tidyr-package" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-tidyr-package"><span class="header-section-number">3.2</span> The tidyr Package</h2>
+<p>The <a href="https://tidyr.tidyverse.org/">tidyr</a> package provides functions to reshape tabular datasets. It also provides examples of tidy and untidy datasets. Like most Tidyverse packages, it comes with detailed <a href="https://tidyr.tidyverse.org/">documentation</a> and a <a href="https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf">cheatsheet</a>.</p>
+<p>As usual, install the package if you haven’t already, and then load it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyr")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="an-untidy-dataset" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="an-untidy-dataset"><span class="header-section-number">3.3</span> An Untidy Dataset</h2>
+<p>The City of Davis has two bike counters: one is at the intersection of 3rd Street and University Avenue (the 3rd Street bike obelisk) and the other is at the intersection of Loyola Drive and Pole Line Road. The City publishes data from the bike counters online. DataLab combined the City’s 2020 bike counts, aggregated to the day level, with precipitation and wind data from the U.S. National Oceanic and Atmospheric Administration’s weather station at Sacramento Metropolitan Airport (this was the nearest weather station with complete records for 2020). We’ll use this dataset to demonstrate how to transform untidy data.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://ucdavis.box.com/s/xnebmh7jbdn5rnnxsxhwsefb4bujib2r">Click here</a> to download the 2020 Davis bike counts dataset.</p>
+<p>If you haven’t already, we recommend you create a directory for this workshop. In your workshop directory, create a <code>data/</code> subdirectory. Download and save the dataset in the <code>data/</code> subdirectory.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Documentation for the 2020 Davis Bike Counts Dataset">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Documentation for the 2020 Davis Bike Counts Dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Each row in the dataset contains measurements from one date-variable combination.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 47%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>date</code></td>
+<td>The date of measurement</td>
+</tr>
+<tr class="even">
+<td><code>variable</code></td>
+<td>What was measured: <code>third</code> and <code>loyola</code> are bike counts, <code>prcp</code> is total precipitation in millimeters, <code>awnd</code> is average daily wind speed in meters per second</td>
+</tr>
+<tr class="odd">
+<td><code>value</code></td>
+<td>The measured value</td>
+</tr>
+</tbody>
+</table>
+<p>The source for the bike counts is the City of Davis’ <a href="https://www.cityofdavis.org/city-hall/public-works-engineering-and-transportation/bike-pedestrian-program/bike-and-pedestrian-data-statistics">Bike and Pedestrian Statistics</a> web page. The source for the total precipitation and average wind speed is NOAA’s <a href="https://www.ncdc.noaa.gov/cdo-web/datasets/GHCND/stations/GHCND:USW00093225/detail">weather station at Sacramento Metropolitan Airport</a>.</p>
+</div>
+</div>
+</div>
+<p>The dataset is saved in an RDS file, which you can use the built-in <code>readRDS</code> function to read:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bikes <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="st">"data/2020_davis_bikes.rds"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bikes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        date variable value
+1 2020-01-01    third 332.0
+2 2020-01-01   loyola 181.0
+3 2020-01-01     awnd   1.7
+4 2020-01-01     prcp   0.0
+5 2020-01-02    third 357.0
+6 2020-01-02   loyola 401.0</code></pre>
+</div>
+</div>
+<p>This data is not tidy, because it breaks rule 1. The <code>value</code> column contains many different features—they even have different units! Soon we’ll reshape the dataset to make it tidy.</p>
+<p>Before you reshape a dataset, you should also think about what role each column serves:</p>
+<ul>
+<li><p><strong>Identifiers</strong> (or indexes) are labels that distinguish observations from one another. They’re often but not always categorical. Examples include names or identification numbers, treatment groups, and dates or times. In the bike counts dataset, the <code>date</code> column is an identifier.</p></li>
+<li><p><strong>Measurements</strong> are the values collected for each observation and typically the values of research interest. In the bike counts dataset, the <code>value</code> column is a measurement.</p></li>
+</ul>
+<p>A clear understanding of which columns are identifiers and which are measurements makes it easier to write the code to reshape.</p>
+</section>
+<section id="sec-rows-into-columns" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-rows-into-columns"><span class="header-section-number">3.4</span> Rows into Columns</h2>
+<p>In order to make the Davis bike counts data tidy, the measurements in the <code>value</code> column need to be moved into two separate columns, one for each of the categories in the <code>variable</code> column.</p>
+<p>You can use the <code>pivot_wider</code> function to <strong>pivot</strong> a data frame, creating new columns from values in the rows. This makes the data frame wider (and shorter). Let’s pivot the <code>bikes</code> data frame on the <code>variable</code> column to create four new columns filled with values from the <code>values</code> column.</p>
+<p>The <code>pivot_wider</code> function’s most important parameters are:</p>
+<ul>
+<li><code>values_from</code> – The column(s) that contains values for the new columns.</li>
+<li><code>names_from</code> – The column that contains names for the new columns.</li>
+<li><code>id_cols</code> – The identifier columns, which are not pivoted. This defaults to all columns except those in <code>values_from</code> and <code>names_from</code>.</li>
+</ul>
+<p>Here’s how to use the function to make <code>bikes</code> tidy:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>bikes2 <span class="ot">=</span> <span class="fu">pivot_wider</span>(bikes, <span class="at">values_from =</span> value, <span class="at">names_from =</span> variable)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bikes2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  date       third loyola  awnd  prcp
+  &lt;date&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 2020-01-01   332    181   1.7     0
+2 2020-01-02   357    401   3       0
+3 2020-01-03   426    504   1       0
+4 2020-01-04   337    475   3.2     2
+5 2020-01-05   370    563   2.5     0
+6 2020-01-06   852   1676   1.7     0</code></pre>
+</div>
+</div>
+<p>The function automatically removes values from the <code>date</code> column as needed to maintain the original correspondence with the pivoted values.</p>
+<p>The new <code>bikes2</code> data frame contains all of the data from <code>bikes</code>, but now the measurements for each date share a row. In other words, the observational units for <code>bikes2</code> are dates, which is convenient for investigating how individual features change over time, as well as making same-time comparisons between features. To illustrate this, we can use ggplot2 to make a scatter plot of the bike counts at 3rd Street against the counts at Loyola Drive:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bikes2) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> third, <span class="at">y =</span> loyola) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_reshaping-data_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot shows that Loyola Drive occasionally has days with much higher traffic than 3rd Street, but it’s difficult to tell whether 3rd or Loyola is typically busier (that is, whether there are more points above or below the <span class="math inline">\(y = x\)</span> line).</p>
+</section>
+<section id="sec-columns-into-rows" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-columns-into-rows"><span class="header-section-number">3.5</span> Columns into Rows</h2>
+<p>Suppose we want to try to get a better answer to whether Loyola or 3rd tends to be busier. One way we can do it is by making a line plot with the counts for each site over time. This way we’re treating each site as a group within the data and making a comparison between groups.</p>
+<p>Comparing groups in a data frame is generally easier when each row corresponds to an observation from one group. Let’s reshape the <code>bikes2</code> data frame so that the observational units are date-site combinations. To do this, the <code>third</code> and <code>loyola</code> columns need to be transformed into two new columns: one for measurements (the counts) and one for identifiers (the sites). It might help to visualize this as stacking the two separate columns <code>third</code> and <code>loyola</code> together, one on top of the other, and then adding a second column with the corresponding site names.</p>
+<p>You can use the <code>pivot_longer</code> function to <strong>unpivot</strong> a data frame, creating new rows from values in the columns. This is the inverse of a pivot. It makes the data frame longer (and narrower). We’ll unpivot the <code>bikes2</code> data frame on the <code>third</code> and <code>loyola</code> columns.</p>
+<p>The <code>pivot_longer</code> function’s parameters are:</p>
+<ul>
+<li><code>cols</code> – The columns to stack into a new column; the names of these columns will also go into a new column.</li>
+<li><code>values_to</code> – Name(s) for the new measurement column(s)</li>
+<li><code>names_to</code> – Name(s) for the new identifier column(s)</li>
+</ul>
+<p>The code to unpivot <code>bikes2</code> is:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>bikes3 <span class="ot">=</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    bikes2,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(third, loyola),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"count"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"site"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bikes3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  date        awnd  prcp site   count
+  &lt;date&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;
+1 2020-01-01   1.7     0 third    332
+2 2020-01-01   1.7     0 loyola   181
+3 2020-01-02   3       0 third    357
+4 2020-01-02   3       0 loyola   401
+5 2020-01-03   1       0 third    426
+6 2020-01-03   1       0 loyola   504</code></pre>
+</div>
+</div>
+<p>For <code>bikes3</code>, the observational units are date-site combinations, as planned. This is convenient for comparing the two sites to each other with statistics and visualizations. We can use ggplot2 to make a line plot of the counts for the two sites:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bikes3) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count, <span class="at">color =</span> site) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_reshaping-data_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From this plot, we can see that Loyola Drive was generally busier for the first 3 months of 2020. Traffic dropped at both sites in mid-March, probably due to the COVID-19 pandemic. The drop was sharper at Loyola Drive than 3rd Street, so 3rd Street was generally busier for the remaining 9 months of 2020.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We didn’t use <code>prcp</code> and <code>awnd</code> (and they don’t differ between sites anyway). If we dropped them, the resulting data frame would have the same observational units as <code>bikes3</code>, but would also be a subset of the original <code>bikes</code> data frame (albeit with different column names).</p>
+</div>
+</div>
+</section>
+<section id="case-study-smart-ridership" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="case-study-smart-ridership"><span class="header-section-number">3.6</span> Case Study: SMART Ridership</h2>
+<p><a href="http://sonomamarintrain.org/">Sonoma-Marin Area Rail Transit (SMART)</a> is a relatively new single-line passenger rail service between the San Francisco Bay and Santa Rosa. They publish data about monthly ridership online, but the format is slightly messy. Let’s clean and reshape the data in order to make a plot of ridership over time.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://ucdavis.box.com/s/u1f7zoycpdlfrom5pr7ihyaulvir2mm1">Click here</a> to download the SMART Ridership dataset (version 2026-01).</p>
+<p>If you haven’t already, we recommend you create a directory for this workshop. In your workshop directory, create a <code>data/</code> subdirectory. Download and save the dataset in the <code>data/</code> subdirectory.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Documentation for the SMART Ridership Dataset">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Documentation for the SMART Ridership Dataset
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The source for the dataset is the <a href="https://www.sonomamarintrain.org/RidershipReports">SMART Ridership Reports</a> web page.</p>
+</div>
+</div>
+</div>
+<p>The dataset is saved as a Microsoft Excel file. Before reading an Excel file, it’s a good idea to manually inspect it with spreadsheet software to figure out how the data are organized. The SMART dataset contains two tables on the left side of the first sheet: one for total monthly ridership and one for average weekday ridership (by month).</p>
+<p>The <a href="https://readxl.tidyverse.org/">readxl</a> package provides functions to read data from Excel files. Install the package if you don’t already have it installed, and then load it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("readxl")</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We can use the package’s <code>read_excel</code> function to read sheets from an Excel file. It has a parameter <code>range</code> to control which cells it reads.</p>
+<p>Let’s focus on the total monthly ridership table, which occupies cells B4 to K16:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>smart <span class="ot">=</span> <span class="fu">read_excel</span>(<span class="st">"data/2026-01_smart_ridership.xlsx"</span>, <span class="at">range =</span> <span class="st">"B4:K16"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  Month FY18   FY19   FY20  FY21   FY22  FY23  FY24  FY25   FY26
+  &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 Jul   -     63864 62851   9427 24627  43752 65779 88022 132805
+2 Aug   54484 74384 65352   8703 25020  48278 72171 91894 125407
+3 Sep   65019 62314 62974   8910 27967  49134 68506 92834 121621
+4 Oct   57453 65492 57222   9851 26998. 59322 70807 96599 120127
+5 Nov   56125 52774 64966   8145 26575  51383 65445 78550  99471
+6 Dec   56425 51670 58199.  7414 24050  47606 66684 76624 106975</code></pre>
+</div>
+</div>
+<p>The dataset needs to be cleaned. The <code>FY18</code> column uses a hyphen <code>-</code> to indicate a missing value and has the wrong data type. We can use indexing to replace the hyphen with a missing value and then convert the column to an appropriate type with the <code>as.numeric</code> function:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>smart<span class="sc">$</span>FY18[smart<span class="sc">$</span>FY18 <span class="sc">==</span> <span class="st">"-"</span>] <span class="ot">=</span> <span class="cn">NA</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>smart<span class="sc">$</span>FY18 <span class="ot">=</span> <span class="fu">as.numeric</span>(smart<span class="sc">$</span>FY18)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  Month  FY18  FY19   FY20  FY21   FY22  FY23  FY24  FY25   FY26
+  &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 Jul      NA 63864 62851   9427 24627  43752 65779 88022 132805
+2 Aug   54484 74384 65352   8703 25020  48278 72171 91894 125407
+3 Sep   65019 62314 62974   8910 27967  49134 68506 92834 121621
+4 Oct   57453 65492 57222   9851 26998. 59322 70807 96599 120127
+5 Nov   56125 52774 64966   8145 26575  51383 65445 78550  99471
+6 Dec   56425 51670 58199.  7414 24050  47606 66684 76624 106975</code></pre>
+</div>
+</div>
+<p>There’s still a lot of cleaning to do. The identifiers in this dataset are the months and years, and they’re split between the row and column names. Each row contains data from several different years, so the dataset is not tidy. In addition, the years are indicated in fiscal years (FY), which begin in July rather than January, so some of the years need to be adjusted.</p>
+<p>To make the dataset tidy, it needs to be reshaped so that the values in the various fiscal year columns are all in one column. In other words, the dataset needs to be unpivoted (<a href="#sec-columns-into-rows" class="quarto-xref"><span>Section 3.5</span></a>) on all of the <code>FY</code> columns. The result of the pivot will be easier to understand if we rename the columns as their years first. Here’s one way to do that:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(smart)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">=</span> <span class="dv">2018</span><span class="sc">:</span><span class="dv">2026</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  Month `2018` `2019` `2020` `2021` `2022` `2023` `2024` `2025` `2026`
+  &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 Jul       NA  63864 62851    9427 24627   43752  65779  88022 132805
+2 Aug    54484  74384 65352    8703 25020   48278  72171  91894 125407
+3 Sep    65019  62314 62974    8910 27967   49134  68506  92834 121621
+4 Oct    57453  65492 57222    9851 26998.  59322  70807  96599 120127
+5 Nov    56125  52774 64966    8145 26575   51383  65445  78550  99471
+6 Dec    56425  51670 58199.   7414 24050   47606  66684  76624 106975</code></pre>
+</div>
+</div>
+<p>Next, we use <code>pivot_longer</code> to pivot the dataset:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>smart <span class="ot">=</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  smart,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="sc">-</span>Month,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"count"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"fiscal_year"</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  Month fiscal_year count
+  &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;
+1 Jul   2018           NA
+2 Jul   2019        63864
+3 Jul   2020        62851
+4 Jul   2021         9427
+5 Jul   2022        24627
+6 Jul   2023        43752</code></pre>
+</div>
+</div>
+<p>In order to use the months and years in the data, we need to convert them to dates. As a first step towards this, we’ll cast the values in the new <code>fiscal_year</code> column to integers:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>smart<span class="sc">$</span>fiscal_year <span class="ot">=</span> <span class="fu">as.numeric</span>(smart<span class="sc">$</span>fiscal_year)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(smart)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  Month fiscal_year count
+  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;
+1 Jul          2018    NA
+2 Jul          2019 63864
+3 Jul          2020 62851
+4 Jul          2021  9427
+5 Jul          2022 24627
+6 Jul          2023 43752</code></pre>
+</div>
+</div>
+<p>Next, we can use the lubridate package’s <code>fast_strptime</code> and <code>month</code> functions to create a new of column month numbers:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lubridate'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>month_num <span class="ot">=</span> <span class="fu">month</span>(<span class="fu">fast_strptime</span>(smart<span class="sc">$</span>Month, <span class="st">"%m"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we need to transform the fiscal years in the <code>fiscal_year</code> column into calendar years. A SMART fiscal year extends from July to the following June and is named after the calendar year at the end of the fiscal year. So from July to December, the calendar year is the fiscal year minus 1. We can use the built-in <code>ifelse</code> function to subtract either <code>1</code> or <code>0</code> depending on whether the condition <code>month_num &gt;= 7</code> is true or false:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cal_year <span class="ot">=</span> smart<span class="sc">$</span>fiscal_year <span class="sc">-</span> <span class="fu">ifelse</span>(month_num <span class="sc">&gt;=</span> <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Alternatively, we can compute the calendar year by taking advantage of implicit coercion. The logical value <code>FALSE</code> corresponds to <code>0</code> and <code>TRUE</code> corresponds to <code>1</code>, so we can just subtract the condition to get the calendar year:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>cal_year <span class="ot">=</span> smart<span class="sc">$</span>fiscal_year <span class="sc">-</span> (month_num <span class="sc">&gt;=</span> <span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>Finally, we can use the lubridate package’s <code>make_date</code> function to construct dates from the <code>cal_year</code> and <code>month_num</code> variables:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>smart<span class="sc">$</span>date <span class="ot">=</span> <span class="fu">make_date</span>(<span class="at">year =</span> cal_year, <span class="at">month =</span> month_num)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>With the dates in the <code>date</code> column and the counts in the <code>count</code> column, we have everything we need to make a plot of SMART ridership over time. We can use ggplot2 to make the plot:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(smart) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> count) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 7 rows containing missing values or values outside the scale range
+(`geom_line()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_reshaping-data_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice the huge drop (more than 90%) in April 2020 due to the COVID-19 pandemic!</p>
+<!--
+## Without `tidyr`
+
+This section shows how to pivot datasets without the help of the tidyr package.
+In practice, we recommend that you use the package, but the examples here may
+make it easier to understand what's actually happening when you pivot a
+dataset.
+
+### Rows into Columns
+
+The steps for pivoting `table2` wider are:
+
+1. Subset rows to separate `cases` and `population` values.
+2. Remove the `type` column from each.
+3. Rename the `count` column to `cases` and `population`.
+4. Merge the two subsets by matching `country` and `year`.
+
+And the code is:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# Step 1
+cases = table2[table2$type == "cases", ]
+pop = table2[table2$type == "population", ]
+# Step 2
+cases = cases[-3]
+pop = pop[-3]
+# Step 3
+names(cases)[3] = "cases"
+names(pop)[3] = "population"
+# Step 4
+merge(cases, pop)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+      country year  cases population
+1 Afghanistan 1999    745   19987071
+2 Afghanistan 2000   2666   20595360
+3      Brazil 1999  37737  172006362
+4      Brazil 2000  80488  174504898
+5       China 1999 212258 1272915272
+6       China 2000 213766 1280428583
+```
+
+
+:::
+:::
+
+
+### Columns into Rows
+
+The steps for pivoting `table4a` longer are:
+
+1. Subset columns to separate `1999` and `2000` into two data frames.
+2. Add a `year` column to each.
+3. Rename the `1999` and `2000` columns to `cases`.
+4. Stack the two data frames with `rbind`.
+
+And the code is:
+
+
+::: {.cell}
+
+```{.r .cell-code}
+# Step 1
+df99 = table4a[-3]
+df00 = table4a[-2]
+# Step 2
+df99$year = "1999"
+df00$year = "2000"
+# Step 3
+names(df99)[2] = "cases"
+names(df00)[2] = "cases"
+# Step 4
+rbind(df99, df00)
+```
+
+::: {.cell-output .cell-output-stdout}
+
+```
+# A tibble: 6 × 3
+  country      cases year 
+  <chr>        <dbl> <chr>
+1 Afghanistan    745 1999 
+2 Brazil       37737 1999 
+3 China       212258 1999 
+4 Afghanistan   2666 2000 
+5 Brazil       80488 2000 
+6 China       213766 2000 
+```
+
+
+:::
+:::
+
+-->
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/ucdavisdatalab\.github\.io\/workshop_intermediate_r");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../chapters/cleaning-reshaping/02_strings.html" class="pagination-link" aria-label="Strings">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Strings</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../chapters/cleaning-reshaping/04_combining-data.html" class="pagination-link" aria-label="Combining Data">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Combining Data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li><li><a href="https://github.com/ucdavisdatalab/workshop_intermediate_r/blob/main/chapters/cleaning-reshaping/03_reshaping-data.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li></ul></div></div></div></footer></body></html>
